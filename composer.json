@@ -1,6 +1,6 @@
 {
     "name": "andrey-helldar/laravel-lang-publisher",
-    "description": "Publisher lang files for the Laravel Framework",
+    "description": "Publisher lang files for the Laravel Framework from caouecs/Laravel-lang",
     "type": "library",
     "license": "MIT",
     "keywords": [
