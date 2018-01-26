@@ -58,7 +58,7 @@ class LangInstall extends Command
      */
     public function handle()
     {
-        $this->lang  = $this->argument('lang');
+        $this->lang = $this->argument('lang');
         $this->force = (bool) $this->option('force');
 
         foreach ($this->lang as $lang) {
@@ -110,11 +110,12 @@ class LangInstall extends Command
      */
     private function copy($src, $dst, $filename)
     {
-        $action_copy    = file_exists($dst) ? 'replaced' : 'copied';
+        $action_copy = file_exists($dst) ? 'replaced' : 'copied';
         $action_replace = file_exists($dst) ? 'replaced' : 'copied';
 
         if (copy($src, $dst)) {
             $this->info("File {$filename} successfully {$action_copy}");
+
             return;
         }
 
