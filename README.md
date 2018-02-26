@@ -79,17 +79,11 @@ php artisan lang:install de --force
 php artisan lang:install de -f
 ```
 
-
 ### Update language
 
 When executing the `php artisan lang:update` command, the package learns which localizations are installed in your application and will replace the matching files.
 
 Command `php artisan lang:update` is an alias of `php artisan lang:install --force`.
-
-
-## Support Package
-
-You can donate via [Yandex Money](https://money.yandex.ru/quickpay/shop-widget?account=410012608840929&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets=Andrey+Helldar%3A+Open+Source+Projects&targets-hint=&default-sum=&button-text=04&mail=on&successURL=).
 
 ## Copyright and License
 
