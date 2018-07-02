@@ -33,12 +33,14 @@ Instead, you may of course manually update your require block and run `composer 
 
 If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
 
-    public function register()
-    {
-        if($this->app->environment() !== 'production') {
-        	$this->app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
-        }
+```php
+public function register()
+{
+    if($this->app->environment() !== 'production') {
+        $this->app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
     }
+}
+```
 
 
 ## How to use
@@ -84,7 +86,3 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 ## Copyright and License
 
 Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.4 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Translation
-
-Translations of text and comment by Google Translate. Help with translation +1 in karma :)
