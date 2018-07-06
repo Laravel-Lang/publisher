@@ -1,40 +1,50 @@
 preset: psr2
 
 enabled:
-  - concat_without_spaces
-  - ereg_to_preg
-  - extra_empty_lines
-  - short_array_syntax
-  - method_separation
-  - multiline_array_trailing_comma
-  - no_empty_lines_after_phpdocs
-  - operators_spaces
-  - ordered_use
-  - phpdoc_align
-  - phpdoc_indent
-  - phpdoc_inline_tag
-  - phpdoc_no_access
-  - phpdoc_no_package
-  - phpdoc_order
-  - phpdoc_scalar
-  - phpdoc_separation
-  - phpdoc_to_comment
-  - phpdoc_trim
-  - phpdoc_type_to_var
-  - phpdoc_types
-  - phpdoc_var_without_name
-  - return
-  - self_accessor
-  - short_bool_cast
-  - single_quote
-  - spaces_after_semicolon
-  - spaces_cast
-  - standardize_not_equal
-  - ternary_spaces
-  - trim_array_spaces
-  - unalign_double_arrow
-  - unalign_equals
-  - unary_operators_spaces
-  - unneeded_control_parentheses
-  - unused_use
-  - whitespacy_lines
+- align_double_arrow
+- align_equals
+- align_phpdoc
+- blank_line_after_opening_tag
+- blank_line_before_continue
+- blank_line_before_declare
+- blank_line_before_throw
+- blank_line_before_try
+- concat_with_spaces
+- const_separation
+- ereg_to_preg
+- extra_empty_lines
+- lowercase_cast
+- method_separation
+- multiline_array_trailing_comma
+- no_empty_lines_after_phpdocs
+- no_empty_phpdoc
+- no_unused_imports
+- operators_spaces
+- ordered_use
+- phpdoc_indent
+- phpdoc_inline_tag
+- phpdoc_no_access
+- phpdoc_no_package
+- phpdoc_order
+- phpdoc_scalar
+- phpdoc_separation
+- phpdoc_to_comment
+- phpdoc_trim
+- phpdoc_type_to_var
+- phpdoc_types
+- phpdoc_var_without_name
+- property_separation
+- return
+- return_type_declaration
+- self_accessor
+- short_array_syntax
+- short_bool_cast
+- single_quote
+- spaces_after_semicolon
+- spaces_cast
+- standardize_not_equal
+- ternary_spaces
+- trim_array_spaces
+- unary_operators_spaces
+- unneeded_control_parentheses
+- whitespacy_lines
