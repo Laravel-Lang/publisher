@@ -55,7 +55,7 @@ class LangUpdate extends Command
     private function install($lang = 'en')
     {
         $this->call('lang:install', [
-            'lang' => $lang,
+            'lang'    => $lang,
             '--force' => true,
         ]);
     }
