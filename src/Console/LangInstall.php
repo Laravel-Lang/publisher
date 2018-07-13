@@ -142,6 +142,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Copy file to the new place.
+     *
      * @param string $src
      * @param string $dst
      * @param string $lang
@@ -154,7 +156,7 @@ class LangInstall extends Command
             $src_file = ($src . $file);
             $dst_file = ($dst . $file);
 
-            if (!is_file($src_file)) {
+            if (!is_file($src_file) || !$this->endsWith($file, '.php')) {
                 continue;
             }
 
@@ -162,5 +164,24 @@ class LangInstall extends Command
                 $this->copy($src_file, $dst_file, ($lang . '/' . $file));
             }
         }
+    }
+
+    /**
+     * Determine if a given string ends with a given substring.
+     *
+     * @param  string $haystack
+     * @param  string|array $needles
+     *
+     * @return bool
+     */
+    private function endsWith($haystack, $needles)
+    {
+        foreach ((array) $needles as $needle) {
+            if (substr($haystack, -strlen($needle)) === (string) $needle) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
