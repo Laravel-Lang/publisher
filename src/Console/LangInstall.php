@@ -99,7 +99,7 @@ class LangInstall extends Command
     private function makeDir($path)
     {
         if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, 0755, true);
         }
     }
 
