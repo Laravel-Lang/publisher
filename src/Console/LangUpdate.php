@@ -48,7 +48,7 @@ class LangUpdate extends Command
         $dir = scandir(resource_path('lang'));
 
         return array_filter($dir, function ($item) {
-            return !in_array($item, ['.', '..']);
+            return !in_array($item, ['.', '..', 'vendor']);
         });
     }
 
