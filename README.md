@@ -1,4 +1,4 @@
-## Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package of Laravel 5.4+
+## Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package of Laravel 5.3+
 
 Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
 
@@ -85,4 +85,4 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 
 ## Copyright and License
 
-Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.4 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
