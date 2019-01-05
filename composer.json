@@ -20,6 +20,9 @@
         "issues": "https://github.com/andrey-helldar/laravel-lang-publisher/issues",
         "source": "https://github.com/andrey-helldar/laravel-lang-publisher"
     },
+    "suggest": {
+        "andrey-helldar/lang-translations": "Translation of main messages"
+    },
     "require": {
         "php": "~5.6|^7.0",
         "caouecs/laravel-lang": "~3.0",
