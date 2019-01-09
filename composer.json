@@ -21,7 +21,8 @@
         "source": "https://github.com/andrey-helldar/laravel-lang-publisher"
     },
     "suggest": {
-        "andrey-helldar/lang-translations": "Translation of main messages"
+        "andrey-helldar/lang-translations": "Translation of main messages",
+        "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
         "php": "~5.6|^7.0",
