@@ -42,6 +42,8 @@ public function register()
 }
 ```
 
+For the Laravel Framework versions 5.3-5.7 and 5.8, one branch is used, this allows you not to worry when updating the package - you will always have the latest translation files available without additional efforts.
+
 
 ## How to use
 
