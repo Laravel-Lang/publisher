@@ -27,11 +27,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                LangInstall::class,
-                LangUpdate::class,
-            ]);
-        }
+        $this->commands([
+            LangInstall::class,
+            LangUpdate::class,
+        ]);
     }
 }
