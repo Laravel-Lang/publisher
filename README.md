@@ -21,7 +21,9 @@ To get the latest version of Laravel Lang Publisher, simply require the project 
 $ composer require andrey-helldar/laravel-lang-publisher --dev
 ```
 
-Instead, you may of course manually update your require block and run `composer update` if you so choose:
+Or manually update `require-dev` block of `composer.json` and run `composer update`.
+
+To install the package on version 5.3-5.7, you need to specify version `^1.0`:
 
 ```json
 {
