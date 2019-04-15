@@ -3,7 +3,7 @@
     "description": "Publisher lang files for the Laravel Framework from caouecs/Laravel-lang",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "languages", "lpm", "lang", "publisher"],
+    "keywords": ["laravel", "languages", "language", "lang", "publisher"],
     "authors": [
         {
             "name": "Andrey Helldar",
@@ -20,7 +20,7 @@
     },
     "require": {
         "php": "^7.1.3",
-        "caouecs/laravel-lang": "dev-laravel58",
+        "caouecs/laravel-lang": "^4.0",
         "illuminate/console": "5.8.*"
     },
     "autoload": {
@@ -31,12 +31,9 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        },
         "laravel": {
             "providers": [
                 "Helldar\\LaravelLangPublisher\\ServiceProvider"
