@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "andrey-helldar/support",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrey-helldar/support.git",
-                "reference": "bde7cac3ab3ab91818834be994a8476f9ef0f90a"
+                "reference": "e4737a4b8bd41158bc9b59265c5cbd70d5ed62c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/bde7cac3ab3ab91818834be994a8476f9ef0f90a",
-                "reference": "bde7cac3ab3ab91818834be994a8476f9ef0f90a",
+                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/e4737a4b8bd41158bc9b59265c5cbd70d5ed62c3",
+                "reference": "e4737a4b8bd41158bc9b59265c5cbd70d5ed62c3",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2019-04-15T11:24:58+00:00"
+            "time": "2019-04-16T12:30:24+00:00"
         },
         {
             "name": "caouecs/laravel-lang",

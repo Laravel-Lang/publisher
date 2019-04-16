@@ -3,6 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\Support\Facades\Arr;
+use Helldar\Support\Facades\File;
+use Helldar\Support\Facades\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr as ArrayIlluminate;
 use Illuminate\Support\Str as StrIlluminate;
@@ -76,34 +78,7 @@ class LangInstall extends Command
      */
     private function formatPath($value)
     {
-        return $this->finish(\base_path($value), '/');
-    }
-
-    /**
-     * Cap a string with a single instance of a given value.
-     *
-     * @param string $value
-     * @param string $cap
-     *
-     * @return string
-     */
-    private function finish($value, $cap)
-    {
-        $quoted = \preg_quote($cap, '/');
-
-        return \preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
-    }
-
-    /**
-     * Make directory if not exists.
-     *
-     * @param $path
-     */
-    private function makeDir($path)
-    {
-        if (!\file_exists($path)) {
-            \mkdir($path, 0755, true);
-        }
+        return Str::finish(\base_path($value));
     }
 
     /**
@@ -139,8 +114,8 @@ class LangInstall extends Command
     private function processLang($lang)
     {
         $dir = $lang === 'en' ? '../script/en' : $lang;
-        $src = $this->finish($this->path_src . $dir, '/');
-        $dst = $this->finish($this->path_dst . $lang, '/');
+        $src = Str::finish($this->path_src . $dir);
+        $dst = Str::finish($this->path_dst . $lang);
 
         if (!\file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
@@ -148,7 +123,8 @@ class LangInstall extends Command
             return;
         }
 
-        $this->makeDir($dst);
+        File::makeDirectory($dst);
+
         $this->processFile($src, $dst, $lang);
     }
 
@@ -167,7 +143,7 @@ class LangInstall extends Command
             $src_file = ($src . $file);
             $dst_file = ($dst . $file);
 
-            if (!\is_file($src_file) || !$this->endsWith($file, '.php')) {
+            if (!\is_file($src_file) || !Str::endsWith($file, '.php')) {
                 continue;
             }
 
@@ -175,25 +151,6 @@ class LangInstall extends Command
                 $this->copy($src_file, $dst_file, ($lang . '/' . $file));
             }
         }
-    }
-
-    /**
-     * Determine if a given string ends with a given substring.
-     *
-     * @param string $haystack
-     * @param string|array $needles
-     *
-     * @return bool
-     */
-    private function endsWith($haystack, $needles)
-    {
-        foreach ((array) $needles as $needle) {
-            if (\substr($haystack, -\strlen($needle)) === (string) $needle) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private function copyValidations($src, $dst)
