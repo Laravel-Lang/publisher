@@ -90,21 +90,15 @@ class LangInstall extends Command
     {
         $action = \file_exists($dst) ? 'replaced' : 'copied';
 
-        if (StrIlluminate::contains($filename, 'validation.php')) {
+        $is_validation = StrIlluminate::contains($filename, 'validation.php');
+
+        if ($is_validation) {
             $this->copyValidations($src, $dst);
-
-            $this->info("File {$filename} successfully {$action}");
-
-            return;
+        } else {
+            $this->copyOther($src, $dst);
         }
 
-        if (\copy($src, $dst)) {
-            $this->info("File {$filename} successfully {$action}");
-
-            return;
-        }
-
-        $this->error("Error {$action} {$filename} file");
+        $this->info("File {$filename} successfully {$action}");
     }
 
     /**
@@ -167,6 +161,16 @@ class LangInstall extends Command
         $attributes = \array_merge($source_attributes, $target_attributes);
 
         $source = \array_merge($source, \compact('custom', 'attributes'));
+
+        Arr::store($source, $dst);
+    }
+
+    private function copyOther($src, $dst)
+    {
+        $source = require $src;
+        $target = \file_exists($dst) ? require $dst : [];
+
+        $source = \array_merge($source, $target);
 
         Arr::store($source, $dst);
     }
