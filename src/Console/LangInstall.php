@@ -88,24 +88,23 @@ class LangInstall extends Command
      */
     private function copy($src, $dst, $filename)
     {
-        $action_copy    = \file_exists($dst) ? 'replaced' : 'copied';
-        $action_replace = \file_exists($dst) ? 'replaced' : 'copied';
+        $action = \file_exists($dst) ? 'replaced' : 'copied';
 
         if (StrIlluminate::contains($filename, 'validation.php')) {
             $this->copyValidations($src, $dst);
 
-            $this->info("File {$filename} successfully {$action_copy}");
+            $this->info("File {$filename} successfully {$action}");
 
             return;
         }
 
         if (\copy($src, $dst)) {
-            $this->info("File {$filename} successfully {$action_copy}");
+            $this->info("File {$filename} successfully {$action}");
 
             return;
         }
 
-        $this->error("Error {$action_replace} {$filename} file");
+        $this->error("Error {$action} {$filename} file");
     }
 
     /**
