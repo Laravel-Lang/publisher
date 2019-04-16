@@ -160,7 +160,7 @@ class LangInstall extends Command
         $custom     = \array_merge($source_custom, $target_custom);
         $attributes = \array_merge($source_attributes, $target_attributes);
 
-        $source = \array_merge($source, \compact('custom', 'attributes'));
+        $source = \array_merge($target, $source, \compact('custom', 'attributes'));
 
         Arr::store($source, $dst);
     }
@@ -170,7 +170,7 @@ class LangInstall extends Command
         $source = require $src;
         $target = \file_exists($dst) ? require $dst : [];
 
-        $source = \array_merge($source, $target);
+        $source = \array_merge($target, $source);
 
         Arr::store($source, $dst);
     }
