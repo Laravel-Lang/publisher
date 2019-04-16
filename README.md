@@ -117,6 +117,8 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 
 ### Features
 
+**Attention!**  This feature works only in Laravel 5.5 and higher with php 7.1.3 and higher.
+
 When updating files, all comments from the final files are automatically deleted. Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know how to work with comments.
 
 Your file example:
