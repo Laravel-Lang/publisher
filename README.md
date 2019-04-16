@@ -16,6 +16,7 @@ Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
 ## Contents
 
 * [Installation](#installation)
+  * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
   * [Install language](#install-language)
@@ -34,7 +35,7 @@ $ composer require andrey-helldar/laravel-lang-publisher --dev
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
-To install the package on version 5.3-5.5, you need to specify version ^1.0:
+To install the package on version 5.3-5.5 with php 5.6-7.0, you need to specify version ^1.0:
 
 ```json
 {
@@ -44,7 +45,20 @@ To install the package on version 5.3-5.5, you need to specify version ^1.0:
 }
 ```
 
-To install on the package version 5.5-5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5` and Laravel 5.5 with php 7.1+).
+To install on the package version 5.5-5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5`).
+
+#### Compatibility table
+
+|Laravel version|PHP version|Package min version|
+|---|---|---|
+|5.3| ^5.6.4|^1.0|
+|5.4|^5.6.4|^1.0|
+|5.5|^7.0.0|^1.0|
+|5.6|^7.1.3|^1.0|
+|5.7|^7.1.3|^1.0|
+|5.8|^7.1.3|^1.0|
+|5.9-dev|^7.1.3|^1.0|
+
 
 If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
 
