@@ -13,6 +13,17 @@ Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
 </p>
 
 
+## Contents
+
+* [Installation](#installation)
+* [How to use](#how-to-use)
+  * [Important](#important)
+  * [Install language](#install-language)
+  * [Update language](#update-language)
+  * [Features](#features)
+* [Copyright and License](#copyright-and-license)
+
+
 ## Installation
 
 To get the latest version of Laravel Lang Publisher, simply require the project using [Composer](https://getcomposer.org/):
