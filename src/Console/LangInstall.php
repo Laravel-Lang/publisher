@@ -73,7 +73,7 @@ class LangInstall extends Command
      */
     private function formatPath($value)
     {
-        return $this->finish(base_path($value), '/');
+        return $this->finish(\base_path($value), '/');
     }
 
     /**
@@ -86,9 +86,9 @@ class LangInstall extends Command
      */
     private function finish($value, $cap)
     {
-        $quoted = preg_quote($cap, '/');
+        $quoted = \preg_quote($cap, '/');
 
-        return preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
+        return \preg_replace('/(?:' . $quoted . ')+$/u', '', $value) . $cap;
     }
 
     /**
@@ -98,8 +98,8 @@ class LangInstall extends Command
      */
     private function makeDir($path)
     {
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
+        if (!\file_exists($path)) {
+            \mkdir($path, 0755, true);
         }
     }
 
@@ -110,10 +110,10 @@ class LangInstall extends Command
      */
     private function copy($src, $dst, $filename)
     {
-        $action_copy    = file_exists($dst) ? 'replaced' : 'copied';
-        $action_replace = file_exists($dst) ? 'replaced' : 'copied';
+        $action_copy    = \file_exists($dst) ? 'replaced' : 'copied';
+        $action_replace = \file_exists($dst) ? 'replaced' : 'copied';
 
-        if (copy($src, $dst)) {
+        if (\copy($src, $dst)) {
             $this->info("File {$filename} successfully {$action_copy}");
 
             return;
@@ -131,7 +131,7 @@ class LangInstall extends Command
         $src = $this->finish($this->path_src . $dir, '/');
         $dst = $this->finish($this->path_dst . $lang, '/');
 
-        if (!file_exists($src)) {
+        if (!\file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -150,17 +150,17 @@ class LangInstall extends Command
      */
     private function processFile($src, $dst, $lang)
     {
-        $src_files = scandir($src);
+        $src_files = \scandir($src);
 
         foreach ($src_files as $file) {
             $src_file = ($src . $file);
             $dst_file = ($dst . $file);
 
-            if (!is_file($src_file) || !$this->endsWith($file, '.php')) {
+            if (!\is_file($src_file) || !$this->endsWith($file, '.php')) {
                 continue;
             }
 
-            if ($this->force || !file_exists($dst_file) || $this->confirm("Replace {$lang}/{$file} files?")) {
+            if ($this->force || !\file_exists($dst_file) || $this->confirm("Replace {$lang}/{$file} files?")) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $file));
             }
         }
@@ -169,15 +169,15 @@ class LangInstall extends Command
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param  string $haystack
-     * @param  string|array $needles
+     * @param string $haystack
+     * @param string|array $needles
      *
      * @return bool
      */
     private function endsWith($haystack, $needles)
     {
         foreach ((array) $needles as $needle) {
-            if (substr($haystack, -strlen($needle)) === (string) $needle) {
+            if (\substr($haystack, -\strlen($needle)) === (string) $needle) {
                 return true;
             }
         }
