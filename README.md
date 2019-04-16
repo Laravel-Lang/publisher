@@ -33,7 +33,7 @@ To install the package on version 5.3-5.7, you need to specify version `^1.0`:
 }
 ```
 
-To install on the package version 5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.4`).
+To install on the package version 5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5`).
 
 
 If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
