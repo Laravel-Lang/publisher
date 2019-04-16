@@ -63,7 +63,7 @@ passwords.php
 validation.php
 ```
 
-**If you made your changes to the files, they will be saved.**
+**If you made changes to the files, they will be saved.**
 
 He does not touch any other files.
 
