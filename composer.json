@@ -19,11 +19,11 @@
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.0",
         "andrey-helldar/support": "^1.2",
         "caouecs/laravel-lang": "^3.0|^4.0",
-        "illuminate/console": "^5.3",
-        "illuminate/support": "^5.3"
+        "illuminate/console": "^5.5",
+        "illuminate/support": "^5.5"
     },
     "autoload": {
         "psr-4": {

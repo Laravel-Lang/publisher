@@ -32,7 +32,9 @@ To get the latest version of Laravel Lang Publisher, simply require the project 
 $ composer require andrey-helldar/laravel-lang-publisher --dev
 ```
 
-Or manually update `require-dev` block of `composer.json` and run `composer update`:
+Or manually update `require-dev` block of `composer.json` and run `composer update`.
+
+To install the package on version 5.3-5.4, you need to specify version ^1.0:
 
 ```json
 {
@@ -41,6 +43,8 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
     }
 }
 ```
+
+To install on the package version 5.5-5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5`).
 
 If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
 
