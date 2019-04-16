@@ -2,7 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\Support\Facades\Arr;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr as ArrayIlluminate;
+use Illuminate\Support\Str as StrIlluminate;
 
 class LangInstall extends Command
 {
@@ -113,6 +116,14 @@ class LangInstall extends Command
         $action_copy    = \file_exists($dst) ? 'replaced' : 'copied';
         $action_replace = \file_exists($dst) ? 'replaced' : 'copied';
 
+        if (StrIlluminate::contains($filename, 'validation.php')) {
+            $this->copyValidations($src, $dst);
+
+            $this->info("File {$filename} successfully {$action_copy}");
+
+            return;
+        }
+
         if (\copy($src, $dst)) {
             $this->info("File {$filename} successfully {$action_copy}");
 
@@ -183,5 +194,24 @@ class LangInstall extends Command
         }
 
         return false;
+    }
+
+    private function copyValidations($src, $dst)
+    {
+        $source = require $src;
+        $target = \file_exists($dst) ? require $dst : [];
+
+        $source_custom     = ArrayIlluminate::get($source, 'custom', []);
+        $source_attributes = ArrayIlluminate::get($source, 'attributes', []);
+
+        $target_custom     = ArrayIlluminate::get($target, 'custom', []);
+        $target_attributes = ArrayIlluminate::get($target, 'attributes', []);
+
+        $custom     = \array_merge($source_custom, $target_custom);
+        $attributes = \array_merge($source_attributes, $target_attributes);
+
+        $source = \array_merge($source, \compact('custom', 'attributes'));
+
+        Arr::store($source, $dst);
     }
 }
