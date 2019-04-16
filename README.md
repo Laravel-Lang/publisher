@@ -23,7 +23,7 @@ $ composer require andrey-helldar/laravel-lang-publisher --dev
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
-To install the package on version 5.3-5.7, you need to specify version `^1.0`:
+To install the package on version 5.3-5.8, you need to specify version `^1.0`:
 
 ```json
 {
@@ -79,6 +79,7 @@ If files do not exist in the destination folder, they will be created. And if th
 Also, if the files exist and you do not want to agree each time, you can pass the attribute `--force` or its alias `-f` for forced replacement.
 
 ```bash
+php artisan lang:install de en ro zh-CN --force
 php artisan lang:install de --force
 php artisan lang:install de -f
 ```
