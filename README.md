@@ -79,6 +79,7 @@ If files do not exist in the destination folder, they will be created. And if th
 Also, if the files exist and you do not want to agree each time, you can pass the attribute `--force` or its alias `-f` for forced replacement.
 
 ```bash
+php artisan lang:install de en ro zh-CN --force
 php artisan lang:install de --force
 php artisan lang:install de -f
 ```
