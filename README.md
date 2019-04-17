@@ -45,7 +45,7 @@ To install the package on version 5.3-5.5 with php 5.6-7.0, you need to specify 
 }
 ```
 
-To install on the package version 5.5-5.8 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5`).
+To install on the Laravel version 5.5-5.7 version must be greater than `^1.0` (for example, `^1.0`, `^1.2` ... `^1.5`).
 
 If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
 
@@ -68,7 +68,6 @@ public function register()
 |5.5|^7.0.0|7.1.28|^1.0|
 |5.6|^7.1.3|7.2.13|^1.0|
 |5.7|^7.1.3|7.2.13|^1.0|
-|5.8|^7.1.3|7.3.3|^1.0|
 
 
 ## How to use
