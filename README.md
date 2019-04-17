@@ -67,14 +67,14 @@ public function register()
 
 #### Compatibility table
 
-|Laravel version|PHP version|PHP tested version|Package version|
-|---|---|---|---|
-|5.3|^5.6.4|5.6.37|^1.0|
-|5.4|^5.6.4|5.6.37|^1.0|
-|5.5|^7.0.0|7.1.28|^1.0|
-|5.6|^7.1.3|7.2.13|^1.0|
-|5.7|^7.1.3|7.2.13|^1.0|
-|5.8|^7.1.3|7.3.3|^2.0|
+|Laravel version|PHP version|PHP tested version|Recommended|Package min version|Package max version|Comment|
+|---|---|---|---|---|---|---|
+|5.3|^5.6.4|5.6.37|^1.0|1.1.2|1.1.4|---|
+|5.4|^5.6.4|5.6.37|^1.0|1.0.0|1.1.4|---|
+|5.5|^7.0.0|7.1.28|^1.0|1.0.0|1.6.0|---|
+|5.6|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
+|5.7|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
+|5.8|^7.1.3|7.3.3|^2.0|1.0.0 - 1.1.3|>=2.0.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
 
 
 ## How to use
