@@ -162,7 +162,7 @@ class LangInstall extends Command
 
         $source = \array_merge($target, $source, \compact('custom', 'attributes'));
 
-        Arr::store($source, $dst);
+        Arr::storeAsArray($source, $dst, true);
     }
 
     private function copyOther($src, $dst)
@@ -172,6 +172,6 @@ class LangInstall extends Command
 
         $source = \array_merge($target, $source);
 
-        Arr::store($source, $dst);
+        Arr::storeAsArray($source, $dst, true);
     }
 }
