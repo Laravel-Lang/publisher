@@ -111,7 +111,7 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (! file_exists($src)) {
+        if (!file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -142,7 +142,7 @@ class LangInstall extends Command
             $dst_file = ($dst . $file->getFilename());
             $filename = $file->getFilename();
 
-            if ($this->force || ! file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
+            if ($this->force || !file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
             }
         }
