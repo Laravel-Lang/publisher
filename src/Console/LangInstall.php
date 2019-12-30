@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use DirectoryIterator;
 use Helldar\Support\Facades\Arr;
 use Helldar\Support\Facades\File;
 use Helldar\Support\Facades\Str;
@@ -78,7 +79,7 @@ class LangInstall extends Command
      */
     private function formatPath($value)
     {
-        return Str::finish(\base_path($value));
+        return Str::finish(base_path($value));
     }
 
     /**
@@ -88,7 +89,7 @@ class LangInstall extends Command
      */
     private function copy($src, $dst, $filename)
     {
-        $action = \file_exists($dst) ? 'replaced' : 'copied';
+        $action = file_exists($dst) ? 'replaced' : 'copied';
 
         $is_validation = StrIlluminate::contains($filename, 'validation.php');
 
@@ -110,7 +111,7 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (!\file_exists($src)) {
+        if (! file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -130,18 +131,19 @@ class LangInstall extends Command
      */
     private function processFile($src, $dst, $lang)
     {
-        $src_files = \scandir($src);
+        $files = new DirectoryIterator($src);
 
-        foreach ($src_files as $file) {
-            $src_file = ($src . $file);
-            $dst_file = ($dst . $file);
-
-            if (!\is_file($src_file) || !Str::endsWith($file, '.php')) {
+        foreach ($files as $file) {
+            if ($file->isDir() || $file->getExtension() !== 'php') {
                 continue;
             }
 
-            if ($this->force || !\file_exists($dst_file) || $this->confirm("Replace {$lang}/{$file} files?")) {
-                $this->copy($src_file, $dst_file, ($lang . '/' . $file));
+            $src_file = $file->getRealPath();
+            $dst_file = ($dst . $file->getFilename());
+            $filename = $file->getFilename();
+
+            if ($this->force || ! file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
+                $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
             }
         }
     }
@@ -149,7 +151,7 @@ class LangInstall extends Command
     private function copyValidations($src, $dst)
     {
         $source = require $src;
-        $target = \file_exists($dst) ? require $dst : [];
+        $target = file_exists($dst) ? require $dst : [];
 
         $source_custom     = ArrayIlluminate::get($source, 'custom', []);
         $source_attributes = ArrayIlluminate::get($source, 'attributes', []);
@@ -157,10 +159,10 @@ class LangInstall extends Command
         $target_custom     = ArrayIlluminate::get($target, 'custom', []);
         $target_attributes = ArrayIlluminate::get($target, 'attributes', []);
 
-        $custom     = \array_merge($source_custom, $target_custom);
-        $attributes = \array_merge($source_attributes, $target_attributes);
+        $custom     = array_merge($source_custom, $target_custom);
+        $attributes = array_merge($source_attributes, $target_attributes);
 
-        $source = \array_merge($target, $source, \compact('custom', 'attributes'));
+        $source = array_merge($target, $source, compact('custom', 'attributes'));
 
         Arr::storeAsArray($source, $dst, true);
     }
@@ -168,9 +170,9 @@ class LangInstall extends Command
     private function copyOther($src, $dst)
     {
         $source = require $src;
-        $target = \file_exists($dst) ? require $dst : [];
+        $target = file_exists($dst) ? require $dst : [];
 
-        $source = \array_merge($target, $source);
+        $source = array_merge($target, $source);
 
         Arr::storeAsArray($source, $dst, true);
     }

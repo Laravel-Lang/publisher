@@ -35,10 +35,10 @@ class LangUpdate extends Command
      */
     private function getLangDirectories()
     {
-        $dir = \scandir(\resource_path('lang'));
+        $dir = scandir(resource_path('lang'));
 
-        return \array_filter($dir, function ($item) {
-            return !\in_array($item, ['.', '..', 'vendor']);
+        return array_filter($dir, function ($item) {
+            return ! in_array($item, ['.', '..', 'vendor']);
         });
     }
 
