@@ -3,11 +3,11 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use DirectoryIterator;
-use Helldar\PrettyArray\Services\File as PrettyFile;
+use Helldar\PrettyArray\Services\File;
 use Helldar\PrettyArray\Services\Formatter;
 use Helldar\Support\Facades\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr as ArrayIlluminate;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str as StrIlluminate;
 
 class LangInstall extends Command
@@ -89,7 +89,7 @@ class LangInstall extends Command
             return [];
         }
 
-        return PrettyFile::make()->load($filename);
+        return File::make()->load($filename);
     }
 
     /**
@@ -123,7 +123,7 @@ class LangInstall extends Command
 
         $content = $service->raw($array);
 
-        PrettyFile::make($content)->store($path);
+        File::make($content)->store($path);
     }
 
     /**
@@ -227,11 +227,11 @@ class LangInstall extends Command
         $source = $this->loadFile($src);
         $target = $this->loadFile($dst, true);
 
-        $source_custom     = ArrayIlluminate::get($source, 'custom', []);
-        $source_attributes = ArrayIlluminate::get($source, 'attributes', []);
+        $source_custom     = Arr::get($source, 'custom', []);
+        $source_attributes = Arr::get($source, 'attributes', []);
 
-        $target_custom     = ArrayIlluminate::get($target, 'custom', []);
-        $target_attributes = ArrayIlluminate::get($target, 'attributes', []);
+        $target_custom     = Arr::get($target, 'custom', []);
+        $target_attributes = Arr::get($target, 'attributes', []);
 
         $custom     = array_merge($source_custom, $target_custom);
         $attributes = array_merge($source_attributes, $target_attributes);
