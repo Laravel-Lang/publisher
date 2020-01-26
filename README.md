@@ -52,16 +52,9 @@ For the 5.3-5.7 version of Laravel Framework, use version `^1.0`:
 }
 ```
 
-
-If you don't use auto-discovery, add the ServiceProvider to the providers array in `app/Providers/AppServiceProvider.php`:
-
-```php
-public function register()
-{
-    if($this->app->environment() !== 'production') {
-        $this->app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
-    }
-}
+You can also publish the config file to change implementations (ie. interface to specific class):
+```
+php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
 ```
 
 
@@ -74,7 +67,7 @@ public function register()
 |5.5|^7.0.0|7.1.28|^1.0|1.0.0|1.6.0|---|
 |5.6|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
 |5.7|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
-|5.8, 6.x|^7.1.3|7.3.3|^2.0|2.0.0|>=2.0.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
+|5.8, 6.x, 7.x|^7.1.3|7.1, 7.2, 7.3, 7.4|^2.0|2.0.0|^2.0.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
 
 
 ## How to use
