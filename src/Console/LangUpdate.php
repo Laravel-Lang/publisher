@@ -31,6 +31,8 @@ class LangUpdate extends Command
     }
 
     /**
+     * Retrieving a Directory List.
+     *
      * @return array
      */
     private function getLangDirectories()
@@ -38,10 +40,15 @@ class LangUpdate extends Command
         $dir = scandir(resource_path('lang'));
 
         return array_filter($dir, function ($item) {
-            return !in_array($item, ['.', '..', 'vendor']);
+            return ! in_array($item, ['.', '..', 'vendor']);
         });
     }
 
+    /**
+     * Force language installation.
+     *
+     * @param string $lang
+     */
     private function install($lang = 'en')
     {
         $this->call('lang:install', [

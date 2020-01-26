@@ -73,6 +73,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Loading existence check file.
+     *
      * @param string $filename
      *
      * @return array
@@ -83,11 +85,24 @@ class LangInstall extends Command
         return PrettyFile::make()->load($filename);
     }
 
+    /**
+     * Getting a list of files in a directory
+     *
+     * @param string $path
+     *
+     * @return \DirectoryIterator
+     */
     protected function files($path)
     {
         return new DirectoryIterator($path);
     }
 
+    /**
+     * Saving the resulting array to a file.
+     *
+     * @param string $path
+     * @param array $array
+     */
     protected function store(string $path, array $array)
     {
         ksort($array);
@@ -105,6 +120,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Verifying the trailing character in the path.
+     *
      * @param string $value
      *
      * @return string
@@ -115,6 +132,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Copy files with the start of the union.
+     *
      * @param string $src
      * @param string $dst
      * @param string $filename
@@ -137,6 +156,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Language test and preparation for integration.
+     *
      * @param string $lang
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
@@ -183,6 +204,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Merging Validator Arrays.
+     *
      * @param string $src
      * @param string $dst
      *
@@ -208,6 +231,8 @@ class LangInstall extends Command
     }
 
     /**
+     * Merging arrays.
+     *
      * @param $src
      * @param $dst
      *
