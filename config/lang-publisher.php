@@ -9,7 +9,7 @@ return [
 
     'alignment' => true,
 
-    /**
+    /*
      * Key exclusion when combining.
      */
 
