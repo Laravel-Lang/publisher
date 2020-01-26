@@ -78,12 +78,17 @@ class LangInstall extends Command
      * Loading existence check file.
      *
      * @param string $filename
+     * @param bool $return_empty
      *
      * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    protected function loadFile(string $filename): array
+    protected function loadFile(string $filename, bool $return_empty = false): array
     {
+        if ($return_empty && ! file_exists($filename)) {
+            return [];
+        }
+
         return PrettyFile::make()->load($filename);
     }
 
@@ -220,7 +225,7 @@ class LangInstall extends Command
     protected function copyValidations(string $src, string $dst)
     {
         $source = $this->loadFile($src);
-        $target = file_exists($dst) ? $this->loadFile($dst) : [];
+        $target = $this->loadFile($dst, true);
 
         $source_custom     = ArrayIlluminate::get($source, 'custom', []);
         $source_attributes = ArrayIlluminate::get($source, 'attributes', []);
@@ -247,7 +252,7 @@ class LangInstall extends Command
     protected function copyOther(string $src, string $dst)
     {
         $source = $this->loadFile($src);
-        $target = file_exists($dst) ? $this->loadFile($dst) : [];
+        $target = $this->loadFile($dst, true);
 
         $source = array_merge($target, $source);
 
