@@ -95,12 +95,13 @@ class LangInstall extends Command
      * @param string $filename
      * @param bool $return_empty
      *
-     * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     *
+     * @return array
      */
     protected function loadFile(string $filename, bool $return_empty = false): array
     {
-        if ($return_empty && ! file_exists($filename)) {
+        if ($return_empty && !file_exists($filename)) {
             return [];
         }
 
@@ -190,7 +191,7 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (! file_exists($src)) {
+        if (!file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -221,7 +222,7 @@ class LangInstall extends Command
 
             if (
                 $this->force ||
-                ! file_exists($dst_file) ||
+                !file_exists($dst_file) ||
                 $this->confirm("Replace {$lang}/{$filename} file?")
             ) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
