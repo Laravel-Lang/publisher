@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f49d736c9c4341af05e4bb34d5f973ba",
+    "content-hash": "c11cc16def9ead6aaa36f18b1a702238",
     "packages": [
+        {
+            "name": "andrey-helldar/pretty-array",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andrey-helldar/pretty-array.git",
+                "reference": "07a478b2c490b51a906ed22fd138f3a2cea55a79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andrey-helldar/pretty-array/zipball/07a478b2c490b51a906ed22fd138f3a2cea55a79",
+                "reference": "07a478b2c490b51a906ed22fd138f3a2cea55a79",
+                "shasum": ""
+            },
+            "require": {
+                "andrey-helldar/support": "^1.15.2",
+                "ext-dom": "*",
+                "ext-mbstring": "*",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.7",
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Helldar\\PrettyArray\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Helldar",
+                    "email": "helldar@ai-rus.com"
+                }
+            ],
+            "description": "Simple conversion of an array to a pretty view.",
+            "keywords": [
+                "array",
+                "pretty",
+                "pretty array"
+            ],
+            "time": "2020-01-26T12:45:14+00:00"
+        },
         {
             "name": "andrey-helldar/support",
             "version": "v1.15.2",

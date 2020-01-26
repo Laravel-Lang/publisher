@@ -3,8 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use DirectoryIterator;
-use Helldar\Support\Facades\Arr;
-use Helldar\Support\Facades\File;
+use Helldar\PrettyArray\Services\File as PrettyFile;
+use Helldar\PrettyArray\Services\Formatter;
 use Helldar\Support\Facades\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr as ArrayIlluminate;
@@ -73,6 +73,38 @@ class LangInstall extends Command
     }
 
     /**
+     * @param string $filename
+     *
+     * @return array
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     */
+    protected function loadFile(string $filename)
+    {
+        return PrettyFile::make()->load($filename);
+    }
+
+    protected function files($path)
+    {
+        return new DirectoryIterator($path);
+    }
+
+    protected function store(string $path, array $array)
+    {
+        ksort($array);
+
+        $service = Formatter::make();
+        $service->setKeyAsString();
+
+        if (config('lang-publisher.alignment') === true) {
+            $service->setEqualsAlign();
+        }
+
+        $content = $service->raw($array);
+
+        PrettyFile::make($content)->store($path);
+    }
+
+    /**
      * @param string $value
      *
      * @return string
@@ -86,6 +118,8 @@ class LangInstall extends Command
      * @param string $src
      * @param string $dst
      * @param string $filename
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     private function copy($src, $dst, $filename)
     {
@@ -104,6 +138,8 @@ class LangInstall extends Command
 
     /**
      * @param string $lang
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     private function processLang($lang)
     {
@@ -111,13 +147,11 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (!file_exists($src)) {
+        if (! file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
         }
-
-        File::makeDirectory($dst);
 
         $this->processFile($src, $dst, $lang);
     }
@@ -128,12 +162,12 @@ class LangInstall extends Command
      * @param string $src
      * @param string $dst
      * @param string $lang
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     private function processFile($src, $dst, $lang)
     {
-        $files = new DirectoryIterator($src);
-
-        foreach ($files as $file) {
+        foreach ($this->files($src) as $file) {
             if ($file->isDir() || $file->getExtension() !== 'php') {
                 continue;
             }
@@ -142,16 +176,22 @@ class LangInstall extends Command
             $dst_file = ($dst . $file->getFilename());
             $filename = $file->getFilename();
 
-            if ($this->force || !file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
+            if ($this->force || ! file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
             }
         }
     }
 
+    /**
+     * @param string $src
+     * @param string $dst
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     */
     private function copyValidations($src, $dst)
     {
-        $source = require $src;
-        $target = file_exists($dst) ? require $dst : [];
+        $source = $this->loadFile($src);
+        $target = file_exists($dst) ? $this->loadFile($dst) : [];
 
         $source_custom     = ArrayIlluminate::get($source, 'custom', []);
         $source_attributes = ArrayIlluminate::get($source, 'attributes', []);
@@ -164,16 +204,22 @@ class LangInstall extends Command
 
         $source = array_merge($target, $source, compact('custom', 'attributes'));
 
-        Arr::storeAsArray($source, $dst, true);
+        $this->store($dst, $source);
     }
 
+    /**
+     * @param $src
+     * @param $dst
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     */
     private function copyOther($src, $dst)
     {
-        $source = require $src;
-        $target = file_exists($dst) ? require $dst : [];
+        $source = $this->loadFile($src);
+        $target = file_exists($dst) ? $this->loadFile($dst) : [];
 
         $source = array_merge($target, $source);
 
-        Arr::storeAsArray($source, $dst, true);
+        $this->store($dst, $source);
     }
 }
