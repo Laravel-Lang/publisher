@@ -47,6 +47,11 @@ class LangInstall extends Command
     protected $force = false;
 
     /**
+     * @var array
+     */
+    protected $exclude = [];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -66,6 +71,8 @@ class LangInstall extends Command
      */
     public function handle()
     {
+        $this->loadExcluded();
+
         $this->lang  = $this->argument('lang');
         $this->force = (bool) $this->option('force');
 
@@ -75,18 +82,25 @@ class LangInstall extends Command
     }
 
     /**
+     * Loading excluded key arrays.
+     */
+    protected function loadExcluded()
+    {
+        $this->exclude = config('lang-publisher.exclude', []);
+    }
+
+    /**
      * Loading existence check file.
      *
      * @param string $filename
      * @param bool $return_empty
      *
-     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
-     *
      * @return array
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     protected function loadFile(string $filename, bool $return_empty = false): array
     {
-        if ($return_empty && !file_exists($filename)) {
+        if ($return_empty && ! file_exists($filename)) {
             return [];
         }
 
@@ -176,7 +190,7 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (!file_exists($src)) {
+        if (! file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -207,7 +221,7 @@ class LangInstall extends Command
 
             if (
                 $this->force ||
-                !file_exists($dst_file) ||
+                ! file_exists($dst_file) ||
                 $this->confirm("Replace {$lang}/{$filename} file?")
             ) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
@@ -234,10 +248,14 @@ class LangInstall extends Command
         $target_custom     = Arr::get($target, 'custom', []);
         $target_attributes = Arr::get($target, 'attributes', []);
 
-        $custom     = array_merge($source_custom, $target_custom);
-        $attributes = array_merge($source_attributes, $target_attributes);
+        $excluded_target     = $this->excluded($dst, $target);
+        $excluded_custom     = $this->excluded($dst, $target_custom);
+        $excluded_attributes = $this->excluded($dst, $target_attributes);
 
-        $source = array_merge($target, $source, compact('custom', 'attributes'));
+        $custom     = array_merge($source_custom, $target_custom, $excluded_custom);
+        $attributes = array_merge($source_attributes, $target_attributes, $excluded_attributes);
+
+        $source = array_merge($target, $source, $excluded_target, compact('custom', 'attributes'));
 
         $this->store($dst, $source);
     }
@@ -255,8 +273,26 @@ class LangInstall extends Command
         $source = $this->loadFile($src);
         $target = $this->loadFile($dst, true);
 
-        $source = array_merge($target, $source);
+        $excluded = $this->excluded($dst, $target);
+
+        $source = array_merge($target, $source, $excluded);
 
         $this->store($dst, $source);
+    }
+
+    /**
+     * Getting excluded keys.
+     *
+     * @param string $filename
+     * @param array $array
+     *
+     * @return array
+     */
+    protected function excluded(string $filename, array $array): array
+    {
+        $filename = pathinfo($filename, PATHINFO_FILENAME);
+        $keys     = $this->exclude[$filename] ?? [];
+
+        return array_intersect_key($array, $keys);
     }
 }

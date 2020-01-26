@@ -8,4 +8,14 @@ return [
      */
 
     'alignment' => true,
+
+    /**
+     * Key exclusion when combining.
+     */
+
+    'exclude' => [
+        // 'auth' => ['throttle'],
+        // 'pagination' => ['previous'],
+        // 'passwords' => ['reset', 'throttled', 'user'],
+    ],
 ];
