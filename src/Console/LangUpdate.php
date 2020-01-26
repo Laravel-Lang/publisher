@@ -25,9 +25,9 @@ class LangUpdate extends Command
      */
     public function handle()
     {
-        $lang = $this->getLangDirectories();
-
-        $this->install($lang);
+        $this->install(
+            $this->getLangDirectories()
+        );
     }
 
     /**
@@ -35,7 +35,7 @@ class LangUpdate extends Command
      *
      * @return array
      */
-    private function getLangDirectories()
+    private function getLangDirectories(): array
     {
         $dir = scandir(resource_path('lang'));
 
@@ -47,9 +47,9 @@ class LangUpdate extends Command
     /**
      * Force language installation.
      *
-     * @param string $lang
+     * @param array $lang
      */
-    private function install($lang = 'en')
+    private function install(array $lang = ['en'])
     {
         $this->call('lang:install', [
             'lang'    => $lang,

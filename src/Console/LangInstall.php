@@ -61,6 +61,8 @@ class LangInstall extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     public function handle()
     {
@@ -80,7 +82,7 @@ class LangInstall extends Command
      * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    protected function loadFile(string $filename)
+    protected function loadFile(string $filename): array
     {
         return PrettyFile::make()->load($filename);
     }
@@ -92,7 +94,7 @@ class LangInstall extends Command
      *
      * @return \DirectoryIterator
      */
-    protected function files($path)
+    protected function files(string $path): DirectoryIterator
     {
         return new DirectoryIterator($path);
     }
@@ -126,7 +128,7 @@ class LangInstall extends Command
      *
      * @return string
      */
-    private function formatPath($value)
+    protected function formatPath(string $value): string
     {
         return Str::finish(base_path($value));
     }
@@ -140,7 +142,7 @@ class LangInstall extends Command
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    private function copy($src, $dst, $filename)
+    protected function copy(string $src, string $dst, string $filename)
     {
         $action = file_exists($dst) ? 'replaced' : 'copied';
 
@@ -162,7 +164,7 @@ class LangInstall extends Command
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    private function processLang($lang)
+    protected function processLang(string $lang)
     {
         $dir = $lang === 'en' ? '../script/en' : $lang;
         $src = Str::finish($this->path_src . $dir);
@@ -186,18 +188,22 @@ class LangInstall extends Command
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    private function processFile($src, $dst, $lang)
+    protected function processFile(string $src, string $dst, string $lang)
     {
         foreach ($this->files($src) as $file) {
             if ($file->isDir() || $file->getExtension() !== 'php') {
                 continue;
             }
 
-            $src_file = $file->getRealPath();
-            $dst_file = ($dst . $file->getFilename());
             $filename = $file->getFilename();
+            $src_file = $file->getRealPath();
+            $dst_file = $dst . $file->getFilename();
 
-            if ($this->force || ! file_exists($dst_file) || $this->confirm("Replace {$lang}/{$filename} file?")) {
+            if (
+                $this->force ||
+                ! file_exists($dst_file) ||
+                $this->confirm("Replace {$lang}/{$filename} file?")
+            ) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
             }
         }
@@ -211,7 +217,7 @@ class LangInstall extends Command
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    private function copyValidations($src, $dst)
+    protected function copyValidations(string $src, string $dst)
     {
         $source = $this->loadFile($src);
         $target = file_exists($dst) ? $this->loadFile($dst) : [];
@@ -233,12 +239,12 @@ class LangInstall extends Command
     /**
      * Merging arrays.
      *
-     * @param $src
-     * @param $dst
+     * @param string $src
+     * @param string $dst
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
-    private function copyOther($src, $dst)
+    protected function copyOther(string $src, string $dst)
     {
         $source = $this->loadFile($src);
         $target = file_exists($dst) ? $this->loadFile($dst) : [];
