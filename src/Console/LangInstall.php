@@ -93,9 +93,9 @@ class LangInstall extends Command
      * @param string $filename
      * @param bool $return_empty
      *
-     * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      *
+     * @return array
      */
     protected function loadFile(string $filename, bool $return_empty = false): array
     {
