@@ -300,6 +300,6 @@ class LangInstall extends Command
         $filename = pathinfo($filename, PATHINFO_FILENAME);
         $keys     = $this->exclude[$filename] ?? [];
 
-        return array_intersect_key($array, array_flip($keys));
+        return Arr::only($array, $keys);
     }
 }

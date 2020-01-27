@@ -59,16 +59,16 @@
         },
         {
             "name": "andrey-helldar/support",
-            "version": "v1.16.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrey-helldar/support.git",
-                "reference": "859dbda14c96880ccb6d5cec7bbe61a17a6089d1"
+                "reference": "60678928e6d87c031a6a53b9d9c5566ac5adaee1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/859dbda14c96880ccb6d5cec7bbe61a17a6089d1",
-                "reference": "859dbda14c96880ccb6d5cec7bbe61a17a6089d1",
+                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/60678928e6d87c031a6a53b9d9c5566ac5adaee1",
+                "reference": "60678928e6d87c031a6a53b9d9c5566ac5adaee1",
                 "shasum": ""
             },
             "require": {
@@ -124,7 +124,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2020-01-27T08:08:38+00:00"
+            "time": "2020-01-27T11:10:34+00:00"
         },
         {
             "name": "caouecs/laravel-lang",
