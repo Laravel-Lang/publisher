@@ -8,20 +8,20 @@
     "packages": [
         {
             "name": "andrey-helldar/pretty-array",
-            "version": "v1.0.5",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrey-helldar/pretty-array.git",
-                "reference": "91ec13a0d21e2cf953511fdf383b6225adb93f97"
+                "reference": "c0f087902d19a63f08fad0c420d3f4ad033eaecb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrey-helldar/pretty-array/zipball/91ec13a0d21e2cf953511fdf383b6225adb93f97",
-                "reference": "91ec13a0d21e2cf953511fdf383b6225adb93f97",
+                "url": "https://api.github.com/repos/andrey-helldar/pretty-array/zipball/c0f087902d19a63f08fad0c420d3f4ad033eaecb",
+                "reference": "c0f087902d19a63f08fad0c420d3f4ad033eaecb",
                 "shasum": ""
             },
             "require": {
-                "andrey-helldar/support": "^1.15.2",
+                "andrey-helldar/support": "^1.16.0",
                 "ext-dom": "*",
                 "ext-mbstring": "*",
                 "php": "^7.1.3"
@@ -55,20 +55,20 @@
                 "pretty",
                 "pretty array"
             ],
-            "time": "2020-01-26T13:14:25+00:00"
+            "time": "2020-01-27T09:57:35+00:00"
         },
         {
             "name": "andrey-helldar/support",
-            "version": "v1.15.2",
+            "version": "v1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrey-helldar/support.git",
-                "reference": "c41223996015c4c39b4ce48c31e5c062ac4538ad"
+                "reference": "859dbda14c96880ccb6d5cec7bbe61a17a6089d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/c41223996015c4c39b4ce48c31e5c062ac4538ad",
-                "reference": "c41223996015c4c39b4ce48c31e5c062ac4538ad",
+                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/859dbda14c96880ccb6d5cec7bbe61a17a6089d1",
+                "reference": "859dbda14c96880ccb6d5cec7bbe61a17a6089d1",
                 "shasum": ""
             },
             "require": {
@@ -124,7 +124,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2020-01-25T18:03:39+00:00"
+            "time": "2020-01-27T08:08:38+00:00"
         },
         {
             "name": "caouecs/laravel-lang",

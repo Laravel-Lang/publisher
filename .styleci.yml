@@ -1,50 +1,53 @@
 preset: psr2
 
 enabled:
-- align_double_arrow
-- align_equals
-- align_phpdoc
-- blank_line_after_opening_tag
-- blank_line_before_continue
-- blank_line_before_declare
-- blank_line_before_throw
-- blank_line_before_try
-- concat_with_spaces
-- const_separation
-- ereg_to_preg
-- extra_empty_lines
-- lowercase_cast
-- method_separation
-- multiline_array_trailing_comma
-- no_empty_lines_after_phpdocs
-- no_empty_phpdoc
-- no_unused_imports
-- operators_spaces
-- ordered_use
-- phpdoc_indent
-- phpdoc_inline_tag
-- phpdoc_no_access
-- phpdoc_no_package
-- phpdoc_order
-- phpdoc_scalar
-- phpdoc_separation
-- phpdoc_to_comment
-- phpdoc_trim
-- phpdoc_type_to_var
-- phpdoc_types
-- phpdoc_var_without_name
-- property_separation
-- return
-- return_type_declaration
-- self_accessor
-- short_array_syntax
-- short_bool_cast
-- single_quote
-- spaces_after_semicolon
-- spaces_cast
-- standardize_not_equal
-- ternary_spaces
-- trim_array_spaces
-- unary_operators_spaces
-- unneeded_control_parentheses
-- whitespacy_lines
+    - align_double_arrow
+    - align_equals
+    - align_phpdoc
+    - alpha_ordered_imports
+    - binary_operator_spaces
+    - blank_line_after_opening_tag
+    - blank_line_before_continue
+    - blank_line_before_declare
+    - blank_line_before_return
+    - blank_line_before_throw
+    - blank_line_before_try
+    - cast_spaces
+    - concat_with_spaces
+    - const_separation
+    - lowercase_cast
+    - method_separation
+    - no_blank_lines_after_phpdoc
+    - no_empty_comment
+    - no_empty_phpdoc
+    - no_empty_statement
+    - no_extra_consecutive_blank_lines
+    - no_short_bool_cast
+    - no_unneeded_control_parentheses
+    - no_unused_imports
+    - no_whitespace_in_blank_line
+    - phpdoc_indent
+    - phpdoc_inline_tag
+    - phpdoc_link_to_see
+    - phpdoc_no_access
+    - phpdoc_no_package
+    - phpdoc_order
+    - phpdoc_return_self_reference
+    - phpdoc_scalar
+    - phpdoc_separation
+    - phpdoc_to_comment
+    - phpdoc_trim
+    - phpdoc_type_to_var
+    - phpdoc_types
+    - phpdoc_types_order
+    - phpdoc_var_without_name
+    - property_separation
+    - return_type_declaration
+    - self_accessor
+    - short_array_syntax
+    - single_quote
+    - space_after_semicolon
+    - standardize_not_equals
+    - ternary_operator_spaces
+    - trailing_comma_in_multiline_array
+    - trim_array_spaces

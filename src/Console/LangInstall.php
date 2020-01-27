@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use DirectoryIterator;
+use Helldar\PrettyArray\Contracts\Caseable;
 use Helldar\PrettyArray\Services\File;
 use Helldar\PrettyArray\Services\Formatter;
 use Helldar\Support\Facades\Str;
@@ -51,6 +52,9 @@ class LangInstall extends Command
      */
     protected $exclude = [];
 
+    /** @var int */
+    protected $case;
+
     /**
      * Create a new command instance.
      *
@@ -61,6 +65,9 @@ class LangInstall extends Command
         $this->path_src = $this->formatPath('vendor/caouecs/laravel-lang/src');
         $this->path_dst = $this->formatPath('resources/lang');
 
+        $this->exclude = config('lang-publisher.exclude', []);
+        $this->case    = config('lang-publisher.case', Caseable::NO_CASE);
+
         parent::__construct();
     }
 
@@ -68,11 +75,10 @@ class LangInstall extends Command
      * Execute the console command.
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     public function handle()
     {
-        $this->loadExcluded();
-
         $this->lang  = $this->argument('lang');
         $this->force = (bool) $this->option('force');
 
@@ -82,26 +88,18 @@ class LangInstall extends Command
     }
 
     /**
-     * Loading excluded key arrays.
-     */
-    protected function loadExcluded()
-    {
-        $this->exclude = config('lang-publisher.exclude', []);
-    }
-
-    /**
      * Loading existence check file.
      *
      * @param string $filename
      * @param bool $return_empty
      *
+     * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      *
-     * @return array
      */
     protected function loadFile(string $filename, bool $return_empty = false): array
     {
-        if ($return_empty && !file_exists($filename)) {
+        if ($return_empty && ! file_exists($filename)) {
             return [];
         }
 
@@ -125,6 +123,8 @@ class LangInstall extends Command
      *
      * @param string $path
      * @param array $array
+     *
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function store(string $path, array $array)
     {
@@ -132,6 +132,7 @@ class LangInstall extends Command
 
         $service = Formatter::make();
         $service->setKeyAsString();
+        $service->setCase($this->case);
 
         if (config('lang-publisher.alignment') === true) {
             $service->setEqualsAlign();
@@ -162,6 +163,7 @@ class LangInstall extends Command
      * @param string $filename
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function copy(string $src, string $dst, string $filename)
     {
@@ -184,6 +186,7 @@ class LangInstall extends Command
      * @param string $lang
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function processLang(string $lang)
     {
@@ -191,7 +194,7 @@ class LangInstall extends Command
         $src = Str::finish($this->path_src . $dir);
         $dst = Str::finish($this->path_dst . $lang);
 
-        if (!file_exists($src)) {
+        if (! file_exists($src)) {
             $this->error("The directory for the \"{$lang}\" language was not found");
 
             return;
@@ -208,6 +211,7 @@ class LangInstall extends Command
      * @param string $lang
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function processFile(string $src, string $dst, string $lang)
     {
@@ -222,7 +226,7 @@ class LangInstall extends Command
 
             if (
                 $this->force ||
-                !file_exists($dst_file) ||
+                ! file_exists($dst_file) ||
                 $this->confirm("Replace {$lang}/{$filename} file?")
             ) {
                 $this->copy($src_file, $dst_file, ($lang . '/' . $filename));
@@ -237,6 +241,7 @@ class LangInstall extends Command
      * @param string $dst
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function copyValidations(string $src, string $dst)
     {
@@ -268,6 +273,7 @@ class LangInstall extends Command
      * @param string $dst
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
     protected function copyOther(string $src, string $dst)
     {
