@@ -214,32 +214,32 @@ Updated:
 ```php
 <?php
 
-return array (
-    'accepted' => 'The :attribute must be accepted.',
+return [
+    'accepted'   => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     
     // many rules
     
-    'uuid' => 'The :attribute must be a valid UUID.',
-    'custom' => array (
-        'name' => array (
+    'uuid'       => 'The :attribute must be a valid UUID.',
+    'custom'     => [
+        'name' => [
             'required' => 'Custom message 1',
-            'string' => 'Custom message 2',
-        ),
-    ),
-    'attributes' => array (
-        'name' => 'Name',
-        'username' => 'Nickname',
-        'email' => 'E-Mail address',
+            'string'   => 'Custom message 2',
+        ],
+    ],
+    'attributes' => [
+        'name'       => 'Name',
+        'username'   => 'Nickname',
+        'email'      => 'E-Mail address',
         'first_name' => 'First Name',
-        'last_name' => 'Last Name',
-        'bar'  => 'Bar',
-        'baz'  => 'Baz',
-    ),
-);
+        'last_name'  => 'Last Name',
+        'bar'        => 'Bar',
+        'baz'        => 'Baz',
+    ],
+];
 ```
 
 
 ## Copyright and License
 
-Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+`Lang Publisher` for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
