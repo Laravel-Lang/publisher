@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: act
+    - uses: actions/checkout@v2
 
     - name: Composer self update
-      uses: composer self-update
+      run: composer self-update
 
     - name: Validate composer.json and composer.lock
       run: composer validate
