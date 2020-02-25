@@ -147,11 +147,11 @@ Updated file:
 // auth.php
 <?php
 
-return array (
-    'failed' => 'These credentials do not match our records.',
+return [
+    'failed'   => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'foo' => 'bar',
-);
+    'foo'      => 'bar',
+];
 ```
 
 And example of `validation.php` file:
