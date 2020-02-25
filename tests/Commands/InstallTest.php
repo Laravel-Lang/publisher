@@ -6,5 +6,4 @@ use Tests\TestCase;
 
 class InstallTest extends TestCase
 {
-
 }
