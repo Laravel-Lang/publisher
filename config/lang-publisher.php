@@ -26,11 +26,11 @@ return [
      *
      * Available values:
      *
-     *   Helldar\PrettyArray\Contracts\Caseable::NO_CASE
-     *   Helldar\PrettyArray\Contracts\Caseable::CAMEL_CASE
-     *   Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE
-     *   Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE
-     *   Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE
+     *   Helldar\PrettyArray\Contracts\Caseable::NO_CASE      - Case does not change
+     *   Helldar\PrettyArray\Contracts\Caseable::CAMEL_CASE   - camelCase
+     *   Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE   - kebab-case
+     *   Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE  - PascalCase
+     *   Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE   - snake_case
      */
     'case'    => Caseable::NO_CASE,
 ];
