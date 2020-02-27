@@ -34,13 +34,14 @@ class LangUpdate extends Command
      * Retrieving a Directory List.
      *
      * @return array
+     * @deprecated
      */
     private function getLangDirectories(): array
     {
         $dir = scandir(resource_path('lang'));
 
         return array_filter($dir, function ($item) {
-            return !in_array($item, ['.', '..', 'vendor']);
+            return ! in_array($item, ['.', '..', 'vendor']);
         });
     }
 
