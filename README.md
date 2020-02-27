@@ -27,9 +27,9 @@ Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
 
 ## Attention
 
-Version `3.0` is under development.
+Version `^3.0` is under development.
 
-Stable package version - `2.0`.
+Stable package version - `^2.0`.
 
 
 ## Installation
