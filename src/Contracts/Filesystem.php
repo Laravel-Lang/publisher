@@ -7,7 +7,9 @@ use DirectoryIterator;
 interface Filesystem
 {
     public const CAOUECS_DIRECTORY = 'caouecs/laravel-lang/src';
+
     public const DIVIDER = DIRECTORY_SEPARATOR;
+
     public const LANG_DIRECTORY = 'lang';
 
     public function vendorPath(string $path = ''): string;
