@@ -19,7 +19,7 @@
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2.5",
         "andrey-helldar/pretty-array": "^1.0",
         "andrey-helldar/support": "^1.4.1",
         "caouecs/laravel-lang": "^4.0|^5.0",
