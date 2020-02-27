@@ -50,24 +50,6 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 }
 ```
 
-For the 5.8-7.x version of Laravel Framework, use version `^2.0`:
-```json
-{
-    "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^2.0"
-    }
-}
-```
-
-For the 5.3-5.7 version of Laravel Framework, use version `^1.0`:
-```json
-{
-    "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^1.0"
-    }
-}
-```
-
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
