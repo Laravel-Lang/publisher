@@ -25,6 +25,13 @@ Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
 * [Copyright and License](#copyright-and-license)
 
 
+## Attention
+
+Version `3.0` is under development.
+
+Stable package version - `2.0`.
+
+
 ## Installation
 
 To get the latest version of Laravel Lang Publisher, simply require the project using [Composer](https://getcomposer.org):
@@ -35,6 +42,15 @@ $ composer require andrey-helldar/laravel-lang-publisher --dev
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
+```json
+{
+    "require-dev": {
+        "andrey-helldar/laravel-lang-publisher": "^3.0"
+    }
+}
+```
+
+For the 5.8-7.x version of Laravel Framework, use version `^2.0`:
 ```json
 {
     "require-dev": {
@@ -67,7 +83,8 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 |5.5|^7.0.0|7.1.28|^1.0|1.0.0|1.6.0|---|
 |5.6|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
 |5.7|^7.1.3|7.2.13|^1.0|1.0.0|1.6.0|---|
-|5.8, 6.x, 7.x|^7.1.3|7.1, 7.2, 7.3, 7.4|^2.0|2.0.0|^2.0.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
+|5.8, 6.x, 7.x|^7.1.3|7.1, 7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
+|6.x, 7.x|^7.2.5|7.2.5, 7.3, 7.4|^3.0|3.0.0|^3.0.0|---|
 
 
 ## How to use
