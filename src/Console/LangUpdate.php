@@ -34,6 +34,7 @@ class LangUpdate extends Command
      * Retrieving a Directory List.
      *
      * @return array
+     *
      * @deprecated
      */
     private function getLangDirectories(): array

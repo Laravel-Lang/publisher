@@ -26,6 +26,7 @@ class Filesystem implements FilesystemContract
     public function vendorPath(string $path = ''): string
     {
         dd($this->composer);
+
         return $this->composer->getConfig()->get('vendor-dir') . $this->cleanPath($path);
     }
 
@@ -52,6 +53,7 @@ class Filesystem implements FilesystemContract
      * @param bool $return_empty
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     *
      * @return array
      */
     public function load(string $path, bool $return_empty = false): array
