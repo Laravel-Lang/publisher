@@ -3,6 +3,7 @@
 namespace Tests\Commands;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
+use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
@@ -28,7 +29,7 @@ class InstallTest extends TestCase
         $this->artisan('lang:install', compact('lang'));
     }
 
-    public function testCanInstallWithNoForce()
+    public function testCanInstallWithoutForce()
     {
         $lang = ['de', 'ru', 'fr', 'zh-CN'];
 
@@ -38,13 +39,25 @@ class InstallTest extends TestCase
             );
         }
 
-        $this->artisan('lang:install', compact('lang'))
-            ->assertExitCode(0);
+        $this->artisan('lang:install', compact('lang'))->assertExitCode(0);
+        $this->assertSame('These credentials do not match our records.', Lang::get('auth.failed'));
 
         foreach ($lang as $value) {
             $this->assertDirectoryExists(
                 resource_path('lang' . DIRECTORY_SEPARATOR . $value)
             );
         }
+    }
+
+    public function testCanInstallWithForce()
+    {
+        $parameters = [
+            'lang'    => ['en'],
+            '--force' => true,
+        ];
+
+        $this->copyFixtures();
+        $this->artisan('lang:install', $parameters)->assertExitCode(0);
+        $this->assertSame('These credentials do not match our records.', Lang::get('auth.failed'));
     }
 }

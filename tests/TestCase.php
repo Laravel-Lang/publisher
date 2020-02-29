@@ -2,12 +2,15 @@
 
 namespace Tests;
 
+use DirectoryIterator;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
-use Helldar\LaravelLangPublisher\Facades\Filesystem;
 use Helldar\LaravelLangPublisher\ServiceProvider;
+use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
+use function config_path;
 use function realpath;
+use function resource_path;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,6 +19,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->deleteLangDirectories();
+        $this->resetDefaultLangDirectory();
     }
 
     /**
@@ -42,8 +46,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function deleteLangDirectories(): void
     {
-        $dirs = new \DirectoryIterator(
-            \resource_path('lang')
+        $dirs = new DirectoryIterator(
+            resource_path('lang')
         );
 
         foreach ($dirs as $dir) {
@@ -51,15 +55,31 @@ abstract class TestCase extends BaseTestCase
                 continue;
             }
 
-            Filesystem::deleteDirectory($dir->getRealPath());
+            File::deleteDirectory($dir->getRealPath());
         }
+    }
+
+    protected function resetDefaultLangDirectory()
+    {
+        $this->artisan('lang:install', [
+            'lang'    => ['en'],
+            '--force' => true,
+        ]);
     }
 
     protected function copyFixtures()
     {
-        Filesystem::copy(
-            \realpath(__DIR__ . '/fixtures/auth.php'),
-            \resource_path('lang/en/auth.php')
+        File::copy(
+            realpath(__DIR__ . '/fixtures/auth.php'),
+            resource_path('lang/en/auth.php')
+        );
+    }
+
+    protected function copyConfig()
+    {
+        File::copy(
+            realpath(__DIR__ . '/fixtures/config.php'),
+            config_path('lang-publisher.php')
         );
     }
 }

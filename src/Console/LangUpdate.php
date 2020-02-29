@@ -3,6 +3,10 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+
+use function array_map;
+use function pathinfo;
 
 class LangUpdate extends Command
 {
@@ -25,37 +29,23 @@ class LangUpdate extends Command
      */
     public function handle()
     {
-        $this->install(
-            $this->getLangDirectories()
+        $this->call('lang:install', [
+            'lang'    => $this->languages(),
+            '--force' => true,
+        ]);
+    }
+
+    protected function directories(): array
+    {
+        return File::directories(
+            resource_path('lang')
         );
     }
 
-    /**
-     * Retrieving a Directory List.
-     *
-     * @return array
-     *
-     * @deprecated
-     */
-    private function getLangDirectories(): array
+    protected function languages(): array
     {
-        $dir = scandir(resource_path('lang'));
-
-        return array_filter($dir, function ($item) {
-            return ! in_array($item, ['.', '..', 'vendor']);
-        });
-    }
-
-    /**
-     * Force language installation.
-     *
-     * @param array $lang
-     */
-    private function install(array $lang = ['en'])
-    {
-        $this->call('lang:install', [
-            'lang'    => $lang,
-            '--force' => true,
-        ]);
+        return array_map(function ($value) {
+            return pathinfo($value, PATHINFO_BASENAME);
+        }, $this->directories());
     }
 }

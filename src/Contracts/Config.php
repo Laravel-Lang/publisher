@@ -4,7 +4,7 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Config
 {
-    public function getVendor(): string;
+    public function getVendorPath(): string;
 
     public function isAlignment(): bool;
 

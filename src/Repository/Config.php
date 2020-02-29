@@ -21,13 +21,13 @@ class Config implements ConfigContract
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $this->vendor    = $config->get('lang-publisher.vendor');
+        $this->vendor    = $config->get('lang-publisher.vendor', \base_path('vendor/caouecs/laravel-lang/src'));
         $this->alignment = $config->get('lang-publisher.alignment', true);
         $this->exclude   = $config->get('lang-publisher.exclude', []);
         $this->case      = $config->get('lang-publisher.case', Caseable::NO_CASE);
     }
 
-    public function getVendor(): string
+    public function getVendorPath(): string
     {
         return $this->vendor;
     }

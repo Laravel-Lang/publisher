@@ -28,7 +28,7 @@ class Filesystem implements FilesystemContract
     public function caouecsPath(string $path): string
     {
         return $this->realpath(
-            Config::getVendor() . $this->cleanPath($path)
+            Config::getVendorPath() . $this->cleanPath($path)
         );
     }
 
