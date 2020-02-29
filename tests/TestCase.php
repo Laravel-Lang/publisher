@@ -2,13 +2,13 @@
 
 namespace Tests;
 
+use function config_path;
 use DirectoryIterator;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 
-use function config_path;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 use function realpath;
 use function resource_path;
 

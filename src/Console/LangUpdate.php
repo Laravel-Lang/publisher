@@ -2,10 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-
 use function array_map;
+use Illuminate\Console\Command;
+
+use Illuminate\Support\Facades\File;
 use function pathinfo;
 
 class LangUpdate extends Command
