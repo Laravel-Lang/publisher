@@ -3,6 +3,8 @@
 use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
+    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
+
     /*
      * Do arrays need to be aligned by keys before processing arrays?
      *

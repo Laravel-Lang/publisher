@@ -31,15 +31,9 @@ class LangInstall extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
-     * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
-     */
     public function handle()
     {
-        $languages = $this->argument('lang');
+        $languages = (array) $this->argument('lang');
         $force     = (bool) $this->option('force');
 
         foreach ($languages as $lang) {

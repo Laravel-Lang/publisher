@@ -2,13 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use function array_merge;
-use function compact;
-use function config;
-
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
+use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Arr;
+
+use function array_merge;
+use function compact;
 
 class Localization implements LocalizationContract
 {
@@ -21,14 +21,9 @@ class Localization implements LocalizationContract
     /** @var array */
     protected $copied = [];
 
-    /** @var array */
-    protected $exclude = [];
-
     public function __construct(FilesystemContract $filesystem)
     {
         $this->filesystem = $filesystem;
-
-        $this->exclude = config('lang-publisher.exclude', []);
     }
 
     public function publish(string $locale, bool $force = false): void
@@ -118,7 +113,7 @@ class Localization implements LocalizationContract
 
     protected function excluded(array $array, string $key): array
     {
-        $keys = $this->exclude[$key] ?? [];
+        $keys = Config::getExclude($key, []);
 
         return Arr::only($array, $keys);
     }

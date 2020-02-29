@@ -4,28 +4,30 @@ namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\LangInstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
+use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
+use Helldar\LaravelLangPublisher\Repository\Config;
 use Helldar\LaravelLangPublisher\Services\Filesystem;
 use Helldar\LaravelLangPublisher\Services\Localization;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->bootPublishes();
         $this->bootCommands();
     }
 
-    public function register()
+    public function register(): void
     {
         $this->binds();
-
-        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', 'lang-publisher');
+        $this->config();
     }
 
-    protected function bootCommands()
+    protected function bootCommands(): void
     {
         $this->commands([
             LangInstall::class,
@@ -33,16 +35,25 @@ class ServiceProvider extends BaseServiceProvider
         ]);
     }
 
-    protected function bootPublishes()
+    protected function bootPublishes(): void
     {
         $this->publishes([
             __DIR__ . '/../config/lang-publisher.php' => $this->app->configPath('lang-publisher.php'),
         ], 'config');
     }
 
-    protected function binds()
+    protected function binds(): void
     {
         $this->app->bind(FilesystemContract::class, Filesystem::class);
         $this->app->bind(PublisherContract::class, Localization::class);
+    }
+
+    protected function config(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', 'lang-publisher');
+
+        $this->app->singleton(ConfigContract::class, function (Application $app) {
+            return new Config($app);
+        });
     }
 }

@@ -2,34 +2,21 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use Composer\Composer;
 use DirectoryIterator;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
-use Helldar\PrettyArray\Contracts\Caseable;
+use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File;
 use Helldar\PrettyArray\Services\Formatter;
 
+use function file_exists;
+use function ksort;
 use function ltrim;
+use function realpath;
 use function resource_path;
 
 class Filesystem implements FilesystemContract
 {
-    /** @var \Composer\Composer */
-    protected $composer;
-
-    public function __construct(Composer $composer)
-    {
-        $this->composer = $composer;
-    }
-
-    public function vendorPath(string $path = ''): string
-    {
-        dd($this->composer);
-
-        return $this->composer->getConfig()->get('vendor-dir') . $this->cleanPath($path);
-    }
-
     public function translationsPath(string $path = '', string $filename = ''): string
     {
         $path     = $this->cleanPath($path);
@@ -40,7 +27,9 @@ class Filesystem implements FilesystemContract
 
     public function caouecsPath(string $path): string
     {
-        return $this->vendorPath(static::CAOUECS_DIRECTORY . $this->cleanPath($path));
+        return $this->realpath(
+            Config::getVendor() . $this->cleanPath($path)
+        );
     }
 
     public function files(string $path): DirectoryIterator
@@ -53,7 +42,6 @@ class Filesystem implements FilesystemContract
      * @param bool $return_empty
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
-     *
      * @return array
      */
     public function load(string $path, bool $return_empty = false): array
@@ -73,13 +61,13 @@ class Filesystem implements FilesystemContract
      */
     public function save(string $path, array $data): void
     {
-        \ksort($data);
+        ksort($data);
 
         $service = Formatter::make();
         $service->setKeyAsString();
-        $service->setCase($this->getCase());
+        $service->setCase(Config::getCase());
 
-        if ($this->isAlignment()) {
+        if (Config::isAlignment()) {
             $service->setEqualsAlign();
         }
 
@@ -96,14 +84,14 @@ class Filesystem implements FilesystemContract
      */
     public function directoryExists(string $path, string $locale)
     {
-        if (! \file_exists($path)) {
+        if (! file_exists($path)) {
             throw new SourceLanguageNotExists($locale);
         }
     }
 
     public function fileExists(string $path): bool
     {
-        return \file_exists($path);
+        return file_exists($path);
     }
 
     protected function cleanPath(string $path = ''): string
@@ -113,13 +101,8 @@ class Filesystem implements FilesystemContract
             : $path;
     }
 
-    protected function getCase(): int
+    protected function realpath(string $path): string
     {
-        return config('lang-publisher.case', Caseable::NO_CASE);
-    }
-
-    protected function isAlignment(): bool
-    {
-        return (bool) config('lang-publisher.alignment', true);
+        return realpath($path);
     }
 }
