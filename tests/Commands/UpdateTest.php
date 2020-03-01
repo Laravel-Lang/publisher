@@ -18,12 +18,11 @@ class UpdateTest extends TestCase
 
     public function testExcludeKeys()
     {
-        $this->copyConfig();
+        $this->setFixtureConfig();
         $this->copyFixtures();
 
         $this->artisan('lang:update')->assertExitCode(0);
 
-        $this->assertSame('These credentials do not match our records.', Lang::get('auth.failed'));
-        $this->assertSame('Foo', Lang::get('auth.throttle'));
+        $this->assertSame('Foo', Lang::get('auth.failed'));
     }
 }

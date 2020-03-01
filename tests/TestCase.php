@@ -8,7 +8,8 @@ use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
-use function config_path;
+use function array_merge;
+use function config;
 use function realpath;
 use function resource_path;
 
@@ -39,9 +40,7 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('lang-publisher', [
-            'vendor' => realpath('../../vendor/caouecs/laravel-lang/src'),
-        ]);
+        $config->set(['lang-publisher.vendor' => realpath('../../vendor/caouecs/laravel-lang/src')]);
     }
 
     protected function deleteLangDirectories(): void
@@ -75,11 +74,11 @@ abstract class TestCase extends BaseTestCase
         );
     }
 
-    protected function copyConfig()
+    protected function setFixtureConfig()
     {
-        File::copy(
-            realpath(__DIR__ . '/fixtures/config.php'),
-            config_path('lang-publisher.php')
-        );
+        $config  = config('lang-publisher', []);
+        $content = require realpath(__DIR__ . '/fixtures/config.php');
+
+        config(['lang-publisher' => array_merge($config, $content)]);
     }
 }

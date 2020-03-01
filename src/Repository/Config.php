@@ -4,46 +4,42 @@ namespace Helldar\LaravelLangPublisher\Repository;
 
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\PrettyArray\Contracts\Caseable;
-use Illuminate\Foundation\Application;
 
 class Config implements ConfigContract
 {
-    protected $vendor;
-
-    protected $alignment;
-
-    protected $exclude;
-
-    protected $case;
-
-    public function __construct(Application $app)
-    {
-        /** @var \Illuminate\Config\Repository $config */
-        $config = $app['config'];
-
-        $this->vendor    = $config->get('lang-publisher.vendor', \base_path('vendor/caouecs/laravel-lang/src'));
-        $this->alignment = $config->get('lang-publisher.alignment', true);
-        $this->exclude   = $config->get('lang-publisher.exclude', []);
-        $this->case      = $config->get('lang-publisher.case', Caseable::NO_CASE);
-    }
+    protected $key = 'lang-publisher';
 
     public function getVendorPath(): string
     {
-        return $this->vendor;
+        return $this->config('vendor');
     }
 
     public function isAlignment(): bool
     {
-        return $this->alignment;
+        return (bool) $this->config('alignment', true);
     }
 
     public function getExclude(string $key, array $default = []): array
     {
-        return $this->exclude[$key] ?? $default;
+        $exclude = $this->config('exclude', []);
+
+        return $exclude[$key] ?? $default;
     }
 
     public function getCase(): int
     {
-        return $this->case;
+        return $this->config('case', Caseable::NO_CASE);
+    }
+
+    protected function config(string $key, $default = null)
+    {
+        $key = $this->key($key);
+
+        return \config($key, $default);
+    }
+
+    protected function key(string $key): string
+    {
+        return $this->key . '.' . $key;
     }
 }

@@ -10,7 +10,6 @@ use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
 use Helldar\LaravelLangPublisher\Repository\Config;
 use Helldar\LaravelLangPublisher\Services\Filesystem;
 use Helldar\LaravelLangPublisher\Services\Localization;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -52,8 +51,8 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', 'lang-publisher');
 
-        $this->app->singleton(ConfigContract::class, function (Application $app) {
-            return new Config($app);
+        $this->app->singleton(ConfigContract::class, function () {
+            return new Config();
         });
     }
 }
