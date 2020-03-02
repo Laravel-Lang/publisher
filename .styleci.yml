@@ -1,4 +1,4 @@
-preset: psr2
+preset: psr12
 
 enabled:
     - align_double_arrow
@@ -6,35 +6,49 @@ enabled:
     - align_phpdoc
     - alpha_ordered_imports
     - binary_operator_spaces
-    - blank_line_after_opening_tag
     - blank_line_before_continue
     - blank_line_before_declare
     - blank_line_before_return
     - blank_line_before_throw
     - blank_line_before_try
     - cast_spaces
+    - combine_consecutive_issets
     - concat_with_spaces
     - const_separation
+    - const_visibility_required
+    - dir_constant
+    - fully_qualified_strict_types
+    - logical_operators
     - lowercase_cast
+    - lowercase_static_reference
     - method_separation
+    - no_alias_functions
     - no_blank_lines_after_phpdoc
+    - no_blank_lines_between_traits
     - no_empty_comment
     - no_empty_phpdoc
-    - no_empty_statement
+    - no_extra_block_blank_lines
     - no_extra_consecutive_blank_lines
     - no_short_bool_cast
+    - no_trailing_comma_in_singleline_array
     - no_unneeded_control_parentheses
     - no_unused_imports
-    - no_whitespace_in_blank_line
+    - ordered_class_elements
+    - php_unit_construct
+    - php_unit_fqcn_annotation
     - phpdoc_indent
     - phpdoc_inline_tag
     - phpdoc_link_to_see
     - phpdoc_no_access
+    - phpdoc_no_empty_return
     - phpdoc_no_package
+    - phpdoc_no_useless_inheritdoc
     - phpdoc_order
+    - phpdoc_property
     - phpdoc_return_self_reference
     - phpdoc_scalar
     - phpdoc_separation
+    - phpdoc_summary
     - phpdoc_to_comment
     - phpdoc_trim
     - phpdoc_type_to_var
@@ -42,12 +56,18 @@ enabled:
     - phpdoc_types_order
     - phpdoc_var_without_name
     - property_separation
-    - return_type_declaration
     - self_accessor
+    - self_static_accessor
     - short_array_syntax
+    - short_list_syntax
+    - short_scalar_cast
+    - single_blank_line_before_namespace
+    - single_line_class_definition
+    - single_line_throw
     - single_quote
     - space_after_semicolon
     - standardize_not_equals
     - ternary_operator_spaces
+    - ternary_to_null_coalescing
     - trailing_comma_in_multiline_array
     - trim_array_spaces
