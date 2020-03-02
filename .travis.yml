@@ -1,0 +1,42 @@
+dist: bionic
+language: php
+
+env:
+    global:
+        - SETUP=stable
+
+matrix:
+    fast_finish: true
+    include:
+        - php: 7.2
+        - php: 7.2
+          env: SETUP=lowest
+        - php: 7.3
+        - php: 7.3
+          env: SETUP=lowest
+        - php: 7.4
+        - php: 7.4
+          env: SETUP=lowest
+        - php: 7.4
+          env: SETUP=lint
+          name: "Lint code"
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+before_install:
+    - travis_retry composer self-update
+
+install:
+    - if [[ $SETUP = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
+    - if [[ $SETUP = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --no-suggest; fi
+    - if [[ $SETUP = 'lint' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; travis_retry vendor/bin/phpstan; fi
+
+script:
+    - mkdir -p build/logs
+    - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script:
+    - wget https://scrutinizer-ci.com/ocular.phar; fi
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
