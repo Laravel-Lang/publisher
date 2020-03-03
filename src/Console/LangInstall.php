@@ -28,11 +28,15 @@ class LangInstall extends Command
         $languages = (array) $this->argument('lang');
         $force     = (bool) $this->option('force');
 
+        $this->install($languages, $force);
+        $this->showResult();
+    }
+
+    protected function install(array $languages, bool $force = false): void
+    {
         foreach ($languages as $lang) {
             $this->localization->publish($lang, $force);
         }
-
-        $this->showResult();
     }
 
     protected function showResult(): void
