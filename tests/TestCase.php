@@ -2,13 +2,12 @@
 
 namespace Tests;
 
+use function array_merge;
+use function config_path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-
-use function array_merge;
-use function config_path;
 use function realpath;
 use function resource_path;
 use function sleep;
