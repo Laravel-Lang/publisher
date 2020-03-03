@@ -129,7 +129,7 @@ class Localization implements LocalizationContract
 
     protected function push(string $locale, string $filename, string $status): void
     {
-        $this->result[] = \compact('locale', 'filename', 'status');
+        $this->result[] = compact('locale', 'filename', 'status');
     }
 
     protected function getDirectory(string $locale): string
