@@ -2,10 +2,9 @@
 
 namespace Tests\Commands;
 
+use function compact;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
-
-use function compact;
 
 class UninstallTest extends TestCase
 {
