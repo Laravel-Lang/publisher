@@ -9,7 +9,7 @@ class LangInstall extends Command
 {
     protected $signature = 'lang:install {lang* : Lang files to copy} {--f|force : Force replace lang files}';
 
-    protected $description = 'Install lang files.';
+    protected $description = 'Install new localizations.';
 
     /** @var \Helldar\LaravelLangPublisher\Contracts\Localization */
     protected $localization;

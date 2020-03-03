@@ -12,7 +12,7 @@ class LangUpdate extends Command
 {
     protected $signature = 'lang:update';
 
-    protected $description = 'Update lang files.';
+    protected $description = 'Updating installed localizations.';
 
     /**
      * Execute the console command.
