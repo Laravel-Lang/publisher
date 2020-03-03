@@ -16,13 +16,13 @@ abstract class TestCase extends BaseTestCase
 {
     protected $default_locale = 'en';
 
-    protected function setUp(): void
+    protected function tearDown(): void
     {
-        parent::setUp();
-
         $this->resetConfig();
         $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
+
+        parent::tearDown();
     }
 
     /**
