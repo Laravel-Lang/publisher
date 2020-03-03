@@ -119,12 +119,12 @@ class Localization implements LocalizationContract
 
     protected function skipped(string $locale, string $filename): void
     {
-        $this->push($locale, $filename, 'skipped');
+        $this->push($locale, $filename, __FUNCTION__);
     }
 
     protected function copied(string $locale, string $filename): void
     {
-        $this->push($locale, $filename, 'copied');
+        $this->push($locale, $filename, __FUNCTION__);
     }
 
     protected function push(string $locale, string $filename, string $status): void
