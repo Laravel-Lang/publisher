@@ -24,6 +24,7 @@ enabled:
     - method_separation
     - no_alias_functions
     - no_blank_lines_after_phpdoc
+    - no_blank_lines_between_imports
     - no_blank_lines_between_traits
     - no_empty_comment
     - no_empty_phpdoc
