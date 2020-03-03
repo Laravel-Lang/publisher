@@ -2,15 +2,16 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Contracts\Filesystem;
+use Helldar\LaravelLangPublisher\Facades\Config;
+use Helldar\LaravelLangPublisher\ServiceProvider;
+use Illuminate\Support\Facades\Config as IlluminateConfig;
+use Illuminate\Support\Facades\File;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+
 use function app;
 use function array_merge;
 use function config_path;
-use Helldar\LaravelLangPublisher\Contracts\Filesystem;
-use Helldar\LaravelLangPublisher\Contracts\Localization;
-use Helldar\LaravelLangPublisher\ServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use function realpath;
 use function resource_path;
 
@@ -59,7 +60,7 @@ abstract class TestCase extends BaseTestCase
 
         File::copyDirectory(
             $fs->caouecsPath('../script/en'),
-            $fs->translationsPath(Localization::DEFAULT_LOCALE)
+            $fs->translationsPath(Config::getDefaultLanguage())
         );
     }
 
@@ -80,9 +81,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function setFixtureConfig()
     {
-        $config  = Config::get('lang-publisher', []);
+        $config  = IlluminateConfig::get('lang-publisher', []);
         $content = require realpath(__DIR__ . '/fixtures/config.php');
 
-        Config::set('lang-publisher', array_merge($config, $content));
+        IlluminateConfig::set('lang-publisher', array_merge($config, $content));
     }
 }

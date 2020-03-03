@@ -13,6 +13,11 @@ class Config implements ConfigContract
         return $this->config('vendor');
     }
 
+    public function getDefaultLanguage(): string
+    {
+        return $this->config('default_language', 'en');
+    }
+
     public function isAlignment(): bool
     {
         return (bool) $this->config('alignment', true);

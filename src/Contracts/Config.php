@@ -8,6 +8,8 @@ interface Config
 
     public function getVendorPath(): string;
 
+    public function getDefaultLanguage(): string;
+
     public function isAlignment(): bool;
 
     public function getExclude(string $key, array $default = []): array;
