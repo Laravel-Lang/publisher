@@ -2,10 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use function array_map;
 use Illuminate\Console\Command;
-
 use Illuminate\Support\Facades\File;
+
+use function array_map;
 use function pathinfo;
 
 class LangUpdate extends Command
@@ -22,17 +22,17 @@ class LangUpdate extends Command
         ]);
     }
 
-    protected function directories(): array
-    {
-        return File::directories(
-            resource_path('lang')
-        );
-    }
-
     protected function languages(): array
     {
         return array_map(function ($value) {
             return pathinfo($value, PATHINFO_FILENAME);
         }, $this->directories());
+    }
+
+    protected function directories(): array
+    {
+        return File::directories(
+            resource_path('lang')
+        );
     }
 }
