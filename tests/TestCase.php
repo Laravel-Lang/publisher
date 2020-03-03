@@ -2,13 +2,12 @@
 
 namespace Tests;
 
+use function array_merge;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
-use Orchestra\Testbench\TestCase as BaseTestCase;
-
-use function array_merge;
 use function ltrim;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 use function realpath;
 
 abstract class TestCase extends BaseTestCase
