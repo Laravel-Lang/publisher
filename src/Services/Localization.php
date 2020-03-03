@@ -55,7 +55,7 @@ class Localization implements LocalizationContract
                 continue;
             }
 
-            $this->skip($locale, $filename);
+            $this->skipped($locale, $filename);
         }
     }
 
@@ -117,7 +117,7 @@ class Localization implements LocalizationContract
         return $locale === static::DEFAULT_LOCALE;
     }
 
-    protected function skip(string $locale, string $filename): void
+    protected function skipped(string $locale, string $filename): void
     {
         $this->push($locale, $filename, 'skipped');
     }
