@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\LangInstall;
+use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
@@ -31,6 +32,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->commands([
             LangInstall::class,
             LangUpdate::class,
+            LangUninstall::class,
         ]);
     }
 
