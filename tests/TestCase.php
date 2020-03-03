@@ -5,6 +5,7 @@ namespace Tests;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
 use function realpath;
 use function resource_path;
 
@@ -43,15 +44,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLangDirectory(): void
     {
-        $path = __DIR__ . '/../vendor/caouecs/laravel-lang/';
+        $lang = $this->default_locale;
 
-        $src = $this->default_locale === 'en'
-            ? $path . 'script/en'
-            : $path . 'src/' . $this->default_locale;
-
-        $dst = resource_path('lang/' . $this->default_locale);
-
-        File::copyDirectory($src, $dst);
+        $this->artisan('lang:install', \compact('lang'));
     }
 
     protected function copyFixtures(): void
