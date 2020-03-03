@@ -12,6 +12,7 @@ use Helldar\PrettyArray\Services\Formatter;
 use function file_exists;
 use function ksort;
 use function ltrim;
+use function pathinfo;
 use function realpath;
 use function resource_path;
 
@@ -92,6 +93,11 @@ class Filesystem implements FilesystemContract
     public function fileExists(string $path): bool
     {
         return file_exists($path);
+    }
+
+    public function filename(string $path): string
+    {
+        return pathinfo($path, PATHINFO_FILENAME);
     }
 
     protected function cleanPath(string $path = ''): string

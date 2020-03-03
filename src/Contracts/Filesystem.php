@@ -23,4 +23,6 @@ interface Filesystem
     public function directoryExists(string $path, string $locale);
 
     public function fileExists(string $path): bool;
+
+    public function filename(string $path): string;
 }
