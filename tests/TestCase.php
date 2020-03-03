@@ -15,7 +15,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function tearDown(): void
     {
-        $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
 
         parent::tearDown();
@@ -43,14 +42,6 @@ abstract class TestCase extends BaseTestCase
         $config->set('app.locale', $this->default_locale);
     }
 
-    protected function deleteLangDirectories(): void
-    {
-        $dir = resource_path('lang');
-
-        File::deleteDirectory($dir);
-        File::makeDirectory($dir);
-    }
-
     protected function resetDefaultLangDirectory(): void
     {
         $path = __DIR__ . '/../vendor/caouecs/laravel-lang/';
@@ -59,10 +50,9 @@ abstract class TestCase extends BaseTestCase
             ? $path . 'script/en'
             : $path . 'src/' . $this->default_locale;
 
-        File::copyDirectory(
-            $src,
-            resource_path('lang/' . $this->default_locale)
-        );
+        $dst = resource_path('lang/' . $this->default_locale);
+
+        File::copyDirectory($src, $dst);
     }
 
     protected function copyFixtures(): void
@@ -71,5 +61,14 @@ abstract class TestCase extends BaseTestCase
             realpath(__DIR__ . '/fixtures/auth.php'),
             resource_path("lang/{$this->default_locale}/auth.php")
         );
+    }
+
+    protected function deleteLocales(array $locales): void
+    {
+        foreach ($locales as $locale) {
+            File::deleteDirectory(
+                resource_path('lang/' . $locale)
+            );
+        }
     }
 }

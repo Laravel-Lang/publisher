@@ -2,9 +2,10 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
+
+use function compact;
 
 class UninstallTest extends TestCase
 {
@@ -18,7 +19,7 @@ class UninstallTest extends TestCase
 
     public function testUninstall()
     {
-        $lang = ['de', 'ru', 'fr', 'zh-CN'];
+        $lang = ['be', 'da', 'gl', 'is'];
 
         $this->artisan('lang:install', compact('lang'))->assertExitCode(0);
 
