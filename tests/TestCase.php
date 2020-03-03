@@ -3,29 +3,26 @@
 namespace Tests;
 
 use Helldar\LaravelLangPublisher\ServiceProvider;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
+use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 use function array_merge;
-use function ltrim;
+use function config_path;
 use function realpath;
+use function resource_path;
 
 abstract class TestCase extends BaseTestCase
 {
-    /** @var \Illuminate\Filesystem\Filesystem */
-    protected $fs;
-
     protected $default_locale = 'en';
 
     protected function setUp(): void
     {
-        $this->setFilesystem();
+        parent::setUp();
+
         $this->resetConfig();
         $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
-
-        parent::setUp();
     }
 
     /**
@@ -49,11 +46,19 @@ abstract class TestCase extends BaseTestCase
         $config->set('app.locale', $this->default_locale);
     }
 
+    protected function resetConfig(): void
+    {
+        File::delete(
+            config_path('lang-publisher.php')
+        );
+    }
+
     protected function deleteLangDirectories(): void
     {
-        if ($path = $this->getLaravelPath('resources/lang')) {
-            $this->fs->deleteDirectory($path);
-        }
+        $dir = resource_path('lang');
+
+        File::deleteDirectory($dir);
+        File::makeDirectory($dir);
     }
 
     protected function resetDefaultLangDirectory(): void
@@ -64,28 +69,17 @@ abstract class TestCase extends BaseTestCase
             ? $path . 'script/en'
             : $path . 'src/' . $this->default_locale;
 
-        $dst = $this->getLaravelPath('resources/lang/' . $this->default_locale, false);
-
-        $this->fs->copyDirectory($src, $dst);
-    }
-
-    protected function setFilesystem(): void
-    {
-        $this->fs = new Filesystem();
-    }
-
-    protected function resetConfig(): void
-    {
-        if ($path = $this->getLaravelPath('config/lang-publisher.php')) {
-            $this->fs->delete($path);
-        }
+        File::copyDirectory(
+            $src,
+            resource_path('lang/' . $this->default_locale)
+        );
     }
 
     protected function copyFixtures(): void
     {
-        $this->fs->copy(
+        File::copy(
             realpath(__DIR__ . '/fixtures/auth.php'),
-            $this->getLaravelPath("resources/lang/{$this->default_locale}/auth.php")
+            resource_path("lang/{$this->default_locale}/auth.php")
         );
     }
 
@@ -95,19 +89,5 @@ abstract class TestCase extends BaseTestCase
         $content = require realpath(__DIR__ . '/fixtures/config.php');
 
         IlluminateConfig::set('lang-publisher', array_merge($config, $content));
-    }
-
-    protected function getLaravelPath(string $path, bool $use_real = true): ?string
-    {
-        $path = __DIR__ . '/../vendor/orchestra/testbench-core/laravel' . $this->cleanPath($path);
-
-        return $use_real ? realpath($path) : $path;
-    }
-
-    protected function cleanPath(string $path): string
-    {
-        return $path
-            ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR)
-            : $path;
     }
 }
