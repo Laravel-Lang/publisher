@@ -2,12 +2,10 @@
 
 namespace Tests;
 
-use function array_merge;
-use function config_path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
-use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
 use function realpath;
 use function resource_path;
 
@@ -17,7 +15,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function tearDown(): void
     {
-        $this->resetConfig();
         $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
 
@@ -42,14 +39,8 @@ abstract class TestCase extends BaseTestCase
         $config = $app['config'];
 
         $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang/src'));
+        $config->set('lang-publisher.exclude.auth', ['failed']);
         $config->set('app.locale', $this->default_locale);
-    }
-
-    protected function resetConfig(): void
-    {
-        File::delete(
-            config_path('lang-publisher.php')
-        );
     }
 
     protected function deleteLangDirectories(): void
@@ -80,13 +71,5 @@ abstract class TestCase extends BaseTestCase
             realpath(__DIR__ . '/fixtures/auth.php'),
             resource_path("lang/{$this->default_locale}/auth.php")
         );
-    }
-
-    protected function setFixtureConfig(): void
-    {
-        $config  = IlluminateConfig::get('lang-publisher', []);
-        $content = require realpath(__DIR__ . '/fixtures/config.php');
-
-        IlluminateConfig::set('lang-publisher', array_merge($config, $content));
     }
 }

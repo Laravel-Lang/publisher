@@ -57,6 +57,6 @@ class InstallTest extends TestCase
 
         $this->copyFixtures();
         $this->artisan('lang:install', $parameters)->assertExitCode(0);
-        $this->assertSame('These credentials do not match our records.', Lang::get('auth.failed'));
+        $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
     }
 }
