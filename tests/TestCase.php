@@ -2,15 +2,16 @@
 
 namespace Tests;
 
-use function app;
-use function array_merge;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\Config;
-
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
+use function app;
+use function array_merge;
+use function config_path;
 use function realpath;
 use function resource_path;
 
@@ -20,6 +21,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->resetConfig();
         $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
     }
@@ -59,6 +61,13 @@ abstract class TestCase extends BaseTestCase
         File::copyDirectory(
             $fs->caouecsPath('../script/en'),
             $fs->translationsPath(Localization::DEFAULT_LOCALE)
+        );
+    }
+
+    protected function resetConfig()
+    {
+        File::delete(
+            config_path('lang-publisher.php')
         );
     }
 
