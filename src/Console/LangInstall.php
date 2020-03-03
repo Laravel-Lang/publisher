@@ -32,27 +32,17 @@ class LangInstall extends Command
             $this->localization->publish($lang, $force);
         }
 
-        $this->showCopied();
-        $this->showSkipped();
+        $this->showResult();
     }
 
-    protected function showCopied(): void
+    protected function showResult(): void
     {
-        if (empty($this->localization->getCopied())) {
+        if (empty($this->localization->getResult())) {
             $this->warn('Files were not copied.');
 
             return;
         }
 
-        $this->info('TODO: show copied files.');
-    }
-
-    protected function showSkipped(): void
-    {
-        if (empty($this->localization->getSkipped())) {
-            return;
-        }
-
-        $this->info('TODO: show skipped files.');
+        $this->table(['Locale', 'Filename', 'Status'], $this->localization->getResult());
     }
 }

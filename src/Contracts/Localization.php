@@ -14,7 +14,5 @@ interface Localization
      */
     public function publish(string $locale, bool $force = false): void;
 
-    public function getSkipped(): array;
-
-    public function getCopied(): array;
+    public function getResult(): array;
 }

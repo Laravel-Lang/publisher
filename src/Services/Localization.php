@@ -2,13 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use function array_merge;
-use function compact;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
-
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Arr;
+
+use function array_merge;
+use function compact;
 
 class Localization implements LocalizationContract
 {
@@ -16,10 +16,7 @@ class Localization implements LocalizationContract
     protected $filesystem;
 
     /** @var array */
-    protected $skipped = [];
-
-    /** @var array */
-    protected $copied = [];
+    protected $result = [];
 
     public function __construct(FilesystemContract $filesystem)
     {
@@ -35,14 +32,9 @@ class Localization implements LocalizationContract
         $this->find($src, $locale, $force);
     }
 
-    public function getSkipped(): array
+    public function getResult(): array
     {
-        return $this->skipped;
-    }
-
-    public function getCopied(): array
-    {
-        return $this->copied;
+        return $this->result;
     }
 
     protected function find(string $source, string $locale, bool $force = false): void
@@ -127,12 +119,17 @@ class Localization implements LocalizationContract
 
     protected function skip(string $locale, string $filename): void
     {
-        $this->skipped[] = $locale . FilesystemContract::DIVIDER . $filename;
+        $this->push($locale, $filename, 'skipped');
     }
 
     protected function copied(string $locale, string $filename): void
     {
-        $this->copied[] = $locale . FilesystemContract::DIVIDER . $filename;
+        $this->push($locale, $filename, 'copied');
+    }
+
+    protected function push(string $locale, string $filename, string $status): void
+    {
+        $this->result[] = \compact('locale', 'filename', 'status');
     }
 
     protected function getDirectory(string $locale): string
