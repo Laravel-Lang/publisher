@@ -2,10 +2,9 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use function compact;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-
-use function compact;
 use function resource_path;
 
 class LangUninstall extends Command
