@@ -14,9 +14,6 @@ class LangUpdate extends Command
 
     protected $description = 'Updating installed localizations.';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         $this->call('lang:install', [
