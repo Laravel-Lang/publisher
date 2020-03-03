@@ -33,6 +33,8 @@ return [
      *   Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE   - kebab-case
      *   Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE  - PascalCase
      *   Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE   - snake_case
+     *
+     * By default, Caseable::NO_CASE
      */
     'case'    => Caseable::NO_CASE,
 ];
