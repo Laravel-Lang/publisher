@@ -7,18 +7,8 @@ use Illuminate\Console\Command;
 
 class LangInstall extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'lang:install {lang* : Lang files to copy} {--f|force : Force replace lang files}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Install lang files.';
 
     /** @var \Helldar\LaravelLangPublisher\Contracts\Localization */
