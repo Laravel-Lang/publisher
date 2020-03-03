@@ -2,14 +2,14 @@
 
 namespace Tests;
 
-use function array_merge;
-use function config;
 use DirectoryIterator;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
-
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
+use function array_merge;
 use function realpath;
 use function resource_path;
 
@@ -76,9 +76,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function setFixtureConfig()
     {
-        $config  = config('lang-publisher', []);
+        $config  = \config('lang-publisher', []);
         $content = require realpath(__DIR__ . '/fixtures/config.php');
 
-        config(['lang-publisher' => array_merge($config, $content)]);
+        \config(['lang-publisher'=> array_merge($config, $content)]);
     }
 }

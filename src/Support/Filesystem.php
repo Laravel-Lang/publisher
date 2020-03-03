@@ -85,7 +85,7 @@ class Filesystem implements FilesystemContract
      */
     public function directoryExists(string $path, string $locale)
     {
-        if (! file_exists($path)) {
+        if (! $path || ! file_exists($path)) {
             throw new SourceLanguageNotExists($locale);
         }
     }
