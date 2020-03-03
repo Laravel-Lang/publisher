@@ -3,6 +3,10 @@
 use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
+    /*
+     * Path to source translation files.
+     */
+
     'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
 
     /*
