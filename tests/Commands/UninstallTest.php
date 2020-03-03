@@ -5,6 +5,8 @@ namespace Tests\Commands;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
+use function compact;
+
 class UninstallTest extends TestCase
 {
     public function testWithoutLanguageAttribute()
@@ -27,7 +29,7 @@ class UninstallTest extends TestCase
             );
         }
 
-        $this->artisan('lang:uninstall', \compact('lang'))->assertExitCode(0);
+        $this->artisan('lang:uninstall', compact('lang'))->assertExitCode(0);
 
         foreach ($lang as $value) {
             $this->assertDirectoryNotExists(

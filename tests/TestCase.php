@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 use function array_merge;
+use function ltrim;
 use function realpath;
 
 abstract class TestCase extends BaseTestCase
@@ -106,7 +107,7 @@ abstract class TestCase extends BaseTestCase
     protected function cleanPath(string $path): string
     {
         return $path
-            ? DIRECTORY_SEPARATOR . \ltrim($path, DIRECTORY_SEPARATOR)
+            ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR)
             : $path;
     }
 }

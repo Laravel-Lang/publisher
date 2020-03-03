@@ -2,9 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use function array_map;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+
+use function array_map;
 use function pathinfo;
 use function resource_path;
 
