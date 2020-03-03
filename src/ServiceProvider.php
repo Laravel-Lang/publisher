@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Console\LangUpdate;
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
-use Helldar\LaravelLangPublisher\Repository\Config;
+use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelLangPublisher\Services\Filesystem;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;

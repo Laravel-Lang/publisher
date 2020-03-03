@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Repository;
+namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\PrettyArray\Contracts\Caseable;
