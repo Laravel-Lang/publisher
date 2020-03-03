@@ -49,7 +49,6 @@ abstract class TestCase extends BaseTestCase
         $path = resource_path('lang');
 
         File::deleteDirectory($path);
-        File::makeDirectory($path);
     }
 
     protected function resetDefaultLangDirectory()
