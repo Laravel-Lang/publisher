@@ -3,13 +3,13 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use DirectoryIterator;
+use function file_exists;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File;
-use Helldar\PrettyArray\Services\Formatter;
 
-use function file_exists;
+use Helldar\PrettyArray\Services\Formatter;
 use function ksort;
 use function ltrim;
 use function pathinfo;
@@ -42,8 +42,9 @@ class Filesystem implements FilesystemContract
      * @param string $path
      * @param bool $return_empty
      *
-     * @return array
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
+     *
+     * @return array
      */
     public function load(string $path, bool $return_empty = false): array
     {
