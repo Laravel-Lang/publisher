@@ -49,7 +49,7 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function config(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', 'lang-publisher');
+        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', ConfigContract::KEY);
 
         $this->app->singleton(ConfigContract::class, function () {
             return new Config();

@@ -4,6 +4,8 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Config
 {
+    const KEY = 'lang-publisher';
+
     public function getVendorPath(): string;
 
     public function isAlignment(): bool;

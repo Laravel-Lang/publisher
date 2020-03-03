@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Config as IlluminateConfig;
 
 class Config implements ConfigContract
 {
-    protected $key = 'lang-publisher';
-
     public function getVendorPath(): string
     {
         return $this->config('vendor');
@@ -41,6 +39,6 @@ class Config implements ConfigContract
 
     protected function key(string $key): string
     {
-        return $this->key . '.' . $key;
+        return static::KEY . '.' . $key;
     }
 }
