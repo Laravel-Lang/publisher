@@ -2,9 +2,13 @@
 
 namespace Tests\Commands;
 
-use function compact;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
+
+use function compact;
+use function file_exists;
+use function resource_path;
 
 class UninstallTest extends TestCase
 {
@@ -20,12 +24,12 @@ class UninstallTest extends TestCase
     {
         $lang = ['be', 'da', 'gl', 'is'];
 
-        $this->artisan('lang:install', compact('lang'))->assertExitCode(0);
-
         foreach ($lang as $value) {
-            $this->assertDirectoryExists(
-                resource_path('lang' . DIRECTORY_SEPARATOR . $value)
-            );
+            $path = resource_path('lang' . DIRECTORY_SEPARATOR . $value);
+
+            if (! file_exists($path)) {
+                File::makeDirectory($path);
+            }
         }
 
         $this->artisan('lang:uninstall', compact('lang'))->assertExitCode(0);
