@@ -4,8 +4,6 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Localization
 {
-    public const DEFAULT_LOCALE = 'en';
-
     /**
      * Publish Localization.
      *
