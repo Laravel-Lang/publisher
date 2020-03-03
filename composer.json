@@ -3,7 +3,7 @@
     "description": "Publisher lang files for the Laravel Framework from caouecs/Laravel-lang",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "languages", "lpm", "lang", "publisher", "translations", "localization", "trans", "validations"],
+    "keywords": ["laravel", "languages", "lpm", "lang", "publisher", "translations", "localization", "localisation", "trans", "validations"],
     "authors": [
         {
             "name": "Andrey Helldar",
