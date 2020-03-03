@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 
 use function array_map;
 use function pathinfo;
+use function resource_path;
 
 class LangUpdate extends Command
 {
