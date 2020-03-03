@@ -114,7 +114,7 @@ class Localization implements LocalizationContract
 
     protected function isDefault(string $locale): bool
     {
-        return $locale === Config::getDefaultLanguage();
+        return $locale === Config::getLocale();
     }
 
     protected function skipped(string $locale, string $filename): void

@@ -8,7 +8,7 @@ interface Config
 
     public function getVendorPath(): string;
 
-    public function getDefaultLanguage(): string;
+    public function getLocale(): string;
 
     public function isAlignment(): bool;
 

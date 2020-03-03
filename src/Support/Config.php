@@ -13,7 +13,7 @@ class Config implements ConfigContract
         return $this->config('vendor');
     }
 
-    public function getDefaultLanguage(): string
+    public function getLocale(): string
     {
         return IlluminateConfig::get('app.locale')
             ?: IlluminateConfig::get('app.fallback_locale', 'en');

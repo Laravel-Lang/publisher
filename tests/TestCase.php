@@ -60,7 +60,7 @@ abstract class TestCase extends BaseTestCase
 
         File::copyDirectory(
             $fs->caouecsPath('../script/en'),
-            $fs->translationsPath(Config::getDefaultLanguage())
+            $fs->translationsPath(Config::getLocale())
         );
     }
 
