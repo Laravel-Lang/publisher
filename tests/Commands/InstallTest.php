@@ -6,7 +6,6 @@ use function compact;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
-
 use Tests\TestCase;
 
 class InstallTest extends TestCase

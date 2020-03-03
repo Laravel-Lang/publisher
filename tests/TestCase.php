@@ -8,7 +8,6 @@ use function config_path;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
-
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
