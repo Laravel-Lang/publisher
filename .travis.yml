@@ -1,22 +1,13 @@
 dist: bionic
 language: php
 
-env:
-    global:
-        - SETUP=stable
 
 matrix:
     fast_finish: true
     include:
         - php: 7.2
-        - php: 7.2
-          env: SETUP=lowest
         - php: 7.3
-        - php: 7.3
-          env: SETUP=lowest
         - php: 7.4
-        - php: 7.4
-          env: SETUP=lowest
         - php: 7.4
           env: SETUP=lint
           name: "Lint code"
@@ -30,7 +21,6 @@ before_install:
 
 install:
     - if [[ $SETUP = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-    - if [[ $SETUP = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --no-suggest; fi
     - if [[ $SETUP = 'lint' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; travis_retry vendor/bin/phpstan; fi
 
 script:
