@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
         $this->deleteLangDirectories();
         $this->resetDefaultLangDirectory();
 
-        sleep(8);
+        sleep(1);
     }
 
     /**
