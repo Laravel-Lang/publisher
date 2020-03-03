@@ -2,14 +2,15 @@
 
 namespace Tests;
 
-use function array_merge;
-use DirectoryIterator;
+use Helldar\LaravelLangPublisher\Contracts\Filesystem;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
+use function app;
+use function array_merge;
 use function realpath;
 use function resource_path;
 
@@ -40,30 +41,26 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(['lang-publisher.vendor' => realpath('../../vendor/caouecs/laravel-lang/src')]);
+        $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang/src'));
     }
 
     protected function deleteLangDirectories(): void
     {
-        $dirs = new DirectoryIterator(
-            resource_path('lang')
-        );
+        $path = resource_path('lang');
 
-        foreach ($dirs as $dir) {
-            if ($dir->isDot() || $dir->getFilename() === Localization::DEFAULT_LOCALE) {
-                continue;
-            }
-
-            File::deleteDirectory($dir->getRealPath());
-        }
+        File::deleteDirectory($path);
+        File::makeDirectory($path);
     }
 
     protected function resetDefaultLangDirectory()
     {
-        $this->artisan('lang:install', [
-            'lang'    => ['en'],
-            '--force' => true,
-        ]);
+        /** @var \Helldar\LaravelLangPublisher\Contracts\Filesystem $fs */
+        $fs = app(Filesystem::class);
+
+        File::copyDirectory(
+            $fs->caouecsPath('../script/en'),
+            $fs->translationsPath(Localization::DEFAULT_LOCALE)
+        );
     }
 
     protected function copyFixtures()
@@ -76,9 +73,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function setFixtureConfig()
     {
-        $config  = \config('lang-publisher', []);
+        $config  = Config::get('lang-publisher', []);
         $content = require realpath(__DIR__ . '/fixtures/config.php');
 
-        \config(['lang-publisher'=> array_merge($config, $content)]);
+        Config::set('lang-publisher', array_merge($config, $content));
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
-
 use Tests\TestCase;
+
+use function compact;
 
 class InstallTest extends TestCase
 {
@@ -32,7 +32,7 @@ class InstallTest extends TestCase
     public function testCanInstallWithoutForce()
     {
         $lang = ['de', 'ru', 'fr', 'zh-CN'];
-        dd($lang);
+
         foreach ($lang as $value) {
             $this->assertDirectoryNotExists(
                 resource_path('lang' . DIRECTORY_SEPARATOR . $value)

@@ -18,9 +18,9 @@ class LangInstall extends Command
 
     public function __construct(Localization $localization)
     {
-        $this->localization = $localization;
-
         parent::__construct();
+
+        $this->localization = $localization;
     }
 
     public function handle()
