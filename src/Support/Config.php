@@ -15,7 +15,8 @@ class Config implements ConfigContract
 
     public function getDefaultLanguage(): string
     {
-        return $this->config('default_language', 'en');
+        return IlluminateConfig::get('app.locale')
+            ?: IlluminateConfig::get('app.fallback_locale', 'en');
     }
 
     public function isAlignment(): bool
