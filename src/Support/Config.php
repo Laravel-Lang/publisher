@@ -4,6 +4,7 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\PrettyArray\Contracts\Caseable;
+use Illuminate\Support\Facades\Config as IlluminateConfig;
 
 class Config implements ConfigContract
 {
@@ -35,7 +36,7 @@ class Config implements ConfigContract
     {
         $key = $this->key($key);
 
-        return \config($key, $default);
+        return IlluminateConfig::get($key, $default);
     }
 
     protected function key(string $key): string
