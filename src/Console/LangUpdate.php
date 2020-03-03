@@ -32,7 +32,7 @@ class LangUpdate extends Command
     protected function languages(): array
     {
         return array_map(function ($value) {
-            return pathinfo($value, PATHINFO_BASENAME);
+            return pathinfo($value, PATHINFO_FILENAME);
         }, $this->directories());
     }
 }
