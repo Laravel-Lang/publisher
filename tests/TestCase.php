@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use function compact;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
 use function realpath;
-use function resource_path;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -16,8 +16,6 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         $this->resetDefaultLangDirectory();
-
-        parent::tearDown();
     }
 
     /**
@@ -44,16 +42,17 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLangDirectory(): void
     {
-        $locales = $this->default_locale;
-
-        $this->artisan('lang:install', compact('locales'));
+        File::copyDirectory(
+            Path::source($this->default_locale),
+            Path::target($this->default_locale)
+        );
     }
 
     protected function copyFixtures(): void
     {
         File::copy(
             realpath(__DIR__ . '/fixtures/auth.php'),
-            resource_path("lang/{$this->default_locale}/auth.php")
+            Path::target($this->default_locale, 'auth.php')
         );
     }
 
@@ -61,7 +60,7 @@ abstract class TestCase extends BaseTestCase
     {
         foreach ($locales as $locale) {
             File::deleteDirectory(
-                resource_path('lang/' . $locale)
+                Path::target($locale)
             );
         }
     }

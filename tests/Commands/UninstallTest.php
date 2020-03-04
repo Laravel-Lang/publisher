@@ -2,12 +2,12 @@
 
 namespace Tests\Commands;
 
-use function compact;
-use function file_exists;
 use Illuminate\Support\Facades\File;
-use function resource_path;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
+
+use function compact;
+use function resource_path;
 
 class UninstallTest extends TestCase
 {
