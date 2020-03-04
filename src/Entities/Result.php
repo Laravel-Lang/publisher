@@ -2,11 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Entities;
 
+use function compact;
 use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
 use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
-
-use function compact;
 
 class Result implements ResultContract
 {
