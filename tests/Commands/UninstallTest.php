@@ -30,12 +30,19 @@ class UninstallTest extends TestCase
                 File::makeDirectory($path);
             }
         }
+        try {
+            $this->artisan('lang:uninstall', compact('locales'))->assertExitCode(0);
 
-        $this->artisan('lang:uninstall', compact('locales'))->assertExitCode(0);
-
-        foreach ($locales as $locale) {
-            $this->assertDirectoryNotExists(
-                Path::target($locale)
+            foreach ($locales as $locale) {
+                $this->assertDirectoryNotExists(
+                    Path::target($locale)
+                );
+            }
+        }
+        catch (\Exception $exception) {
+            dd(
+                $exception->getMessage(),
+                File::directories(Path::target())
             );
         }
     }
