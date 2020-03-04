@@ -4,7 +4,6 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
-
 use function ltrim;
 use function realpath;
 use function resource_path;

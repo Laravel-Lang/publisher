@@ -2,10 +2,9 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use function array_keys;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-
-use function array_keys;
 
 abstract class BaseCommand extends Command
 {
