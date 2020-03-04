@@ -23,11 +23,11 @@ class LangUninstall extends BaseCommand
     protected function uninstall(array $locales): void
     {
         foreach ($locales as $locale) {
-            $status = $this->status(
+            $result = $this->status(
                 $this->delete($locale)
             );
 
-            $this->pushResult($locale, $status);
+            $this->pushResult($locale, $result);
         }
     }
 
