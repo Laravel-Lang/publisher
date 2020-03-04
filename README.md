@@ -1,4 +1,4 @@
-## Lang Publisher for Laravel 5.3-7.x
+# Lang Publisher
 
 Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_source] package.
 
