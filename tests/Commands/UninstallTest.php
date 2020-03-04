@@ -2,12 +2,11 @@
 
 namespace Tests\Commands;
 
+use function compact;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
-
-use function compact;
 
 class UninstallTest extends TestCase
 {
@@ -40,12 +39,11 @@ class UninstallTest extends TestCase
                     Path::target($locale)
                 );
             }
-        }
-        catch (\Exception $exception) {
-            $path = Path::target($lang);
+        } catch (\Exception $exception) {
+            $path  = Path::target($lang);
             $perms = fileperms($path);
 
-            dd(compact('lang','perms','path'));
+            dd(compact('lang', 'perms', 'path'));
         }
     }
 }
