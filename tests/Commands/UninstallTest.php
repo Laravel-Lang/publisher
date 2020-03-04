@@ -19,7 +19,7 @@ class UninstallTest extends TestCase
 
     public function testUninstall()
     {
-        $locales = ['be', 'da', 'gl', 'is'];
+        $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
             $path = Path::target($locale);
