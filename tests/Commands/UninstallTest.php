@@ -2,12 +2,11 @@
 
 namespace Tests\Commands;
 
+use function compact;
 use Helldar\LaravelLangPublisher\Facades\Path;
+use function sleep;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
-
-use function compact;
-use function sleep;
 
 class UninstallTest extends TestCase
 {
