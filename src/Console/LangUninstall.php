@@ -2,11 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use function compact;
 use Exception;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
-
-use function compact;
 
 class LangUninstall extends BaseCommand
 {
@@ -41,8 +40,7 @@ class LangUninstall extends BaseCommand
             return File::exists($path)
                 ? File::deleteDirectory($path)
                 : false;
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
     }
