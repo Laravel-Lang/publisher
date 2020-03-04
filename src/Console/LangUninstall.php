@@ -36,9 +36,11 @@ class LangUninstall extends BaseCommand
     protected function delete(string $locale): bool
     {
         try {
-            return File::deleteDirectory(
-                Path::target($locale)
-            );
+            $path = Path::target($locale);
+
+            return File::exists($path)
+                ? File::deleteDirectory($path)
+                : false;
         }
         catch (Exception $exception) {
             return false;
