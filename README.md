@@ -55,7 +55,7 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 ```
 
 
-#### Compatibility table
+### Compatibility table
 
 |Laravel version|PHP min version|PHP tested version|Recommended|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
