@@ -2,11 +2,11 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Facades\Path;
-use function sleep;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
+
+use function compact;
 
 class UninstallTest extends TestCase
 {
@@ -22,8 +22,6 @@ class UninstallTest extends TestCase
     {
         $locales = ['be', 'da', 'gl', 'is'];
 
-        sleep(1);
-
         $this->artisan('lang:install', compact('locales'))->assertExitCode(0);
 
         foreach ($locales as $locale) {
@@ -32,14 +30,29 @@ class UninstallTest extends TestCase
             );
         }
 
-        sleep(1);
-
         $this->artisan('lang:uninstall', compact('locales'))->assertExitCode(0);
 
-        foreach ($locales as $locale) {
-            $this->assertDirectoryNotExists(
-                Path::target($locale)
-            );
+        $lang = null;
+        try {
+            foreach ($locales as $locale) {
+                $lang = $locale;
+
+                $this->assertDirectoryNotExists(
+                    Path::target($locale)
+                );
+            }
+        }
+        catch (\Exception $exception) {
+            $path = Path::target($lang);
+
+            dd([
+                'dir'         => $path,
+                'is_dir'      => is_dir($path),
+                'is_file'     => is_file($path),
+                'is_link'     => is_link($path),
+                'is_readable' => is_readable($path),
+                'is_writable' => is_writable($path),
+            ]);
         }
     }
 }
