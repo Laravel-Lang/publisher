@@ -2,12 +2,11 @@
 
 namespace Helldar\LaravelLangPublisher\Entities;
 
+use function array_merge;
 use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
 use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-
-use function array_merge;
 
 final class Result implements ResultContract
 {

@@ -2,13 +2,12 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
+use function app;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
 use Helldar\LaravelLangPublisher\Services\Processing\Delete;
 use Helldar\LaravelLangPublisher\Services\Processing\Publish;
-
-use function app;
 
 final class Localization implements LocalizationContract
 {
@@ -19,8 +18,9 @@ final class Localization implements LocalizationContract
      * @param string $locale
      * @param bool $force
      *
-     * @return array
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
+     * @return array
      */
     public function publish(string $locale, bool $force = false): array
     {
@@ -30,8 +30,9 @@ final class Localization implements LocalizationContract
     /**
      * @param string $locale
      *
-     * @return array
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
+     * @return array
      */
     public function delete(string $locale): array
     {
@@ -43,8 +44,9 @@ final class Localization implements LocalizationContract
      * @param string $locale
      * @param bool $force
      *
-     * @return mixed
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
+     * @return mixed
      */
     protected function process(string $classname, string $locale, bool $force = false)
     {
@@ -57,8 +59,9 @@ final class Localization implements LocalizationContract
     /**
      * @param string $classname
      *
-     * @return \Helldar\LaravelLangPublisher\Contracts\Process
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
+     * @return \Helldar\LaravelLangPublisher\Contracts\Process
      */
     protected function makeProcess(string $classname): Process
     {

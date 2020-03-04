@@ -84,6 +84,6 @@ final class Config implements ConfigContract
 
     protected function key(string $key): string
     {
-        return static::KEY . '.' . $key;
+        return self::KEY . '.' . $key;
     }
 }
