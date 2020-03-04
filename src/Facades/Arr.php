@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array unique(array $array)
+ * @method static array first(array $array)
+ * @method static array keys(array $array)
  */
 class Arr extends Facade
 {

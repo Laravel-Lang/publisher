@@ -2,9 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use function array_keys;
+use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 
 abstract class BaseCommand extends Command
 {
@@ -16,8 +15,11 @@ abstract class BaseCommand extends Command
             return;
         }
 
-        $headers = array_keys(Arr::first($values));
+        $this->table($this->headers($values), $values);
+    }
 
-        $this->table($headers, $values);
+    protected function headers(array $values): array
+    {
+        return Arr::keys(Arr::first($values));
     }
 }
