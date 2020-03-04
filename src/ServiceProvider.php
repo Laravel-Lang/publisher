@@ -11,6 +11,8 @@ use Helldar\LaravelLangPublisher\Contracts\File as FileContract;
 use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
 use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
+use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
+use Helldar\LaravelLangPublisher\Entities\Result;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Arr;
 use Helldar\LaravelLangPublisher\Support\Config;
@@ -56,6 +58,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->bind(LocaleContract::class, Locale::class);
         $this->app->bind(PathContract::class, Path::class);
         $this->app->bind(ArrContract::class, Arr::class);
+        $this->app->bind(ResultContract::class, Result::class);
     }
 
     protected function config(): void

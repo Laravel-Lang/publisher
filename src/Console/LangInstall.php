@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\Facades\Locale;
 
 class LangInstall extends BaseCommand
@@ -13,23 +12,17 @@ class LangInstall extends BaseCommand
 
     protected $description = 'Install new localizations.';
 
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Localization */
-    protected $localization;
-
-    public function __construct(Localization $localization)
-    {
-        parent::__construct();
-
-        $this->localization = $localization;
-    }
-
     public function handle()
     {
         $locales = (array) $this->argument('locales');
         $force   = (bool) $this->option('force');
 
         $this->install($locales, $force);
-        $this->showResult($this->localization->getResult(), 'Files were not copied.');
+
+        $this->result
+            ->setMessages('Files were not copied.')
+            ->setItems($this->localization->getResult())
+            ->show();
     }
 
     protected function install(array $locales, bool $force = false): void

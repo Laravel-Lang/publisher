@@ -2,26 +2,24 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Arr;
+use Helldar\LaravelLangPublisher\Contracts\Localization;
+use Helldar\LaravelLangPublisher\Contracts\Result;
 use Illuminate\Console\Command;
 
 abstract class BaseCommand extends Command
 {
-    protected function showResult(array $values, string $message): void
-    {
-        empty($values) ? $this->warn($message) : $this->showTable($values);
-    }
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Localization */
+    protected $localization;
 
-    protected function headers(array $values): array
-    {
-        return Arr::keys(Arr::first($values));
-    }
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Result */
+    protected $result;
 
-    protected function showTable(array $values): void
+    public function __construct(Localization $localization, Result $result)
     {
-        $this->table(
-            $this->headers($values),
-            $values
-        );
+        parent::__construct();
+
+        $this->localization = $localization;
+
+        $this->result = $result->setOutput($this);
     }
 }
