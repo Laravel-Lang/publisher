@@ -42,7 +42,7 @@ class UninstallTest extends TestCase
             }
         } catch (\Exception $exception) {
             $path  = Path::target($lang);
-            $perms = fileperms($path);
+            $perms = substr(sprintf('%o', fileperms($path)), -4);
 
             dd(compact('lang', 'perms', 'path'));
         }
