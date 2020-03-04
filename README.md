@@ -1,6 +1,6 @@
-## Lang Publisher for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package of Laravel 5.3+
+## Lang Publisher for Laravel 5.3-7.x
 
-Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
+Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
@@ -20,17 +20,11 @@ Publisher lang files for the Laravel Framework from caouecs/Laravel-lang.
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
-  * [Install language](#install-language)
-  * [Update language](#update-language)
+  * [Install locales](#install-locales)
+  * [Update locales](#update-locales)
+  * [Uninstall locales](#uninstall-locales)
   * [Features](#features)
 * [Copyright and License](#copyright-and-license)
-
-
-## Attention
-
-Version `^3.0` is under development.
-
-Stable package version - `^2.0`.
 
 
 ## Installation
@@ -67,7 +61,7 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 |5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|---|
 |5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
 |5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1|---|
-|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0|Is under development.|
+|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0|---|
 
 
 ## How to use
@@ -88,7 +82,7 @@ validation.php
 He does not touch any other files.
 
 
-### Install language
+### Install locales
 
 When executing the `php artisan lang:install` command, the list of localizations. Example:
 
@@ -99,7 +93,7 @@ php artisan lang:install de
 
 If files do not exist in the destination folder, they will be created. And if the files exist, the console will ask you for a replacement.
 
-Also, if the files exist and you do not want to agree each time, you can pass the attribute `--force` or its alias `-f` for forced replacement.
+Also, if the files exist, and you do not want to agree each time, you can pass the attribute `--force` or its alias `-f` for forced replacement.
 
 ```bash
 php artisan lang:install de en ro zh-CN --force
@@ -107,11 +101,20 @@ php artisan lang:install de --force
 php artisan lang:install de -f
 ```
 
-### Update language
 
-When executing the `php artisan lang:update` command, the package learns which localizations are installed in your application and will replace the matching files.
+### Update locales
 
-Command `php artisan lang:update` is an alias of `php artisan lang:install --force`.
+When executing the `php artisan lang:update` command, the package learns which localizations installed in your application and will replace the matching files.
+
+Command `php artisan lang:update` is an alias of `php artisan lang:install --force <locales>`.
+
+
+### Uninstall locales
+
+To remove localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
+```bash
+php artisan lang:uninstall de ro zh-CN 
+```
 
 
 ### Features
@@ -142,7 +145,7 @@ return [
 ];
 ```
 
-Updated file:
+An updated file:
 ```php
 // auth.php
 <?php
@@ -154,7 +157,7 @@ return [
 ];
 ```
 
-And example of `validation.php` file:
+and example of `validation.php` file:
 Your file:
 ```php
 <?php
@@ -242,4 +245,4 @@ return [
 
 ## Copyright and License
 
-`Lang Publisher` for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+`Lang Publisher` for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
