@@ -4,7 +4,6 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
-
 use function ltrim;
 use function realpath;
 use function resource_path;
@@ -50,7 +49,7 @@ final class Path implements PathContract
         $locale   = $this->clean($locale);
         $filename = $this->clean($filename);
 
-        return resource_path(static::LANG . $locale . $filename);
+        return resource_path(self::LANG . $locale . $filename);
     }
 
     protected function real(string $path): string
@@ -61,7 +60,7 @@ final class Path implements PathContract
     protected function clean(string $path = null): ?string
     {
         return $path
-            ? static::DIVIDER . ltrim($path, static::DIVIDER)
+            ? self::DIVIDER . ltrim($path, self::DIVIDER)
             : $path;
     }
 
