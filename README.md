@@ -6,10 +6,10 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https
 
 <p align="center">
     <a href="https://styleci.io/repos/119022335"><img src="https://styleci.io/repos/119022335/shield" alt="StyleCI" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/laravel-lang-publisher"><img src="https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square" alt="Total Downloads" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/laravel-lang-publisher"><img src="https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/laravel-lang-publisher"><img src="https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
-    <a href="https://travis-ci.org/andrey-helldar/laravel-lang-publisher"><img src="https://travis-ci.org/andrey-helldar/laravel-lang-publisher.svg?branch=master" alt="Testing" /></a>
+    <a href="https://github.com/andrey-helldar/laravel-lang-publisher"><img src="https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square" alt="Total Downloads" /></a>
+    <a href="https://github.com/andrey-helldar/laravel-lang-publisher"><img src="https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
+    <a href="https://github.com/andrey-helldar/laravel-lang-publisher"><img src="https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
+    <a href="https://github.com/andrey-helldar/laravel-lang-publisher"><img src="https://github.com/andrey-helldar/laravel-lang-publisher/workflows/phpunit/badge.svg" alt="Testing" /></a>
     <a href="LICENSE"><img src="https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/license?format=flat-square" alt="License" /></a>
 </p>
 
