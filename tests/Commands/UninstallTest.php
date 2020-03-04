@@ -2,11 +2,12 @@
 
 namespace Tests\Commands;
 
-use function compact;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
-use function resource_path;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
+
+use function compact;
 
 class UninstallTest extends TestCase
 {
@@ -23,7 +24,7 @@ class UninstallTest extends TestCase
         $locales = ['be', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = resource_path('lang' . DIRECTORY_SEPARATOR . $locale);
+            $path = Path::target($locale);
 
             if (! File::exists($path)) {
                 File::makeDirectory($path);
@@ -34,7 +35,7 @@ class UninstallTest extends TestCase
 
         foreach ($locales as $locale) {
             $this->assertDirectoryNotExists(
-                resource_path('lang' . DIRECTORY_SEPARATOR . $locale)
+                Path::target($locale)
             );
         }
     }
