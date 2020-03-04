@@ -12,13 +12,13 @@ use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
 use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
 use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
-use Helldar\LaravelLangPublisher\Entities\Result;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Arr;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelLangPublisher\Support\File;
 use Helldar\LaravelLangPublisher\Support\Locale;
 use Helldar\LaravelLangPublisher\Support\Path;
+use Helldar\LaravelLangPublisher\Support\Result;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider
