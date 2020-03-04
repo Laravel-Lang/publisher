@@ -2,43 +2,50 @@ name: phpunit
 on: [push]
 
 jobs:
-  build:
+    build:
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: true
-      matrix:
-        php: [7.2, 7.3, 7.4]
-        laravel: [6.*, 7.*]
+        strategy:
+            fail-fast: true
+            matrix:
+                php: [7.2, 7.3, 7.4]
+                laravel: [6.*, 7.*]
 
-    name: PHP ${{ matrix.php }}
+        name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
 
-    - name: Composer self update
-      run: composer self-update
+            -   name: Cache dependencies
+                uses: actions/cache@v1
+                with:
+                    path: ~/.composer/cache/files
+                    key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v1
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
+                    coverage: xdebug
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v1
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
+            -   name: Composer self update
+                run: composer self-update
 
-    - name: Install dependencies
-      run: composer update --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest
+            -   name: Validate composer.json and composer.lock
+                run: composer validate
 
-    - name: Execute tests
-      run: |
-        mkdir -p build/logs
-        vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+            -   name: Install dependencies
+                run: composer update --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest
 
-    - name: Scrutinizer CI
-      run: |
-        wget https://scrutinizer-ci.com/ocular.phar
-        php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+            -   name: Execute tests
+                run: |
+                    mkdir -p build/logs
+                    vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+            -   name: Scrutinizer CI
+                run: |
+                    wget https://scrutinizer-ci.com/ocular.phar
+                    php ocular.phar code-coverage:upload --format=php-clover coverage.clover
