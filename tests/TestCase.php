@@ -5,6 +5,8 @@ namespace Tests;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+
+use function compact;
 use function realpath;
 use function resource_path;
 
@@ -43,9 +45,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLangDirectory(): void
     {
-        $lang = $this->default_locale;
+        $locales = $this->default_locale;
 
-        $this->artisan('lang:install', \compact('lang'));
+        $this->artisan('lang:install', compact('locales'));
     }
 
     protected function copyFixtures(): void

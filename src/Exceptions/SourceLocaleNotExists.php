@@ -4,7 +4,7 @@ namespace Helldar\LaravelLangPublisher\Exceptions;
 
 use Exception;
 
-class SourceLanguageNotExists extends Exception
+class SourceLocaleNotExists extends Exception
 {
     public function __construct(string $locale)
     {

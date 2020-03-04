@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 class LangInstall extends Command
 {
     protected $signature = 'lang:install'
-    . ' {lang* : Lang files to copy}'
+    . ' {locales* : Localizations to copy}'
     . ' {--f|force : Force replace lang files}';
 
     protected $description = 'Install new localizations.';
@@ -25,17 +25,17 @@ class LangInstall extends Command
 
     public function handle()
     {
-        $languages = (array) $this->argument('lang');
-        $force     = (bool) $this->option('force');
+        $locales = (array) $this->argument('locales');
+        $force   = (bool) $this->option('force');
 
-        $this->install($languages, $force);
+        $this->install($locales, $force);
         $this->showResult();
     }
 
-    protected function install(array $languages, bool $force = false): void
+    protected function install(array $locales, bool $force = false): void
     {
-        foreach ($languages as $lang) {
-            $this->localization->publish($lang, $force);
+        foreach ($locales as $locale) {
+            $this->localization->publish($locale, $force);
         }
     }
 

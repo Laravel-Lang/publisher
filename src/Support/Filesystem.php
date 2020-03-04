@@ -5,7 +5,7 @@ namespace Helldar\LaravelLangPublisher\Support;
 use DirectoryIterator;
 use function file_exists;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
-use Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists;
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File;
 use Helldar\PrettyArray\Services\Formatter;
@@ -81,12 +81,12 @@ class Filesystem implements FilesystemContract
      * @param string $path
      * @param string $locale
      *
-     * @throws \Helldar\LaravelLangPublisher\Exceptions\SourceLanguageNotExists
+     * @throws \Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists
      */
     public function directoryExists(string $path, string $locale)
     {
         if (! $path || ! file_exists($path)) {
-            throw new SourceLanguageNotExists($locale);
+            throw new SourceLocaleNotExists($locale);
         }
     }
 
