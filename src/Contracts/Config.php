@@ -10,6 +10,8 @@ interface Config
 
     public function getLocale(): string;
 
+    public function getFallbackLocale(): string;
+
     public function isAlignment(): bool;
 
     public function getExclude(string $key, array $default = []): array;

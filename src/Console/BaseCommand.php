@@ -22,4 +22,14 @@ abstract class BaseCommand extends Command
 
         $this->result = $result->setOutput($this);
     }
+
+    protected function locales(): array
+    {
+        return (array) $this->argument('locales');
+    }
+
+    protected function force(): bool
+    {
+        return (bool) $this->option('force');
+    }
 }

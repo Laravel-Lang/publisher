@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string source(string $locale = null, string $filename = null)
  * @method static string target(string $locale = null, string $filename = null)
  */
-class Path extends Facade
+final class Path extends Facade
 {
     protected static function getFacadeAccessor()
     {

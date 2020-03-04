@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static array available()
  * @method static array installed()
+ * @method static string getDefault()
+ * @method static string getFallback()
  */
-class Locale extends Facade
+final class Locale extends Facade
 {
     protected static function getFacadeAccessor()
     {

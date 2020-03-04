@@ -2,36 +2,32 @@
 
 namespace Helldar\LaravelLangPublisher\Entities;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
 use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
-class Result implements ResultContract
+use function array_merge;
+
+final class Result implements ResultContract
 {
     /** @var \Illuminate\Console\Command */
     protected $output;
 
     protected $items = [];
 
-    protected $message_no_data = 'No Data';
+    protected $message = 'No Data';
 
-    protected $status_success = 'success';
-
-    protected $status_failed = 'failed';
-
-    public function push(string $locale, bool $result = false): void
+    public function setOutput(Command $output): self
     {
-        $status = $this->getStatus($result);
+        $this->output = $output;
 
-        $this->items[] = compact('locale', 'status');
+        return $this;
     }
 
-    public function setMessages(string $no_data, string $success = 'success', string $failed = 'failed'): self
+    public function setMessage(string $no_data): self
     {
-        $this->message_no_data = $no_data;
-        $this->status_success  = $success;
-        $this->status_failed   = $failed;
+        $this->message = $no_data;
 
         return $this;
     }
@@ -41,28 +37,14 @@ class Result implements ResultContract
         empty($this->items) ? $this->warn() : $this->table();
     }
 
-    public function setItems(array $items)
+    public function merge(array $items): void
     {
-        $this->items = $items;
-
-        return $this;
-    }
-
-    public function isEmpty(): bool
-    {
-        return empty($this->items);
-    }
-
-    public function setOutput(Command $output): self
-    {
-        $this->output = $output;
-
-        return $this;
+        $this->items = array_merge($this->items, $items);
     }
 
     protected function warn(): void
     {
-        $this->output->warn($this->message_no_data);
+        $this->output->warn($this->message);
     }
 
     protected function table(): void
@@ -70,14 +52,14 @@ class Result implements ResultContract
         $this->output->table($this->headers(), $this->items());
     }
 
-    protected function getStatus(bool $result = false): string
-    {
-        return $result ? $this->status_success : $this->status_failed;
-    }
-
     protected function headers(): array
     {
-        return Arr::keys(Arr::first($this->items));
+        $item = Arr::first($this->items);
+        $keys = Arr::keys($item);
+
+        return Arr::transform($keys, function ($value) {
+            return Str::title($value);
+        });
     }
 
     protected function items(): array

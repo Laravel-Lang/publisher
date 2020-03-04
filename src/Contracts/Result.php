@@ -6,8 +6,6 @@ use Illuminate\Console\Command;
 
 interface Result
 {
-    public function push(string $locale, bool $status = false): void;
-
     /**
      * @param \Illuminate\Console\Command $output
      *
@@ -17,21 +15,12 @@ interface Result
 
     /**
      * @param string $no_data
-     * @param string $success
-     * @param string $failed
      *
      * @return self
      */
-    public function setMessages(string $no_data, string $success = 'success', string $failed = 'failed');
+    public function setMessage(string $no_data);
 
-    /**
-     * @param array $items
-     *
-     * @return self
-     */
-    public function setItems(array $items);
-
-    public function isEmpty(): bool;
+    public function merge(array $items): void;
 
     public function show();
 }

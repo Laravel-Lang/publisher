@@ -21,7 +21,7 @@ use Helldar\LaravelLangPublisher\Support\Locale;
 use Helldar\LaravelLangPublisher\Support\Path;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ServiceProvider extends BaseServiceProvider
+final class ServiceProvider extends BaseServiceProvider
 {
     public function boot(): void
     {
@@ -53,20 +53,17 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function binds(): void
     {
+        $this->app->bind(ArrContract::class, Arr::class);
+        $this->app->bind(ConfigContract::class, Config::class);
         $this->app->bind(FileContract::class, File::class);
-        $this->app->bind(PublisherContract::class, Localization::class);
         $this->app->bind(LocaleContract::class, Locale::class);
         $this->app->bind(PathContract::class, Path::class);
-        $this->app->bind(ArrContract::class, Arr::class);
+        $this->app->bind(PublisherContract::class, Localization::class);
         $this->app->bind(ResultContract::class, Result::class);
     }
 
     protected function config(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', ConfigContract::KEY);
-
-        $this->app->singleton(ConfigContract::class, function () {
-            return new Config();
-        });
     }
 }

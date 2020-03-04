@@ -2,7 +2,6 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -10,7 +9,7 @@ use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
-    public function testWithoutLanguageAttribute()
+    public function testWithoutLanguageAttributeFromCommand()
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
@@ -26,16 +25,12 @@ class UninstallTest extends TestCase
             $path = Path::target($locale);
 
             if (! File::exists($path)) {
-                File::makeDirectory($path, 0755);
+                File::makeDirectory($path, 0755, true);
             }
-        }
 
-        $this->artisan('lang:uninstall', compact('locales'))->assertExitCode(0);
+            $this->localization()->delete($locale);
 
-        foreach ($locales as $locale) {
-            $this->assertDirectoryNotExists(
-                Path::target($locale)
-            );
+            $this->assertDirectoryNotExists($path);
         }
     }
 }

@@ -28,6 +28,11 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
   * [Uninstall locales](#uninstall-locales)
   * [Features](#features)
     * [Alignment](#alignment)
+    * [Facades](#facades)
+        * [Arr](#arr)
+        * [Config](#config)
+        * [Locate](#locale)
+        * [Path](#path)
 * [Copyright and License](#copyright-and-license)
 
 
@@ -254,6 +259,125 @@ return [
         'baz'        => 'Baz',
     ],
 ];
+```
+
+#### Facades
+
+Perhaps the facades will be useful to you:
+
+##### Arr
+```php
+use Helldar\LaravelLangPublisher\Facades\Arr;
+
+
+$array = ['foo', 'bar', 'baz', 'foo', null, false, 0];
+
+// Getting unique values.
+Arr::unique(array $array): array
+// return ['foo', 'bar', 'baz']
+
+
+// Getting the first element of an array.
+Arr::first(array $array);
+// return "foo"
+
+Arr::keys(array $array): array
+// Getting array keys.
+//
+// return array:7 [
+//   0 => 0
+//   1 => 1
+//   2 => 2
+//   3 => 3
+//   4 => 4
+//   5 => 5
+//   6 => 6
+// ]
+
+
+// Transforming an array using the callback function.
+Arr::transform(array $array, \Closure $callback): array
+// Arr::transform($array, function ($value) {
+//     return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
+// })
+// return  ["Foo", "Bar", "Baz", "Foo", "", "", "0"]
+```
+
+
+##### Config
+```php
+use Helldar\LaravelLangPublisher\Facades\Config;
+
+
+// Getting a link to the folder with the source localization files.
+// Will return the value set to `config/lang-publisher.php`.
+Config::getVendorPath(): string
+
+
+// Getting the default localization name.
+Config::getLocale(): string
+
+
+// Getting the fallback localization name.
+Config::getFallbackLocale(): string
+
+
+// Will array alignment be applied
+Config::isAlignment(): bool
+
+
+// Returns an array of exceptions set by the developer
+// when installing and updating localizations.
+Config::getExclude(string $key, array $default = []): array
+
+
+// Returns the key mapping label.
+// Available:
+//
+// Helldar\PrettyArray\Contracts\Caseable::NO_CASE      - Case does not change
+// Helldar\PrettyArray\Contracts\Caseable::CAMEL_CASE   - camelCase
+// Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE   - kebab-case
+// Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE  - PascalCase
+// Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE   - snake_case
+Config::getCase(): int
+```
+
+
+##### Locale
+```php
+use Helldar\LaravelLangPublisher\Facades\Locale;
+
+// List of available locations.
+Locale::available(): array
+
+// List of installed locations.
+Locale::installed(): array
+
+// Getting the default localization name.
+Locale::getDefault(): string
+
+// Getting the fallback localization name.
+Locale::getFallback(): string
+```
+
+
+##### Path
+```php
+use Helldar\LaravelLangPublisher\Facades\Path;
+
+// Returns a direct link to the folder with the source localization files.
+// 
+// If the file name is specified, a full link to the file will be returned,
+// otherwise a direct link to the folder.
+Path::source(string $locale = null, string $filename = null): string
+
+
+// Returns the direct link to the localization folder or,
+// if the file name is specified, a link to the localization file.
+//
+// If the file name or localization is not specified,
+// the link to the shared folder of all localizations will be returned.
+Path::target(string $locale = null, string $filename = null): string
 ```
 
 
