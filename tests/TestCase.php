@@ -2,11 +2,10 @@
 
 namespace Tests;
 
+use function compact;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-
-use function compact;
 use function realpath;
 use function resource_path;
 
