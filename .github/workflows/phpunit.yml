@@ -32,7 +32,9 @@ jobs:
                     coverage: xdebug
 
             -   name: Composer self update
-                run: composer self-update
+                run: |
+                    composer self-update
+                    composer global require hirak/prestissimo --no-plugins
 
             -   name: Validate composer.json and composer.lock
                 run: composer validate
