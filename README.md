@@ -4,20 +4,17 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
-<p align="center">
-    <a href="[link_styleci]"><img src="[badge_styleci]" alt="StyleCI Status" /></a>
-    <a href="[link_actions]"><img src="[badge_build]" alt="Github Workflow Status" /></a>
-    <a href="[link_scrutinizer]"><img src="[badge_coverage]" alt="Coverage Status" /></a>
-    <a href="[link_scrutinizer]"><img src="[badge_quality]" alt="Scrutinizer Code Quality" /></a>
-    <a href="[link_packagist]"><img src="[badge_laravel]" alt="For Laravel" /></a>
-</p>
 
-<p align="center">
-    <a href="[link_packagist]"><img src="[badge_stable]" alt="Stable Version" /></a>
-    <a href="[link_packagist]"><img src="[badge_unstable]" alt="Unstable Version" /></a>
-    <a href="[link_packagist]"><img src="[badge_downloads]" alt="Total Downloads" /></a>
-    <a href="[link_license]"><img src="[badge_license]" alt="License" /></a>
-</p>
+[![StyleCI Status][badge_styleci]][link_styleci]
+[![Github Workflow Status][badge_build]][link_build]
+[![Coverage Status][badge_coverage]][link_scrutinizer]
+[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
+[![For Laravel][badge_laravel]][link_packagist]
+
+[![Stable Version][badge_stable]][link_packagist]
+[![Unstable Version][badge_unstable]][link_packagist]
+[![Total Downloads][badge_downloads]][link_packagist]
+[![License][badge_license]][link_license]
 
 
 ## Table of contents
@@ -265,7 +262,7 @@ return [
 `Lang Publisher` for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 [badge_styleci]:      https://styleci.io/repos/119022335/shield
-[badge_build]:        https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/run-tests?style=flat-square
+[badge_build]:        https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
 [badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_quality]:      https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_laravel]:      https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
