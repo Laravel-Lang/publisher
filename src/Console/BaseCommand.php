@@ -9,13 +9,9 @@ abstract class BaseCommand extends Command
 {
     protected function showResult(array $values, string $status_if_empty): void
     {
-        if (empty($values)) {
-            $this->warn($status_if_empty);
-
-            return;
-        }
-
-        $this->table($this->headers($values), $values);
+        empty($values)
+            ? $this->warn($status_if_empty)
+            : $this->table($this->headers($values), $values);
     }
 
     protected function headers(array $values): array
