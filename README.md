@@ -59,13 +59,13 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 
 |Laravel version|PHP min version|PHP tested version|Recommended|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
-|5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4|---|
-|5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4|---|
-|5.5|^7.0.0|7.1, 7.2, 7.3|^1.0|1.0.0|1.6.0|---|
-|5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|---|
-|5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features).|
-|5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1|---|
-|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0|---|
+|5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4|No support|
+|5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4|No support|
+|5.5|^7.0.0|7.1, 7.2, 7.3|^1.0|1.0.0|1.6.0|No support|
+|5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|No support|
+|5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). No support|
+|5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1|latest|
+|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0|soon|
 
 
 ## How to use
