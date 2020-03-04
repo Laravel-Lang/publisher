@@ -2,9 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
+
+use function compact;
 
 class LangUninstall extends BaseCommand
 {
@@ -23,13 +24,23 @@ class LangUninstall extends BaseCommand
     protected function uninstall(array $locales): void
     {
         foreach ($locales as $locale) {
-            $result = File::deleteDirectory(
-                Path::target($locale)
+            $status = $this->status(
+                $this->delete($locale)
             );
 
-            $status = $this->status($result);
-
             $this->pushResult($locale, $status);
+        }
+    }
+
+    protected function delete(string $locale): bool
+    {
+        try {
+            return File::deleteDirectory(
+                Path::target($locale)
+            );
+        }
+        catch (\Exception$exception) {
+            return false;
         }
     }
 
