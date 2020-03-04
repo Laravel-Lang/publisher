@@ -6,7 +6,6 @@ use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-
 use function realpath;
 
 abstract class TestCase extends BaseTestCase
