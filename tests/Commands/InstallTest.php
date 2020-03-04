@@ -42,7 +42,6 @@ class InstallTest extends TestCase
         }
 
         $this->artisan('lang:install', compact('locales'))->assertExitCode(0);
-        $this->assertSame('These credentials do not match our records.', Lang::get('auth.failed'));
 
         foreach ($locales as $locale) {
             $this->assertDirectoryExists(
