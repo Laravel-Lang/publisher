@@ -2,13 +2,12 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Contracts\Arr as ArrContract;
-
 use function array_filter;
 use function array_keys;
 use function array_shift;
 use function array_unique;
 use function array_values;
+use Helldar\LaravelLangPublisher\Contracts\Arr as ArrContract;
 
 class Arr implements ArrContract
 {
