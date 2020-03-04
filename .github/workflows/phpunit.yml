@@ -28,7 +28,7 @@ jobs:
       uses: shivammathur/setup-php@v1
       with:
         php-version: ${{ matrix.php }}
-        extensions: curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, iconv
+        extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
 
     - name: Install dependencies
       run: composer update --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest
