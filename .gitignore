@@ -1,5 +1,6 @@
 .idea/
 vendor/
+build/
 
 *.cache
 *.clover
