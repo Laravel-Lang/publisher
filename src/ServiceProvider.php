@@ -7,10 +7,12 @@ use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
 use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
+use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelLangPublisher\Support\Filesystem;
+use Helldar\LaravelLangPublisher\Support\Locale;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -47,6 +49,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->app->bind(FilesystemContract::class, Filesystem::class);
         $this->app->bind(PublisherContract::class, Localization::class);
+        $this->app->bind(LocaleContract::class, Locale::class);
     }
 
     protected function config(): void

@@ -101,6 +101,14 @@ php artisan lang:install de --force
 php artisan lang:install de -f
 ```
 
+You can also use the `*` symbol to install all localizations:
+
+```bash
+php artisan lang:install * -f
+php artisan lang:install * --force
+php artisan lang:install * -f
+```
+
 
 ### Update locales
 

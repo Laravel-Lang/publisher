@@ -2,12 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use function array_merge;
-use function compact;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Arr;
+
+use function array_merge;
+use function compact;
 
 class Localization implements LocalizationContract
 {

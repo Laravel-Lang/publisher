@@ -2,11 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use function array_map;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use function pathinfo;
-use function resource_path;
 
 class LangUpdate extends Command
 {
@@ -17,22 +14,8 @@ class LangUpdate extends Command
     public function handle()
     {
         $this->call('lang:install', [
-            'locales' => $this->locales(),
+            'locales' => Locale::installed(),
             '--force' => true,
         ]);
-    }
-
-    protected function locales(): array
-    {
-        return array_map(function ($value) {
-            return pathinfo($value, PATHINFO_FILENAME);
-        }, $this->directories());
-    }
-
-    protected function directories(): array
-    {
-        return File::directories(
-            resource_path('lang')
-        );
     }
 }
