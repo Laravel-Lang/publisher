@@ -14,7 +14,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https
 </p>
 
 
-## Contents
+## Table of contents
 
 * [Installation](#installation)
   * [Compatibility table](#compatibility-table)
