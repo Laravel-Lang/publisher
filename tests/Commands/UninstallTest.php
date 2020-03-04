@@ -26,7 +26,7 @@ class UninstallTest extends TestCase
         foreach ($locales as $locale) {
             $path = resource_path('lang' . DIRECTORY_SEPARATOR . $locale);
 
-            if (! file_exists($path)) {
+            if (! File::exists($path)) {
                 File::makeDirectory($path);
             }
         }
