@@ -3,7 +3,6 @@
 namespace Tests\Commands;
 
 use Helldar\LaravelLangPublisher\Facades\Path;
-use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
@@ -22,14 +21,6 @@ class UninstallTest extends TestCase
     public function testUninstall()
     {
         $locales = ['be', 'da', 'gl', 'is'];
-
-        foreach ($locales as $locale) {
-            $path = Path::target($locale);
-
-            if (! File::exists($path)) {
-                File::makeDirectory($path);
-            }
-        }
 
         $this->artisan('lang:uninstall', compact('locales'))->assertExitCode(0);
 
