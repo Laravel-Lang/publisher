@@ -25,6 +25,7 @@ class UninstallTest extends TestCase
 
         try {
             foreach ($locales as $locale) {
+                $lang = $locale;
                 $path = Path::target($locale);
 
                 if (! File::exists($path)) {
