@@ -3,13 +3,12 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
+use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Facades\File;
 
 use function array_map;
 use function array_push;
-use function array_unique;
-use function array_values;
 use function resource_path;
 
 class Locale implements LocaleContract
@@ -61,6 +60,6 @@ class Locale implements LocaleContract
 
     protected function filterLocales(array $locales): array
     {
-        return array_values(array_unique($locales));
+        return ArrFacade::unique($locales);
     }
 }

@@ -3,9 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Illuminate\Console\Command;
 
-class LangUpdate extends Command
+class LangUpdate extends BaseCommand
 {
     protected $signature = 'lang:update';
 

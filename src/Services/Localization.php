@@ -2,9 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
 use Helldar\LaravelLangPublisher\Facades\Config;
+use Helldar\LaravelLangPublisher\Facades\File;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Arr;
 
 use function array_merge;
@@ -12,22 +13,14 @@ use function compact;
 
 class Localization implements LocalizationContract
 {
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Filesystem */
-    protected $filesystem;
-
     /** @var array */
     protected $result = [];
-
-    public function __construct(FilesystemContract $filesystem)
-    {
-        $this->filesystem = $filesystem;
-    }
 
     public function publish(string $locale, bool $force = false): void
     {
         $src = $this->getSourcePath($locale);
 
-        $this->filesystem->directoryExists($src, $locale);
+        File::directoryExists($src, $locale);
 
         $this->find($src, $locale, $force);
     }
@@ -39,16 +32,16 @@ class Localization implements LocalizationContract
 
     protected function find(string $source, string $locale, bool $force = false): void
     {
-        foreach ($this->filesystem->files($source) as $file) {
+        foreach (File::files($source) as $file) {
             if ($file->isDir() || $file->getExtension() !== 'php') {
                 continue;
             }
 
             $filename = $file->getFilename();
             $src_file = $file->getRealPath();
-            $dst_file = $this->filesystem->translationsPath($locale, $filename);
+            $dst_file = Path::target($locale, $filename);
 
-            if ($force || ! $this->filesystem->fileExists($dst_file)) {
+            if ($force || ! File::exists($dst_file)) {
                 $this->copy($src_file, $dst_file, $filename);
                 $this->copied($locale, $filename);
 
@@ -61,7 +54,7 @@ class Localization implements LocalizationContract
 
     protected function copy(string $source, string $target, string $filename): void
     {
-        $key = $this->filesystem->filename($filename);
+        $key = File::name($filename);
 
         if ($key === 'validation') {
             $this->copyValidations($source, $target, $key);
@@ -72,8 +65,8 @@ class Localization implements LocalizationContract
 
     protected function copyValidations(string $src, string $dst, string $filename): void
     {
-        $source = $this->filesystem->load($src);
-        $target = $this->filesystem->load($dst, true);
+        $source = File::load($src);
+        $target = File::load($dst, true);
 
         $source_custom     = Arr::get($source, 'custom', []);
         $source_attributes = Arr::get($source, 'attributes', []);
@@ -90,19 +83,19 @@ class Localization implements LocalizationContract
 
         $result = array_merge($target, $source, $excluded_target, compact('custom', 'attributes'));
 
-        $this->filesystem->save($dst, $result);
+        File::save($dst, $result);
     }
 
     protected function copyOthers(string $src, string $dst, string $filename): void
     {
-        $source = $this->filesystem->load($src);
-        $target = $this->filesystem->load($dst, true);
+        $source = File::load($src);
+        $target = File::load($dst, true);
 
         $excluded = $this->excluded($target, $filename);
 
         $result = array_merge($target, $source, $excluded);
 
-        $this->filesystem->save($dst, $result);
+        File::save($dst, $result);
     }
 
     protected function excluded(array $array, string $key): array
@@ -110,11 +103,6 @@ class Localization implements LocalizationContract
         $keys = Config::getExclude($key, []);
 
         return Arr::only($array, $keys);
-    }
-
-    protected function isDefault(string $locale): bool
-    {
-        return $locale === Config::getLocale();
     }
 
     protected function skipped(string $locale, string $filename): void
@@ -132,15 +120,8 @@ class Localization implements LocalizationContract
         $this->result[] = compact('locale', 'filename', 'status');
     }
 
-    protected function getDirectory(string $locale): string
-    {
-        return $this->isDefault($locale) ? '../script/en' : $locale;
-    }
-
     protected function getSourcePath(string $locale): string
     {
-        return $this->filesystem->caouecsPath(
-            $this->getDirectory($locale)
-        );
+        return Path::source($locale);
     }
 }

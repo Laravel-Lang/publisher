@@ -3,35 +3,18 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use DirectoryIterator;
-use function file_exists;
-use Helldar\LaravelLangPublisher\Contracts\Filesystem as FilesystemContract;
+use Helldar\LaravelLangPublisher\Contracts\File as FileContract;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
 use Helldar\LaravelLangPublisher\Facades\Config;
-use Helldar\PrettyArray\Services\File;
+use Helldar\PrettyArray\Services\File as PrettyFile;
 use Helldar\PrettyArray\Services\Formatter;
+
+use function file_exists;
 use function ksort;
-use function ltrim;
 use function pathinfo;
-use function realpath;
-use function resource_path;
 
-class Filesystem implements FilesystemContract
+class File implements FileContract
 {
-    public function translationsPath(string $path = '', string $filename = ''): string
-    {
-        $path     = $this->cleanPath($path);
-        $filename = $this->cleanPath($filename);
-
-        return resource_path(static::LANG_DIRECTORY . $path . $filename);
-    }
-
-    public function caouecsPath(string $path): string
-    {
-        return $this->realpath(
-            Config::getVendorPath() . $this->cleanPath($path)
-        );
-    }
-
     public function files(string $path): DirectoryIterator
     {
         return new DirectoryIterator($path);
@@ -41,17 +24,16 @@ class Filesystem implements FilesystemContract
      * @param string $path
      * @param bool $return_empty
      *
-     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
-     *
      * @return array
+     * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      */
     public function load(string $path, bool $return_empty = false): array
     {
-        if ($return_empty && ! $this->fileExists($path)) {
+        if ($return_empty && ! $this->exists($path)) {
             return [];
         }
 
-        return File::make()->load($path);
+        return PrettyFile::make()->load($path);
     }
 
     /**
@@ -72,7 +54,7 @@ class Filesystem implements FilesystemContract
             $service->setEqualsAlign();
         }
 
-        File::make(
+        PrettyFile::make(
             $service->raw($data)
         )->store($path);
     }
@@ -83,32 +65,20 @@ class Filesystem implements FilesystemContract
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists
      */
-    public function directoryExists(string $path, string $locale)
+    public function directoryExists(string $path, string $locale): void
     {
-        if (! $path || ! file_exists($path)) {
+        if (! $path || ! $this->exists($path)) {
             throw new SourceLocaleNotExists($locale);
         }
     }
 
-    public function fileExists(string $path): bool
+    public function exists(string $path): bool
     {
         return file_exists($path);
     }
 
-    public function filename(string $path): string
+    public function name(string $path): string
     {
         return pathinfo($path, PATHINFO_FILENAME);
-    }
-
-    protected function cleanPath(string $path = ''): string
-    {
-        return $path
-            ? static::DIVIDER . ltrim($path, static::DIVIDER)
-            : $path;
-    }
-
-    protected function realpath(string $path): string
-    {
-        return realpath($path);
     }
 }
