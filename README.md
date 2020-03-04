@@ -1,6 +1,6 @@
 ## Lang Publisher for Laravel 5.3-7.x
 
-Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package.
+Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
@@ -259,7 +259,7 @@ return [
 
 ## Copyright and License
 
-`Lang Publisher` for [caouecs/Laravel-lang](https://github.com/caouecs/Laravel-lang) package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+`Lang Publisher` for [caouecs/Laravel-lang][link_source] package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 [badge_styleci]:      https://styleci.io/repos/119022335/shield
 [badge_build]:        https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
@@ -276,3 +276,4 @@ return [
 [link_scrutinizer]:   https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
 [link_packagist]:     https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
 [link_license]:       LICENSE
+[link_source]:        https://github.com/caouecs/Laravel-lang
