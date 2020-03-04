@@ -24,6 +24,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang](https
   * [Update locales](#update-locales)
   * [Uninstall locales](#uninstall-locales)
   * [Features](#features)
+    * [Alignment](#alignment)
 * [Copyright and License](#copyright-and-license)
 
 
@@ -126,6 +127,8 @@ php artisan lang:uninstall de ro zh-CN
 
 
 ### Features
+
+#### Alignment
 
 **Attention!**  This feature works only in Laravel 5.5 and higher with php 7.1.3 and higher.
 
