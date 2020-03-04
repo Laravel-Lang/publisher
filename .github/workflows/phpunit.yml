@@ -1,0 +1,44 @@
+name: phpunit
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [7.2, 7.3, 7.4]
+        laravel: [6.*, 7.*]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Composer self update
+      run: composer self-update
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php }}
+        extensions: curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, iconv
+
+    - name: Install dependencies
+      run: composer update --prefer-dist --prefer-stable --no-progress --no-interaction --no-suggest
+
+    - name: Execute tests
+      run: |
+        mkdir -p build/logs
+        vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+    - name: Scrutinizer CI
+      run: |
+        wget https://scrutinizer-ci.com/ocular.phar
+        php ocular.phar code-coverage:upload --format=php-clover coverage.clover
