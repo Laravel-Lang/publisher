@@ -259,7 +259,7 @@ return [
 
 ## Copyright and License
 
-`Lang Publisher` for [caouecs/Laravel-lang][link_source] package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+`Lang Publisher` for [caouecs/Laravel-lang][link_source] package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE][link_license] file for details.
 
 [badge_styleci]:      https://styleci.io/repos/119022335/shield
 [badge_build]:        https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
