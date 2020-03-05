@@ -64,13 +64,13 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 
 |Laravel version|PHP min version|PHP tested version|Recommended|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
-|5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4|No support|
-|5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4|No support|
-|5.5|^7.0.0|7.1, 7.2, 7.3|^1.0|1.0.0|1.6.0|No support|
-|5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|No support|
-|5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). No support|
-|5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1|latest|
-|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0|soon|
+|5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4| ![Not Supported][badge_not_supported] |
+|5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4| ![Not Supported][badge_not_supported] |
+|5.5|^7.0.0|7.1, 7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] |
+|5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] |
+|5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0|You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). ![Not Supported][badge_not_supported] |
+|5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1| ![Not Supported][badge_not_supported] |
+|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0| ![Supported][badge_supported] |
 
 
 ## How to use
@@ -390,10 +390,12 @@ Path::target(string $locale = null, string $filename = null): string
 [badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_quality]:      https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_laravel]:      https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
-[badge_stable]:       https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/stable?format=flat-square
-[badge_unstable]:     https://poser.pugx.org/andrey-helldar/laravel-lang-publisher/v/unstable?format=flat-square
+[badge_stable]:       https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
+[badge_unstable]:     https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
 [badge_downloads]:    https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_license]:      https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+[badge_supported]:    https://img.shields.io/badge/supported-green?style=flat-square
+[badge_not_supported]:    https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 
 [link_styleci]:       https://github.styleci.io/repos/119022335
 [link_build]:         https://github.com/andrey-helldar/laravel-lang-publisher/actions
