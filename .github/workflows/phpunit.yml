@@ -10,10 +10,9 @@ jobs:
             fail-fast: true
             matrix:
                 php: [7.2, 7.3, 7.4]
-                laravel: [6.*, 7.*]
                 dependency-version: [prefer-lowest, prefer-stable]
 
-        name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
 
         steps:
             -   name: Checkout code
@@ -35,9 +34,7 @@ jobs:
                 run: composer validate
 
             -   name: Install dependencies
-                run: |
-                    composer require laravel/framework:${{ matrix.laravel }}
-                    composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
+                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
 
             -   name: Execute tests
                 run: |
