@@ -128,6 +128,10 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 
 ### Uninstall locales
 
+> **ATTENTION**
+>
+> When this command is executed, the entire locale folder with all files is deleted.
+
 To delete localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
 ```bash
 php artisan lang:uninstall de ro zh-CN
