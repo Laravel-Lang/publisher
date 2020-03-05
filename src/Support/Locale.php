@@ -2,13 +2,12 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use function array_map;
+use function array_push;
 use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Facades\File;
-
-use function array_map;
-use function array_push;
 use function resource_path;
 
 final class Locale implements LocaleContract
