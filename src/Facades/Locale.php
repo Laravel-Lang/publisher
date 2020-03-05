@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static array available()
  * @method static array installed()
+ * @method static array protects()
+ * @method static bool isProtected(string $locale)
  * @method static string getDefault()
  * @method static string getFallback()
  */

@@ -128,10 +128,14 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 
 ### Uninstall locales
 
-To remove localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
+To delete localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
 ```bash
 php artisan lang:uninstall de ro zh-CN 
 ```
+
+You can also specify the `*` symbol to delete all localizations.
+
+In this case, everything will be deleted, except the default and fallback application locales.
 
 
 ### Features
@@ -352,6 +356,12 @@ Locale::available(): array
 
 // List of installed locations.
 Locale::installed(): array
+
+// Retrieving a list of secure locales.
+Locale::protects(): array
+
+// The checked locale protecting.
+Locale::isProtected(string $locale): bool
 
 // Getting the default localization name.
 Locale::getDefault(): string

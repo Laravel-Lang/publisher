@@ -2,6 +2,7 @@
 
 namespace Tests\Commands;
 
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -32,5 +33,15 @@ class UninstallTest extends TestCase
 
             $this->assertDirectoryNotExists($path);
         }
+    }
+
+    public function testUninstallDefaultLocale()
+    {
+        $locale = Locale::getDefault();
+        $path   = Path::target($locale);
+
+        $this->localization()->delete($locale);
+
+        $this->assertDirectoryExists($path);
     }
 }

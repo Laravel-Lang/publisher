@@ -2,12 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use function array_map;
-use function array_push;
 use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Facades\File;
+
+use function array_map;
+use function array_push;
 use function resource_path;
 
 final class Locale implements LocaleContract
@@ -30,6 +31,31 @@ final class Locale implements LocaleContract
     public function installed(): array
     {
         return $this->get($this->getInstalledDirectories());
+    }
+
+    /**
+     * Retrieving a list of secure locales.
+     *
+     * @return array
+     */
+    public function protects(): array
+    {
+        return ArrFacade::unique([
+            $this->getDefault(),
+            $this->getFallback(),
+        ]);
+    }
+
+    /**
+     * The checked locale protecting.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    public function isProtected(string $locale): bool
+    {
+        return $locale === $this->getDefault() || $locale === $this->getFallback();
     }
 
     /**

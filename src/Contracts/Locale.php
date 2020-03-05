@@ -8,6 +8,10 @@ interface Locale
 
     public function installed(): array;
 
+    public function protects(): array;
+
+    public function isProtected(string $locale): bool;
+
     public function getDefault(): string;
 
     public function getFallback(): string;
