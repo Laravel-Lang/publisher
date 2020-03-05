@@ -365,7 +365,7 @@ Locale::available(): array
 // List of installed locations.
 Locale::installed(): array
 
-// Retrieving a list of secure locales.
+// Retrieving a list of protected locales.
 Locale::protects(): array
 
 // The checked locale protecting.

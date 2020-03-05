@@ -33,7 +33,7 @@ final class Locale implements LocaleContract
     }
 
     /**
-     * Retrieving a list of secure locales.
+     * Retrieving a list of protected locales.
      *
      * @return array
      */
