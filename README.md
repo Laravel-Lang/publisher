@@ -33,7 +33,8 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
         * [Config](#config)
         * [Locate](#locale)
         * [Path](#path)
-* [Copyright and License](#copyright-and-license)
+* [Security](#security)
+* [Credits](#credits)
 
 
 ## Installation
@@ -398,25 +399,35 @@ Path::target(string $locale = null, string $filename = null): string
 ```
 
 
-## Copyright and License
+## Security
 
-`Lang Publisher` for [caouecs/Laravel-lang][link_source] package was written by Andrey Helldar for the Laravel framework 5.3-7.x and is released under the MIT License. See the [LICENSE][link_license] file for details.
+If you discover any security related issues, please email helldar@ai-rus.com instead of using the [issue](https://github.com/andrey-helldar/laravel-lang-publisher/issues) tracker.
 
-[badge_styleci]:      https://styleci.io/repos/119022335/shield
-[badge_build]:        https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
-[badge_coverage]:     https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_quality]:      https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_laravel]:      https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
-[badge_stable]:       https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
-[badge_unstable]:     https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
-[badge_downloads]:    https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_license]:      https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_supported]:    https://img.shields.io/badge/supported-green?style=flat-square
-[badge_not_supported]:    https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 
-[link_styleci]:       https://github.styleci.io/repos/119022335
-[link_build]:         https://github.com/andrey-helldar/laravel-lang-publisher/actions
-[link_scrutinizer]:   https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
-[link_packagist]:     https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
-[link_license]:       LICENSE
-[link_source]:        https://github.com/caouecs/Laravel-lang
+## Credits
+
+- [Andrey Helldar][link_author]
+- [![All contributors][badge_contributors]][link_contributors]
+
+
+[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
+[badge_contributors]:   https://img.shields.io/github/contributors/andrey-helldar/laravel-lang-publisher?style=flat-square
+[badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
+[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+[badge_not_supported]:  https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
+[badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
+[badge_styleci]:        https://styleci.io/repos/119022335/shield
+[badge_supported]:      https://img.shields.io/badge/supported-green?style=flat-square
+[badge_unstable]:       https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
+
+[link_author]:          https://github.com/andrey-helldar
+[link_build]:           https://github.com/andrey-helldar/laravel-lang-publisher/actions
+[link_contributors]:    https://github.com/andrey-helldar/laravel-lang-publisher/graphs/contributors
+[link_license]:         LICENSE
+[link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
+[link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
+[link_source]:          https://github.com/caouecs/Laravel-lang
+[link_styleci]:         https://github.styleci.io/repos/119022335
