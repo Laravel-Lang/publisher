@@ -415,16 +415,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.0.7",
+            "version": "v7.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5c3b3d9c77560b249305cbc42d0aa0a16f9e80f9"
+                "reference": "951e10fbfed2a2d547c3fc33853125b4a619e01a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5c3b3d9c77560b249305cbc42d0aa0a16f9e80f9",
-                "reference": "5c3b3d9c77560b249305cbc42d0aa0a16f9e80f9",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/951e10fbfed2a2d547c3fc33853125b4a619e01a",
+                "reference": "951e10fbfed2a2d547c3fc33853125b4a619e01a",
                 "shasum": ""
             },
             "require": {
@@ -512,7 +512,7 @@
                 "ext-memcached": "Required to use the memcache cache driver.",
                 "ext-pcntl": "Required to use all features of the queue worker.",
                 "ext-posix": "Required to use all features of the queue worker.",
-                "ext-redis": "Required to use the Redis cache and queue drivers.",
+                "ext-redis": "Required to use the Redis cache and queue drivers (^4.0|^5.0).",
                 "filp/whoops": "Required for friendly error pages in development (^2.4).",
                 "fzaninotto/faker": "Required to use the eloquent factory builder (^1.9.1).",
                 "guzzlehttp/guzzle": "Required to use the HTTP Client, Mailgun mail driver and the ping methods on schedules (^6.3.1|^7.0).",
@@ -562,7 +562,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-03-07T14:35:34+00:00"
+            "time": "2020-03-13T13:52:44+00:00"
         },
         {
             "name": "league/commonmark",
@@ -640,16 +640,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.64",
+            "version": "1.0.65",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "d13c43dbd4b791f815215959105a008515d1a2e0"
+                "reference": "8f17b3ba67097aafb8318cd5c553b1acf7c891c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/d13c43dbd4b791f815215959105a008515d1a2e0",
-                "reference": "d13c43dbd4b791f815215959105a008515d1a2e0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8f17b3ba67097aafb8318cd5c553b1acf7c891c8",
+                "reference": "8f17b3ba67097aafb8318cd5c553b1acf7c891c8",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,17 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2020-02-05T18:14:17+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/frankdejonge",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-03-08T18:53:20+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2741,16 +2751,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "32bd5ca5a4170f88e27073353013d210a3354ae9"
+                "reference": "939dfda2d7267ac8fc53ac3d642b5de357554c39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/32bd5ca5a4170f88e27073353013d210a3354ae9",
-                "reference": "32bd5ca5a4170f88e27073353013d210a3354ae9",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/939dfda2d7267ac8fc53ac3d642b5de357554c39",
+                "reference": "939dfda2d7267ac8fc53ac3d642b5de357554c39",
                 "shasum": ""
             },
             "require": {
@@ -2799,20 +2809,26 @@
                 "env",
                 "environment"
             ],
-            "time": "2020-03-01T23:56:01+00:00"
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-03-12T13:44:15+00:00"
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.4.9",
+            "version": "1.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "9fd2b224c71448b5f84aef9d499a1428d79776a2"
+                "reference": "240e93829a5f985fab0984a6e55ae5e26b78a334"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/9fd2b224c71448b5f84aef9d499a1428d79776a2",
-                "reference": "9fd2b224c71448b5f84aef9d499a1428d79776a2",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/240e93829a5f985fab0984a6e55ae5e26b78a334",
+                "reference": "240e93829a5f985fab0984a6e55ae5e26b78a334",
                 "shasum": ""
             },
             "require": {
@@ -2848,7 +2864,25 @@
                 "clean",
                 "php"
             ],
-            "time": "2020-03-06T02:47:42+00:00"
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/moelleken",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/voku",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/voku",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/voku/portable-ascii",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-03-13T01:23:26+00:00"
         }
     ],
     "packages-dev": [
@@ -3121,22 +3155,22 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v5.0.2",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "d2fb3f270f4413a8148336b3b902f45eb1ff4511"
+                "reference": "e36bdb5fc599495f46a8b2fd3a5e6ffed044e095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/d2fb3f270f4413a8148336b3b902f45eb1ff4511",
-                "reference": "d2fb3f270f4413a8148336b3b902f45eb1ff4511",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/e36bdb5fc599495f46a8b2fd3a5e6ffed044e095",
+                "reference": "e36bdb5fc599495f46a8b2fd3a5e6ffed044e095",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "^7.0.6",
+                "laravel/framework": "^7.1",
                 "mockery/mockery": "^1.3.1",
-                "orchestra/testbench-core": "^5.0.2",
+                "orchestra/testbench-core": "^5.1",
                 "php": ">=7.2.5",
                 "phpunit/phpunit": "^8.4 || ^9.0"
             },
@@ -3167,20 +3201,30 @@
                 "orchestral",
                 "testing"
             ],
-            "time": "2020-03-06T23:39:54+00:00"
+            "funding": [
+                {
+                    "url": "https://paypal.me/crynobone",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/crynobone",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-03-10T17:14:11+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v5.0.2",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "9fac37e442651664cab3025dc482a3933f494422"
+                "reference": "14961b8a10e513ebcab7f7548ffbeec663bac5c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/9fac37e442651664cab3025dc482a3933f494422",
-                "reference": "9fac37e442651664cab3025dc482a3933f494422",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/14961b8a10e513ebcab7f7548ffbeec663bac5c4",
+                "reference": "14961b8a10e513ebcab7f7548ffbeec663bac5c4",
                 "shasum": ""
             },
             "require": {
@@ -3188,14 +3232,14 @@
                 "php": ">=7.2.5"
             },
             "require-dev": {
-                "laravel/framework": "^7.0.6",
+                "laravel/framework": "^7.1",
                 "laravel/laravel": "dev-master",
                 "mockery/mockery": "^1.3.1",
                 "orchestra/canvas": "^5.0",
                 "phpunit/phpunit": "^8.4 || ^9.0"
             },
             "suggest": {
-                "laravel/framework": "Required for testing (^7.0.6).",
+                "laravel/framework": "Required for testing (^7.1).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.3.1).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^5.0).",
                 "orchestra/testbench-dusk": "Allow using Laravel Dusk for testing (^5.0).",
@@ -3233,7 +3277,17 @@
                 "orchestral",
                 "testing"
             ],
-            "time": "2020-03-06T23:32:49+00:00"
+            "funding": [
+                {
+                    "url": "https://paypal.me/crynobone",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/crynobone",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-03-10T16:58:29+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4663,5 +4717,6 @@
     "platform": {
         "php": "^7.2.5"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
