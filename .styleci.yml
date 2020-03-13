@@ -13,7 +13,6 @@ enabled:
     - blank_line_before_try
     - cast_spaces
     - combine_consecutive_issets
-    - concat_with_spaces
     - const_separation
     - const_visibility_required
     - dir_constant
