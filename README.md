@@ -26,13 +26,13 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
   * [Install locales](#install-locales)
   * [Update locales](#update-locales)
   * [Uninstall locales](#uninstall-locales)
-  * [Features](#features)
-    * [Alignment](#alignment)
-    * [Facades](#facades)
-        * [Arr](#arr)
-        * [Config](#config)
-        * [Locate](#locale)
-        * [Path](#path)
+* [Features](#features)
+  * [Alignment](#alignment)
+  * [Facades](#facades)
+      * [Arr](#arr)
+      * [Config](#config)
+      * [Locate](#locale)
+      * [Path](#path)
 * [Security](#security)
 * [Credits](#credits)
 
@@ -147,9 +147,9 @@ php artisan lang:uninstall *
 In this case, everything will be deleted, except the default and fallback application locales.
 
 
-### Features
+## Features
 
-#### Alignment
+### Alignment
 
 **Attention!**  This feature works only in Laravel 5.5 and higher with php 7.1.3 and higher.
 
@@ -274,11 +274,11 @@ return [
 ];
 ```
 
-#### Facades
+### Facades
 
 Perhaps the facades will be useful to you:
 
-##### Arr
+#### Arr
 ```php
 use Helldar\LaravelLangPublisher\Facades\Arr;
 
@@ -317,7 +317,7 @@ Arr::transform(array $array, \Closure $callback): array
 ```
 
 
-##### Config
+#### Config
 ```php
 use Helldar\LaravelLangPublisher\Facades\Config;
 
@@ -356,7 +356,7 @@ Config::getCase(): int
 ```
 
 
-##### Locale
+#### Locale
 ```php
 use Helldar\LaravelLangPublisher\Facades\Locale;
 
@@ -380,7 +380,7 @@ Locale::getFallback(): string
 ```
 
 
-##### Path
+#### Path
 ```php
 use Helldar\LaravelLangPublisher\Facades\Path;
 
