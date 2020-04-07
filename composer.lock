@@ -457,16 +457,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.4.0",
+            "version": "v7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "dafdd1e19f86add02e48fa9f6cac9be2c5329772"
+                "reference": "0e71d781854723d9428e1ae921a7edfe0a10c8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/dafdd1e19f86add02e48fa9f6cac9be2c5329772",
-                "reference": "dafdd1e19f86add02e48fa9f6cac9be2c5329772",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0e71d781854723d9428e1ae921a7edfe0a10c8ec",
+                "reference": "0e71d781854723d9428e1ae921a7edfe0a10c8ec",
                 "shasum": ""
             },
             "require": {
@@ -604,7 +604,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-03-31T15:01:12+00:00"
+            "time": "2020-04-07T14:47:48+00:00"
         },
         {
             "name": "league/commonmark",
