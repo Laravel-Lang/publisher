@@ -59,16 +59,16 @@
         },
         {
             "name": "andrey-helldar/support",
-            "version": "v1.20.1",
+            "version": "v1.20.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrey-helldar/support.git",
-                "reference": "e3048319b7b2ba2bda0a4a81eb7ae061044e6390"
+                "reference": "750374a1e1265fe8d3fe4cb372edad979185dcd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/e3048319b7b2ba2bda0a4a81eb7ae061044e6390",
-                "reference": "e3048319b7b2ba2bda0a4a81eb7ae061044e6390",
+                "url": "https://api.github.com/repos/andrey-helldar/support/zipball/750374a1e1265fe8d3fe4cb372edad979185dcd9",
+                "reference": "750374a1e1265fe8d3fe4cb372edad979185dcd9",
                 "shasum": ""
             },
             "require": {
@@ -82,9 +82,8 @@
                 "phpunit/phpunit": "^8.0|^9.0"
             },
             "suggest": {
-                "illuminate/database": "For using methods from the Dumper class and Eloquent helpers in Laravel framework",
-                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers",
-                "webpatser/laravel-uuid": "For using Laravel Eloquent abstract classes."
+                "andrey-helldar/laravel-support": "Various helper files for the Laravel and Lumen frameworks",
+                "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
             },
             "type": "library",
             "extra": {
@@ -124,7 +123,17 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2020-02-26T07:00:28+00:00"
+            "funding": [
+                {
+                    "url": "https://money.yandex.ru/to/410012115955701",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://paypal.me/helldar",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-04-23T05:12:45+00:00"
         },
         {
             "name": "brick/math",
@@ -458,16 +467,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.6.2",
+            "version": "v7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "695be25d84b5cedd0026c428d4e9697fe8cd06f9"
+                "reference": "cdc6d7e6c744f4d8f7d61102aea9b111550cd297"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/695be25d84b5cedd0026c428d4e9697fe8cd06f9",
-                "reference": "695be25d84b5cedd0026c428d4e9697fe8cd06f9",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/cdc6d7e6c744f4d8f7d61102aea9b111550cd297",
+                "reference": "cdc6d7e6c744f4d8f7d61102aea9b111550cd297",
                 "shasum": ""
             },
             "require": {
@@ -571,6 +580,7 @@
                 "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^4.0).",
                 "symfony/cache": "Required to PSR-6 cache bridge (^5.0).",
+                "symfony/filesystem": "Required to create relative storage directory symbolic links (^5.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
             },
@@ -605,20 +615,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-04-15T20:57:47+00:00"
+            "time": "2020-04-24T17:21:56+00:00"
         },
         {
             "name": "league/commonmark",
-            "version": "1.3.4",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "dd3261eb9a322e009fa5d96d19b9ae19708ce04b"
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/dd3261eb9a322e009fa5d96d19b9ae19708ce04b",
-                "reference": "dd3261eb9a322e009fa5d96d19b9ae19708ce04b",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/9e780d972185e4f737a03bade0fd34a9e67bbf31",
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31",
                 "shasum": ""
             },
             "require": {
@@ -636,7 +646,7 @@
                 "github/gfm": "0.29.0",
                 "michelf/php-markdown": "~1.4",
                 "mikehaertl/php-shellcommand": "^1.4",
-                "phpstan/phpstan-shim": "^0.11.5",
+                "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "^7.5",
                 "scrutinizer/ocular": "^1.5",
                 "symfony/finder": "^4.2"
@@ -679,7 +689,33 @@
                 "md",
                 "parser"
             ],
-            "time": "2020-04-13T20:52:18+00:00"
+            "funding": [
+                {
+                    "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/colinodell",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/commonmark",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-24T13:39:56+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3969,16 +4005,16 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "354d4a5faa7449a377a18b94a2026ca3415e3d7a"
+                "reference": "4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/354d4a5faa7449a377a18b94a2026ca3415e3d7a",
-                "reference": "354d4a5faa7449a377a18b94a2026ca3415e3d7a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4",
+                "reference": "4ac5b3e13df14829daa60a2eb4fdd2f2b7d33cf4",
                 "shasum": ""
             },
             "require": {
@@ -4015,7 +4051,13 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2020-02-07T06:05:22+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-04-18T05:02:12+00:00"
         },
         {
             "name": "phpunit/php-invoker",
@@ -4118,16 +4160,16 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "3.1.2",
+            "version": "3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "35e732ff964693cb91ef4690f1f6016833b68f9d"
+                "reference": "dc9368fae6ef2ffa57eba80a7410bcef81df6258"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/35e732ff964693cb91ef4690f1f6016833b68f9d",
-                "reference": "35e732ff964693cb91ef4690f1f6016833b68f9d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/dc9368fae6ef2ffa57eba80a7410bcef81df6258",
+                "reference": "dc9368fae6ef2ffa57eba80a7410bcef81df6258",
                 "shasum": ""
             },
             "require": {
@@ -4163,7 +4205,13 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2020-04-17T15:08:36+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-04-20T06:00:37+00:00"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -4216,16 +4264,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.1.1",
+            "version": "9.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "848f6521c906500e66229668768576d35de0227e"
+                "reference": "a74780472172957a65cb5999a597e8c0878cf39c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/848f6521c906500e66229668768576d35de0227e",
-                "reference": "848f6521c906500e66229668768576d35de0227e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a74780472172957a65cb5999a597e8c0878cf39c",
+                "reference": "a74780472172957a65cb5999a597e8c0878cf39c",
                 "shasum": ""
             },
             "require": {
@@ -4245,7 +4293,7 @@
                 "phpunit/php-file-iterator": "^3.0",
                 "phpunit/php-invoker": "^3.0",
                 "phpunit/php-text-template": "^2.0",
-                "phpunit/php-timer": "^3.0",
+                "phpunit/php-timer": "^3.1.4",
                 "sebastian/code-unit": "^1.0",
                 "sebastian/comparator": "^4.0",
                 "sebastian/diff": "^4.0",
@@ -4258,7 +4306,8 @@
                 "sebastian/version": "^3.0"
             },
             "require-dev": {
-                "ext-pdo": "*"
+                "ext-pdo": "*",
+                "phpspec/prophecy-phpunit": "^2.0"
             },
             "suggest": {
                 "ext-soap": "*",
@@ -4309,7 +4358,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-04-03T14:40:04+00:00"
+            "time": "2020-04-23T04:42:05+00:00"
         },
         {
             "name": "sebastian/code-unit",
@@ -5023,16 +5072,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598"
+                "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/aed98a490f9a8f78468232db345ab9cf606cf598",
-                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
+                "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "shasum": ""
             },
             "require": {
@@ -5040,7 +5089,7 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "vimeo/psalm": "<3.6.0"
+                "vimeo/psalm": "<3.9.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
@@ -5067,7 +5116,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2020-02-14T12:15:55+00:00"
+            "time": "2020-04-18T12:12:48+00:00"
         }
     ],
     "aliases": [],
