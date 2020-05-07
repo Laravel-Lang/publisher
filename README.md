@@ -44,23 +44,17 @@ To get the latest version of Laravel Lang Publisher, simply require the project 
 
 ```bash
 $ composer require andrey-helldar/laravel-lang-publisher --dev
-$ composer require andrey-helldar/pretty-array
 ```
 
-Or manually update `require-dev` and `require` blocks of `composer.json` and run `composer update`.
+Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
 ```json
 {
-    "require": {
-        "andrey-helldar/pretty-array": "^1.0"
-    },
     "require-dev": {
         "andrey-helldar/laravel-lang-publisher": "^4.0"
     }
 }
 ```
-
-> The `andrey-helldar/pretty-array` package must be installed for the reason that the `case` option refers to it in the configuration file. Otherwise, when installing dependencies with the `--no-dev` switch on production, this package will not be installed, which will cause an error.
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```

@@ -40,5 +40,5 @@ return [
      *
      * By default, Caseable::NO_CASE
      */
-    'case'    => Caseable::NO_CASE,
+    'case'    => class_exists(Caseable::class) ? Caseable::NO_CASE : 0,
 ];
