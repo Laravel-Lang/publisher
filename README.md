@@ -60,6 +60,8 @@ Or manually update `require-dev` and `require` blocks of `composer.json` and run
 }
 ```
 
+> The `andrey-helldar/pretty-array` package must be installed for the reason that the `case` option refers to it in the configuration file. Otherwise, when installing dependencies with the `--no-dev` switch on production, this package will not be installed, which will cause an error.
+
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
