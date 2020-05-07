@@ -44,12 +44,16 @@ To get the latest version of Laravel Lang Publisher, simply require the project 
 
 ```bash
 $ composer require andrey-helldar/laravel-lang-publisher --dev
+$ composer require andrey-helldar/pretty-array
 ```
 
-Or manually update `require-dev` block of `composer.json` and run `composer update`.
+Or manually update `require-dev` and `require` blocks of `composer.json` and run `composer update`.
 
 ```json
 {
+    "require": {
+        "andrey-helldar/pretty-array": "^1.0"
+    },
     "require-dev": {
         "andrey-helldar/laravel-lang-publisher": "^4.0"
     }
