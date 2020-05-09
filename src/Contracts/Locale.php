@@ -10,6 +10,10 @@ interface Locale
 
     public function protects(): array;
 
+    public function isAvailable(string $locale): bool;
+
+    public function isInstalled(string $locale): bool;
+
     public function isProtected(string $locale): bool;
 
     public function getDefault(): string;

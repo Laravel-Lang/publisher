@@ -392,6 +392,12 @@ Locale::installed(): array
 // Retrieving a list of protected locales.
 Locale::protects(): array
 
+// Checks if a language pack is installed.
+Locale::isAvailable(string $locale): bool
+
+// Checks whether it is possible to install the language pack.
+Locale::isInstalled(string $locale): bool
+
 // The checked locale protecting.
 Locale::isProtected(string $locale): bool
 
