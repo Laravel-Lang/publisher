@@ -75,7 +75,7 @@ final class ServiceProvider extends BaseServiceProvider
             ->needs(PathContract::class)
             ->give(function () {
                 return PathJson::class;
-                   });
+            });
     }
 
     protected function config(): void

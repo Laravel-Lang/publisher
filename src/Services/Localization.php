@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
+use function app;
 use Helldar\LaravelLangPublisher\Contracts\Localization as LocalizationContract;
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
@@ -9,8 +10,6 @@ use Helldar\LaravelLangPublisher\Services\Processing\Delete;
 use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
 use Helldar\LaravelLangPublisher\Services\Processing\Publish;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
-
-use function app;
 use function is_subclass_of;
 
 final class Localization implements LocalizationContract
@@ -24,6 +23,7 @@ final class Localization implements LocalizationContract
      * @param bool $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
      * @return array
      */
     public function publish(string $locale, bool $force = false, bool $json = false): array
@@ -38,6 +38,7 @@ final class Localization implements LocalizationContract
      * @param bool $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
      * @return array
      */
     public function delete(string $locale, bool $json = false): array
@@ -53,6 +54,7 @@ final class Localization implements LocalizationContract
      * @param bool $force
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
+     *
      * @return mixed
      */
     protected function process(string $classname, string $locale, bool $force = false)
