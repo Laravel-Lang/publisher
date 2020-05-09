@@ -32,4 +32,9 @@ abstract class BaseCommand extends Command
     {
         return (bool) $this->option('force');
     }
+
+    protected function json(): bool
+    {
+        return (bool) $this->option('json');
+    }
 }

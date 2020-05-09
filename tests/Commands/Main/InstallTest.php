@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Commands;
+namespace Tests\Commands\Main;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
-use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
-class InstallTest extends TestCase
+use function compact;
+
+final class InstallTest extends TestCase
 {
     public function testWithoutLanguageAttribute()
     {
@@ -46,7 +46,7 @@ class InstallTest extends TestCase
         $this->deleteLocales($locales);
 
         foreach ($locales as $locale) {
-            $path = Path::target($locale);
+            $path = $this->pathTarget($locale);
 
             $this->assertDirectoryNotExists($path);
 

@@ -13,11 +13,16 @@ use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
 use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
 use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
 use Helldar\LaravelLangPublisher\Services\Localization;
+use Helldar\LaravelLangPublisher\Services\Processing\Delete;
+use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
+use Helldar\LaravelLangPublisher\Services\Processing\Publish;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
 use Helldar\LaravelLangPublisher\Support\Arr;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelLangPublisher\Support\File;
 use Helldar\LaravelLangPublisher\Support\Locale;
 use Helldar\LaravelLangPublisher\Support\Path;
+use Helldar\LaravelLangPublisher\Support\PathJson;
 use Helldar\LaravelLangPublisher\Support\Result;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -53,13 +58,24 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function binds(): void
     {
-        $this->app->bind(ArrContract::class, Arr::class);
-        $this->app->bind(ConfigContract::class, Config::class);
-        $this->app->bind(FileContract::class, File::class);
-        $this->app->bind(LocaleContract::class, Locale::class);
-        $this->app->bind(PathContract::class, Path::class);
-        $this->app->bind(PublisherContract::class, Localization::class);
-        $this->app->bind(ResultContract::class, Result::class);
+        $this->app->singleton(ArrContract::class, Arr::class);
+        $this->app->singleton(FileContract::class, File::class);
+        $this->app->singleton(LocaleContract::class, Locale::class);
+        $this->app->singleton(PublisherContract::class, Localization::class);
+        $this->app->singleton(ResultContract::class, Result::class);
+        $this->app->singleton(ConfigContract::class, Config::class);
+
+        $this->app->when([Publish::class, Delete::class])
+            ->needs(PathContract::class)
+            ->give(function () {
+                return Path::class;
+            });
+
+        $this->app->when([PublishJson::class, DeleteJson::class])
+            ->needs(PathContract::class)
+            ->give(function () {
+                return PathJson::class;
+                   });
     }
 
     protected function config(): void

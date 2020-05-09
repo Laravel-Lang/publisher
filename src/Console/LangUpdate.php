@@ -6,7 +6,8 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 
 final class LangUpdate extends BaseCommand
 {
-    protected $signature = 'lang:update';
+    protected $signature = 'lang:update'
+    . ' {--j|json : Install JSON files}';
 
     protected $description = 'Updating installed localizations.';
 
@@ -15,6 +16,7 @@ final class LangUpdate extends BaseCommand
         $this->call('lang:install', [
             'locales' => Locale::installed(),
             '--force' => true,
+            '--json'  => $this->json(),
         ]);
     }
 }

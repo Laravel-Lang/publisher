@@ -4,7 +4,7 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Localization
 {
-    public function publish(string $locale, bool $force = false): array;
+    public function publish(string $locale, bool $force = false, bool $json = false): array;
 
-    public function delete(string $locale): array;
+    public function delete(string $locale, bool $json = false): array;
 }
