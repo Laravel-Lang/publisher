@@ -2,12 +2,11 @@
 
 namespace Tests;
 
+use function app;
 use Helldar\LaravelLangPublisher\Contracts\Localization;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-
-use function app;
 use function realpath;
 
 abstract class TestCase extends BaseTestCase
