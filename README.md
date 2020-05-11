@@ -30,7 +30,6 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
 * [Features](#features)
   * [Alignment](#alignment)
   * [Facades](#facades)
-      * [Arr](#arr)
       * [Config](#config)
       * [Locale](#locale)
       * [Path](#path)
@@ -300,45 +299,6 @@ return [
 ### Facades
 
 Perhaps the facades will be useful to you:
-
-#### Arr
-```php
-use Helldar\LaravelLangPublisher\Facades\Arr;
-
-
-$array = ['foo', 'bar', 'baz', 'foo', null, false, 0];
-
-// Getting unique values.
-Arr::unique(array $array): array
-// return ['foo', 'bar', 'baz']
-
-
-// Getting the first element of an array.
-Arr::first(array $array);
-// return "foo"
-
-Arr::keys(array $array): array
-// Getting array keys.
-//
-// return array:7 [
-//   0 => 0
-//   1 => 1
-//   2 => 2
-//   3 => 3
-//   4 => 4
-//   5 => 5
-//   6 => 6
-// ]
-
-
-// Transforming an array using the callback function.
-Arr::transform(array $array, \Closure $callback): array
-// Arr::transform($array, function ($value) {
-//     return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
-// })
-// return  ["Foo", "Bar", "Baz", "Foo", "", "", "0"]
-```
-
 
 #### Config
 ```php
