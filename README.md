@@ -32,7 +32,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
   * [Facades](#facades)
       * [Arr](#arr)
       * [Config](#config)
-      * [Locate](#locale)
+      * [Locale](#locale)
       * [Path](#path)
 * [Security](#security)
 * [Credits](#credits)
