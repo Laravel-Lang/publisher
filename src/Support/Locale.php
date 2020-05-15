@@ -2,14 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use function array_map;
-use function array_push;
 use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
-
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Facades\File;
-use function resource_path;
 
 final class Locale implements LocaleContract
 {
@@ -30,7 +26,12 @@ final class Locale implements LocaleContract
      */
     public function installed(): array
     {
-        return $this->get($this->getInstalledDirectories());
+        $locales   = $this->get($this->getInstalledDirectories());
+        $available = $this->available();
+
+        return array_filter($locales, function ($locale) use ($available) {
+            return in_array($locale, $available);
+        });
     }
 
     /**
