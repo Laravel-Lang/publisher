@@ -404,7 +404,7 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [badge_contributors]:   https://img.shields.io/github/contributors/andrey-helldar/laravel-lang-publisher?style=flat-square
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
+[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_not_supported]:  https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
