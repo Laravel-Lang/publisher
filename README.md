@@ -94,7 +94,7 @@ After that, Laravel Lang Publisher should work correctly.
 |5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). |
 |5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1| ![Not Supported][badge_not_supported] |
 |6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|3.1.0| ![Not Supported][badge_not_supported] |
-|7.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php#L43) file.|
+|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php#L43) file.|
 
 
 ## How to use
