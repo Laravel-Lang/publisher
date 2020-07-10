@@ -2,10 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use function array_merge;
 use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
-
 use Illuminate\Support\Str;
 
 final class Result
