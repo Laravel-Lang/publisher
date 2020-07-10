@@ -1,55 +1,105 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Services\Processing;
+namespace Helldar\LaravelLangPublisher\Services\Processors;
 
 use Helldar\LaravelLangPublisher\Constants\Status;
+use Helldar\LaravelLangPublisher\Contracts\Pathable;
+use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SplFileInfo;
 
-final class PublishPhp extends BaseProcess
+abstract class BaseProcessor implements Processor
 {
-    public function run(): array
-    {
-        $this->checkExists($this->sourcePath());
-        $this->publish();
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Pathable */
+    protected $path;
 
-        return $this->result();
+    /** @var string */
+    protected $locale;
+
+    /** @var bool */
+    protected $force;
+
+    /** @var string */
+    protected $extension = 'php';
+
+    /** @var array */
+    protected $result = [];
+
+    public function __construct(Pathable $path)
+    {
+        $this->path = $path;
     }
 
-    protected function publish(): void
+    public function locale(string $locale): self
     {
-        foreach (File::files($this->sourcePath()) as $file) {
-            if ($file->isDir() || $file->getExtension() !== $this->extension || $this->isInline($file->getFilename())) {
-                continue;
-            }
+        $this->locale = $locale;
 
-            $filename = $this->getTargetFilename($file);
-            $src_file = $this->getSourceFilePath($file);
-            $dst_file = $this->targetPath($filename);
+        return $this;
+    }
 
-            if ($this->force || ! File::exists($dst_file)) {
-                $this->copy($src_file, $dst_file, $filename);
-                $this->push($filename, Status::COPIED);
+    public function force(bool $force = false): self
+    {
+        $this->force = $force;
 
-                continue;
-            }
+        return $this;
+    }
 
-            $this->push($filename, Status::SKIPPED);
+    public function result(): array
+    {
+        return $this->result;
+    }
+
+    protected function push(string $filename, string $status): void
+    {
+        $locale = $this->locale;
+
+        $this->result[] = compact('locale', 'filename', 'status');
+    }
+
+    protected function checkExists(string $path): void
+    {
+        $this->extension === 'php'
+            ? File::directoryExist($path, $this->locale)
+            : File::fileExist($path, $this->locale);
+    }
+
+    protected function isProtected(): bool
+    {
+        return Locale::isProtected($this->locale);
+    }
+
+    protected function publishFile(SplFileInfo $file): void
+    {
+        if ($file->isDir() || $file->getExtension() !== $this->extension || $this->isInline($file->getFilename())) {
+            return;
         }
+
+        $filename = $this->getTargetFilename($file);
+        $src_file = $this->getSourceFilePath($file);
+        $dst_file = $this->targetPath($filename);
+
+        if ($this->force || ! File::exists($dst_file)) {
+            $this->copy($src_file, $dst_file, $filename);
+            $this->push($filename, Status::COPIED);
+
+            return;
+        }
+
+        $this->push($filename, Status::SKIPPED);
     }
 
     protected function sourcePath(): string
     {
-        return Path::source($this->locale);
+        return $this->path->source($this->locale);
     }
 
-    protected function targetPath(string $filename): string
+    protected function targetPath(string $filename = null): string
     {
-        return Path::target($this->locale, $filename);
+        return $this->path->target($this->locale, $filename);
     }
 
     protected function copy(string $source, string $target, string $filename): void
@@ -104,13 +154,6 @@ final class PublishPhp extends BaseProcess
     protected function isInline(string $filename): bool
     {
         return Str::contains($filename, 'inline');
-    }
-
-    protected function excluded(array $array, string $key): array
-    {
-        $keys = Config::getExclude($key, []);
-
-        return Arr::only($array, $keys);
     }
 
     protected function getSourceFilePath(SplFileInfo $file): string

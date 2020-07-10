@@ -4,10 +4,17 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Result;
+use Helldar\LaravelLangPublisher\Traits\Containable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
 use Illuminate\Console\Command;
 
 abstract class BaseCommand extends Command
 {
+    use Containable;
+    use Processable;
+    use Pathable;
+
     /** @var \Helldar\LaravelLangPublisher\Services\Localization */
     protected $localization;
 
@@ -36,5 +43,24 @@ abstract class BaseCommand extends Command
     protected function isJson(): bool
     {
         return (bool) $this->option('json');
+    }
+
+    protected function exec(array $locales): void
+    {
+        foreach ($this->getLocales($locales) as $locale) {
+            $this->result->merge(
+                $this->localization
+                    ->setPath($this->getPath())
+                    ->setProcessor($this->getProcessor())
+                    ->run($locale, $this->isForce())
+            );
+        }
+    }
+
+    protected function getLocales(array $locales): array
+    {
+        return $this->locales() === ['*']
+            ? $locales
+            : $this->locales();
     }
 }

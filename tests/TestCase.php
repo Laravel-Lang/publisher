@@ -2,17 +2,27 @@
 
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Contracts\Pathable;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Contracts\Pathable as PathableContract;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
+use Helldar\LaravelLangPublisher\Support\Path\Php;
 use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
+use Helldar\LaravelLangPublisher\Traits\Containable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Containable;
+    use Processable;
+    use Pathable;
+
+    /** @var string */
+    protected $path;
+
     protected $default_locale = 'en';
 
     protected $is_json = false;
@@ -47,24 +57,24 @@ abstract class TestCase extends BaseTestCase
             : $config->set('lang-publisher.exclude.auth', ['failed']);
 
         $this->is_json
-            ? $app->bind(Pathable::class, JsonPath::class)
-            : $app->bind(Pathable::class, PhpPath::class);
+            ? $app->bind(PathableContract::class, JsonPath::class)
+            : $app->bind(PathableContract::class, PhpPath::class);
     }
 
     protected function resetDefaultLang(): void
     {
         if ($this->is_json) {
             File::copy(
-                Path::source($this->default_locale),
-                Path::target($this->default_locale)
+                $this->path()->source($this->default_locale),
+                $this->path()->target($this->default_locale)
             );
 
             return;
         }
 
         File::copyDirectory(
-            Path::source($this->default_locale),
-            Path::target($this->default_locale)
+            $this->path()->source($this->default_locale),
+            $this->path()->target($this->default_locale)
         );
     }
 
@@ -73,7 +83,7 @@ abstract class TestCase extends BaseTestCase
         if ($this->is_json) {
             File::copy(
                 realpath(__DIR__ . '/fixtures/en.json'),
-                Path::target($this->default_locale)
+                $this->path()->target($this->default_locale)
             );
 
             return;
@@ -81,7 +91,7 @@ abstract class TestCase extends BaseTestCase
 
         File::copy(
             realpath(__DIR__ . '/fixtures/auth.php'),
-            Path::target($this->default_locale, 'auth.php')
+            $this->path()->target($this->default_locale, 'auth.php')
         );
     }
 
@@ -90,14 +100,14 @@ abstract class TestCase extends BaseTestCase
         foreach ($locales as $locale) {
             if ($this->is_json) {
                 File::delete(
-                    Path::target($locale)
+                    $this->path()->target($locale)
                 );
 
                 continue;
             }
 
             File::deleteDirectory(
-                Path::target($locale)
+                $this->path()->target($locale)
             );
         }
     }
@@ -105,5 +115,14 @@ abstract class TestCase extends BaseTestCase
     protected function localization(): Localization
     {
         return app(Localization::class);
+    }
+
+    protected function path(): PathableContract
+    {
+        return $this->container($this->path);
+    }
+
+    protected function isJson():bool {
+
     }
 }

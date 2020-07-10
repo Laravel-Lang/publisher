@@ -373,26 +373,6 @@ Locale::getFallback(): string
 ```
 
 
-#### Path
-```php
-use Helldar\LaravelLangPublisher\Facades\Path;
-
-// Returns a direct link to the folder with the source localization files.
-// 
-// If the file name is specified, a full link to the file will be returned,
-// otherwise a direct link to the folder.
-Path::source(string $locale = null, string $filename = null): string
-
-
-// Returns the direct link to the localization folder or,
-// if the file name is specified, a link to the localization file.
-//
-// If the file name or localization is not specified,
-// the link to the shared folder of all localizations will be returned.
-Path::target(string $locale = null, string $filename = null): string
-```
-
-
 ## Security
 
 If you discover any security related issues, please email helldar@ai-rus.com instead of using the [issue](https://github.com/andrey-helldar/laravel-lang-publisher/issues) tracker.

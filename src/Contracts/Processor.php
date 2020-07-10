@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Contracts;
 
-interface Process
+interface Processor
 {
     /**
      * @param  string  $locale

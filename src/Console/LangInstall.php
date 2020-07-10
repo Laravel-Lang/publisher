@@ -3,6 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishJson as PublishJsonProcessor;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp as PublishPhpProcessor;
 
 final class LangInstall extends BaseCommand
 {
@@ -13,32 +15,18 @@ final class LangInstall extends BaseCommand
 
     protected $description = 'Install new localizations.';
 
+    protected $process_php = PublishPhpProcessor::class;
+
+    protected $process_json = PublishJsonProcessor::class;
+
     public function handle()
     {
-        $this->install(
-            $this->locales(),
-            $this->isForce(),
-            $this->isJson()
+        $this->exec(
+            Locale::available()
         );
 
         $this->result
             ->setMessage('Files were not copied.')
             ->show();
-    }
-
-    protected function install(array $locales, bool $force = false, bool $json = false): void
-    {
-        $locales === ['*']
-            ? $this->installSome(Locale::available(), $force, $json)
-            : $this->installSome($locales, $force, $json);
-    }
-
-    protected function installSome(array $locales, bool $force = false, bool $json = false): void
-    {
-        foreach ($locales as $locale) {
-            $this->result->merge(
-                $this->localization->publish($locale, $force, $json)
-            );
-        }
     }
 }

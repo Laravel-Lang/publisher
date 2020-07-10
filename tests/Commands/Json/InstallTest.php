@@ -3,13 +3,21 @@
 namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishJson as PublishJsonProcessor;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp as PublishPhpProcessor;
+use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
 {
+    protected $process_php = PublishPhpProcessor::class;
+
+    protected $process_json = PublishJsonProcessor::class;
+
+    protected $path = JsonPath::class;
+
     protected $is_json = true;
 
     public function testWithoutLanguageAttribute()
@@ -38,7 +46,10 @@ final class InstallTest extends TestCase
 
         $locales = 'foo';
 
-        $this->localization()->publish($locales, false, true);
+        $this->localization()
+            ->setPath($this->getPath())
+            ->setProcessor($this->getProcessor())
+            ->run($locales, false);
     }
 
     public function testCanInstallWithoutForce()
@@ -48,13 +59,16 @@ final class InstallTest extends TestCase
         $this->deleteLocales($locales);
 
         foreach ($locales as $locale) {
-            $path = Path::target($locale);
+            $path = $this->path()->target($locale);
 
             method_exists($this, 'assertFileDoesNotExist')
                 ? $this->assertFileDoesNotExist($path)
                 : $this->assertFileNotExists($path);
 
-            $this->localization()->publish($locale, false, true);
+            $this->localization()
+                ->setPath($this->getPath())
+                ->setProcessor($this->getProcessor())
+                ->run($locale, false);
 
             $this->assertFileExists($path);
         }
@@ -64,7 +78,10 @@ final class InstallTest extends TestCase
     {
         $this->copyFixtures();
 
-        $this->localization()->publish($this->default_locale, true, true);
+        $this->localization()
+            ->setPath($this->getPath())
+            ->setProcessor($this->getProcessor())
+            ->run($this->default_locale, true);
 
         $this->assertSame('This is Bar', Lang::get('Bar'));
         $this->assertSame('Remember Me', __('Remember Me'));
@@ -74,7 +91,10 @@ final class InstallTest extends TestCase
     {
         $this->copyFixtures();
 
-        $this->localization()->publish($this->default_locale, true, true);
+        $this->localization()
+            ->setPath($this->getPath())
+            ->setProcessor($this->getProcessor())
+            ->run($this->default_locale, true);
 
         $this->assertSame('This is Foo', Lang::get('Foo'));
         $this->assertSame('This is Bar', Lang::get('Bar'));

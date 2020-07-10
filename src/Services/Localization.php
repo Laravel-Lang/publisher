@@ -2,51 +2,46 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
-use Helldar\LaravelLangPublisher\Contracts\Process;
+use Helldar\LaravelLangPublisher\Contracts\Localizationable;
+use Helldar\LaravelLangPublisher\Contracts\Pathable;
+use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
-use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
-use Helldar\LaravelLangPublisher\Services\Processing\DeletePhp;
-use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
-use Helldar\LaravelLangPublisher\Services\Processing\PublishPhp;
 
-final class Localization
+final class Localization implements Localizationable
 {
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Pathable */
+    protected $path;
+
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Processor */
+    protected $processor;
+
     /** @var array */
     protected $result = [];
 
-    /**
-     * @param  string  $locale
-     * @param  bool  $force
-     * @param  bool  $json
-     *
-     * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
-     *
-     * @return array
-     */
-    public function publish(string $locale, bool $force = false, bool $json = false): array
+    public function setPath(Pathable $path): self
     {
-        return $json
-            ? $this->process(PublishJson::class, $locale, $force)
-            : $this->process(PublishPhp::class, $locale, $force);
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function setProcessor(Processor $processor): self
+    {
+        $this->processor = $processor;
+
+        return $this;
+    }
+
+    public function run(string $locale, bool $force = false): array
+    {
+        return $this->makeProcess($this->processor)
+            ->locale($locale)
+            ->force($force)
+            ->run();
     }
 
     /**
-     * @param  string  $locale
-     * @param  bool  $json
-     *
-     * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
-     *
-     * @return array
-     */
-    public function delete(string $locale, bool $json = false): array
-    {
-        return $json
-            ? $this->process(DeleteJson::class, $locale)
-            : $this->process(DeletePhp::class, $locale);
-    }
-
-    /**
-     * @param  string  $classname
+     * @param  string  $processor
      * @param  string  $locale
      * @param  bool  $force
      *
@@ -54,9 +49,9 @@ final class Localization
      *
      * @return mixed
      */
-    protected function process(string $classname, string $locale, bool $force = false)
+    protected function process(Processor $processor, string $locale, bool $force = false)
     {
-        return $this->makeProcess($classname)
+        return $this->makeProcess($processor)
             ->locale($locale)
             ->force($force)
             ->run();
@@ -67,11 +62,11 @@ final class Localization
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
-     * @return Process
+     * @return Processor
      */
-    protected function makeProcess(string $classname): Process
+    protected function makeProcess(string $classname): Processor
     {
-        if (! is_subclass_of($classname, Process::class)) {
+        if (! is_subclass_of($classname, Processor::class)) {
             throw new NoProcessInstanceException($classname);
         }
 
