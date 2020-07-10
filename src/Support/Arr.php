@@ -2,20 +2,14 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use function array_filter;
-use function array_keys;
-use function array_shift;
-use function array_unique;
-use function array_values;
 use Closure;
-use Helldar\LaravelLangPublisher\Contracts\Arr as ArrContract;
 
-final class Arr implements ArrContract
+final class Arr
 {
     /**
      * Getting unique values.
      *
-     * @param array $array
+     * @param  array  $array
      *
      * @return array
      */
@@ -27,7 +21,7 @@ final class Arr implements ArrContract
     /**
      * Getting the first element of an array.
      *
-     * @param array $array
+     * @param  array  $array
      *
      * @return mixed
      */
@@ -39,7 +33,7 @@ final class Arr implements ArrContract
     /**
      * Getting array keys.
      *
-     * @param array $array
+     * @param  array  $array
      *
      * @return array
      */
@@ -51,8 +45,8 @@ final class Arr implements ArrContract
     /**
      * Transforming an array using the callback function.
      *
-     * @param array $array
-     * @param \Closure $callback
+     * @param  array  $array
+     * @param  \Closure  $callback
      *
      * @return array
      */

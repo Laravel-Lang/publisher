@@ -2,12 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 
-final class Config implements ConfigContract
+final class Config
 {
+    public const KEY = 'lang-publisher';
+
     /**
      * Getting a link to the folder with the source localization files.
      *

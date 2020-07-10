@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
+use Helldar\LaravelLangPublisher\Support\Locale as LocaleSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -17,6 +17,6 @@ final class Locale extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return LocaleContract::class;
+        return LocaleSupport::class;
     }
 }
