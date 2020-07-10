@@ -21,7 +21,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-json": "*",
-        "andrey-helldar/pretty-array": "^1.4",
+        "andrey-helldar/pretty-array": "^1.4.2",
         "andrey-helldar/support": "^1.4.1",
         "caouecs/laravel-lang": "^6.0",
         "illuminate/console": "^7.0|^8.0",
