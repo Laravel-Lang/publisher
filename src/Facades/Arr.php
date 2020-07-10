@@ -3,7 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Facades;
 
 use Closure;
-use Helldar\LaravelLangPublisher\Contracts\Arr as ArrContract;
+use Helldar\LaravelLangPublisher\Support\Arr as ArrSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -16,6 +16,6 @@ final class Arr extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return ArrContract::class;
+        return ArrSupport::class;
     }
 }

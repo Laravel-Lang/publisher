@@ -2,13 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use function array_merge;
-use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
 use Helldar\LaravelLangPublisher\Facades\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-final class Result implements ResultContract
+use function array_merge;
+
+final class Result
 {
     /** @var \Illuminate\Console\Command */
     protected $output;

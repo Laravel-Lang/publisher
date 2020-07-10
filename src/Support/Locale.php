@@ -2,12 +2,11 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Illuminate\Support\Facades\File;
 
-final class Locale implements LocaleContract
+final class Locale
 {
     /**
      * List of available locations.

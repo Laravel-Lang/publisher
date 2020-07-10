@@ -2,16 +2,16 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Contracts\Localization;
-use Helldar\LaravelLangPublisher\Contracts\Result;
+use Helldar\LaravelLangPublisher\Services\Localization;
+use Helldar\LaravelLangPublisher\Support\Result;
 use Illuminate\Console\Command;
 
 abstract class BaseCommand extends Command
 {
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Localization */
+    /** @var \Helldar\LaravelLangPublisher\Services\Localization */
     protected $localization;
 
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Result */
+    /** @var \Helldar\LaravelLangPublisher\Support\Result */
     protected $result;
 
     public function __construct(Localization $localization, Result $result)

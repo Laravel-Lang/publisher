@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
+use Helldar\LaravelLangPublisher\Support\Config as ConfigSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -17,6 +17,6 @@ final class Config extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return ConfigContract::class;
+        return ConfigSupport::class;
     }
 }

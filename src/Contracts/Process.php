@@ -5,14 +5,14 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 interface Process
 {
     /**
-     * @param string $locale
+     * @param  string  $locale
      *
      * @return self
      */
     public function locale(string $locale);
 
     /**
-     * @param bool $force
+     * @param  bool  $force
      *
      * @return self
      */
