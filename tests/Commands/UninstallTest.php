@@ -31,7 +31,7 @@ class UninstallTest extends TestCase
 
             $this->localization()->delete($locale);
 
-            $this->assertDirectoryNotExists($path);
+            $this->assertDirectoryDoesNotExist($path);
         }
     }
 

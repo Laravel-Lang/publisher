@@ -48,7 +48,7 @@ class InstallTest extends TestCase
         foreach ($locales as $locale) {
             $path = Path::target($locale);
 
-            $this->assertDirectoryNotExists($path);
+            $this->assertDirectoryDoesNotExist($path);
 
             $this->localization()->publish($locale);
 
