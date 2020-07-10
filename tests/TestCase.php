@@ -6,7 +6,6 @@ use Helldar\LaravelLangPublisher\Contracts\Pathable as PathableContract;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
-use Helldar\LaravelLangPublisher\Support\Path\Php;
 use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
 use Helldar\LaravelLangPublisher\Traits\Containable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
@@ -122,7 +121,7 @@ abstract class TestCase extends BaseTestCase
         return $this->container($this->path);
     }
 
-    protected function isJson():bool {
-
+    protected function isJson(): bool
+    {
     }
 }
