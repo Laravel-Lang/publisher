@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 final class LangInstall extends BaseCommand
 {
     protected $signature = 'lang:install'
-    . ' {locales* : Comma-separated list of, eg: de,tk,it}'
+    . ' {locales* : Space-separated list of, eg: de tk it}'
     . ' {--f|force : Override exiting files}'
     . ' {--j|json : Install JSON files}';
 
