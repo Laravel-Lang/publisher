@@ -11,7 +11,6 @@ use Helldar\LaravelLangPublisher\Services\Processing\DeletePhp;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishPhp;
 use Helldar\LaravelLangPublisher\Support\Config;
-use Helldar\LaravelLangPublisher\Support\Path\Json;
 use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
 use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;

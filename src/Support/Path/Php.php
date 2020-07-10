@@ -45,6 +45,6 @@ final class Php extends BasePath
         $locale   = $this->clean($locale);
         $filename = $this->clean($filename);
 
-        return resource_path(static::LANG . $locale . $filename);
+        return resource_path(self::LANG . $locale . $filename);
     }
 }

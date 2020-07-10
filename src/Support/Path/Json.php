@@ -48,7 +48,7 @@ final class Json extends BasePath
         $filename = $this->clean($filename);
 
         return $this->is_json
-            ? resource_path(static::LANG . $locale . '.json')
-            : resource_path(static::LANG . $locale . $filename);
+            ? resource_path(self::LANG . $locale . '.json')
+            : resource_path(self::LANG . $locale . $filename);
     }
 }
