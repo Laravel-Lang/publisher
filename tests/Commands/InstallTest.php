@@ -2,7 +2,6 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\Lang;
@@ -48,7 +47,9 @@ class InstallTest extends TestCase
         foreach ($locales as $locale) {
             $path = Path::target($locale);
 
-            $this->assertDirectoryDoesNotExist($path);
+            method_exists($this, 'assertDirectoryDoesNotExist')
+                ? $this->assertDirectoryDoesNotExist($path)
+                : $this->assertDirectoryNotExists($path);
 
             $this->localization()->publish($locale);
 

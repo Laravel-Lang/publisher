@@ -318,6 +318,10 @@ Config::getLocale(): string
 Config::getFallbackLocale(): string
 
 
+// Defines the label for using inline files.
+Config::isInline(): bool
+
+
 // Will array alignment be applied
 Config::isAlignment(): bool
 

@@ -76,6 +76,16 @@ final class Config
         return $this->config('case', Caseable::NO_CASE);
     }
 
+    /**
+     * Determines what type of files to use when updating language files.
+     *
+     * @return bool
+     */
+    public function isInline(): bool
+    {
+        return $this->config('inline', false);
+    }
+
     protected function config(string $key, $default = null)
     {
         $key = $this->key($key);

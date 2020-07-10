@@ -4,6 +4,21 @@ use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
     /*
+     * Determines what type of files to use when updating language files.
+     *
+     * `true` means inline files will be used.
+     * `false` means that default files will be used.
+     *
+     * The difference between them can be seen here:
+     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation.php
+     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation-inline.php
+     *
+     * By default, `false`.
+     */
+
+    'inline' => false,
+
+    /*
      * Do arrays need to be aligned by keys before processing arrays?
      *
      * By default, true
