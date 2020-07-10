@@ -2,12 +2,12 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
+use function app;
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
 use Helldar\LaravelLangPublisher\Services\Processing\Delete;
-use Helldar\LaravelLangPublisher\Services\Processing\Publish;
 
-use function app;
+use Helldar\LaravelLangPublisher\Services\Processing\Publish;
 
 final class Localization
 {
