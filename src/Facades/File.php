@@ -3,7 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Facades;
 
 use DirectoryIterator;
-use Helldar\LaravelLangPublisher\Contracts\File as FileContract;
+use Helldar\LaravelLangPublisher\Support\File as FileSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -18,6 +18,6 @@ final class File extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return FileContract::class;
+        return FileSupport::class;
     }
 }

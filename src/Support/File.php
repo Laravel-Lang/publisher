@@ -3,16 +3,12 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use DirectoryIterator;
-use function file_exists;
-use Helldar\LaravelLangPublisher\Contracts\File as FileContract;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File as PrettyFile;
 use Helldar\PrettyArray\Services\Formatter;
-use function ksort;
-use function pathinfo;
 
-final class File implements FileContract
+final class File
 {
     public function files(string $path): DirectoryIterator
     {
@@ -20,8 +16,8 @@ final class File implements FileContract
     }
 
     /**
-     * @param string $path
-     * @param bool $return_empty
+     * @param  string  $path
+     * @param  bool  $return_empty
      *
      * @throws \Helldar\PrettyArray\Exceptions\FileDoesntExistsException
      *
@@ -37,8 +33,8 @@ final class File implements FileContract
     }
 
     /**
-     * @param string $path
-     * @param array $data
+     * @param  string  $path
+     * @param  array  $data
      *
      * @throws \Helldar\PrettyArray\Exceptions\UnknownCaseTypeException
      */
@@ -60,8 +56,8 @@ final class File implements FileContract
     }
 
     /**
-     * @param string $path
-     * @param string $locale
+     * @param  string  $path
+     * @param  string  $locale
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists
      */

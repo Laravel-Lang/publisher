@@ -5,26 +5,14 @@ namespace Helldar\LaravelLangPublisher;
 use Helldar\LaravelLangPublisher\Console\LangInstall;
 use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
-use Helldar\LaravelLangPublisher\Contracts\Arr as ArrContract;
-use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
-use Helldar\LaravelLangPublisher\Contracts\File as FileContract;
-use Helldar\LaravelLangPublisher\Contracts\Locale as LocaleContract;
-use Helldar\LaravelLangPublisher\Contracts\Localization as PublisherContract;
-use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
-use Helldar\LaravelLangPublisher\Contracts\Result as ResultContract;
-use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Services\Processing\Delete;
 use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
 use Helldar\LaravelLangPublisher\Services\Processing\Publish;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
-use Helldar\LaravelLangPublisher\Support\Arr;
 use Helldar\LaravelLangPublisher\Support\Config;
-use Helldar\LaravelLangPublisher\Support\File;
-use Helldar\LaravelLangPublisher\Support\Locale;
-use Helldar\LaravelLangPublisher\Support\Path;
 use Helldar\LaravelLangPublisher\Support\PathJson;
-use Helldar\LaravelLangPublisher\Support\Result;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Lumen\Application;
 
 final class ServiceProvider extends BaseServiceProvider
 {
@@ -36,7 +24,6 @@ final class ServiceProvider extends BaseServiceProvider
 
     public function register(): void
     {
-        $this->binds();
         $this->config();
     }
 
@@ -56,30 +43,17 @@ final class ServiceProvider extends BaseServiceProvider
         ], 'config');
     }
 
-    protected function binds(): void
-    {
-        $this->app->singleton(ArrContract::class, Arr::class);
-        $this->app->singleton(FileContract::class, File::class);
-        $this->app->singleton(LocaleContract::class, Locale::class);
-        $this->app->singleton(PublisherContract::class, Localization::class);
-        $this->app->singleton(ResultContract::class, Result::class);
-        $this->app->singleton(ConfigContract::class, Config::class);
-
-        $this->app->when([Publish::class, Delete::class])
-            ->needs(PathContract::class)
-            ->give(function () {
-                return Path::class;
-            });
-
-        $this->app->when([PublishJson::class, DeleteJson::class])
-            ->needs(PathContract::class)
-            ->give(function () {
-                return PathJson::class;
-            });
-    }
-
     protected function config(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', ConfigContract::KEY);
+        if ($this->isLumen()) {
+            $this->app->configure(Config::KEY);
+        }
+
+        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY);
+    }
+
+    protected function isLumen(): bool
+    {
+        return class_exists(Application::class) && $this->app instanceof Application;
     }
 }

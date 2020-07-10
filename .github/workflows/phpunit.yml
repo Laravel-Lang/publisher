@@ -30,9 +30,6 @@ jobs:
                     composer self-update
                     composer global require hirak/prestissimo --no-plugins
 
-            -   name: Validate composer.json and composer.lock
-                run: composer validate
-
             -   name: Install dependencies
                 run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
 

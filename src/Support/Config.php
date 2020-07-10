@@ -2,12 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 
-final class Config implements ConfigContract
+final class Config
 {
+    public const KEY = 'lang-publisher';
+
     /**
      * Getting a link to the folder with the source localization files.
      *
@@ -53,8 +54,8 @@ final class Config implements ConfigContract
      * Returns an array of exceptions set by the developer
      * when installing and updating localizations.
      *
-     * @param string $key
-     * @param array $default
+     * @param  string  $key
+     * @param  array  $default
      *
      * @return array
      */
@@ -73,6 +74,16 @@ final class Config implements ConfigContract
     public function getCase(): int
     {
         return $this->config('case', Caseable::NO_CASE);
+    }
+
+    /**
+     * Determines what type of files to use when updating language files.
+     *
+     * @return bool
+     */
+    public function isInline(): bool
+    {
+        return $this->config('inline', false);
     }
 
     protected function config(string $key, $default = null)

@@ -10,6 +10,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 [![For Laravel][badge_laravel]][link_packagist]
+[![For Lumen][badge_lumen]][link_packagist]
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -20,19 +21,20 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
 ## Table of contents
 
 * [Installation](#installation)
+  * [Laravel](#laravel)
+  * [Lumen](#Lumen)
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
   * [Install locales](#install-locales)
   * [Update locales](#update-locales)
   * [Uninstall locales](#uninstall-locales)
-  * [Features](#features)
-    * [Alignment](#alignment)
-    * [Facades](#facades)
-        * [Arr](#arr)
-        * [Config](#config)
-        * [Locate](#locale)
-        * [Path](#path)
+* [Features](#features)
+  * [Alignment](#alignment)
+  * [Facades](#facades)
+      * [Config](#config)
+      * [Locale](#locale)
+      * [Path](#path)
 * [Security](#security)
 * [Credits](#credits)
 
@@ -50,20 +52,40 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^3.0"
+        "andrey-helldar/laravel-lang-publisher": "^4.0"
     }
 }
 ```
+
+#### Laravel
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
 ```
 
+#### Lumen
+
+This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
+
+You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can properly load.
+
+```
+// $app->register(App\Providers\AppServiceProvider::class);
+```
+
+If you are not using that line, that is usually handy to manage gracefully multiple Lumen installations, you will have to add this line of code under the `Register Service Providers` section of your `bootstrap/app.php`.
+
+```php
+if ($app->environment() !== 'production') {
+    $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
+}
+```
+
 
 ### Compatibility table
 
-|Laravel version|PHP min version|PHP tested version|Tag|Package min version|Package max version|Comment|
+|Laravel/Lumen version|PHP min version|PHP tested version|Tag|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
 |5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4| ![Not Supported][badge_not_supported] |
 |5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4| ![Not Supported][badge_not_supported] |
@@ -71,7 +93,8 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 |5.6|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] |
 |5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). |
 |5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1| ![Not Supported][badge_not_supported] |
-|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|^3.0| ![Supported][badge_supported] |
+|6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|3.1.0| ![Not Supported][badge_not_supported] |
+|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php#L43) file.|
 
 
 ## How to use
@@ -146,9 +169,9 @@ php artisan lang:uninstall *
 In this case, everything will be deleted, except the default and fallback application locales.
 
 
-### Features
+## Features
 
-#### Alignment
+### Alignment
 
 **Attention!**  This feature works only in Laravel 5.5 and higher with php 7.1.3 and higher.
 
@@ -273,50 +296,11 @@ return [
 ];
 ```
 
-#### Facades
+### Facades
 
 Perhaps the facades will be useful to you:
 
-##### Arr
-```php
-use Helldar\LaravelLangPublisher\Facades\Arr;
-
-
-$array = ['foo', 'bar', 'baz', 'foo', null, false, 0];
-
-// Getting unique values.
-Arr::unique(array $array): array
-// return ['foo', 'bar', 'baz']
-
-
-// Getting the first element of an array.
-Arr::first(array $array);
-// return "foo"
-
-Arr::keys(array $array): array
-// Getting array keys.
-//
-// return array:7 [
-//   0 => 0
-//   1 => 1
-//   2 => 2
-//   3 => 3
-//   4 => 4
-//   5 => 5
-//   6 => 6
-// ]
-
-
-// Transforming an array using the callback function.
-Arr::transform(array $array, \Closure $callback): array
-// Arr::transform($array, function ($value) {
-//     return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
-// })
-// return  ["Foo", "Bar", "Baz", "Foo", "", "", "0"]
-```
-
-
-##### Config
+#### Config
 ```php
 use Helldar\LaravelLangPublisher\Facades\Config;
 
@@ -332,6 +316,10 @@ Config::getLocale(): string
 
 // Getting the fallback localization name.
 Config::getFallbackLocale(): string
+
+
+// Defines the label for using inline files.
+Config::isInline(): bool
 
 
 // Will array alignment be applied
@@ -355,7 +343,7 @@ Config::getCase(): int
 ```
 
 
-##### Locale
+#### Locale
 ```php
 use Helldar\LaravelLangPublisher\Facades\Locale;
 
@@ -368,6 +356,12 @@ Locale::installed(): array
 // Retrieving a list of protected locales.
 Locale::protects(): array
 
+// Checks if a language pack is installed.
+Locale::isAvailable(string $locale): bool
+
+// Checks whether it is possible to install the language pack.
+Locale::isInstalled(string $locale): bool
+
 // The checked locale protecting.
 Locale::isProtected(string $locale): bool
 
@@ -379,7 +373,7 @@ Locale::getFallback(): string
 ```
 
 
-##### Path
+#### Path
 ```php
 use Helldar\LaravelLangPublisher\Facades\Path;
 
@@ -414,7 +408,8 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [badge_contributors]:   https://img.shields.io/github/contributors/andrey-helldar/laravel-lang-publisher?style=flat-square
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x-orange.svg?style=flat-square
+[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
+[badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_not_supported]:  https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square

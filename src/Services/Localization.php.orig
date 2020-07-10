@@ -16,9 +16,14 @@ final class Localization
     protected $result = [];
 
     /**
+<<<<<<< HEAD
+     * @param string $locale
+     * @param bool $force
+     * @param bool $json
+=======
      * @param  string  $locale
      * @param  bool  $force
-     * @param bool $json
+>>>>>>> master
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
@@ -32,8 +37,12 @@ final class Localization
     }
 
     /**
-     * @param  string  $locale
+<<<<<<< HEAD
+     * @param string $locale
      * @param bool $json
+=======
+     * @param  string  $locale
+>>>>>>> master
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *

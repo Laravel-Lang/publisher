@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Contracts\Config as ConfigContract;
+use Helldar\LaravelLangPublisher\Support\Config as ConfigSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isAlignment()
  * @method static array getExclude(string $key, array $default = [])
  * @method static int getCase()
+ * @method static bool isInline()
  */
 final class Config extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return ConfigContract::class;
+        return ConfigSupport::class;
     }
 }

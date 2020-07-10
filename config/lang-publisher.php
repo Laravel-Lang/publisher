@@ -4,10 +4,19 @@ use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
     /*
-     * Path to source translation files.
+     * Determines what type of files to use when updating language files.
+     *
+     * `true` means inline files will be used.
+     * `false` means that default files will be used.
+     *
+     * The difference between them can be seen here:
+     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation.php
+     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation-inline.php
+     *
+     * By default, `false`.
      */
 
-    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
+    'inline' => false,
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
@@ -40,5 +49,11 @@ return [
      *
      * By default, Caseable::NO_CASE
      */
-    'case'    => Caseable::NO_CASE,
+    'case'    => class_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    /*
+     * Path to source translation files.
+     */
+
+    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
 ];

@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Services\Processing;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Facades\File;
 

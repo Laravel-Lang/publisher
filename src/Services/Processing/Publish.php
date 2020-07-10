@@ -7,6 +7,8 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use SplFileInfo;
 
 final class Publish extends BaseProcess
 {
@@ -21,12 +23,12 @@ final class Publish extends BaseProcess
     protected function publish(): void
     {
         foreach (File::files($this->sourcePath()) as $file) {
-            if ($file->isDir() || $file->getExtension() !== 'php') {
+            if ($file->isDir() || $file->getExtension() !== 'php' || $this->isInline($file->getFilename())) {
                 continue;
             }
 
-            $filename = $file->getFilename();
-            $src_file = $file->getRealPath();
+            $filename = $this->getTargetFilename($file);
+            $src_file = $this->getSourceFilePath($file);
             $dst_file = $this->targetPath($filename);
 
             if ($this->force || ! File::exists($dst_file)) {
@@ -96,7 +98,12 @@ final class Publish extends BaseProcess
 
     protected function isValidation(string $filename): bool
     {
-        return $filename === 'validation.php';
+        return Str::startsWith($filename, 'validation');
+    }
+
+    protected function isInline(string $filename): bool
+    {
+        return Str::contains($filename, 'inline');
     }
 
     protected function excluded(array $array, string $key): array
@@ -104,5 +111,31 @@ final class Publish extends BaseProcess
         $keys = Config::getExclude($key, []);
 
         return Arr::only($array, $keys);
+    }
+
+    protected function getSourceFilePath(SplFileInfo $file): string
+    {
+        if (Config::isInline()) {
+            $path      = $file->getPath();
+            $extension = $file->getExtension();
+            $basename  = $file->getBasename('.' . $extension);
+
+            $inline = $path . '/' . $basename . '-inline.' . $extension;
+
+            return file_exists($inline)
+                ? $inline
+                : $file->getRealPath();
+        }
+
+        return $file->getRealPath();
+    }
+
+    protected function getTargetFilename(SplFileInfo $file): string
+    {
+        if ($this->isInline($file->getFilename())) {
+            return Str::replaceLast('-inline', '', $file->getFilename());
+        }
+
+        return $file->getFilename();
     }
 }

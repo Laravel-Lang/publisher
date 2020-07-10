@@ -2,6 +2,12 @@
 
 namespace Tests;
 
+<<<<<<< HEAD
+use function app;
+use Helldar\LaravelLangPublisher\Contracts\Localization;
+=======
+use Helldar\LaravelLangPublisher\Facades\Path;
+>>>>>>> master
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Illuminate\Support\Facades\File;
