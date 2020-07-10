@@ -2,10 +2,9 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Contracts\Path as PathContract;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 
-final class PathJson implements PathContract
+final class PathJson
 {
     protected $extension = '.json';
 
@@ -15,8 +14,8 @@ final class PathJson implements PathContract
      * If the file name is specified, a full link to the file will be returned,
      * otherwise a direct link to the folder.
      *
-     * @param string|null $locale
-     * @param string|null $filename
+     * @param  string|null  $locale
+     * @param  string|null  $filename
      *
      * @return string
      */
@@ -37,8 +36,8 @@ final class PathJson implements PathContract
      * If the file name or localization is not specified,
      * the link to the shared folder of all localizations will be returned.
      *
-     * @param string|null $locale
-     * @param string|null $filename
+     * @param  string|null  $locale
+     * @param  string|null  $filename
      *
      * @return string
      */

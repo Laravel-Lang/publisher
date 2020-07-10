@@ -8,7 +8,7 @@ final class LangInstall extends BaseCommand
 {
     protected $signature = 'lang:install'
     . ' {locales* : Comma-separated list of, eg: de,tk,it}'
-    . ' {--f|force : Override exiting files}';
+    . ' {--f|force : Override exiting files}'
     . ' {--j|json : Install JSON files}';
 
     protected $description = 'Install new localizations.';

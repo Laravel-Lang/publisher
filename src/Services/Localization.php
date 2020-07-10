@@ -8,7 +8,6 @@ use Helldar\LaravelLangPublisher\Services\Processing\Delete;
 use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
 use Helldar\LaravelLangPublisher\Services\Processing\Publish;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
-use function is_subclass_of;
 
 final class Localization
 {
@@ -18,7 +17,7 @@ final class Localization
     /**
      * @param  string  $locale
      * @param  bool  $force
-     * @param bool $json
+     * @param  bool  $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
@@ -33,7 +32,7 @@ final class Localization
 
     /**
      * @param  string  $locale
-     * @param bool $json
+     * @param  bool  $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
