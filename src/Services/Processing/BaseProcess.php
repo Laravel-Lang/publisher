@@ -13,6 +13,10 @@ abstract class BaseProcess implements Process
     /** @var bool */
     protected $force;
 
+    /** @var string */
+    protected $extension = 'php';
+
+    /** @var array */
     protected $result = [];
 
     public function locale(string $locale): self
@@ -43,6 +47,8 @@ abstract class BaseProcess implements Process
 
     protected function checkExists(string $path): void
     {
-        File::directoryExists($path, $this->locale);
+        $this->extension === 'php'
+            ? File::directoryExist($path, $this->locale)
+            : File::fileExist($path, $this->locale);
     }
 }

@@ -4,8 +4,10 @@ namespace Helldar\LaravelLangPublisher\Services;
 
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
-use Helldar\LaravelLangPublisher\Services\Processing\Delete;
-use Helldar\LaravelLangPublisher\Services\Processing\Publish;
+use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
+use Helldar\LaravelLangPublisher\Services\Processing\DeletePhp;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishPhp;
 
 final class Localization
 {
@@ -15,26 +17,32 @@ final class Localization
     /**
      * @param  string  $locale
      * @param  bool  $force
+     * @param  bool  $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
      * @return array
      */
-    public function publish(string $locale, bool $force = false): array
+    public function publish(string $locale, bool $force = false, bool $json = false): array
     {
-        return $this->process(Publish::class, $locale, $force);
+        return $json
+            ? $this->process(PublishJson::class, $locale, $force)
+            : $this->process(PublishPhp::class, $locale, $force);
     }
 
     /**
      * @param  string  $locale
+     * @param  bool  $json
      *
      * @throws \Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException
      *
      * @return array
      */
-    public function delete(string $locale): array
+    public function delete(string $locale, bool $json = false): array
     {
-        return $this->process(Delete::class, $locale);
+        return $json
+            ? $this->process(DeleteJson::class, $locale)
+            : $this->process(DeletePhp::class, $locale);
     }
 
     /**

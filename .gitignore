@@ -4,6 +4,7 @@ build/
 
 *.cache
 *.clover
+*.orig
 test.php
 
 composer.lock

@@ -28,8 +28,13 @@ abstract class BaseCommand extends Command
         return (array) $this->argument('locales');
     }
 
-    protected function force(): bool
+    protected function isForce(): bool
     {
         return (bool) $this->option('force');
+    }
+
+    protected function isJson(): bool
+    {
+        return (bool) $this->option('json');
     }
 }

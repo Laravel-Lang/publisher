@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Support\Path as PathSupport;
+use Helldar\LaravelLangPublisher\Contracts\Pathable;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -13,6 +13,6 @@ final class Path extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return PathSupport::class;
+        return Pathable::class;
     }
 }

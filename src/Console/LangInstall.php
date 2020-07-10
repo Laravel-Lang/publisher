@@ -7,8 +7,9 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 final class LangInstall extends BaseCommand
 {
     protected $signature = 'lang:install'
-    . ' {locales* : Comma-separated list of, eg: de,tk,it}'
-    . ' {--f|force : Override exiting files}';
+    . ' {locales* : Space-separated list of, eg: de tk it}'
+    . ' {--f|force : Override exiting files}'
+    . ' {--j|json : Install JSON files}';
 
     protected $description = 'Install new localizations.';
 
@@ -16,7 +17,8 @@ final class LangInstall extends BaseCommand
     {
         $this->install(
             $this->locales(),
-            $this->force()
+            $this->isForce(),
+            $this->isJson()
         );
 
         $this->result
@@ -24,18 +26,18 @@ final class LangInstall extends BaseCommand
             ->show();
     }
 
-    protected function install(array $locales, bool $force = false): void
+    protected function install(array $locales, bool $force = false, bool $json = false): void
     {
         $locales === ['*']
-            ? $this->installSome(Locale::available(), $force)
-            : $this->installSome($locales, $force);
+            ? $this->installSome(Locale::available(), $force, $json)
+            : $this->installSome($locales, $force, $json);
     }
 
-    protected function installSome(array $locales, bool $force = false): void
+    protected function installSome(array $locales, bool $force = false, bool $json = false): void
     {
         foreach ($locales as $locale) {
             $this->result->merge(
-                $this->localization->publish($locale, $force)
+                $this->localization->publish($locale, $force, $json)
             );
         }
     }

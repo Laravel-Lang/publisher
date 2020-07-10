@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Commands;
+namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Facades\Path;
@@ -10,12 +10,14 @@ use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
+    protected $is_json = true;
+
     public function testWithoutLanguageAttributeFromCommand()
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
 
-        $this->artisan('lang:uninstall');
+        $this->artisan('lang:uninstall', ['--json' => true]);
     }
 
     public function testUninstall()
@@ -29,11 +31,11 @@ class UninstallTest extends TestCase
                 File::makeDirectory($path, 0755, true);
             }
 
-            $this->localization()->delete($locale);
+            $this->localization()->delete($locale, true);
 
-            method_exists($this, 'assertDirectoryDoesNotExist')
-                ? $this->assertDirectoryDoesNotExist($path)
-                : $this->assertDirectoryNotExists($path);
+            method_exists($this, 'assertFileDoesNotExist')
+                ? $this->assertFileDoesNotExist($path)
+                : $this->assertFileNotExists($path);
         }
     }
 
@@ -42,8 +44,8 @@ class UninstallTest extends TestCase
         $locale = Locale::getDefault();
         $path   = Path::target($locale);
 
-        $this->localization()->delete($locale);
+        $this->localization()->delete($locale, true);
 
-        $this->assertDirectoryExists($path);
+        $this->assertFileExists($path);
     }
 }

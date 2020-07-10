@@ -7,8 +7,10 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File as IlluminateFile;
 
-final class Delete extends BaseProcess
+final class DeleteJson extends BaseProcess
 {
+    protected $extension = 'json';
+
     public function run(): array
     {
         $this->checkExists($this->path());

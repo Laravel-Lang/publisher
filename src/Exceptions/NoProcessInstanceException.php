@@ -2,12 +2,12 @@
 
 namespace Helldar\LaravelLangPublisher\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-final class NoProcessInstanceException extends Exception
+final class NoProcessInstanceException extends RuntimeException
 {
     public function __construct(string $classname)
     {
-        parent::__construct("The \"{$classname}\" passed is not an instance of the process.", 500);
+        parent::__construct("The \"{$classname}\" passed is not an instance of the process.");
     }
 }

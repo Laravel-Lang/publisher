@@ -34,6 +34,7 @@ return [
         // 'auth' => ['throttle'],
         // 'pagination' => ['previous'],
         // 'passwords' => ['reset', 'throttled', 'user'],
+        // 'Confirm Password',
     ],
 
     /*
@@ -55,5 +56,5 @@ return [
      * Path to source translation files.
      */
 
-    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
+    'vendor' => base_path('vendor/caouecs/laravel-lang'),
 ];
