@@ -17,4 +17,6 @@ interface Config
     public function getExclude(string $key, array $default = []): array;
 
     public function getCase(): int;
+
+    public function isInline(): bool;
 }

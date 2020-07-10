@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isAlignment()
  * @method static array getExclude(string $key, array $default = [])
  * @method static int getCase()
+ * @method static bool isInline()
  */
 final class Config extends Facade
 {
