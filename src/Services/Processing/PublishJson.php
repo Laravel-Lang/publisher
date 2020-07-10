@@ -7,9 +7,13 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use SplFileInfo;
 
 final class PublishJson extends BaseProcess
 {
+    protected $extension = 'json';
+
     public function run(): array
     {
         $this->checkExists($this->sourcePath());
@@ -20,29 +24,29 @@ final class PublishJson extends BaseProcess
 
     protected function publish(): void
     {
-        foreach (File::files($this->sourcePath()) as $file) {
-            if ($file->isDir() || $file->getExtension() !== 'php') {
-                continue;
-            }
+        $file = new SplFileInfo($this->sourcePath());
 
-            $filename = $file->getFilename();
-            $src_file = $file->getRealPath();
-            $dst_file = $this->targetPath($filename);
-
-            if ($this->force || ! File::exists($dst_file)) {
-                $this->copy($src_file, $dst_file, $filename);
-                $this->push($filename, Status::COPIED);
-
-                continue;
-            }
-
-            $this->push($filename, Status::SKIPPED);
+        if ($file->isDir() || $file->getExtension() !== $this->extension || $this->isInline($file->getFilename())) {
+            return;
         }
+
+        $filename = $this->getTargetFilename($file);
+        $src_file = $this->getSourceFilePath($file);
+        $dst_file = $this->targetPath($filename);
+
+        if ($this->force || ! File::exists($dst_file)) {
+            $this->copy($src_file, $dst_file, $filename);
+            $this->push($filename, Status::COPIED);
+
+            return;
+        }
+
+        $this->push($filename, Status::SKIPPED);
     }
 
     protected function sourcePath(): string
     {
-        return Path::source($this->locale, null, true);
+        return Path::source($this->locale);
     }
 
     protected function targetPath(string $filename): string
@@ -96,13 +100,46 @@ final class PublishJson extends BaseProcess
 
     protected function isValidation(string $filename): bool
     {
-        return $filename === 'validation.php';
+        return Str::startsWith($filename, 'validation');
+    }
+
+    protected function isInline(string $filename): bool
+    {
+        return Str::contains($filename, 'inline');
     }
 
     protected function excluded(array $array, string $key): array
     {
-        $keys = Config::getExclude($key, []);
+        $keys = Config::getExclude($key, [], true);
 
-        return Arr::only($array, $keys);
+        return array_filter($array, static function ($value) use ($keys) {
+            return in_array($value, $keys);
+        }, ARRAY_FILTER_USE_KEY);
+    }
+
+    protected function getSourceFilePath(SplFileInfo $file): string
+    {
+        if (Config::isInline()) {
+            $path      = $file->getPath();
+            $extension = $file->getExtension();
+            $basename  = $file->getBasename('.' . $extension);
+
+            $inline = $path . '/' . $basename . '-inline.' . $extension;
+
+            return file_exists($inline)
+                ? $inline
+                : $file->getRealPath();
+        }
+
+        return $file->getRealPath();
+    }
+
+    protected function getTargetFilename(SplFileInfo $file): string
+    {
+        if ($this->isInline($file->getFilename())) {
+            return Str::replaceLast('-inline', '', $file->getFilename());
+        }
+
+        return $file->getFilename();
     }
 }

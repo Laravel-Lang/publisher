@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 final class LangUninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
-    . ' {locales=* : Space-separated list of, eg: de tk it}'
+    . ' {locales* : Space-separated list of, eg: de tk it}'
     . ' {--j|json : Install JSON files}';
 
     protected $description = 'Uninstall localizations.';
@@ -16,7 +16,7 @@ final class LangUninstall extends BaseCommand
     {
         $this->delete(
             $this->locales(),
-            $this->json()
+            $this->isJson()
         );
 
         $this->result

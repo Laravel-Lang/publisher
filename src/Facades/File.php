@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static DirectoryIterator files(string $path);
  * @method static array load(string $path, bool $return_empty = false)
  * @method static void save(string $path, array $data)
- * @method static void directoryExists(string $path, string $locale)
+ * @method static void directoryExist(string $path, string $locale)
+ * @method static void fileExist(string $path, string $locale)
  * @method static bool exists(string $path)
  * @method static string name(string $path)
  */

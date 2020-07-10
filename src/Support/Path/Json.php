@@ -1,12 +1,12 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Support;
+namespace Helldar\LaravelLangPublisher\Support\Path;
 
-use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
+use Helldar\LaravelLangPublisher\Facades\Config;
 
-final class PathJson
+final class Json extends BasePath
 {
-    protected $extension = '.json';
+    protected $is_json = true;
 
     /**
      * Returns a direct link to the folder with the source localization files.
@@ -21,11 +21,12 @@ final class PathJson
      */
     public function source(string $locale = null, string $filename = null): string
     {
-        $locale = $this->getPathForEnglish($locale);
-        $locale = $this->clean($locale);
+        $locale   = $this->getPathForEnglish($locale);
+        $locale   = $this->clean($locale);
+        $filename = $this->clean($filename);
 
         return $this->real(
-            ConfigFacade::getVendorPath() . '/../json' . $locale . $this->extension
+            Config::getVendorPath() . $locale . $filename
         );
     }
 
@@ -43,28 +44,11 @@ final class PathJson
      */
     public function target(string $locale = null, string $filename = null): string
     {
-        dd('qqq');
-        $locale = $this->clean($locale);
+        $locale   = $this->clean($locale);
+        $filename = $this->clean($filename);
 
-        return resource_path(self::LANG . $locale . $this->extension);
-    }
-
-    protected function real(string $path): string
-    {
-        return realpath($path);
-    }
-
-    protected function clean(string $path = null): ?string
-    {
-        return $path
-            ? self::DIVIDER . ltrim($path, self::DIVIDER)
-            : $path;
-    }
-
-    protected function getPathForEnglish(string $locale): string
-    {
-        return $locale === 'en'
-            ? '../script/en'
-            : $locale;
+        return $this->is_json
+            ? resource_path(static::LANG . $locale . '.json')
+            : resource_path(static::LANG . $locale . $filename);
     }
 }

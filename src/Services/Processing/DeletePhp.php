@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File as IlluminateFile;
 
-final class Delete extends BaseProcess
+final class DeletePhp extends BaseProcess
 {
     public function run(): array
     {

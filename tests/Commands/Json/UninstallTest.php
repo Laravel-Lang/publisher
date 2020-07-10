@@ -3,12 +3,15 @@
 namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
+    protected $is_json = true;
+
     public function testWithoutLanguageAttributeFromCommand()
     {
         $this->expectException(RuntimeException::class);
@@ -22,7 +25,7 @@ class UninstallTest extends TestCase
         $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = $this->pathTarget($locale);
+            $path = Path::target($locale);
 
             if (! File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
@@ -30,17 +33,19 @@ class UninstallTest extends TestCase
 
             $this->localization()->delete($locale, true);
 
-            $this->assertDirectoryNotExists($path);
+            method_exists($this, 'assertFileDoesNotExist')
+                ? $this->assertFileDoesNotExist($path)
+                : $this->assertFileNotExists($path);
         }
     }
 
     public function testUninstallDefaultLocale()
     {
         $locale = Locale::getDefault();
-        $path   = $this->pathTarget($locale);
+        $path   = Path::target($locale);
 
         $this->localization()->delete($locale, true);
 
-        $this->assertDirectoryExists($path);
+        $this->assertFileExists($path);
     }
 }

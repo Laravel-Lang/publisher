@@ -56,14 +56,17 @@ final class Config
      *
      * @param  string  $key
      * @param  array  $default
+     * @param  bool  $is_json
      *
      * @return array
      */
-    public function getExclude(string $key, array $default = []): array
+    public function getExclude(string $key, array $default = [], bool $is_json = false): array
     {
         $exclude = $this->config('exclude', []);
 
-        return $exclude[$key] ?? $default;
+        return $is_json
+            ? $exclude
+            : ($exclude[$key] ?? $default);
     }
 
     /**

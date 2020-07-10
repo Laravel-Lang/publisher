@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Commands\Main;
+namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
@@ -22,7 +23,7 @@ class UninstallTest extends TestCase
         $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = $this->pathTarget($locale);
+            $path = Path::target($locale);
 
             if (! File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
@@ -39,7 +40,7 @@ class UninstallTest extends TestCase
     public function testUninstallDefaultLocale()
     {
         $locale = Locale::getDefault();
-        $path   = $this->pathTarget($locale);
+        $path   = Path::target($locale);
 
         $this->localization()->delete($locale);
 

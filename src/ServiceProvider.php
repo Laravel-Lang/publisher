@@ -5,9 +5,21 @@ namespace Helldar\LaravelLangPublisher;
 use Helldar\LaravelLangPublisher\Console\LangInstall;
 use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
+use Helldar\LaravelLangPublisher\Contracts\Pathable;
+use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
+use Helldar\LaravelLangPublisher\Services\Processing\DeletePhp;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishPhp;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Helldar\LaravelLangPublisher\Support\Path\Json;
+use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
+use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laravel\Lumen\Application;
+use Tests\Commands\Json\InstallTest as InstallJsonTest;
+use Tests\Commands\Json\UninstallTest as UninstallJsonTest;
+use Tests\Commands\Php\InstallTest as InstallPhpTest;
+use Tests\Commands\Php\UninstallTest as UninstallPhpTest;
 
 final class ServiceProvider extends BaseServiceProvider
 {
@@ -19,6 +31,7 @@ final class ServiceProvider extends BaseServiceProvider
 
     public function register(): void
     {
+        $this->binds();
         $this->config();
     }
 
@@ -45,6 +58,17 @@ final class ServiceProvider extends BaseServiceProvider
         }
 
         $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY);
+    }
+
+    protected function binds()
+    {
+        $this->app->when([PublishPhp::class, DeletePhp::class, InstallPhpTest::class, UninstallPhpTest::class])
+            ->needs(Pathable::class)
+            ->give(PhpPath::class);
+
+        $this->app->when([PublishJson::class, DeleteJson::class, InstallJsonTest::class, UninstallJsonTest::class])
+            ->needs(Pathable::class)
+            ->give(JsonPath::class);
     }
 
     protected function isLumen(): bool

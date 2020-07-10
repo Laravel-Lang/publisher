@@ -4,10 +4,10 @@ namespace Helldar\LaravelLangPublisher\Services;
 
 use Helldar\LaravelLangPublisher\Contracts\Process;
 use Helldar\LaravelLangPublisher\Exceptions\NoProcessInstanceException;
-use Helldar\LaravelLangPublisher\Services\Processing\Delete;
 use Helldar\LaravelLangPublisher\Services\Processing\DeleteJson;
-use Helldar\LaravelLangPublisher\Services\Processing\Publish;
+use Helldar\LaravelLangPublisher\Services\Processing\DeletePhp;
 use Helldar\LaravelLangPublisher\Services\Processing\PublishJson;
+use Helldar\LaravelLangPublisher\Services\Processing\PublishPhp;
 
 final class Localization
 {
@@ -27,7 +27,7 @@ final class Localization
     {
         return $json
             ? $this->process(PublishJson::class, $locale, $force)
-            : $this->process(Publish::class, $locale, $force);
+            : $this->process(PublishPhp::class, $locale, $force);
     }
 
     /**
@@ -42,7 +42,7 @@ final class Localization
     {
         return $json
             ? $this->process(DeleteJson::class, $locale)
-            : $this->process(Delete::class, $locale);
+            : $this->process(DeletePhp::class, $locale);
     }
 
     /**

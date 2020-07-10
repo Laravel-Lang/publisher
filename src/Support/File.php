@@ -3,10 +3,12 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use DirectoryIterator;
-use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDirectoryDoesntExist;
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File as PrettyFile;
 use Helldar\PrettyArray\Services\Formatter;
+use Helldar\Support\Facades\Str;
 
 final class File
 {
@@ -29,7 +31,11 @@ final class File
             return [];
         }
 
-        return PrettyFile::make()->load($path);
+        $pretty = PrettyFile::make();
+
+        return $this->isJson($path)
+            ? json_decode($pretty->loadRaw($path), true)
+            : $pretty->load($path);
     }
 
     /**
@@ -41,6 +47,14 @@ final class File
     public function save(string $path, array $data): void
     {
         ksort($data);
+
+        if ($this->isJson($path)) {
+            PrettyFile::make(
+                json_encode($data, JSON_PRETTY_PRINT)
+            )->storeRaw($path);
+
+            return;
+        }
 
         $service = Formatter::make();
         $service->setKeyAsString();
@@ -55,16 +69,17 @@ final class File
         )->store($path);
     }
 
-    /**
-     * @param  string  $path
-     * @param  string  $locale
-     *
-     * @throws \Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists
-     */
-    public function directoryExists(string $path, string $locale): void
+    public function directoryExist(string $path, string $locale): void
     {
         if (! $path || ! $this->exists($path)) {
-            throw new SourceLocaleNotExists($locale);
+            throw new SourceLocaleDirectoryDoesntExist($locale);
+        }
+    }
+
+    public function fileExist(string $path, string $locale): void
+    {
+        if (! $path || ! $this->exists($path)) {
+            throw new SourceLocaleFileDoesntExist($locale);
         }
     }
 
@@ -76,5 +91,12 @@ final class File
     public function name(string $path): string
     {
         return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    public function isJson(string $path): bool
+    {
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+        return Str::lower($extension) === 'json';
     }
 }

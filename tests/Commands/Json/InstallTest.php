@@ -2,13 +2,16 @@
 
 namespace Tests\Commands\Json;
 
-use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
 {
+    protected $is_json = true;
+
     public function testWithoutLanguageAttribute()
     {
         $this->expectException(RuntimeException::class);
@@ -19,8 +22,8 @@ final class InstallTest extends TestCase
 
     public function testUnknownLanguageFromCommand()
     {
-        $this->expectException(SourceLocaleNotExists::class);
-        $this->expectExceptionMessage('The source directory for "foo" localization was not found.');
+        $this->expectException(SourceLocaleFileDoesntExist::class);
+        $this->expectExceptionMessage('The source "foo" localization was not found.');
 
         $this->artisan('lang:install', [
             'locales' => 'foo',
@@ -30,8 +33,8 @@ final class InstallTest extends TestCase
 
     public function testUnknownLanguageFromService()
     {
-        $this->expectException(SourceLocaleNotExists::class);
-        $this->expectExceptionMessage('The source directory for "foo" localization was not found.');
+        $this->expectException(SourceLocaleFileDoesntExist::class);
+        $this->expectExceptionMessage('The source "foo" localization was not found.');
 
         $locales = 'foo';
 
@@ -45,21 +48,37 @@ final class InstallTest extends TestCase
         $this->deleteLocales($locales);
 
         foreach ($locales as $locale) {
-            $path = $this->pathTarget($locale);
+            $path = Path::target($locale);
 
-            $this->assertDirectoryNotExists($path);
+            method_exists($this, 'assertFileDoesNotExist')
+                ? $this->assertFileDoesNotExist($path)
+                : $this->assertFileNotExists($path);
 
             $this->localization()->publish($locale, false, true);
 
-            $this->assertDirectoryExists($path);
+            $this->assertFileExists($path);
         }
     }
 
     public function testCanInstallWithForce()
     {
         $this->copyFixtures();
+
         $this->localization()->publish($this->default_locale, true, true);
 
-        $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
+        $this->assertSame('This is Bar', Lang::get('Bar'));
+        $this->assertSame('Remember Me', __('Remember Me'));
+    }
+
+    public function testExcludes()
+    {
+        $this->copyFixtures();
+
+        $this->localization()->publish($this->default_locale, true, true);
+
+        $this->assertSame('This is Foo', Lang::get('Foo'));
+        $this->assertSame('This is Bar', Lang::get('Bar'));
+        $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
+        $this->assertSame('Confirm Password', Lang::get('Confirm Password'));
     }
 }

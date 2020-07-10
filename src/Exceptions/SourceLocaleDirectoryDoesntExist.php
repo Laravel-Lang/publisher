@@ -4,7 +4,7 @@ namespace Helldar\LaravelLangPublisher\Exceptions;
 
 use RuntimeException;
 
-final class SourceLocaleNotExists extends RuntimeException
+final class SourceLocaleDirectoryDoesntExist extends RuntimeException
 {
     public function __construct(string $locale)
     {

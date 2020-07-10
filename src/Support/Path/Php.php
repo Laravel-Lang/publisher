@@ -1,15 +1,11 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Support;
+namespace Helldar\LaravelLangPublisher\Support\Path;
 
-use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
+use Helldar\LaravelLangPublisher\Facades\Config;
 
-final class Path
+final class Php extends BasePath
 {
-    public const DIVIDER = DIRECTORY_SEPARATOR;
-
-    public const LANG = 'lang';
-
     /**
      * Returns a direct link to the folder with the source localization files.
      *
@@ -28,7 +24,7 @@ final class Path
         $filename = $this->clean($filename);
 
         return $this->real(
-            ConfigFacade::getVendorPath() . $locale . $filename
+            Config::getVendorPath() . $locale . $filename
         );
     }
 
@@ -49,25 +45,6 @@ final class Path
         $locale   = $this->clean($locale);
         $filename = $this->clean($filename);
 
-        return resource_path(self::LANG . $locale . $filename);
-    }
-
-    protected function real(string $path): string
-    {
-        return realpath($path);
-    }
-
-    protected function clean(string $path = null): ?string
-    {
-        return $path
-            ? self::DIVIDER . ltrim($path, self::DIVIDER)
-            : $path;
-    }
-
-    protected function getPathForEnglish(string $locale): string
-    {
-        return $locale === 'en'
-            ? '../script/en'
-            : $locale;
+        return resource_path(static::LANG . $locale . $filename);
     }
 }

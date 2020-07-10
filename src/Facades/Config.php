@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getLocale()
  * @method static string getFallbackLocale()
  * @method static bool isAlignment()
- * @method static array getExclude(string $key, array $default = [])
+ * @method static array getExclude(string $key, array $default = [], bool $is_json = false)
  * @method static int getCase()
  * @method static bool isInline()
  */

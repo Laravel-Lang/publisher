@@ -2,8 +2,13 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Contracts\Pathable;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
+use Helldar\LaravelLangPublisher\Support\Path\Json;
+use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
+use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
@@ -11,9 +16,13 @@ abstract class TestCase extends BaseTestCase
 {
     protected $default_locale = 'en';
 
-    protected function tearDown(): void
+    protected $is_json = false;
+
+    protected function setUp(): void
     {
-        $this->resetDefaultLangDirectory();
+        parent::setUp();
+
+        $this->resetDefaultLang();
     }
 
     /**
@@ -31,32 +40,65 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('lang-publisher.vendor', $this->pathMainSource());
-        $config->set('lang-publisher.exclude.auth', ['failed']);
+        $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang'));
         $config->set('app.locale', $this->default_locale);
+
+        $this->is_json
+            ? $config->set('lang-publisher.exclude', ['All rights reserved.'])
+            : $config->set('lang-publisher.exclude.auth', ['failed']);
+
+        $this->is_json
+            ? $app->bind(Pathable::class, JsonPath::class)
+            : $app->bind(Pathable::class, PhpPath::class);
     }
 
-    protected function resetDefaultLangDirectory(): void
+    protected function resetDefaultLang(): void
     {
+        if ($this->is_json) {
+            File::copy(
+                Path::source($this->default_locale),
+                Path::target($this->default_locale)
+            );
+
+            return;
+        }
+
         File::copyDirectory(
-            $this->pathMainSource($this->default_locale),
-            $this->pathTarget($this->default_locale)
+            Path::source($this->default_locale),
+            Path::target($this->default_locale)
         );
     }
 
     protected function copyFixtures(): void
     {
+        if ($this->is_json) {
+            File::copy(
+                realpath(__DIR__ . '/fixtures/en.json'),
+                Path::target($this->default_locale)
+            );
+
+            return;
+        }
+
         File::copy(
             realpath(__DIR__ . '/fixtures/auth.php'),
-            $this->pathTarget($this->default_locale, 'auth.php')
+            Path::target($this->default_locale, 'auth.php')
         );
     }
 
     protected function deleteLocales(array $locales): void
     {
         foreach ($locales as $locale) {
+            if ($this->is_json) {
+                File::delete(
+                    Path::target($locale)
+                );
+
+                continue;
+            }
+
             File::deleteDirectory(
-                $this->pathTarget($locale)
+                Path::target($locale)
             );
         }
     }
@@ -64,36 +106,5 @@ abstract class TestCase extends BaseTestCase
     protected function localization(): Localization
     {
         return app(Localization::class);
-    }
-
-    protected function pathMainSource(string $locale = null, string $filename = null): string
-    {
-        $locale   = $this->cleanPath($locale);
-        $filename = $this->cleanPath($filename);
-
-        return realpath(__DIR__ . '/../vendor/caouecs/laravel-lang/src' . $locale . $filename);
-    }
-
-    protected function pathJsonSource(string $locale = null): string
-    {
-        $locale = $this->cleanPath($locale);
-        $locale = $locale ? $locale . '.json' : null;
-
-        return realpath(__DIR__ . '/../vendor/caouecs/laravel-lang/json' . $locale);
-    }
-
-    protected function pathTarget(string $locale = null, string $filename = null): string
-    {
-        $locale   = $this->cleanPath($locale);
-        $filename = $this->cleanPath($filename);
-
-        return realpath(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/resources/lang' . $locale . $filename);
-    }
-
-    protected function cleanPath(string $path = null): ?string
-    {
-        return $path
-            ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR)
-            : $path;
     }
 }

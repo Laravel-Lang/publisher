@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SplFileInfo;
 
-final class Publish extends BaseProcess
+final class PublishPhp extends BaseProcess
 {
     public function run(): array
     {
@@ -23,7 +23,7 @@ final class Publish extends BaseProcess
     protected function publish(): void
     {
         foreach (File::files($this->sourcePath()) as $file) {
-            if ($file->isDir() || $file->getExtension() !== 'php' || $this->isInline($file->getFilename())) {
+            if ($file->isDir() || $file->getExtension() !== $this->extension || $this->isInline($file->getFilename())) {
                 continue;
             }
 
