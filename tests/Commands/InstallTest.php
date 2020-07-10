@@ -2,12 +2,10 @@
 
 namespace Tests\Commands;
 
-use function compact;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleNotExists;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
-
 use Tests\TestCase;
 
 class InstallTest extends TestCase
