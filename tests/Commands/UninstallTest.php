@@ -34,7 +34,6 @@ class UninstallTest extends TestCase
             method_exists($this, 'assertDirectoryDoesNotExist')
                 ? $this->assertDirectoryDoesNotExist($path)
                 : $this->assertDirectoryNotExists($path);
-
         }
     }
 
