@@ -10,6 +10,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 [![For Laravel][badge_laravel]][link_packagist]
+[![For Lumen][badge_lumen]][link_packagist]
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -84,7 +85,7 @@ if ($app->environment() !== 'production') {
 
 ### Compatibility table
 
-|Laravel version|PHP min version|PHP tested version|Tag|Package min version|Package max version|Comment|
+|Laravel/Lumen version|PHP min version|PHP tested version|Tag|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
 |5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4| ![Not Supported][badge_not_supported] |
 |5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4| ![Not Supported][badge_not_supported] |
@@ -408,6 +409,7 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
+[badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_not_supported]:  https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
