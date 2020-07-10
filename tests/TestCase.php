@@ -6,7 +6,6 @@ use Helldar\LaravelLangPublisher\Contracts\Pathable;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
-use Helldar\LaravelLangPublisher\Support\Path\Json;
 use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
 use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
 use Illuminate\Support\Facades\File;
