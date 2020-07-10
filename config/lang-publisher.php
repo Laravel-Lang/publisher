@@ -4,12 +4,6 @@ use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
     /*
-     * Path to source translation files.
-     */
-
-    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
-
-    /*
      * Do arrays need to be aligned by keys before processing arrays?
      *
      * By default, true

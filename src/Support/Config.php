@@ -15,7 +15,7 @@ final class Config implements ConfigContract
      */
     public function getVendorPath(): string
     {
-        return $this->config('vendor');
+        return realpath(__DIR__ . '/../../vendor/caouecs/laravel-lang/src');
     }
 
     /**
@@ -53,8 +53,8 @@ final class Config implements ConfigContract
      * Returns an array of exceptions set by the developer
      * when installing and updating localizations.
      *
-     * @param string $key
-     * @param array $default
+     * @param  string  $key
+     * @param  array  $default
      *
      * @return array
      */
