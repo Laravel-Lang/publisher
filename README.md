@@ -20,7 +20,8 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
 ## Table of contents
 
 * [Installation](#installation)
-  * [For Lumen](#for-lumen)
+  * [Laravel](#laravel)
+  * [Lumen](#Lumen)
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
@@ -55,32 +56,30 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 }
 ```
 
+#### Laravel
+
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
 ```
 
-#### For Lumen
+#### Lumen
 
 This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
 
-##### Adding the Service Provider
-
-You can install Laravel IDE Helper in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can properly load.
+You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can properly load.
 
 ```
 // $app->register(App\Providers\AppServiceProvider::class);
 ```
 
-If you are not using that line, that is usually handy to manage gracefully multiple Laravel/Lumen installations, you will have to add this line of code under the `Register Service Providers` section of your `bootstrap/app.php`.
+If you are not using that line, that is usually handy to manage gracefully multiple Lumen installations, you will have to add this line of code under the `Register Service Providers` section of your `bootstrap/app.php`.
 
 ```php
 if ($app->environment() !== 'production') {
     $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
 }
 ```
-
-After that, Laravel Lang Publisher should work correctly.
 
 
 ### Compatibility table

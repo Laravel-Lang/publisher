@@ -7,6 +7,7 @@ use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Lumen\Application;
 
 final class ServiceProvider extends BaseServiceProvider
 {
@@ -39,6 +40,15 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function config(): void
     {
+        if ($this->isLumen()) {
+            $this->app->configure(Config::KEY);
+        }
+
         $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY);
+    }
+
+    protected function isLumen(): bool
+    {
+        return class_exists(Application::class) && $this->app instanceof Application;
     }
 }
