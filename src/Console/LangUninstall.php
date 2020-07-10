@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 final class LangUninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
-    . ' {locales* : Localizations to uninstall}';
+    . ' {locales* : Comma-separated list of, eg: de,tk,it}';
 
     protected $description = 'Uninstall localizations.';
 

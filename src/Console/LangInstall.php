@@ -7,8 +7,8 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 final class LangInstall extends BaseCommand
 {
     protected $signature = 'lang:install'
-    . ' {locales* : Localizations to copy}'
-    . ' {--f|force : Force replace lang files}';
+    . ' {locales* : Comma-separated list of, eg: de,tk,it}'
+    . ' {--f|force : Override exiting files}';
 
     protected $description = 'Install new localizations.';
 
