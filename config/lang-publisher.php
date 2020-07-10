@@ -50,4 +50,10 @@ return [
      * By default, Caseable::NO_CASE
      */
     'case'    => class_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    /*
+     * Path to source translation files.
+     */
+
+    'vendor' => base_path('vendor/caouecs/laravel-lang/src'),
 ];

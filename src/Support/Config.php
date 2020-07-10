@@ -16,7 +16,7 @@ final class Config
      */
     public function getVendorPath(): string
     {
-        return realpath(__DIR__ . '/../../vendor/caouecs/laravel-lang/src');
+        return $this->config('vendor');
     }
 
     /**
