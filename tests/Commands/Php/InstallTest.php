@@ -3,20 +3,14 @@
 namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDirectoryDoesntExist;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishJson as PublishJsonProcessor;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp as PublishPhpProcessor;
-use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
 {
-    protected $process_php = PublishPhpProcessor::class;
-
-    protected $process_json = PublishJsonProcessor::class;
-
-    protected $path = PhpPath::class;
+    protected $processor = PublishPhp::class;
 
     public function testWithoutLanguageAttribute()
     {
@@ -56,7 +50,7 @@ final class InstallTest extends TestCase
         $this->deleteLocales($locales);
 
         foreach ($locales as $locale) {
-            $path = $this->path()->target($locale);
+            $path = $this->path->target($locale);
 
             method_exists($this, 'assertDirectoryDoesNotExist')
                 ? $this->assertDirectoryDoesNotExist($path)

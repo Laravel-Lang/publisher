@@ -40,9 +40,14 @@ abstract class BaseCommand extends Command
         return (bool) $this->option('force');
     }
 
-    protected function isJson(): bool
+    protected function wantsJson(): bool
     {
         return (bool) $this->option('json');
+    }
+
+    protected function setProcessor(string $php, string $json): void
+    {
+        $this->processor = $this->wantsJson() ? $json : $php;
     }
 
     protected function exec(array $locales): void

@@ -3,20 +3,14 @@
 namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishJson as PublishJsonProcessor;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp as PublishPhpProcessor;
-use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
 {
-    protected $process_php = PublishPhpProcessor::class;
-
-    protected $process_json = PublishJsonProcessor::class;
-
-    protected $path = JsonPath::class;
+    protected $processor = PublishJson::class;
 
     protected $is_json = true;
 
@@ -59,7 +53,7 @@ final class InstallTest extends TestCase
         $this->deleteLocales($locales);
 
         foreach ($locales as $locale) {
-            $path = $this->path()->target($locale);
+            $path = $this->path->target($locale);
 
             method_exists($this, 'assertFileDoesNotExist')
                 ? $this->assertFileDoesNotExist($path)

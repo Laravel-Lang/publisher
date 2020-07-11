@@ -6,16 +6,13 @@ use Helldar\LaravelLangPublisher\Contracts\Processor;
 
 trait Processable
 {
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Processor */
-    protected $process_php;
-
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Processor */
-    protected $process_json;
+    /** @var string */
+    protected $processor;
 
     protected function getProcessor(): Processor
     {
-        return $this->isJson()
-            ? $this->container($this->process_json)
-            : $this->container($this->process_php);
+        $path = $this->getPath();
+
+        return $this->container($this->processor, compact('path'));
     }
 }

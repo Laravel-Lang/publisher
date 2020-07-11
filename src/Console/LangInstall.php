@@ -3,8 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishJson as PublishJsonProcessor;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp as PublishPhpProcessor;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 
 final class LangInstall extends BaseCommand
 {
@@ -15,12 +15,10 @@ final class LangInstall extends BaseCommand
 
     protected $description = 'Install new localizations.';
 
-    protected $process_php = PublishPhpProcessor::class;
-
-    protected $process_json = PublishJsonProcessor::class;
-
     public function handle()
     {
+        $this->setProcessor(PublishPhp::class, PublishJson::class);
+
         $this->exec(
             Locale::available()
         );

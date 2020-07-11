@@ -10,7 +10,7 @@ trait Pathable
 {
     protected function getPath(): PathableContract
     {
-        return $this->isJson()
+        return $this->wantsJson()
             ? $this->container(JsonPath::class)
             : $this->container(PhpPath::class);
     }

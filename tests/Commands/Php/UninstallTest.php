@@ -3,20 +3,14 @@
 namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson as DeleteJsonProcessor;
-use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp as DeletePhpProcessor;
-use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
+use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
-    protected $process_php = DeletePhpProcessor::class;
-
-    protected $process_json = DeleteJsonProcessor::class;
-
-    protected $path = PhpPath::class;
+    protected $processor = DeletePhp::class;
 
     public function testWithoutLanguageAttributeFromCommand()
     {
@@ -31,7 +25,7 @@ class UninstallTest extends TestCase
         $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = $this->path()->target($locale);
+            $path = $this->path->target($locale);
 
             if (! File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
@@ -51,7 +45,7 @@ class UninstallTest extends TestCase
     public function testUninstallDefaultLocale()
     {
         $locale = Locale::getDefault();
-        $path   = $this->path()->target($locale);
+        $path   = $this->path->target($locale);
 
         $this->localization()
             ->setPath($this->getPath())

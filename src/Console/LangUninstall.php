@@ -3,8 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson as DeleteJsonProcessor;
-use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp as DeletePhpProcessor;
+use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
+use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 
 final class LangUninstall extends BaseCommand
 {
@@ -14,12 +14,10 @@ final class LangUninstall extends BaseCommand
 
     protected $description = 'Uninstall localizations.';
 
-    protected $process_php = DeletePhpProcessor::class;
-
-    protected $process_json = DeleteJsonProcessor::class;
-
     public function handle()
     {
+        $this->setProcessor(DeletePhp::class, DeleteJson::class);
+
         $this->exec(
             Locale::installed()
         );

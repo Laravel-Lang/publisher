@@ -8,7 +8,7 @@ trait Deletable
 {
     public function run(): array
     {
-        $this->checkExists($this->targetPath());
+//        $this->checkExists($this->targetPath());
 
         $this->delete()
             ? $this->push('*', Status::DELETED)

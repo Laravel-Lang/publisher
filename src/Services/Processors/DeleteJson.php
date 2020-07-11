@@ -13,6 +13,10 @@ final class DeleteJson extends BaseProcessor
 
     protected function delete(): bool
     {
+        if (! IlluminateFile::exists($this->targetPath())) {
+            return true;
+        }
+
         return ! $this->isProtected()
             ? IlluminateFile::delete($this->targetPath())
             : false;
