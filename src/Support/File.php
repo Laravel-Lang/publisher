@@ -50,7 +50,7 @@ final class File
 
         if ($this->isJson($path)) {
             PrettyFile::make(
-                json_encode($data, JSON_PRETTY_PRINT)
+                json_encode($data, JSON_PRETTY_PRINT ^ JSON_UNESCAPED_UNICODE)
             )->storeRaw($path);
 
             return;
