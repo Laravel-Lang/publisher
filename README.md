@@ -52,7 +52,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^4.0"
+        "andrey-helldar/laravel-lang-publisher": "^4.6"
     }
 }
 ```
@@ -94,7 +94,7 @@ if ($app->environment() !== 'production') {
 |5.7, 5.8|^7.1.3|7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). |
 |5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1| ![Not Supported][badge_not_supported] |
 |6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|3.1.0| ![Not Supported][badge_not_supported] |
-|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php#L43) file.|
+|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php) file.|
 
 
 ## How to use
@@ -305,41 +305,12 @@ Perhaps the facades will be useful to you:
 use Helldar\LaravelLangPublisher\Facades\Config;
 
 
-// Getting a link to the folder with the source localization files.
-// Will return the value set to `config/lang-publisher.php`.
-Config::getVendorPath(): string
-
-
 // Getting the default localization name.
 Config::getLocale(): string
 
 
 // Getting the fallback localization name.
 Config::getFallbackLocale(): string
-
-
-// Defines the label for using inline files.
-Config::isInline(): bool
-
-
-// Will array alignment be applied
-Config::isAlignment(): bool
-
-
-// Returns an array of exceptions set by the developer
-// when installing and updating localizations.
-Config::getExclude(string $key, array $default = []): array
-
-
-// Returns the key mapping label.
-// Available:
-//
-// Helldar\PrettyArray\Contracts\Caseable::NO_CASE      - Case does not change
-// Helldar\PrettyArray\Contracts\Caseable::CAMEL_CASE   - camelCase
-// Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE   - kebab-case
-// Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE  - PascalCase
-// Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE   - snake_case
-Config::getCase(): int
 ```
 
 
