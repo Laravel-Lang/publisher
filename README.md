@@ -340,10 +340,10 @@ Config::getFallbackLocale(): string
 use Helldar\LaravelLangPublisher\Facades\Locale;
 
 // List of available locations.
-Locale::available(): array
+Locale::available(bool $is_json = false): array
 
 // List of installed locations.
-Locale::installed(): array
+Locale::installed(bool $is_json = false): array
 
 // Retrieving a list of protected locales.
 Locale::protects(): array
