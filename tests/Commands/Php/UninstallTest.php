@@ -3,13 +3,15 @@
 namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
+    protected $processor = DeletePhp::class;
+
     public function testWithoutLanguageAttributeFromCommand()
     {
         $this->expectException(RuntimeException::class);
@@ -23,13 +25,16 @@ class UninstallTest extends TestCase
         $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = Path::target($locale);
+            $path = $this->path->target($locale);
 
             if (! File::exists($path)) {
                 File::makeDirectory($path, 0755, true);
             }
 
-            $this->localization()->delete($locale);
+            $this->localization()
+                ->setPath($this->getPath())
+                ->setProcessor($this->getProcessor())
+                ->run($locale, true);
 
             method_exists($this, 'assertDirectoryDoesNotExist')
                 ? $this->assertDirectoryDoesNotExist($path)
@@ -40,9 +45,12 @@ class UninstallTest extends TestCase
     public function testUninstallDefaultLocale()
     {
         $locale = Locale::getDefault();
-        $path   = Path::target($locale);
+        $path   = $this->path->target($locale);
 
-        $this->localization()->delete($locale);
+        $this->localization()
+            ->setPath($this->getPath())
+            ->setProcessor($this->getProcessor())
+            ->run($locale, true);
 
         $this->assertDirectoryExists($path);
     }

@@ -2,17 +2,24 @@
 
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Contracts\Pathable;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Contracts\Localizationable;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
-use Helldar\LaravelLangPublisher\Support\Path\Json as JsonPath;
-use Helldar\LaravelLangPublisher\Support\Path\Php as PhpPath;
+use Helldar\LaravelLangPublisher\Traits\Containable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
+use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Containable;
+    use Processable;
+    use Pathable;
+
+    /** @var \Helldar\LaravelLangPublisher\Contracts\Pathable */
+    protected $path;
+
     protected $default_locale = 'en';
 
     protected $is_json = false;
@@ -20,6 +27,8 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->path = $this->getPath();
 
         $this->resetDefaultLang();
     }
@@ -39,41 +48,31 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang'));
         $config->set('app.locale', $this->default_locale);
+        $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang'));
 
-        $this->is_json
-            ? $config->set('lang-publisher.exclude', ['All rights reserved.'])
-            : $config->set('lang-publisher.exclude.auth', ['failed']);
-
-        $this->is_json
-            ? $app->bind(Pathable::class, JsonPath::class)
-            : $app->bind(Pathable::class, PhpPath::class);
+        $config->set('lang-publisher.exclude', [
+            'auth' => ['failed'],
+            'All rights reserved.',
+        ]);
     }
 
     protected function resetDefaultLang(): void
     {
-        if ($this->is_json) {
-            File::copy(
-                Path::source($this->default_locale),
-                Path::target($this->default_locale)
-            );
+        $source = $this->path->source($this->default_locale);
+        $target = $this->path->target($this->default_locale);
 
-            return;
-        }
-
-        File::copyDirectory(
-            Path::source($this->default_locale),
-            Path::target($this->default_locale)
-        );
+        $this->wantsJson()
+            ? File::copy($source, $target)
+            : File::copyDirectory($source, $target);
     }
 
     protected function copyFixtures(): void
     {
-        if ($this->is_json) {
+        if ($this->wantsJson()) {
             File::copy(
                 realpath(__DIR__ . '/fixtures/en.json'),
-                Path::target($this->default_locale)
+                $this->path->target($this->default_locale)
             );
 
             return;
@@ -81,29 +80,28 @@ abstract class TestCase extends BaseTestCase
 
         File::copy(
             realpath(__DIR__ . '/fixtures/auth.php'),
-            Path::target($this->default_locale, 'auth.php')
+            $this->path->target($this->default_locale, 'auth.php')
         );
     }
 
     protected function deleteLocales(array $locales): void
     {
         foreach ($locales as $locale) {
-            if ($this->is_json) {
-                File::delete(
-                    Path::target($locale)
-                );
+            $target = $this->path->target($locale);
 
-                continue;
-            }
-
-            File::deleteDirectory(
-                Path::target($locale)
-            );
+            $this->wantsJson()
+                ? File::delete($target)
+                : File::deleteDirectory($target);
         }
     }
 
-    protected function localization(): Localization
+    protected function localization(): Localizationable
     {
-        return app(Localization::class);
+        return $this->container(Localization::class);
+    }
+
+    protected function wantsJson(): bool
+    {
+        return $this->is_json;
     }
 }
