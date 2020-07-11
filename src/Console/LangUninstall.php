@@ -19,7 +19,7 @@ final class LangUninstall extends BaseCommand
         $this->setProcessor(DeletePhp::class, DeleteJson::class);
 
         $this->exec(
-            Locale::installed()
+            Locale::installed($this->wantsJson())
         );
 
         $this->result

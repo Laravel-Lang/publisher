@@ -20,7 +20,7 @@ final class LangInstall extends BaseCommand
         $this->setProcessor(PublishPhp::class, PublishJson::class);
 
         $this->exec(
-            Locale::available()
+            Locale::available($this->wantsJson())
         );
 
         $this->result

@@ -14,7 +14,7 @@ final class LangUpdate extends BaseCommand
     public function handle()
     {
         $this->call('lang:install', [
-            'locales' => Locale::installed(),
+            'locales' => Locale::installed($this->wantsJson()),
             '--force' => true,
             '--json'  => $this->wantsJson(),
         ]);

@@ -13,9 +13,9 @@ final class Locale
      *
      * @return array
      */
-    public function available(): array
+    public function available(bool $is_json = false): array
     {
-        return $this->get($this->getSourceDirectories());
+        return $this->get($this->getSourceDirectories($is_json));
     }
 
     /**
@@ -23,9 +23,9 @@ final class Locale
      *
      * @return array
      */
-    public function installed(): array
+    public function installed(bool $is_json = false): array
     {
-        $locales   = $this->get($this->getInstalledDirectories());
+        $locales   = $this->get($this->getInstalledDirectories($is_json));
         $available = $this->available();
 
         return array_filter($locales, function ($locale) use ($available) {
@@ -111,18 +111,22 @@ final class Locale
         return $this->filterLocales($locales);
     }
 
-    protected function getSourceDirectories(): array
+    protected function getSourceDirectories(bool $is_json = false): array
     {
-        return File::directories(
-            Config::getVendorPath()
-        );
+        $vendor = Config::getVendorPath();
+
+        return $is_json
+            ? File::files($vendor . '/json')
+            : File::directories($vendor . '/src');
     }
 
-    protected function getInstalledDirectories(): array
+    protected function getInstalledDirectories(bool $is_json = false): array
     {
-        return File::directories(
-            resource_path('lang')
-        );
+        $resources = resource_path('lang');
+
+        return $is_json
+            ? File::files($resources)
+            : File::directories($resources);
     }
 
     protected function normalizeNames(array $directories): array

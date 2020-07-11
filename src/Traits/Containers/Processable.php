@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Traits\Containers;
 
 use Helldar\LaravelLangPublisher\Contracts\Processor;
+use Illuminate\Container\Container;
 
 trait Processable
 {
@@ -13,6 +14,6 @@ trait Processable
     {
         $path = $this->getPath();
 
-        return $this->container($this->processor, compact('path'));
+        return Container::getInstance()->make($this->processor, compact('path'));
     }
 }

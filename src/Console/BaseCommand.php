@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Contracts\Localizationable;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Result;
 use Helldar\LaravelLangPublisher\Traits\Containable;
@@ -15,17 +16,12 @@ abstract class BaseCommand extends Command
     use Processable;
     use Pathable;
 
-    /** @var \Helldar\LaravelLangPublisher\Services\Localization */
-    protected $localization;
-
     /** @var \Helldar\LaravelLangPublisher\Support\Result */
     protected $result;
 
-    public function __construct(Localization $localization, Result $result)
+    public function __construct(Result $result)
     {
         parent::__construct();
-
-        $this->localization = $localization;
 
         $this->result = $result->setOutput($this);
     }
@@ -54,7 +50,7 @@ abstract class BaseCommand extends Command
     {
         foreach ($this->getLocales($locales) as $locale) {
             $this->result->merge(
-                $this->localization
+                $this->localization()
                     ->setPath($this->getPath())
                     ->setProcessor($this->getProcessor())
                     ->run($locale, $this->isForce())
@@ -67,5 +63,10 @@ abstract class BaseCommand extends Command
         return $this->locales() === ['*']
             ? $locales
             : $this->locales();
+    }
+
+    protected function localization(): Localizationable
+    {
+        return app(Localization::class);
     }
 }
