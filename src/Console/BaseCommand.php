@@ -33,7 +33,7 @@ abstract class BaseCommand extends Command
 
     protected function isForce(): bool
     {
-        return (bool) $this->option('force');
+        return $this->hasOption('force') && (bool) $this->option('force');
     }
 
     protected function wantsJson(): bool
