@@ -122,6 +122,9 @@ When executing the `php artisan lang:install` command, the list of localizations
 ```bash
 php artisan lang:install en de ro zh-CN lv
 php artisan lang:install de
+
+php artisan lang:install en de ro zh-CN lv --json
+php artisan lang:install de --json
 ```
 
 If files do not exist in the destination folder, they will be created. And if the files exist, the console will ask you for a replacement.
@@ -132,6 +135,10 @@ Also, if the files exist, and you do not want to agree each time, you can pass t
 php artisan lang:install de en ro zh-CN --force
 php artisan lang:install de --force
 php artisan lang:install de -f
+
+php artisan lang:install de en ro zh-CN --force --json
+php artisan lang:install de --force --json
+php artisan lang:install de -f --json
 ```
 
 You can also use the `*` symbol to install all localizations:
@@ -140,6 +147,10 @@ You can also use the `*` symbol to install all localizations:
 php artisan lang:install * -f
 php artisan lang:install * --force
 php artisan lang:install * -f
+
+php artisan lang:install * -f --json
+php artisan lang:install * --force --json
+php artisan lang:install * -f --json
 ```
 
 
@@ -148,6 +159,12 @@ php artisan lang:install * -f
 When executing the `php artisan lang:update` command, the package learns which localizations installed in your application and will replace the matching files.
 
 Command `php artisan lang:update` is an alias of `php artisan lang:install --force <locales>`.
+
+Also for updating files you can pass the `--json` key:
+
+```bash
+php artisan lang:update --json
+```
 
 
 ### Uninstall locales
@@ -159,11 +176,15 @@ Command `php artisan lang:update` is an alias of `php artisan lang:install --for
 To delete localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
 ```bash
 php artisan lang:uninstall de ro zh-CN
+
+php artisan lang:uninstall de ro zh-CN --json
 ```
 
 You can also specify the `*` symbol to delete all localizations:
 ```bash
 php artisan lang:uninstall *
+
+php artisan lang:uninstall * --json
 ```
 
 In this case, everything will be deleted, except the default and fallback application locales.
