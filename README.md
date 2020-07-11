@@ -123,8 +123,8 @@ When executing the `php artisan lang:install` command, the list of localizations
 php artisan lang:install en de ro zh-CN lv
 php artisan lang:install de
 
-php artisan lang:install en de ro zh-CN lv --json
-php artisan lang:install de --json
+php artisan lang:install --json en de ro zh-CN lv
+php artisan lang:install --json de
 ```
 
 If files do not exist in the destination folder, they will be created. And if the files exist, the console will ask you for a replacement.
@@ -136,9 +136,9 @@ php artisan lang:install de en ro zh-CN --force
 php artisan lang:install de --force
 php artisan lang:install de -f
 
-php artisan lang:install de en ro zh-CN --force --json
-php artisan lang:install de --force --json
-php artisan lang:install de -f --json
+php artisan lang:install --json de en ro zh-CN --force
+php artisan lang:install --json de --force
+php artisan lang:install --json de -f
 ```
 
 You can also use the `*` symbol to install all localizations:
@@ -148,9 +148,9 @@ php artisan lang:install * -f
 php artisan lang:install * --force
 php artisan lang:install * -f
 
-php artisan lang:install * -f --json
-php artisan lang:install * --force --json
-php artisan lang:install * -f --json
+php artisan lang:install --json * -f
+php artisan lang:install --json * --force
+php artisan lang:install --json * -f
 ```
 
 
@@ -177,7 +177,7 @@ To delete localizations, you must use `lang:uninstall` command, passing the lett
 ```bash
 php artisan lang:uninstall de ro zh-CN
 
-php artisan lang:uninstall de ro zh-CN --json
+php artisan lang:uninstall --json de ro zh-CN
 ```
 
 You can also specify the `*` symbol to delete all localizations:
