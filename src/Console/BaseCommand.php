@@ -47,7 +47,10 @@ abstract class BaseCommand extends Command
 
         return $this->choice(
             sprintf($this->select_template, $this->action),
-            $locales, 0, null, true
+            $locales,
+            0,
+            null,
+            true
         );
     }
 
