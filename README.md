@@ -96,6 +96,7 @@ if ($app->environment() !== 'production') {
 |5.8, 6.x, 7.x|^7.1.3|7.2, 7.3, 7.4|^2.0|2.0.0|2.3.1| ![Not Supported][badge_not_supported] |
 |6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|3.1.0| ![Not Supported][badge_not_supported] |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|^4.0| ![Supported][badge_supported] If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php) file.|
+|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^5.0|5.0.0|^5.0| ![Coming Soon][badge_coming_soon] Changed localization names in accordance with the ISO 15897 standard (see caouecs/Laravel-lang#1286 and https://laravel.com/docs/7.x/localization#introduction).|
 
 
 ## How to use
@@ -397,11 +398,12 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-[badge_not_supported]:  https://img.shields.io/badge/not--supported-lightgrey?style=flat-square
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
 [badge_styleci]:        https://styleci.io/repos/119022335/shield
 [badge_supported]:      https://img.shields.io/badge/supported-green?style=flat-square
+[badge_not_supported]:  https://img.shields.io/badge/not%20supported-lightgrey?style=flat-square
+[badge_coming_soon]:    https://img.shields.io/badge/coming%20soon-blue?style=flat-square
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
 
 [link_author]:          https://github.com/andrey-helldar
