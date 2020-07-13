@@ -65,13 +65,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLang(): void
     {
-        $resource_path = resource_path('lang');
-
-        if (File::exists($resource_path)) {
-            File::deleteDirectory($resource_path);
-            File::makeDirectory($resource_path);
-        }
-
         $this->artisan('lang:uninstall', ['--json' => $this->is_json])
             ->expectsConfirmation('Do you want to uninstall all localizations?', 'yes')
             ->assertExitCode(0);
