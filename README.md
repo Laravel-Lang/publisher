@@ -55,7 +55,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^4.7"
+        "andrey-helldar/laravel-lang-publisher": "^5.0"
     }
 }
 ```
@@ -123,8 +123,8 @@ He does not touch any other files.
 
 All commands have common key types:
 
-* `--json` - runs a command to work with translation JSON files;
-* `--force` - runs a command to force execution (works on all but the reset command).
+* `--json` (also `-j`) - runs a command to work with translation JSON files;
+* `--force` (also `-f`) - runs a command to force execution (works on all but the `reset` command).
 
 
 Parameters on call (used in all except `update`):
