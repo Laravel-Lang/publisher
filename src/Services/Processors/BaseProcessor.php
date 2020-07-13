@@ -21,7 +21,10 @@ abstract class BaseProcessor implements Processor
     protected $locale;
 
     /** @var bool */
-    protected $force;
+    protected $is_force;
+
+    /** @var bool */
+    protected $is_full;
 
     /** @var string */
     protected $extension = 'php';
@@ -34,16 +37,23 @@ abstract class BaseProcessor implements Processor
         $this->path = $path;
     }
 
-    public function locale(string $locale): self
+    public function locale(string $locale): Processor
     {
         $this->locale = $locale;
 
         return $this;
     }
 
-    public function force(bool $force = false): self
+    public function force(bool $is_force = true): Processor
     {
-        $this->force = $force;
+        $this->is_force = $is_force;
+
+        return $this;
+    }
+
+    public function full(bool $is_full = true): Processor
+    {
+        $this->is_full = $is_full;
 
         return $this;
     }
@@ -82,9 +92,29 @@ abstract class BaseProcessor implements Processor
         $src_file = $this->getSourceFilePath($file);
         $dst_file = $this->targetPath($filename);
 
-        if ($this->force || ! File::exists($dst_file)) {
+        if ($this->is_force || ! File::exists($dst_file)) {
             $this->copy($src_file, $dst_file, $filename);
             $this->push($filename, Status::COPIED);
+
+            return;
+        }
+
+        $this->push($filename, Status::SKIPPED);
+    }
+
+    protected function resetFile(SplFileInfo $file): void
+    {
+        if ($file->isDir() || $file->getExtension() !== $this->extension || $this->isInline($file->getFilename())) {
+            return;
+        }
+
+        $filename = $this->getTargetFilename($file);
+        $src_file = $this->getSourceFilePath($file);
+        $dst_file = $this->targetPath($filename);
+
+        if (File::exists($dst_file)) {
+            $this->reset($src_file, $dst_file, $filename);
+            $this->push($filename, Status::RESET);
 
             return;
         }
@@ -104,11 +134,21 @@ abstract class BaseProcessor implements Processor
 
     protected function copy(string $source, string $target, string $filename): void
     {
-        $key = File::name($filename);
-
         $this->isValidation($filename)
-            ? $this->copyValidations($source, $target, $key)
-            : $this->copyOthers($source, $target, $key);
+            ? $this->copyValidations($source, $target, $filename)
+            : $this->copyOthers($source, $target, $filename);
+    }
+
+    protected function reset(string $src, string $dst, string $filename): void
+    {
+        $source = File::load($src);
+        $target = File::load($dst, true);
+
+        $result = $this->is_full
+            ? $source
+            : array_merge($source, $this->excluded($target, $filename));
+
+        File::save($dst, $result);
     }
 
     protected function copyValidations(string $src, string $dst, string $filename): void
@@ -154,6 +194,11 @@ abstract class BaseProcessor implements Processor
     protected function isInline(string $filename): bool
     {
         return Str::contains($filename, 'inline');
+    }
+
+    protected function wantsJson(): bool
+    {
+        return $this->extension === 'json';
     }
 
     protected function getSourceFilePath(SplFileInfo $file): string

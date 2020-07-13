@@ -4,20 +4,43 @@ namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Console\Exception\RuntimeException;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
     protected $processor = DeletePhp::class;
 
-    public function testWithoutLanguageAttributeFromCommand()
+    public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
+        $path = Str::finish(
+            $this->path->target('ar'),
+            DIRECTORY_SEPARATOR
+        );
 
-        $this->artisan('lang:uninstall');
+        $this->artisan('lang:install', ['locales' => 'ar']);
+
+        $this->assertFileExists($path . 'auth.php');
+        $this->assertFileExists($path . 'pagination.php');
+        $this->assertFileExists($path . 'passwords.php');
+        $this->assertFileExists($path . 'validation.php');
+
+//        $this->artisan('lang:uninstall')
+//            ->expectsConfirmation('Do you want to uninstall all localizations?', 'no')
+//            ->expectsChoice('What languages to uninstall? (specify the necessary localizations separated by commas)', 'ar', ['ar', 'en'])
+//            ->assertExitCode(0);
+//
+//        if (method_exists($this, 'assertFileDoesNotExist')) {
+//            $this->assertFileDoesNotExist($path . 'auth.php');
+//            $this->assertFileDoesNotExist($path . 'pagination.php');
+//            $this->assertFileDoesNotExist($path . 'passwords.php');
+//            $this->assertFileDoesNotExist($path . 'validation.php');
+//        } else {
+//            $this->assertFileNotExists($path . 'auth.php');
+//            $this->assertFileNotExists($path . 'pagination.php');
+//            $this->assertFileNotExists($path . 'passwords.php');
+//            $this->assertFileNotExists($path . 'validation.php');
+//        }
     }
 
     public function testUninstall()
@@ -25,20 +48,27 @@ class UninstallTest extends TestCase
         $locales = ['bg', 'da', 'gl', 'is'];
 
         foreach ($locales as $locale) {
-            $path = $this->path->target($locale);
-
-            if (! File::exists($path)) {
-                File::makeDirectory($path, 0755, true);
-            }
+            $path = Str::finish(
+                $this->path->target('ar'),
+                DIRECTORY_SEPARATOR
+            );
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
-                ->run($locale, true);
+                ->processor($this->getProcessor())
+                ->force()
+                ->run($locale);
 
-            method_exists($this, 'assertDirectoryDoesNotExist')
-                ? $this->assertDirectoryDoesNotExist($path)
-                : $this->assertDirectoryNotExists($path);
+            if (method_exists($this, 'assertFileDoesNotExist')) {
+                $this->assertFileDoesNotExist($path . 'auth.php');
+                $this->assertFileDoesNotExist($path . 'pagination.php');
+                $this->assertFileDoesNotExist($path . 'passwords.php');
+                $this->assertFileDoesNotExist($path . 'validation.php');
+            } else {
+                $this->assertFileNotExists($path . 'auth.php');
+                $this->assertFileNotExists($path . 'pagination.php');
+                $this->assertFileNotExists($path . 'passwords.php');
+                $this->assertFileNotExists($path . 'validation.php');
+            }
         }
     }
 
@@ -48,9 +78,9 @@ class UninstallTest extends TestCase
         $path   = $this->path->target($locale);
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($locale, true);
+            ->processor($this->getProcessor())
+            ->force()
+            ->run($locale);
 
         $this->assertDirectoryExists($path);
     }

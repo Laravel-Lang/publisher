@@ -3,9 +3,9 @@
 namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDirectoryDoesntExist;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 use Illuminate\Support\Facades\Lang;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
@@ -14,10 +14,11 @@ final class InstallTest extends TestCase
 
     public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
-
-        $this->artisan('lang:install');
+        $this->artisan('lang:install')
+            ->expectsConfirmation('Do you want to install all localizations?', 'no')
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available())
+            ->assertExitCode(0)
+            ->run();
     }
 
     public function testUnknownLanguageFromCommand()
@@ -38,8 +39,7 @@ final class InstallTest extends TestCase
         $locales = 'foo';
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
+            ->processor($this->getProcessor())
             ->run($locales);
     }
 
@@ -57,8 +57,7 @@ final class InstallTest extends TestCase
                 : $this->assertDirectoryNotExists($path);
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
+                ->processor($this->getProcessor())
                 ->run($locale);
 
             $this->assertDirectoryExists($path);
@@ -68,10 +67,11 @@ final class InstallTest extends TestCase
     public function testCanInstallWithForce()
     {
         $this->copyFixtures();
+
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->processor($this->getProcessor())
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
     }

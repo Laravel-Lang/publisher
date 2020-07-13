@@ -8,7 +8,7 @@ interface Pathable
 
     public const LANG = 'lang';
 
-    public function source(string $locale = null, string $filename = null): string;
+    public function source(string $locale = null): string;
 
     public function target(string $locale = null, string $filename = null): string;
 }

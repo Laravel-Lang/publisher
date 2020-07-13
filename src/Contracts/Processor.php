@@ -4,19 +4,11 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Processor
 {
-    /**
-     * @param  string  $locale
-     *
-     * @return self
-     */
-    public function locale(string $locale);
+    public function locale(string $locale): self;
 
-    /**
-     * @param  bool  $force
-     *
-     * @return self
-     */
-    public function force(bool $force = false);
+    public function force(bool $is_force = true): self;
+
+    public function full(bool $is_full = true): self;
 
     public function run(): array;
 

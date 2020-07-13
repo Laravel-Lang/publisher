@@ -3,9 +3,9 @@
 namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Illuminate\Support\Facades\Lang;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
@@ -16,10 +16,18 @@ final class InstallTest extends TestCase
 
     public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
+        $path = $this->path->target('ar');
 
-        $this->artisan('lang:install', ['--json' => true]);
+        method_exists($this, 'assertFileDoesNotExist')
+            ? $this->assertFileDoesNotExist($path)
+            : $this->assertFileNotExists($path);
+
+        $this->artisan('lang:install', ['--json' => true])
+            ->expectsConfirmation('Do you want to install all localizations?', 'no')
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available($this->is_json))
+            ->assertExitCode(0);
+
+        $this->assertFileExists($path);
     }
 
     public function testUnknownLanguageFromCommand()
@@ -41,9 +49,8 @@ final class InstallTest extends TestCase
         $locales = 'foo';
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($locales, false);
+            ->processor($this->getProcessor())
+            ->run($locales);
     }
 
     public function testCanInstallWithoutForce()
@@ -60,9 +67,8 @@ final class InstallTest extends TestCase
                 : $this->assertFileNotExists($path);
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
-                ->run($locale, false);
+                ->processor($this->getProcessor())
+                ->run($locale);
 
             $this->assertFileExists($path);
         }
@@ -73,22 +79,29 @@ final class InstallTest extends TestCase
         $this->copyFixtures();
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->processor($this->getProcessor())
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('Remember Me', __('Remember Me'));
+        $this->assertSame('Remember Me', Lang::get('Remember Me'));
     }
 
     public function testExcludes()
     {
         $this->copyFixtures();
 
+        $this->assertSame('This is Foo', Lang::get('Foo'));
+        $this->assertSame('This is Bar', Lang::get('Bar'));
+        $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
+        $this->assertSame('This is Baq', Lang::get('Confirm Password'));
+
+        Lang::setLoaded([]);
+
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->processor($this->getProcessor())
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('This is Foo', Lang::get('Foo'));
         $this->assertSame('This is Bar', Lang::get('Bar'));

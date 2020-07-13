@@ -11,6 +11,8 @@ final class Locale
     /**
      * List of available locations.
      *
+     * @param  bool  $is_json
+     *
      * @return array
      */
     public function available(bool $is_json = false): array
@@ -20,6 +22,8 @@ final class Locale
 
     /**
      * List of installed locations.
+     *
+     * @param  bool  $is_json
      *
      * @return array
      */

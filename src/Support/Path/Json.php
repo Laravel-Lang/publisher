@@ -15,18 +15,16 @@ final class Json extends BasePath
      * otherwise a direct link to the folder.
      *
      * @param  string|null  $locale
-     * @param  string|null  $filename
      *
      * @return string
      */
-    public function source(string $locale = null, string $filename = null): string
+    public function source(string $locale = null): string
     {
-        $locale   = $this->getPathForEnglish($locale);
-        $locale   = $this->clean($locale);
-        $filename = $this->clean($filename);
+        $directory = $this->getPathForEnglish($locale);
+        $locale    = $this->clean($locale);
 
         return $this->real(
-            Config::getVendorPath() . $locale . $filename
+            Config::getVendorPath() . $directory . $locale . '.json'
         );
     }
 
@@ -44,11 +42,8 @@ final class Json extends BasePath
      */
     public function target(string $locale = null, string $filename = null): string
     {
-        $locale   = $this->clean($locale);
-        $filename = $this->clean($filename);
+        $locale = $this->clean($locale);
 
-        return $this->is_json
-            ? resource_path(self::LANG . $locale . '.json')
-            : resource_path(self::LANG . $locale . $filename);
+        return resource_path(self::LANG . $locale . '.json');
     }
 }

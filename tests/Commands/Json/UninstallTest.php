@@ -4,7 +4,6 @@ namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
@@ -13,12 +12,22 @@ class UninstallTest extends TestCase
 
     protected $is_json = true;
 
-    public function testWithoutLanguageAttributeFromCommand()
+    public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
+        $path = $this->path->target('ar');
 
-        $this->artisan('lang:uninstall', ['--json' => true]);
+        $this->artisan('lang:install', ['locales' => 'ar', '--json' => true]);
+
+        $this->assertFileExists($path);
+
+        $this->artisan('lang:uninstall', ['--json' => true])
+            ->expectsConfirmation('Do you want to uninstall all localizations?', 'no')
+            ->expectsChoice('What languages to uninstall? (specify the necessary localizations separated by commas)', 'ar', ['ar', 'en'])
+            ->assertExitCode(0);
+
+        method_exists($this, 'assertFileDoesNotExist')
+            ? $this->assertFileDoesNotExist($path)
+            : $this->assertFileNotExists($path);
     }
 
     public function testUninstall()
@@ -29,9 +38,9 @@ class UninstallTest extends TestCase
             $path = $this->path->target($locale);
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
-                ->run($locale, true);
+                ->processor($this->getProcessor())
+                ->force()
+                ->run($locale);
 
             method_exists($this, 'assertFileDoesNotExist')
                 ? $this->assertFileDoesNotExist($path)
@@ -45,9 +54,9 @@ class UninstallTest extends TestCase
         $path   = $this->path->target($locale);
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
-            ->run($locale, true);
+            ->processor($this->getProcessor())
+            ->force()
+            ->run($locale);
 
         $this->assertFileExists($path);
     }
