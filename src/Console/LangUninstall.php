@@ -9,10 +9,12 @@ use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 final class LangUninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
-    . ' {locales* : Space-separated list of, eg: de tk it}'
+    . ' {locales? : Space-separated list of, eg: de tk it}'
     . ' {--j|json : Install JSON files}';
 
     protected $description = 'Uninstall localizations.';
+
+    protected $action = 'uninstall';
 
     public function handle()
     {

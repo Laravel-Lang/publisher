@@ -19,6 +19,12 @@ abstract class BaseCommand extends Command
     /** @var \Helldar\LaravelLangPublisher\Support\Result */
     protected $result;
 
+    protected $select_template = 'What languages to %s? (specify the necessary localizations separated by commas)';
+
+    protected $select_all_template = 'Do you want to %s all localizations?';
+
+    protected $action = 'install';
+
     public function __construct(Result $result)
     {
         parent::__construct();
@@ -29,6 +35,20 @@ abstract class BaseCommand extends Command
     protected function locales(): array
     {
         return (array) $this->argument('locales');
+    }
+
+    protected function select(array $locales): array
+    {
+        $question = sprintf($this->select_all_template, $this->action);
+
+        if ($this->confirm($question, false)) {
+            return ['*'];
+        }
+
+        return $this->choice(
+            sprintf($this->select_template, $this->action),
+            $locales, 0, null, true
+        );
     }
 
     protected function isForce(): bool
@@ -60,9 +80,9 @@ abstract class BaseCommand extends Command
 
     protected function getLocales(array $locales): array
     {
-        return $this->locales() === ['*']
-            ? $locales
-            : $this->locales();
+        $items = $this->locales() ?: $this->select($locales);
+
+        return $items === ['*'] ? $locales : $items;
     }
 
     protected function localization(): Localizationable
