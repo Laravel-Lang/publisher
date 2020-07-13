@@ -28,9 +28,9 @@ final class Locale
         $locales   = $this->get($this->getInstalledDirectories($is_json));
         $available = $this->available();
 
-        return array_filter($locales, function ($locale) use ($available) {
+        return array_values(array_filter($locales, function ($locale) use ($available) {
             return in_array($locale, $available);
-        });
+        }));
     }
 
     /**
