@@ -30,7 +30,7 @@ final class Locale
     public function installed(bool $is_json = false): array
     {
         $locales   = $this->get($this->getInstalledDirectories($is_json));
-        $available = $this->available();
+        $available = $this->available($is_json);
 
         return array_values(array_filter($locales, function ($locale) use ($available) {
             return in_array($locale, $available);
@@ -51,30 +51,6 @@ final class Locale
     }
 
     /**
-     * Checks if a language pack is installed.
-     *
-     * @param  string  $locale
-     *
-     * @return bool
-     */
-    public function isAvailable(string $locale): bool
-    {
-        return in_array($locale, $this->available(), true);
-    }
-
-    /**
-     * Checks whether it is possible to install the language pack.
-     *
-     * @param  string  $locale
-     *
-     * @return bool
-     */
-    public function isInstalled(string $locale): bool
-    {
-        return in_array($locale, $this->installed(), true);
-    }
-
-    /**
      * The checked locale protecting.
      *
      * @param  string  $locale
@@ -84,6 +60,32 @@ final class Locale
     public function isProtected(string $locale): bool
     {
         return $locale === $this->getDefault() || $locale === $this->getFallback();
+    }
+
+    /**
+     * Checks if a language pack is installed.
+     *
+     * @param  string  $locale
+     * @param  bool  $is_json
+     *
+     * @return bool
+     */
+    public function isAvailable(string $locale, bool $is_json = false): bool
+    {
+        return in_array($locale, $this->available($is_json), true);
+    }
+
+    /**
+     * Checks whether it is possible to install the language pack.
+     *
+     * @param  string  $locale
+     * @param  bool  $is_json
+     *
+     * @return bool
+     */
+    public function isInstalled(string $locale, bool $is_json = false): bool
+    {
+        return in_array($locale, $this->installed($is_json), true);
     }
 
     /**
@@ -126,11 +128,9 @@ final class Locale
 
     protected function getInstalledDirectories(bool $is_json = false): array
     {
-        $resources = resource_path('lang');
-
         return $is_json
-            ? File::files($resources)
-            : File::directories($resources);
+            ? File::files($this->getResourcePath())
+            : File::directories($this->getResourcePath());
     }
 
     protected function normalizeNames(array $directories): array
@@ -148,5 +148,10 @@ final class Locale
     protected function filterLocales(array $locales): array
     {
         return ArrFacade::unique($locales);
+    }
+
+    protected function getResourcePath(): string
+    {
+        return resource_path('lang');
     }
 }
