@@ -9,6 +9,7 @@ use Helldar\LaravelLangPublisher\Traits\Containable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 abstract class BaseCommand extends Command
 {
@@ -41,17 +42,9 @@ abstract class BaseCommand extends Command
     {
         $question = sprintf($this->select_all_template, $this->action);
 
-        if ($this->confirm($question, false)) {
-            return ['*'];
-        }
-
-        return $this->choice(
-            sprintf($this->select_template, $this->action),
-            $locales,
-            0,
-            null,
-            true
-        );
+        return $this->confirm($question, false)
+            ? ['*']
+            : $this->wrapSelectedValues($locales, $this->choiceLocales($locales));
     }
 
     protected function isForce(): bool
@@ -91,5 +84,25 @@ abstract class BaseCommand extends Command
     protected function localization(): Localizationable
     {
         return app(Localization::class);
+    }
+
+    protected function wrapSelectedValues(array $available, $selected): array
+    {
+        return Arr::wrap(
+            is_numeric($selected)
+                ? Arr::get($available, (int) $selected)
+                : $selected
+        );
+    }
+
+    protected function choiceLocales(array $locales)
+    {
+        return $this->choice(
+            sprintf($this->select_template, $this->action),
+            $locales,
+            null,
+            null,
+            true
+        );
     }
 }

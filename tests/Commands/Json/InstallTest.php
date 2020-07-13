@@ -3,9 +3,9 @@
 namespace Tests\Commands\Json;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Illuminate\Support\Facades\Lang;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 final class InstallTest extends TestCase
@@ -16,10 +16,18 @@ final class InstallTest extends TestCase
 
     public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
+        $path = $this->path->target('ar');
 
-        $this->artisan('lang:install', ['--json' => true]);
+        method_exists($this, 'assertFileDoesNotExist')
+            ? $this->assertFileDoesNotExist($path)
+            : $this->assertFileNotExists($path);
+
+        $this->artisan('lang:install', ['--json' => true])
+            ->expectsConfirmation('Do you want to install all localizations?', 'no')
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available($this->is_json))
+            ->assertExitCode(0);
+
+        $this->assertFileExists($path);
     }
 
     public function testUnknownLanguageFromCommand()

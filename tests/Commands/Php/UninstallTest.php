@@ -5,19 +5,28 @@ namespace Tests\Commands\Php;
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Tests\TestCase;
 
 class UninstallTest extends TestCase
 {
     protected $processor = DeletePhp::class;
 
-    public function testWithoutLanguageAttributeFromCommand()
+    public function testWithoutLanguageAttribute()
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "locales")');
+        $path = $this->path->target('ar');
 
-        $this->artisan('lang:uninstall');
+        $this->artisan('lang:install', ['locales' => 'ar']);
+
+        $this->assertDirectoryExists($path);
+
+        $this->artisan('lang:uninstall')
+            ->expectsConfirmation('Do you want to uninstall all localizations?', 'no')
+            ->expectsChoice('What languages to uninstall? (specify the necessary localizations separated by commas)', 'ar', ['ar', 'en'])
+            ->assertExitCode(0);
+
+        method_exists($this, 'assertDirectoryDoesNotExist')
+            ? $this->assertDirectoryDoesNotExist($path)
+            : $this->assertDirectoryNotExists($path);
     }
 
     public function testUninstall()
