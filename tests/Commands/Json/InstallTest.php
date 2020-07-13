@@ -55,7 +55,7 @@ final class InstallTest extends TestCase
 
     public function testCanInstallWithoutForce()
     {
-        $locales = ['de', 'ru', 'fr', 'zh-CN'];
+        $locales = ['de', 'ru', 'fr', 'zh_CN'];
 
         $this->deleteLocales($locales);
 
