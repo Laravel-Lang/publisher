@@ -9,7 +9,7 @@ use Helldar\LaravelLangPublisher\Services\Processors\ResetPhp;
 final class LangReset extends BaseCommand
 {
     protected $signature = 'lang:reset'
-    . ' {locales? : Space-separated list of, eg: de tk it}'
+    . ' {locales?* : Space-separated list of, eg: de tk it}'
     . ' {--j|json : Install JSON files}'
     . ' {--f|full : Reset files without excluded keys}';
 

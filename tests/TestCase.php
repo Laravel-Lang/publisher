@@ -3,8 +3,14 @@
 namespace Tests;
 
 use Helldar\LaravelLangPublisher\Contracts\Localizationable;
+use Helldar\LaravelLangPublisher\Contracts\Processor;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Services\Localization;
+use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
+use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
+use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 use Helldar\LaravelLangPublisher\Traits\Containable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
@@ -31,11 +37,6 @@ abstract class TestCase extends BaseTestCase
         $this->path = $this->getPath();
 
         $this->resetDefaultLang();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
     }
 
     /**
@@ -65,16 +66,21 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLang(): void
     {
-        $this->artisan('lang:uninstall', ['--json' => $this->is_json])
-            ->expectsConfirmation('Do you want to uninstall all localizations?', 'yes')
-            ->assertExitCode(0);
+        $locales = Locale::installed($this->wantsJson());
 
-        $source = $this->path->source($this->default_locale);
-        $target = $this->path->target($this->default_locale);
+        foreach ($locales as $locale) {
+            $this->localization()
+                ->processor($this->getDeleteProcessor())
+                ->force()
+                ->full()
+                ->run($locale);
+        }
 
-        $this->wantsJson()
-            ? File::copy($source, $target)
-            : File::copyDirectory($source, $target);
+        $this->localization()
+            ->processor($this->getInstallProcessor())
+            ->force()
+            ->full()
+            ->run($this->default_locale);
     }
 
     protected function copyFixtures(): void
@@ -113,5 +119,19 @@ abstract class TestCase extends BaseTestCase
     protected function wantsJson(): bool
     {
         return $this->is_json;
+    }
+
+    protected function getDeleteProcessor(): Processor
+    {
+        return $this->wantsJson()
+            ? $this->makeProcessor(DeleteJson::class)
+            : $this->makeProcessor(DeletePhp::class);
+    }
+
+    protected function getInstallProcessor(): Processor
+    {
+        return $this->wantsJson()
+            ? $this->makeProcessor(PublishJson::class)
+            : $this->makeProcessor(PublishPhp::class);
     }
 }

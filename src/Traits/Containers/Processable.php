@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Traits\Containers;
 
+use Helldar\LaravelLangPublisher\Contracts\Pathable as PathContract;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Illuminate\Container\Container;
 
@@ -12,8 +13,13 @@ trait Processable
 
     protected function getProcessor(): Processor
     {
-        $path = $this->getPath();
+        return $this->makeProcessor($this->processor, $this->getPath());
+    }
 
-        return Container::getInstance()->make($this->processor, compact('path'));
+    protected function makeProcessor(string $processor, PathContract $path = null): Processor
+    {
+        $path = $path ?: $this->getPath();
+
+        return Container::getInstance()->make($processor, compact('path'));
     }
 }

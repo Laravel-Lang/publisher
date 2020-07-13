@@ -196,6 +196,11 @@ abstract class BaseProcessor implements Processor
         return Str::contains($filename, 'inline');
     }
 
+    protected function wantsJson(): bool
+    {
+        return $this->extension === 'json';
+    }
+
     protected function getSourceFilePath(SplFileInfo $file): string
     {
         if (Config::isInline()) {

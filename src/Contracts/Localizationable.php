@@ -4,9 +4,7 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Localizationable
 {
-    public function setPath(Pathable $path): self;
-
-    public function setProcessor(Processor $processor): self;
+    public function processor(Processor $processor): self;
 
     public function force(bool $is_force = true): self;
 

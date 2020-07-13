@@ -3,16 +3,12 @@
 namespace Helldar\LaravelLangPublisher\Services;
 
 use Helldar\LaravelLangPublisher\Contracts\Localizationable;
-use Helldar\LaravelLangPublisher\Contracts\Pathable;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Traits\Containable;
 
 final class Localization implements Localizationable
 {
     use Containable;
-
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Pathable */
-    protected $path;
 
     /** @var \Helldar\LaravelLangPublisher\Contracts\Processor */
     protected $processor;
@@ -26,14 +22,7 @@ final class Localization implements Localizationable
     /** @var bool */
     protected $is_full = false;
 
-    public function setPath(Pathable $path): Localizationable
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    public function setProcessor(Processor $processor): Localizationable
+    public function processor(Processor $processor): Localizationable
     {
         $this->processor = $processor;
 

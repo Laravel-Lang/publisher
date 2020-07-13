@@ -6,8 +6,6 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 
 final class Json extends BasePath
 {
-    protected $is_json = true;
-
     /**
      * Returns a direct link to the folder with the source localization files.
      *
@@ -44,11 +42,8 @@ final class Json extends BasePath
      */
     public function target(string $locale = null, string $filename = null): string
     {
-        $locale   = $this->clean($locale);
-        $filename = $this->clean($filename);
+        $locale = $this->clean($locale);
 
-        return $this->is_json
-            ? resource_path(self::LANG . $locale . '.json')
-            : resource_path(self::LANG . $locale . $filename);
+        return resource_path(self::LANG . $locale . '.json');
     }
 }

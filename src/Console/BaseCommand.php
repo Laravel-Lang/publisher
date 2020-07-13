@@ -74,8 +74,7 @@ abstract class BaseCommand extends Command
         foreach ($this->getLocales($locales) as $locale) {
             $this->result->merge(
                 $this->localization()
-                    ->setPath($this->getPath())
-                    ->setProcessor($this->getProcessor())
+                    ->processor($this->getProcessor())
                     ->force($this->isForce())
                     ->full($this->isFull())
                     ->run($locale)

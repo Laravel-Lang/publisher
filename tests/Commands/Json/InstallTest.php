@@ -49,8 +49,7 @@ final class InstallTest extends TestCase
         $locales = 'foo';
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
+            ->processor($this->getProcessor())
             ->run($locales);
     }
 
@@ -68,8 +67,7 @@ final class InstallTest extends TestCase
                 : $this->assertFileNotExists($path);
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
+                ->processor($this->getProcessor())
                 ->run($locale);
 
             $this->assertFileExists($path);
@@ -81,8 +79,7 @@ final class InstallTest extends TestCase
         $this->copyFixtures();
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
+            ->processor($this->getProcessor())
             ->force()
             ->run($this->default_locale);
 
@@ -102,8 +99,7 @@ final class InstallTest extends TestCase
         Lang::setLoaded([]);
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
+            ->processor($this->getProcessor())
             ->force()
             ->run($this->default_locale);
 

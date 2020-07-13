@@ -38,8 +38,7 @@ class UninstallTest extends TestCase
             $path = $this->path->target($locale);
 
             $this->localization()
-                ->setPath($this->getPath())
-                ->setProcessor($this->getProcessor())
+                ->processor($this->getProcessor())
                 ->force()
                 ->run($locale);
 
@@ -55,8 +54,7 @@ class UninstallTest extends TestCase
         $path   = $this->path->target($locale);
 
         $this->localization()
-            ->setPath($this->getPath())
-            ->setProcessor($this->getProcessor())
+            ->processor($this->getProcessor())
             ->force()
             ->run($locale);
 
