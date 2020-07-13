@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\LangInstall;
+use Helldar\LaravelLangPublisher\Console\LangReset;
 use Helldar\LaravelLangPublisher\Console\LangUninstall;
 use Helldar\LaravelLangPublisher\Console\LangUpdate;
 use Helldar\LaravelLangPublisher\Support\Config;
@@ -28,6 +29,7 @@ final class ServiceProvider extends BaseServiceProvider
             LangInstall::class,
             LangUpdate::class,
             LangUninstall::class,
+            LangReset::class,
         ]);
     }
 

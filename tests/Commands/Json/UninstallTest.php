@@ -40,7 +40,8 @@ class UninstallTest extends TestCase
             $this->localization()
                 ->setPath($this->getPath())
                 ->setProcessor($this->getProcessor())
-                ->run($locale, true);
+                ->force()
+                ->run($locale);
 
             method_exists($this, 'assertFileDoesNotExist')
                 ? $this->assertFileDoesNotExist($path)
@@ -56,7 +57,8 @@ class UninstallTest extends TestCase
         $this->localization()
             ->setPath($this->getPath())
             ->setProcessor($this->getProcessor())
-            ->run($locale, true);
+            ->force()
+            ->run($locale);
 
         $this->assertFileExists($path);
     }

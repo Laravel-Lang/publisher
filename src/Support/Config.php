@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\PrettyArray\Contracts\Caseable;
+use Illuminate\Support\Arr as IlluminateArr;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 
 final class Config
@@ -66,7 +67,7 @@ final class Config
 
         return $is_json
             ? $exclude
-            : ($exclude[$key] ?? $default);
+            : IlluminateArr::get($exclude, $key, $default);
     }
 
     /**

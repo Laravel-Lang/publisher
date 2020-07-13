@@ -8,5 +8,7 @@ final class Status
 
     public const DELETED = 'deleted';
 
+    public const RESET = 'reset';
+
     public const SKIPPED = 'skipped';
 }

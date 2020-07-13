@@ -26,6 +26,8 @@ abstract class BaseCommand extends Command
 
     protected $action = 'install';
 
+    protected $action_default = false;
+
     public function __construct(Result $result)
     {
         parent::__construct();
@@ -42,7 +44,7 @@ abstract class BaseCommand extends Command
     {
         $question = sprintf($this->select_all_template, $this->action);
 
-        return $this->confirm($question, false)
+        return $this->confirm($question, $this->action_default)
             ? ['*']
             : $this->wrapSelectedValues($locales, $this->choiceLocales($locales));
     }
@@ -50,6 +52,11 @@ abstract class BaseCommand extends Command
     protected function isForce(): bool
     {
         return $this->hasOption('force') && (bool) $this->option('force');
+    }
+
+    protected function isFull(): bool
+    {
+        return $this->hasOption('full') && (bool) $this->option('full');
     }
 
     protected function wantsJson(): bool
@@ -69,7 +76,9 @@ abstract class BaseCommand extends Command
                 $this->localization()
                     ->setPath($this->getPath())
                     ->setProcessor($this->getProcessor())
-                    ->run($locale, $this->isForce())
+                    ->force($this->isForce())
+                    ->full($this->isFull())
+                    ->run($locale)
             );
         }
     }

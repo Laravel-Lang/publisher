@@ -5,28 +5,24 @@ namespace Helldar\LaravelLangPublisher\Services\Processors;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Traits\Processors\Publishable;
-use SplFileInfo;
+use Illuminate\Support\Arr;
 
-final class PublishJson extends BaseProcessor
+final class ResetPhp extends BaseProcessor
 {
     use Publishable;
 
-    protected $extension = 'json';
-
     protected function publish(): void
     {
-        $this->publishFile(
-            new SplFileInfo($this->sourcePath())
-        );
+        foreach (File::files($this->sourcePath()) as $file) {
+            $this->resetFile($file);
+        }
     }
 
     protected function excluded(array $array, string $filename): array
     {
         $key  = File::name($filename);
-        $keys = Config::getExclude($key, [], true);
+        $keys = Config::getExclude($key, []);
 
-        return array_filter($array, static function ($value) use ($keys) {
-            return in_array($value, $keys);
-        }, ARRAY_FILTER_USE_KEY);
+        return Arr::only($array, $keys);
     }
 }

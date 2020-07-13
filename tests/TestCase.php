@@ -54,6 +54,7 @@ abstract class TestCase extends BaseTestCase
         $config->set('lang-publisher.exclude', [
             'auth' => ['failed'],
             'All rights reserved.',
+            'Baz',
         ]);
     }
 

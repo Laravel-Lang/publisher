@@ -7,7 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Traits\Processors\Publishable;
 use SplFileInfo;
 
-final class PublishJson extends BaseProcessor
+final class ResetJson extends BaseProcessor
 {
     use Publishable;
 
@@ -15,7 +15,7 @@ final class PublishJson extends BaseProcessor
 
     protected function publish(): void
     {
-        $this->publishFile(
+        $this->resetFile(
             new SplFileInfo($this->sourcePath())
         );
     }

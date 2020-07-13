@@ -8,5 +8,9 @@ interface Localizationable
 
     public function setProcessor(Processor $processor): self;
 
-    public function run(string $locale, bool $force = false): array;
+    public function force(bool $is_force = true): self;
+
+    public function full(bool $is_full = true): self;
+
+    public function run(string $locale): array;
 }

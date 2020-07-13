@@ -51,7 +51,7 @@ final class InstallTest extends TestCase
         $this->localization()
             ->setPath($this->getPath())
             ->setProcessor($this->getProcessor())
-            ->run($locales, false);
+            ->run($locales);
     }
 
     public function testCanInstallWithoutForce()
@@ -70,7 +70,7 @@ final class InstallTest extends TestCase
             $this->localization()
                 ->setPath($this->getPath())
                 ->setProcessor($this->getProcessor())
-                ->run($locale, false);
+                ->run($locale);
 
             $this->assertFileExists($path);
         }
@@ -83,20 +83,29 @@ final class InstallTest extends TestCase
         $this->localization()
             ->setPath($this->getPath())
             ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('Remember Me', __('Remember Me'));
+        $this->assertSame('Remember Me', Lang::get('Remember Me'));
     }
 
     public function testExcludes()
     {
         $this->copyFixtures();
 
+        $this->assertSame('This is Foo', Lang::get('Foo'));
+        $this->assertSame('This is Bar', Lang::get('Bar'));
+        $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
+        $this->assertSame('This is Baq', Lang::get('Confirm Password'));
+
+        Lang::setLoaded([]);
+
         $this->localization()
             ->setPath($this->getPath())
             ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('This is Foo', Lang::get('Foo'));
         $this->assertSame('This is Bar', Lang::get('Bar'));

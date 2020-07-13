@@ -20,6 +20,12 @@ final class Localization implements Localizationable
     /** @var array */
     protected $result = [];
 
+    /** @var bool */
+    protected $is_force = false;
+
+    /** @var bool */
+    protected $is_full = false;
+
     public function setPath(Pathable $path): Localizationable
     {
         $this->path = $path;
@@ -34,11 +40,26 @@ final class Localization implements Localizationable
         return $this;
     }
 
-    public function run(string $locale, bool $force = false): array
+    public function force(bool $is_force = true): Localizationable
+    {
+        $this->is_force = $is_force;
+
+        return $this;
+    }
+
+    public function full(bool $is_full = true): Localizationable
+    {
+        $this->is_full = $is_full;
+
+        return $this;
+    }
+
+    public function run(string $locale): array
     {
         return $this->processor
             ->locale($locale)
-            ->force($force)
+            ->force($this->is_force)
+            ->full($this->is_full)
             ->run();
     }
 }

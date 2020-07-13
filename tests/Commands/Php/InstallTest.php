@@ -76,10 +76,12 @@ final class InstallTest extends TestCase
     public function testCanInstallWithForce()
     {
         $this->copyFixtures();
+
         $this->localization()
             ->setPath($this->getPath())
             ->setProcessor($this->getProcessor())
-            ->run($this->default_locale, true);
+            ->force()
+            ->run($this->default_locale);
 
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
     }

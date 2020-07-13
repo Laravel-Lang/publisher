@@ -18,8 +18,9 @@ final class PublishPhp extends BaseProcessor
         }
     }
 
-    protected function excluded(array $array, string $key): array
+    protected function excluded(array $array, string $filename): array
     {
+        $key  = File::name($filename);
         $keys = Config::getExclude($key, []);
 
         return Arr::only($array, $keys);
