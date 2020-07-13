@@ -26,9 +26,11 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
+    * [General principles](#general-principles)
   * [Install locales](#install-locales)
   * [Update locales](#update-locales)
   * [Uninstall locales](#uninstall-locales)
+  * [Reset locales](#reset-locales)
 * [Features](#features)
   * [Alignment](#alignment)
   * [Facades](#facades)
@@ -53,7 +55,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^4.6"
+        "andrey-helldar/laravel-lang-publisher": "^5.0"
     }
 }
 ```
@@ -115,6 +117,31 @@ validation.php
 **If you made changes to the files, they will be saved.**
 
 He does not touch any other files.
+
+
+#### General principles
+
+All commands have common key types:
+
+* `--json` - runs a command to work with translation JSON files;
+* `--force` - runs a command to force execution (works on all but the reset command).
+
+
+Parameters on call (used in all except `update`):
+```bash
+php artisan lang:<command> en de ro
+php artisan lang:<command> de
+php artisan lang:<command> *
+php artisan lang:<command>
+```
+
+Where:
+* `en de ro` - a list of locales separated by a space;
+* `de` - it is also possible to specify a single localization name;
+* `*` - when transmitting the asterisk symbol, the action will be performed for all locales
+* if the parameter is not passed during the call, the script will ask two questions:
+    * `Do you want to %s all localizations?`, when `%s` is `install`, `uninstall` or `reset`;
+    * If `no`, then next question is `What languages to %s? (specify the necessary localizations separated by commas)`.
 
 
 ### Install locales
@@ -190,6 +217,39 @@ php artisan lang:uninstall * --json
 ```
 
 In this case, everything will be deleted, except the default and fallback application locales.
+
+
+### Reset locales
+
+You can reset the localization files to the default state (cancels all the keys added by the developer regarding the default file).
+
+There are two main launch modes: normal and full.
+
+In `normal` mode, all added keys are reset from the files, except for the settings specified in the `exclude` option.
+
+In `full` mode, all files are reset to the default view.
+
+```bash
+php artisan lang:reset *
+php artisan lang:reset en de ro zh-CN lv
+php artisan lang:reset de
+php artisan lang:reset
+
+php artisan lang:reset --json *
+php artisan lang:reset --json en de ro zh-CN lv
+php artisan lang:reset --json de
+php artisan lang:reset --json
+
+php artisan lang:reset --full *
+php artisan lang:reset --full en de ro zh-CN lv
+php artisan lang:reset --full de
+php artisan lang:reset --full 
+
+php artisan lang:reset --full --json *
+php artisan lang:reset --full --json en de ro zh-CN lv
+php artisan lang:reset --full --json de
+php artisan lang:reset --full --json
+```
 
 
 ## Features
