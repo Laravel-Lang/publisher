@@ -35,6 +35,7 @@ Publisher lang files for the Laravel Framework from [caouecs/Laravel-lang][link_
       * [Config](#config)
       * [Locale](#locale)
       * [Path](#path)
+* [Troubleshooting](#troubleshooting)
 * [Security](#security)
 * [Credits](#credits)
 
@@ -363,6 +364,19 @@ Locale::getDefault(): string
 // Getting the fallback localization name.
 Locale::getFallback(): string
 ```
+
+
+## Troubleshooting
+
+Problem: An error occurred after updating the package to version 4.6.0:
+>  The "/vendor/caouecs/laravel-lang/src/src" directory does not exist.
+
+Solution: Change the path in the configuration file:
+> old:
+> 'vendor' => base_path('vendor/caouecs/laravel-lang/src')
+>
+> new:
+> 'vendor' => base_path('vendor/caouecs/laravel-lang')
 
 
 ## Security
