@@ -33,6 +33,13 @@ abstract class TestCase extends BaseTestCase
         $this->resetDefaultLang();
     }
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        sleep(1);
+    }
+
     /**
      * @param  \Illuminate\Foundation\Application  $app
      *
