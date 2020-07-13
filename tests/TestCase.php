@@ -36,8 +36,6 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-
-        sleep(1);
     }
 
     /**
@@ -73,6 +71,10 @@ abstract class TestCase extends BaseTestCase
             File::deleteDirectory($resource_path);
             File::makeDirectory($resource_path);
         }
+
+        $this->artisan('lang:uninstall', ['--json' => $this->is_json])
+            ->expectsConfirmation('Do you want to uninstall all localizations?', 'yes')
+            ->assertExitCode(0);
 
         $source = $this->path->source($this->default_locale);
         $target = $this->path->target($this->default_locale);
