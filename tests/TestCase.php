@@ -59,8 +59,12 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLang(): void
     {
-        File::deleteDirectory(resource_path('lang'));
-        File::makeDirectory(resource_path('lang'));
+        $resource_path = resource_path('lang');
+
+        if (File::exists($resource_path)) {
+            File::deleteDirectory($resource_path);
+            File::makeDirectory($resource_path);
+        }
 
         $source = $this->path->source($this->default_locale);
         $target = $this->path->target($this->default_locale);
