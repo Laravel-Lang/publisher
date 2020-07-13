@@ -24,12 +24,12 @@ abstract class BasePath implements Pathable
     {
         if ($this->is_json) {
             return $locale === 'en'
-                ? '/script/en/en.json'
-                : '/json/' . $locale . '.json';
+                ? '/script/en/'
+                : '/json/';
         }
 
         return $locale === 'en'
-            ? '/script/en'
+            ? '/script/en/'
             : '/src/' . $locale;
     }
 }

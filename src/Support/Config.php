@@ -17,7 +17,7 @@ final class Config
      */
     public function getVendorPath(): string
     {
-        return $this->config('vendor');
+        return rtrim($this->config('vendor'), '\\/');
     }
 
     /**

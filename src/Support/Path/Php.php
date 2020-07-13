@@ -13,18 +13,17 @@ final class Php extends BasePath
      * otherwise a direct link to the folder.
      *
      * @param  string|null  $locale
-     * @param  string|null  $filename
      *
      * @return string
      */
-    public function source(string $locale = null, string $filename = null): string
+    public function source(string $locale = null): string
     {
-        $locale   = $this->getPathForEnglish($locale);
-        $locale   = $this->clean($locale);
-        $filename = $this->clean($filename);
+        $locale = $this->clean(
+            $this->getPathForEnglish($locale)
+        );
 
         return $this->real(
-            Config::getVendorPath() . $locale . $filename
+            Config::getVendorPath() . $locale
         );
     }
 

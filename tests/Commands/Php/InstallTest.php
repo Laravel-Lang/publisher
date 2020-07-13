@@ -14,18 +14,11 @@ final class InstallTest extends TestCase
 
     public function testWithoutLanguageAttribute()
     {
-        $path = $this->path->target('ar');
-
-        method_exists($this, 'assertDirectoryDoesNotExist')
-            ? $this->assertDirectoryDoesNotExist($path)
-            : $this->assertDirectoryNotExists($path);
-
         $this->artisan('lang:install')
             ->expectsConfirmation('Do you want to install all localizations?', 'no')
             ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available())
-            ->assertExitCode(0);
-
-        $this->assertDirectoryExists($path);
+            ->assertExitCode(0)
+            ->run();
     }
 
     public function testUnknownLanguageFromCommand()

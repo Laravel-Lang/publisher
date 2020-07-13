@@ -13,6 +13,8 @@ final class PublishPhp extends BaseProcessor
 
     protected function publish(): void
     {
+        $this->checkExists($this->sourcePath());
+
         foreach (File::files($this->sourcePath()) as $file) {
             $this->publishFile($file);
         }
