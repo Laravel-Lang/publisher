@@ -46,8 +46,6 @@ final class File
      */
     public function save(string $path, array $data): void
     {
-        ksort($data);
-
         if ($this->isJson($path)) {
             PrettyFile::make(
                 json_encode($data, JSON_PRETTY_PRINT ^ JSON_UNESCAPED_UNICODE)
