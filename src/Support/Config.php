@@ -70,6 +70,11 @@ final class Config
             : IlluminateArr::get($exclude, $key, $default);
     }
 
+    public function getIgnore(): array
+    {
+        return $this->config('ignore', []);
+    }
+
     /**
      * Returns the key mapping label.
      *
