@@ -3,8 +3,11 @@
 namespace Tests\Commands\Php;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDirectoryDoesntExist;
+use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
+use Helldar\LaravelLangPublisher\Support\Config as SupportConfig;
+use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
 
@@ -74,5 +77,26 @@ final class InstallTest extends TestCase
             ->run($this->default_locale);
 
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
+    }
+
+    public function testIgnore()
+    {
+        $this->assertEmpty(
+            Config::getIgnore()
+        );
+
+        $this->assertTrue(
+            in_array('ru', Locale::available())
+        );
+
+        IlluminateConfig::set(SupportConfig::KEY . '.ignore', ['ru']);
+
+        $this->assertNotEmpty(
+            Config::getIgnore()
+        );
+
+        $this->assertFalse(
+            in_array('ru', Locale::available())
+        );
     }
 }

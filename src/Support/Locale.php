@@ -147,7 +147,12 @@ final class Locale
 
     protected function filterLocales(array $locales): array
     {
-        return ArrFacade::unique($locales);
+        $unique = ArrFacade::unique($locales);
+        $ignore = Config::getIgnore();
+
+        return array_values(array_filter($unique, static function ($locale) use ($ignore) {
+            return ! in_array($locale, $ignore);
+        }));
     }
 
     protected function getResourcePath(): string
