@@ -216,7 +216,7 @@ class LangInstall extends Command
     protected function processFile(string $src, string $dst, string $lang)
     {
         foreach ($this->files($src) as $file) {
-            if ($file->isDir() || $file->getExtension() !== 'php') {
+            if ($file->isDir() || $file->getExtension() !== 'php' || StrIlluminate::contains($file->getFilename(), '-inline')) {
                 continue;
             }
 
