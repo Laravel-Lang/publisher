@@ -58,7 +58,7 @@ return [
      *
      * By default, Caseable::NO_CASE
      */
-    'case'   => class_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+    'case'   => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
 
     /*
      * Path to source translation files.
