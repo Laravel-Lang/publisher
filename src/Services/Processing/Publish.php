@@ -7,6 +7,7 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 final class Publish extends BaseProcess
 {
@@ -21,7 +22,7 @@ final class Publish extends BaseProcess
     protected function publish(): void
     {
         foreach (File::files($this->sourcePath()) as $file) {
-            if ($file->isDir() || $file->getExtension() !== 'php') {
+            if ($file->isDir() || $file->getExtension() !== 'php' || Str::contains($file->getFilename(), '-inline')) {
                 continue;
             }
 
