@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getFallbackLocale()
  * @method static bool isAlignment()
  * @method static array getExclude(string $key, array $default = [], bool $is_json = false)
+ * @method static array getIgnore()
  * @method static int getCase()
  * @method static bool isInline()
  */
