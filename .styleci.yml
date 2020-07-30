@@ -1,5 +1,7 @@
 preset: psr12
 
+risky: true
+
 enabled:
     - align_double_arrow
     - align_equals
@@ -14,12 +16,9 @@ enabled:
     - cast_spaces
     - combine_consecutive_issets
     - const_separation
-    - const_visibility_required
     - dir_constant
     - fully_qualified_strict_types
     - logical_operators
-    - lowercase_cast
-    - lowercase_static_reference
     - method_separation
     - no_alias_functions
     - no_blank_lines_after_phpdoc
@@ -56,17 +55,13 @@ enabled:
     - phpdoc_var_without_name
     - property_separation
     - self_accessor
-    - self_static_accessor
     - short_array_syntax
     - short_list_syntax
-    - short_scalar_cast
-    - single_blank_line_before_namespace
     - single_line_class_definition
     - single_line_throw
     - single_quote
     - space_after_semicolon
     - standardize_not_equals
-    - ternary_operator_spaces
     - ternary_to_null_coalescing
     - trailing_comma_in_multiline_array
     - trim_array_spaces
