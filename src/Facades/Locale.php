@@ -6,7 +6,7 @@ use Helldar\LaravelLangPublisher\Support\Locale as LocaleSupport;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array available(bool $is_json = false)
+ * @method static array available()
  * @method static array installed(bool $is_json = false)
  * @method static array protects()
  * @method static bool isProtected(string $locale)

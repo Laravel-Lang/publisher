@@ -10,8 +10,8 @@ return [
      * `false` means that default files will be used.
      *
      * The difference between them can be seen here:
-     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation.php
-     * @see https://github.com/caouecs/Laravel-lang/blob/master/script/en/validation-inline.php
+     * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation.php
+     * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation-inline.php
      *
      * By default, `false`.
      */
