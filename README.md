@@ -411,7 +411,7 @@ Locale::installed(bool $is_json = false): array
 Locale::protects(): array
 
 // Checks if a language pack is installed.
-Locale::isAvailable(string $locale, bool $is_json = false): bool
+Locale::isAvailable(string $locale): bool
 
 // Checks whether it is possible to install the language pack.
 Locale::isInstalled(string $locale, bool $is_json = false): bool

@@ -2,8 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
+use Helldar\LaravelLangPublisher\Facades\Reflection;
 use Illuminate\Support\Facades\File;
 
 final class Locale
@@ -11,13 +13,17 @@ final class Locale
     /**
      * List of available locations.
      *
-     * @param  bool  $is_json
-     *
      * @return array
      */
-    public function available(bool $is_json = false): array
+    public function available(): array
     {
-        return $this->get($this->getSourceDirectories($is_json));
+        $available = array_values(
+            Reflection::getConstants(Locales::class)
+        );
+
+        $this->addDefaultLocale($available);
+
+        return $this->filterLocales($available);
     }
 
     /**
@@ -30,7 +36,7 @@ final class Locale
     public function installed(bool $is_json = false): array
     {
         $locales   = $this->get($this->getInstalledDirectories($is_json));
-        $available = $this->available($is_json);
+        $available = $this->available();
 
         return array_values(array_filter($locales, function ($locale) use ($available) {
             return in_array($locale, $available);
@@ -66,13 +72,12 @@ final class Locale
      * Checks if a language pack is installed.
      *
      * @param  string  $locale
-     * @param  bool  $is_json
      *
      * @return bool
      */
-    public function isAvailable(string $locale, bool $is_json = false): bool
+    public function isAvailable(string $locale): bool
     {
-        return in_array($locale, $this->available($is_json), true);
+        return in_array($locale, $this->available(), true);
     }
 
     /**
@@ -115,15 +120,6 @@ final class Locale
         $this->addDefaultLocale($locales);
 
         return $this->filterLocales($locales);
-    }
-
-    protected function getSourceDirectories(bool $is_json = false): array
-    {
-        $vendor = Config::getVendorPath();
-
-        return $is_json
-            ? File::files($vendor . '/json')
-            : File::directories($vendor . '/src');
     }
 
     protected function getInstalledDirectories(bool $is_json = false): array
