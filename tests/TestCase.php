@@ -11,6 +11,7 @@ use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
 use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
+use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelLangPublisher\Traits\Containable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
 use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
@@ -55,9 +56,9 @@ abstract class TestCase extends BaseTestCase
         $config = $app['config'];
 
         $config->set('app.locale', $this->default_locale);
-        $config->set('lang-publisher.vendor', realpath(__DIR__ . '/../vendor/caouecs/laravel-lang'));
+        $config->set(Config::KEY_PRIVATE . '.vendor', realpath(__DIR__ . '/../vendor/laravel-lang/lang'));
 
-        $config->set('lang-publisher.exclude', [
+        $config->set(Config::KEY . '.exclude', [
             'auth' => ['failed'],
             'All rights reserved.',
             'Baz',

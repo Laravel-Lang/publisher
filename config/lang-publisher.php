@@ -43,6 +43,7 @@ return [
 
     'ignore' => [
         // 'en',
+        // Helldar\LaravelLangPublisher\Constants\Locales::ALBANIAN,
     ],
 
     /*
@@ -59,10 +60,4 @@ return [
      * By default, Caseable::NO_CASE
      */
     'case'   => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
-
-    /*
-     * Path to source translation files.
-     */
-
-    'vendor' => base_path('vendor/laravel-lang/lang'),
 ];

@@ -47,6 +47,7 @@ final class ServiceProvider extends BaseServiceProvider
         }
 
         $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY);
+        $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', Config::KEY_PRIVATE);
     }
 
     protected function isLumen(): bool

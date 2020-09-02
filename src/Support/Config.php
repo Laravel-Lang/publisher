@@ -10,6 +10,8 @@ final class Config
 {
     public const KEY = 'lang-publisher';
 
+    public const KEY_PRIVATE = 'lang-publisher-private';
+
     /**
      * Getting a link to the folder with the source localization files.
      *
@@ -17,7 +19,9 @@ final class Config
      */
     public function getVendorPath(): string
     {
-        return rtrim($this->config('vendor'), '\\/');
+        $path = IlluminateConfig::get(self::KEY_PRIVATE . '.vendor');
+
+        return rtrim($path, '\\/');
     }
 
     /**
