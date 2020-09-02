@@ -64,5 +64,5 @@ return [
      * Path to source translation files.
      */
 
-    'vendor' => base_path('vendor/caouecs/laravel-lang'),
+    'vendor' => base_path('vendor/laravel-lang/lang'),
 ];
