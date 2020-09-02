@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Arr as IlluminateArr;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
@@ -31,8 +32,7 @@ final class Config
      */
     public function getLocale(): string
     {
-        return IlluminateConfig::get('app.locale')
-            ?: IlluminateConfig::get('app.fallback_locale', 'en');
+        return IlluminateConfig::get('app.locale') ?: $this->getFallbackLocale();
     }
 
     /**
@@ -42,7 +42,7 @@ final class Config
      */
     public function getFallbackLocale(): string
     {
-        return IlluminateConfig::get('app.fallback_locale', 'en');
+        return IlluminateConfig::get('app.fallback_locale', Locales::ENGLISH);
     }
 
     /**

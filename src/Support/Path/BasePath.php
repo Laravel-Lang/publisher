@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Support\Path;
 
+use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Contracts\Pathable;
 
 abstract class BasePath implements Pathable
@@ -22,14 +23,8 @@ abstract class BasePath implements Pathable
 
     protected function getPathForEnglish(string $locale): string
     {
-        if ($this->is_json) {
-            return $locale === 'en'
-                ? '/script/en/'
-                : '/json/';
-        }
-
-        return $locale === 'en'
+        return $locale === Locales::ENGLISH
             ? '/script/en/'
-            : '/src/' . $locale;
+            : ($this->is_json ? '/json/' : '/src/' . $locale);
     }
 }
