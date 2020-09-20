@@ -1,6 +1,6 @@
 # Lang Publisher
 
-Publisher lang files for the Laravel Framework from [Laravel-Lang/lang][link_source] package.
+Publisher lang files for the Laravel Framework + Laravel Jetstream from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
@@ -9,19 +9,22 @@ Publisher lang files for the Laravel Framework from [Laravel-Lang/lang][link_sou
 [![Github Workflow Status][badge_build]][link_build]
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
-[![For Laravel][badge_laravel]][link_packagist]
-[![For Lumen][badge_lumen]][link_packagist]
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
+[![For Laravel][badge_laravel]][link_packagist]
+[![For Laravel Jetstream][badge_jetstream]][link_packagist]
+[![For Lumen][badge_lumen]][link_packagist]
+
 
 ## Table of contents
 
 * [Installation](#installation)
   * [Laravel](#laravel)
+  * [Laravel Jetstream](#laravel-jetstream)
   * [Lumen](#Lumen)
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
@@ -65,6 +68,18 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
+```
+
+#### Laravel Jetstream
+
+The translation file for Laravel Jetstream is merged with the Laravel translation json file.
+
+Use the `--json` switch to install.
+
+For example:
+```
+php artisan lang:install --json en de ro zh-CN lv
+php artisan lang:install --json de
 ```
 
 #### Lumen
@@ -443,6 +458,7 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 [badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
+[badge_jetstream]:      https://img.shields.io/badge/Laravel%20Jetstream-0.x+%20|%201.x-orange.svg?style=flat-square
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 [badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
