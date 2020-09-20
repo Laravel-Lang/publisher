@@ -1,9 +1,9 @@
 {
     "name": "andrey-helldar/laravel-lang-publisher",
-    "description": "Publisher lang files for the Laravel Framework from caouecs/Laravel-lang",
+    "description": "Publisher lang files for the Laravel Framework + Laravel Jetstream from Laravel-Lang/lang",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "languages", "lpm", "lang", "publisher", "translations", "localization", "localisation", "trans", "validations", "i18n", "locale"],
+    "keywords": ["laravel", "jetstream", "lumen", "languages", "lpm", "lang", "publisher", "translations", "localization", "localisation", "trans", "validations", "i18n", "locale"],
     "authors": [
         {
             "name": "Andrey Helldar",
@@ -16,6 +16,7 @@
     },
     "suggest": {
         "andrey-helldar/lang-translations": "Translation of main messages",
+        "laravel/jetstream": "Tailwind scaffolding for the Laravel framework.",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
