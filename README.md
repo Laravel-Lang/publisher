@@ -74,7 +74,7 @@ php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvi
 
 The translation file for Laravel Jetstream is merged with the Laravel translation json file.
 
-Use the `--json` switch to install.
+Use the `--json` parameter to install.
 
 For example:
 ```
