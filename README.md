@@ -1,6 +1,6 @@
 # Lang Publisher
 
-Publisher lang files for the Laravel Framework + Laravel Jetstream from [Laravel-Lang/lang][link_source] package.
+Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream] and [Laravel Fortify][link_fortify] from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
@@ -476,3 +476,7 @@ If you discover any security related issues, please email helldar@ai-rus.com ins
 [link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
 [link_source]:          https://github.com/Laravel-Lang/lang
 [link_styleci]:         https://github.styleci.io/repos/119022335
+
+[link_laravel]:         https://laravel.com
+[link_jetstream]:       https://jetstream.laravel.com
+[link_fortify]:         https://github.com/laravel/fortify
