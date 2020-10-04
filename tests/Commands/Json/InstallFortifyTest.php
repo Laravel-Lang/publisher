@@ -36,7 +36,7 @@ final class InstallFortifyTest extends TestCase
         $this->expectExceptionMessage('The source "foo" localization was not found.');
 
         $this->artisan('lang:install', [
-            'locales' => 'foo',
+            'locales'    => 'foo',
             '--fortify'  => true,
         ]);
     }

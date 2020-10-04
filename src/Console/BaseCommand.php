@@ -62,7 +62,6 @@ abstract class BaseCommand extends Command
     protected function wantsJson(): bool
     {
         return (bool) $this->option('json') || (bool) $this->option('jet') || (bool) $this->option('fortify');
-
     }
 
     protected function setProcessor(string $php, string $json): void
