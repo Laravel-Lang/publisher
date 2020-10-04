@@ -23,10 +23,10 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 ## Table of contents
 
 * [Installation](#installation)
-  * [Laravel](#laravel)
+  * [Laravel Framework](#laravel-framework)
   * [Laravel Jetstream](#laravel-jetstream)
   * [Laravel Fortify](#laravel-fortify)
-  * [Lumen](#Lumen)
+  * [Lumen Framework](#lumen-framework)
   * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
   * [Important](#important)
@@ -64,7 +64,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 }
 ```
 
-#### Laravel
+#### Laravel Framework
 
 You can also publish the config file to change implementations (ie. interface to specific class):
 ```
@@ -105,7 +105,7 @@ php artisan lang:install --fortify de
 
 > `--fortify` is an alias for `--json`.
 
-#### Lumen
+#### Lumen Framework
 
 This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
 
