@@ -3,7 +3,7 @@
     "description": "Publisher lang files for the Laravel Framework + Laravel Jetstream from Laravel-Lang/lang",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "jetstream", "lumen", "languages", "lpm", "lang", "publisher", "translations", "localization", "localisation", "trans", "validations", "i18n", "locale"],
+    "keywords": ["laravel", "jetstream", "fortify", "lumen", "languages", "lpm", "lang", "publisher", "translations", "localization", "trans", "validations", "i18n", "locale"],
     "authors": [
         {
             "name": "Andrey Helldar",
