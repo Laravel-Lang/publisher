@@ -37,7 +37,7 @@ final class InstallJetstreamTest extends TestCase
 
         $this->artisan('lang:install', [
             'locales' => 'foo',
-            '--jet'  => true,
+            '--jet'   => true,
         ]);
     }
 
