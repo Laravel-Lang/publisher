@@ -10,7 +10,9 @@ final class LangReset extends BaseCommand
 {
     protected $signature = 'lang:reset'
     . ' {locales?* : Space-separated list of, eg: de tk it}'
-    . ' {--j|json : Install JSON files}'
+    . ' {--j|json : Reset JSON files}'
+    . ' {--jet : Reset Jetstream JSON files. This is an alias for "--json" key. }'
+    . ' {--fortify : Reset Fortify JSON files. This is an alias for "--json" key. }'
     . ' {--f|full : Reset files without excluded keys}';
 
     protected $description = 'Resets installed locations.';

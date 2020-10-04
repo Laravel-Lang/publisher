@@ -10,7 +10,9 @@ final class LangUninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
     . ' {locales?* : Space-separated list of, eg: de tk it}'
-    . ' {--j|json : Install JSON files}';
+    . ' {--j|json : Uninstall JSON files}'
+    . ' {--jet : Uninstall Jetstream JSON files. This is an alias for "--json" key. }'
+    . ' {--fortify : Uninstall Fortify JSON files. This is an alias for "--json" key. }';
 
     protected $description = 'Uninstall localizations.';
 
