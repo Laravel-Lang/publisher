@@ -24,7 +24,7 @@ final class InstallTest extends TestCase
 
         $this->artisan('lang:install', ['--json' => true])
             ->expectsConfirmation('Do you want to install all localizations?', 'no')
-            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available($this->is_json))
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available())
             ->assertExitCode(0);
 
         $this->assertFileExists($path);
