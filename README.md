@@ -40,9 +40,6 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
   * [Facades](#facades)
       * [Config](#config)
       * [Locale](#locale)
-      * [Path](#path)
-* [Troubleshooting](#troubleshooting)
-* [Security](#security)
 * [Credits](#credits)
 
 
@@ -462,11 +459,6 @@ Locale::getDefault(): string
 // Getting the fallback localization name.
 Locale::getFallback(): string
 ```
-
-
-## Security
-
-If you discover any security related issues, please email helldar@ai-rus.com instead of using the [issue](https://github.com/andrey-helldar/laravel-lang-publisher/issues) tracker.
 
 
 ## Credits
