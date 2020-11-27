@@ -3,7 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Constants;
 
 /**
- * Based on ISO 15897
+ * Based on ISO 15897.
  *
  * @see https://laravel.com/docs/8.x/localization#introduction
  *
