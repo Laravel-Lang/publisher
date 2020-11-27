@@ -26,8 +26,7 @@ jobs:
                     coverage: xdebug
 
             -   name: Composer self update
-                run: |
-                    composer self-update
+                run: composer self-update
 
             -   name: Install dependencies
                 run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
