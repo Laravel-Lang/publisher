@@ -2,7 +2,14 @@
 
 namespace Helldar\LaravelLangPublisher\Constants;
 
-/** @see ISO 639-1 */
+/**
+ * Based on ISO 15897.
+ *
+ * @see https://laravel.com/docs/8.x/localization#introduction
+ *
+ * And Unicode standard (Intl)
+ * @see https://icu4c-demos.unicode.org/icu-bin/locexp
+ */
 final class Locales
 {
     public const ALBANIAN = 'sq';
@@ -115,9 +122,11 @@ final class Locales
 
     public const SARDINIAN = 'sc';
 
-    public const SERBIAN_CYRILLIC = 'sr_Cyrillic';
+    public const SERBIAN_CYRILLIC = 'sr_Cyrl';
 
-    public const SERBIAN_LATIN = 'sr_Latin';
+    public const SERBIAN_LATIN = 'sr_Latn';
+
+    public const SERBIAN_MONTENEGRIN = 'sr_Latn_ME';
 
     public const SINHALA = 'si';
 
@@ -147,9 +156,9 @@ final class Locales
 
     public const URDU = 'ur';
 
-    public const UZBEK_CYRILLIC = 'uz_Cyrillic';
+    public const UZBEK_CYRILLIC = 'uz_Cyrl';
 
-    public const UZBEK_LATIN = 'uz_Latin';
+    public const UZBEK_LATIN = 'uz_Latn';
 
     public const VIETNAMESE = 'vi';
 

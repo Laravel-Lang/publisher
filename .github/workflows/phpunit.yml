@@ -9,29 +9,26 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php: [7.2, 7.3, 7.4]
-                dependency-version: [prefer-lowest, prefer-stable]
+                php: ["7.2", "7.3", "7.4", "8.0"]
 
-        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
+        name: PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v2
 
             -   name: Setup PHP
-                uses: shivammathur/setup-php@v1
+                uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
                     coverage: xdebug
 
             -   name: Composer self update
-                run: |
-                    composer self-update
-                    composer global require hirak/prestissimo --no-plugins
+                run: composer self-update
 
             -   name: Install dependencies
-                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
+                run: composer update --prefer-dist --no-progress --no-interaction --no-suggest
 
             -   name: Execute tests
                 run: |
