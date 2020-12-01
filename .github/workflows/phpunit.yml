@@ -10,9 +10,8 @@ jobs:
             fail-fast: true
             matrix:
                 php: ["7.2", "7.3", "7.4", "8.0"]
-                dependency-version: [prefer-lowest, prefer-stable]
 
-        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }}
+        name: PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
@@ -29,7 +28,7 @@ jobs:
                 run: composer self-update
 
             -   name: Install dependencies
-                run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress --no-interaction --no-suggest
+                run: composer update --prefer-dist --no-progress --no-interaction --no-suggest
 
             -   name: Execute tests
                 run: |
