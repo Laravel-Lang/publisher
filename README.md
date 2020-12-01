@@ -134,7 +134,7 @@ if ($app->environment() !== 'production') {
 |6.x, 7.x|^7.2.5|7.2, 7.3, 7.4|^3.0|3.0.0|3.1.1| ![Not Supported][badge_not_supported] |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^4.0|4.0.0|4.9.1| ![Not Supported][badge_not_supported] Support will end on September 3, 2020. If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php) file.|
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^5.0|5.0.0|5.2.1| ![Not Supported][badge_not_supported] Changed localization names in accordance with the ISO 15897 standard (see [Laravel-Lang/lang](https://github.com/Laravel-Lang/lang/issues/1286) and [official docs](https://laravel.com/docs/7.x/localization#introduction).|
-|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^6.0|6.0.0|6.1.0| ![Not Supported][badge_not_supported] Laravel [Jetstream](https://jetstream.laravel.com) and [Fortify](https://github.com/laravel/fortify) supported |
+|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^6.0|6.0.0|6.2.0| ![Not Supported][badge_not_supported] Laravel [Jetstream](https://jetstream.laravel.com) and [Fortify](https://github.com/laravel/fortify) supported |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^7.0|7.0.0|^7.0| ![Supported][badge_supported] [PHP Intl version](https://github.com/Laravel-Lang/lang/releases/tag/8.0.0) |
 
 
