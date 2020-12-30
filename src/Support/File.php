@@ -8,7 +8,7 @@ use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\PrettyArray\Services\File as PrettyFile;
 use Helldar\PrettyArray\Services\Formatter;
-use Helldar\Support\Facades\Str;
+use Helldar\Support\Facades\Helpers\Str;
 
 final class File
 {
