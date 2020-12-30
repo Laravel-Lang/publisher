@@ -503,7 +503,7 @@ Locale::getFallback(): string
 
 [badge_coming_soon]:    https://img.shields.io/badge/coming%20soon-blue?style=flat-square
 
-[badge_unstable]:       https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
+[badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [link_author]:          https://github.com/andrey-helldar
 
@@ -515,7 +515,7 @@ Locale::getFallback(): string
 
 [link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
 
-[link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
+[link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=main
 
 [link_source]:          https://github.com/Laravel-Lang/lang
 
