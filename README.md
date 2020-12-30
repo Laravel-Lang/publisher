@@ -15,10 +15,6 @@ from [Laravel-Lang/lang][link_source] package.
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
-[![For Laravel][badge_laravel]][link_packagist]
-[![For Laravel Jetstream][badge_jetstream]][link_packagist]
-[![For Lumen][badge_lumen]][link_packagist]
-
 
 ## Table of contents
 
@@ -483,11 +479,6 @@ Locale::getFallback(): string
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 
-[badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
-
-[badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
-
-[badge_jetstream]:      https://img.shields.io/badge/Laravel%20Jetstream-1.x-orange.svg?style=flat-square
 
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 
