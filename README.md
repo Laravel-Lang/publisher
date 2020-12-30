@@ -125,7 +125,7 @@ if ($app->environment() !== 'production') {
 
 |Laravel/Lumen version|PHP min version|PHP tested version|Tag|Package min version|Package max version|Comment|
 |---|---|---|---|---|---|---|
-|7.x, 8.x|^7.2.5|7.2, 7.3, 7.4, 8.0|^8.0|8.0.0|---| ![Supported][badge_supported] Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^2.0` |
+|7.x, 8.x|^7.2.5 for L7.x and ^7.3 for L8.x|7.2, 7.3, 7.4, 8.0|^8.0|8.0.0|---| ![Supported][badge_supported] Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^2.0` |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4, 8.0|^7.0|7.0.0|7.0.0| ![Not Supported][badge_not_supported] [PHP Intl version](https://github.com/Laravel-Lang/lang/releases/tag/8.0.0), Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^1.0` |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^6.0|6.0.0|6.2.0| ![Not Supported][badge_not_supported] Laravel [Jetstream](https://jetstream.laravel.com) and [Fortify](https://github.com/laravel/fortify) supported |
 |7.x, 8.x|^7.2.5|7.2, 7.3, 7.4|^5.0|5.0.0|5.2.1| ![Not Supported][badge_not_supported] Changed localization names in accordance with the ISO 15897 standard (see [Laravel-Lang/lang](https://github.com/Laravel-Lang/lang/issues/1286) and [official docs](https://laravel.com/docs/7.x/localization#introduction).|
