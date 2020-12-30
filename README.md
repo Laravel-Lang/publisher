@@ -1,19 +1,19 @@
 # Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream] and [Laravel Fortify][link_fortify] from [Laravel-Lang/lang][link_source] package.
+Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream] and [Laravel Fortify][link_fortify]
+from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
-
-
-[![StyleCI Status][badge_styleci]][link_styleci]
-[![Github Workflow Status][badge_build]][link_build]
-[![Coverage Status][badge_coverage]][link_scrutinizer]
-[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
+
+[![StyleCI Status][badge_styleci]][link_styleci]
+[![Github Workflow Status][badge_build]][link_build]
+[![Coverage Status][badge_coverage]][link_scrutinizer]
+[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
 [![For Laravel][badge_laravel]][link_packagist]
 [![For Laravel Jetstream][badge_jetstream]][link_packagist]
@@ -23,25 +23,24 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 ## Table of contents
 
 * [Installation](#installation)
-  * [Laravel Framework](#laravel-framework)
-  * [Laravel Jetstream](#laravel-jetstream)
-  * [Laravel Fortify](#laravel-fortify)
-  * [Lumen Framework](#lumen-framework)
-  * [Compatibility table](#compatibility-table)
+    * [Laravel Framework](#laravel-framework)
+    * [Laravel Jetstream](#laravel-jetstream)
+    * [Laravel Fortify](#laravel-fortify)
+    * [Lumen Framework](#lumen-framework)
+    * [Compatibility table](#compatibility-table)
 * [How to use](#how-to-use)
-  * [Important](#important)
-    * [General principles](#general-principles)
-  * [Install locales](#install-locales)
-  * [Update locales](#update-locales)
-  * [Uninstall locales](#uninstall-locales)
-  * [Reset locales](#reset-locales)
+    * [Important](#important)
+        * [General principles](#general-principles)
+    * [Install locales](#install-locales)
+    * [Update locales](#update-locales)
+    * [Uninstall locales](#uninstall-locales)
+    * [Reset locales](#reset-locales)
 * [Features](#features)
-  * [Alignment](#alignment)
-  * [Facades](#facades)
-      * [Config](#config)
-      * [Locale](#locale)
+    * [Alignment](#alignment)
+    * [Facades](#facades)
+        * [Config](#config)
+        * [Locale](#locale)
 * [Credits](#credits)
-
 
 ## Installation
 
@@ -64,6 +63,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 #### Laravel Framework
 
 You can also publish the config file to change implementations (ie. interface to specific class):
+
 ```
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
 ```
@@ -75,6 +75,7 @@ The translation file for Laravel Jetstream is merged with the Laravel translatio
 Use the `--json` or `--jet` parameter to install.
 
 For example:
+
 ```
 php artisan lang:install --json en de ro zh-CN lv
 php artisan lang:install --json de
@@ -92,6 +93,7 @@ The translation file for Laravel Fortify is merged with the Laravel translation 
 Use the `--json` or `--fortify` parameter to install.
 
 For example:
+
 ```
 php artisan lang:install --json en de ro zh-CN lv
 php artisan lang:install --json de
@@ -104,22 +106,24 @@ php artisan lang:install --fortify de
 
 #### Lumen Framework
 
-This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
+This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a
+barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
 
-You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can properly load.
+You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can
+properly load.
 
 ```
 // $app->register(App\Providers\AppServiceProvider::class);
 ```
 
-If you are not using that line, that is usually handy to manage gracefully multiple Lumen installations, you will have to add this line of code under the `Register Service Providers` section of your `bootstrap/app.php`.
+If you are not using that line, that is usually handy to manage gracefully multiple Lumen installations, you will have to add this line of code under
+the `Register Service Providers` section of your `bootstrap/app.php`.
 
 ```php
 if ($app->environment() !== 'production') {
     $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
 }
 ```
-
 
 ### Compatibility table
 
@@ -137,7 +141,6 @@ if ($app->environment() !== 'production') {
 |5.5|^7.0.0|7.1, 7.2, 7.3|^1.0|1.0.0|1.6.0| ![Not Supported][badge_not_supported] |
 |5.4|^5.6.4|5.6|^1.0|1.0.0|1.1.4| ![Not Supported][badge_not_supported] |
 |5.3|^5.6.4|5.6|^1.0|1.1.2|1.1.4| ![Not Supported][badge_not_supported] |
-
 
 ## How to use
 
@@ -164,8 +167,8 @@ All commands have common key types:
 * `--json` (also `-j`) - runs a command to work with translation JSON files;
 * `--force` (also `-f`) - runs a command to force execution (works on all but the `reset` command).
 
-
 Parameters on call (used in all except `update`):
+
 ```bash
 php artisan lang:<command> en de ro
 php artisan lang:<command> de
@@ -174,13 +177,13 @@ php artisan lang:<command>
 ```
 
 Where:
+
 * `en de ro` - a list of locales separated by a space;
 * `de` - it is also possible to specify a single localization name;
 * `*` - when transmitting the asterisk symbol, the action will be performed for all locales
 * if the parameter is not passed during the call, the script will ask two questions:
     * `Do you want to %s all localizations?`, when `%s` is `install`, `uninstall` or `reset`;
     * If `no`, then next question is `What languages to %s? (specify the necessary localizations separated by commas)`.
-
 
 ### Install locales
 
@@ -220,7 +223,6 @@ php artisan lang:install --json * --force
 php artisan lang:install --json * -f
 ```
 
-
 ### Update locales
 
 When executing the `php artisan lang:update` command, the package learns which localizations installed in your application and will replace the matching files.
@@ -233,7 +235,6 @@ Also for updating files you can pass the `--json` key:
 php artisan lang:update --json
 ```
 
-
 ### Uninstall locales
 
 > **ATTENTION**
@@ -241,6 +242,7 @@ php artisan lang:update --json
 > When this command is executed, the entire locale folder with all files is deleted.
 
 To delete localizations, you must use `lang:uninstall` command, passing the letter abbreviations into it:
+
 ```bash
 php artisan lang:uninstall de ro zh-CN
 
@@ -248,6 +250,7 @@ php artisan lang:uninstall --json de ro zh-CN
 ```
 
 You can also specify the `*` symbol to delete all localizations:
+
 ```bash
 php artisan lang:uninstall *
 
@@ -289,14 +292,15 @@ php artisan lang:reset --full --json de
 php artisan lang:reset --full --json
 ```
 
-
 ## Features
 
 ### Alignment
 
-When updating files, all comments from the final files are automatically deleted. Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know how to work with comments.
+When updating files, all comments from the final files are automatically deleted.
+Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know how to work with comments.
 
 Your file example:
+
 ```php
 // auth.php
 <?php
@@ -319,6 +323,7 @@ return [
 ```
 
 An updated file:
+
 ```php
 // auth.php
 <?php
@@ -332,6 +337,7 @@ return [
 
 and example of `validation.php` file:
 Your file:
+
 ```php
 <?php
 
@@ -387,6 +393,7 @@ return [
 ```
 
 Updated:
+
 ```php
 <?php
 
@@ -420,6 +427,7 @@ return [
 Perhaps the facades will be useful to you:
 
 #### Config
+
 ```php
 use Helldar\LaravelLangPublisher\Facades\Config;
 
@@ -432,8 +440,8 @@ Config::getLocale(): string
 Config::getFallbackLocale(): string
 ```
 
-
 #### Locale
+
 ```php
 use Helldar\LaravelLangPublisher\Facades\Locale;
 
@@ -462,38 +470,59 @@ Locale::getDefault(): string
 Locale::getFallback(): string
 ```
 
-
 ## Credits
 
 - [Andrey Helldar][link_author]
 - [![All contributors][badge_contributors]][link_contributors]
 
-
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
+
 [badge_contributors]:   https://img.shields.io/github/contributors/andrey-helldar/laravel-lang-publisher?style=flat-square
+
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+
 [badge_laravel]:        https://img.shields.io/badge/Laravel-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
+
 [badge_lumen]:          https://img.shields.io/badge/Lumen-5.3+%20|%206.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
+
 [badge_jetstream]:      https://img.shields.io/badge/Laravel%20Jetstream-1.x-orange.svg?style=flat-square
+
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+
 [badge_quality]:        https://img.shields.io/scrutinizer/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
+
 [badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
+
 [badge_styleci]:        https://styleci.io/repos/119022335/shield
+
 [badge_supported]:      https://img.shields.io/badge/supported-green?style=flat-square
+
 [badge_not_supported]:  https://img.shields.io/badge/not%20supported-lightgrey?style=flat-square
+
 [badge_coming_soon]:    https://img.shields.io/badge/coming%20soon-blue?style=flat-square
+
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--master-orange?style=flat-square
 
 [link_author]:          https://github.com/andrey-helldar
+
 [link_build]:           https://github.com/andrey-helldar/laravel-lang-publisher/actions
+
 [link_contributors]:    https://github.com/andrey-helldar/laravel-lang-publisher/graphs/contributors
+
 [link_license]:         LICENSE
+
 [link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
+
 [link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/laravel-lang-publisher/?branch=master
+
 [link_source]:          https://github.com/Laravel-Lang/lang
+
 [link_styleci]:         https://github.styleci.io/repos/119022335
 
 [link_laravel]:         https://laravel.com
+
 [link_jetstream]:       https://jetstream.laravel.com
+
 [link_fortify]:         https://github.com/laravel/fortify
