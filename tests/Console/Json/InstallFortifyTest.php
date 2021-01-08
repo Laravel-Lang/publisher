@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Commands\Json;
+namespace Tests\Console\Json;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleFileDoesntExist;
 use Helldar\LaravelLangPublisher\Facades\Locale;
@@ -36,8 +36,8 @@ final class InstallFortifyTest extends TestCase
         $this->expectExceptionMessage('The source "foo" localization was not found.');
 
         $this->artisan('lang:install', [
-            'locales'    => 'foo',
-            '--fortify'  => true,
+            'locales'   => 'foo',
+            '--fortify' => true,
         ]);
     }
 

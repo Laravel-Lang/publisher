@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Commands\Php;
+namespace Tests\Console\Php;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDirectoryDoesntExist;
 use Helldar\LaravelLangPublisher\Facades\Config;

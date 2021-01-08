@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Commands\Json;
+namespace Tests\Console\Json;
 
 use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;

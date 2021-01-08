@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Commands\Json;
+namespace Tests\Console\Json;
 
 use Helldar\LaravelLangPublisher\Services\Processors\ResetJson;
 use Illuminate\Support\Facades\Lang;
