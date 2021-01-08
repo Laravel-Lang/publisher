@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher;
 
+use Helldar\LaravelLangPublisher\Console\Helpers\Missing;
 use Helldar\LaravelLangPublisher\Console\LangInstall;
 use Helldar\LaravelLangPublisher\Console\LangReset;
 use Helldar\LaravelLangPublisher\Console\LangUninstall;
@@ -27,9 +28,10 @@ final class ServiceProvider extends BaseServiceProvider
     {
         $this->commands([
             LangInstall::class,
-            LangUpdate::class,
-            LangUninstall::class,
             LangReset::class,
+            LangUninstall::class,
+            LangUpdate::class,
+            Missing::class,
         ]);
     }
 

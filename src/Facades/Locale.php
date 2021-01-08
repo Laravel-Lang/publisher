@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array available()
+ * @method static array availableAll()
  * @method static array installed(bool $is_json = false)
  * @method static array protects()
  * @method static bool isProtected(string $locale)

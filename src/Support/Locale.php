@@ -17,13 +17,23 @@ final class Locale
      */
     public function available(): array
     {
+        return $this->filterLocales($this->availableAll());
+    }
+
+    /**
+     * Returns a list of all localizations available for installation without filtering.
+     *
+     * @return array
+     */
+    public function availableAll(): array
+    {
         $available = array_values(
             Reflection::getConstants(Locales::class)
         );
 
         $this->addDefaultLocale($available);
 
-        return $this->filterLocales($available);
+        return $available;
     }
 
     /**
