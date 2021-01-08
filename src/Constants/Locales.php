@@ -34,7 +34,7 @@ final class Locales
 
     public const CENTRAL_KHMER = 'km';
 
-    public const CHINESE = 'zh_CH';
+    public const CHINESE = 'zh_CN';
 
     public const CHINESE_HONG_KONG = 'zh_HK';
 
