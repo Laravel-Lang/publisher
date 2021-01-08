@@ -104,6 +104,8 @@ final class Locales
 
     public const NORWEGIAN_NYNORSK = 'nn';
 
+    public const OCCITAN = 'oc';
+
     public const PASHTO = 'ps';
 
     public const PERSIAN = 'fa';
