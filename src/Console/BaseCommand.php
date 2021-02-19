@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Contracts\Localizationable;
+use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Localization;
 use Helldar\LaravelLangPublisher\Support\Result;
 use Helldar\LaravelLangPublisher\Traits\Containable;
@@ -38,6 +39,16 @@ abstract class BaseCommand extends Command
     protected function locales(): array
     {
         return (array) $this->argument('locales');
+    }
+
+    protected function available(): array
+    {
+        return Locale::available();
+    }
+
+    protected function installed(): array
+    {
+        return Locale::installed($this->wantsJson());
     }
 
     protected function select(array $locales): array

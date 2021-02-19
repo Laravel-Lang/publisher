@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 
@@ -21,9 +20,7 @@ final class LangInstall extends BaseCommand
     {
         $this->setProcessor(PublishPhp::class, PublishJson::class);
 
-        $this->exec(
-            Locale::available()
-        );
+        $this->exec($this->available());
 
         $this->result
             ->setMessage('Files were not copied.')

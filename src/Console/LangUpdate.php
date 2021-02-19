@@ -2,8 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Locale;
-
 final class LangUpdate extends BaseCommand
 {
     protected $signature = 'lang:update'
@@ -16,7 +14,7 @@ final class LangUpdate extends BaseCommand
     public function handle()
     {
         $this->call('lang:install', [
-            'locales'   => Locale::installed($this->wantsJson()),
+            'locales'   => $this->installed(),
             '--force'   => true,
             '--json'    => $this->wantsJson(),
             '--jet'     => $this->wantsJson(),

@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Locale;
 use Helldar\LaravelLangPublisher\Services\Processors\ResetJson;
 use Helldar\LaravelLangPublisher\Services\Processors\ResetPhp;
 
@@ -25,9 +24,7 @@ final class LangReset extends BaseCommand
     {
         $this->setProcessor(ResetPhp::class, ResetJson::class);
 
-        $this->exec(
-            Locale::installed($this->wantsJson())
-        );
+        $this->exec($this->installed());
 
         $this->result
             ->setMessage('Files have not been reset.')
