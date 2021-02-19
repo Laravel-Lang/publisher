@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use Closure;
+use Helldar\Support\Facades\Helpers\Arr as ArrSupport;
 
 final class Arr
 {
@@ -52,10 +53,6 @@ final class Arr
      */
     public function transform(array $array, Closure $callback): array
     {
-        foreach ($array as &$value) {
-            $value = $callback($value);
-        }
-
-        return $array;
+        return ArrSupport::map($array, $callback);
     }
 }
