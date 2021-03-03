@@ -466,19 +466,11 @@ Locale::getDefault(): string
 Locale::getFallback(): string
 ```
 
-## Credits
-
-- [Andrey Helldar][link_author]
-- [![All contributors][badge_contributors]][link_contributors]
-
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
-
-[badge_contributors]:   https://img.shields.io/github/contributors/andrey-helldar/laravel-lang-publisher?style=flat-square
 
 [badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-
 
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 
@@ -496,11 +488,7 @@ Locale::getFallback(): string
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
-[link_author]:          https://github.com/andrey-helldar
-
 [link_build]:           https://github.com/andrey-helldar/laravel-lang-publisher/actions
-
-[link_contributors]:    https://github.com/andrey-helldar/laravel-lang-publisher/graphs/contributors
 
 [link_license]:         LICENSE
 
