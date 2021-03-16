@@ -1,6 +1,6 @@
 # Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream] and [Laravel Fortify][link_fortify]
+Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify] and [Laravel Cashier][link_cashier]
 from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
@@ -505,3 +505,5 @@ Locale::getFallback(): string
 [link_jetstream]:       https://jetstream.laravel.com
 
 [link_fortify]:         https://github.com/laravel/fortify
+
+[link_cashier]:         https://laravel.com/docs/8.x/billing
