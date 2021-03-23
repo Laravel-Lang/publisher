@@ -10,8 +10,9 @@ jobs:
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
                 laravel: [ "8.0" ]
+                support: [ "2.0", "3.0" ]
 
-        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
+        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}, Support ${{ matrix.support }}
 
         steps:
             -   name: Checkout code
@@ -29,7 +30,7 @@ jobs:
 
             -   name: Install dependencies
                 run: |
-                    composer require laravel/framework:^${{ matrix.laravel }}
+                    composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
                     composer update --prefer-stable --prefer-dist --no-progress --no-interaction
 
             -   name: Execute tests
