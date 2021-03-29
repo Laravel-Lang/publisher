@@ -36,7 +36,6 @@ from [Laravel-Lang/lang][link_source] package.
     * [Facades](#facades)
         * [Config](#config)
         * [Locale](#locale)
-* [Credits](#credits)
 
 ## Installation
 
