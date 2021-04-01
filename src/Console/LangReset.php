@@ -12,6 +12,8 @@ final class LangReset extends BaseCommand
     . ' {--j|json : Reset JSON files}'
     . ' {--jet : Reset Jetstream JSON files. This is an alias for "--json" key. }'
     . ' {--fortify : Reset Fortify JSON files. This is an alias for "--json" key. }'
+    . ' {--cashier : Reset Cashier JSON files. This is an alias for "--json" key. }'
+    . ' {--nova : Reset Nova JSON files. This is an alias for "--json" key. }'
     . ' {--f|full : Reset files without excluded keys}';
 
     protected $description = 'Resets installed locations.';

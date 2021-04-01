@@ -12,7 +12,9 @@ final class LangInstall extends BaseCommand
     . ' {--f|force : Override exiting files}'
     . ' {--j|json : Install JSON files}'
     . ' {--jet : Install Jetstream JSON files. This is an alias for "--json" key. }'
-    . ' {--fortify : Install Fortify JSON files. This is an alias for "--json" key. }';
+    . ' {--fortify : Install Fortify JSON files. This is an alias for "--json" key. }'
+    . ' {--cashier : Install Cashier JSON files. This is an alias for "--json" key. }'
+    . ' {--nova : Install Nova JSON files. This is an alias for "--json" key. }';
 
     protected $description = 'Install new localizations.';
 

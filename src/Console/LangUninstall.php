@@ -11,7 +11,9 @@ final class LangUninstall extends BaseCommand
     . ' {locales?* : Space-separated list of, eg: de tk it}'
     . ' {--j|json : Uninstall JSON files}'
     . ' {--jet : Uninstall Jetstream JSON files. This is an alias for "--json" key. }'
-    . ' {--fortify : Uninstall Fortify JSON files. This is an alias for "--json" key. }';
+    . ' {--fortify : Uninstall Fortify JSON files. This is an alias for "--json" key. }'
+    . ' {--cashier : Uninstall Cashier JSON files. This is an alias for "--json" key. }'
+    . ' {--nova : Uninstall Nova JSON files. This is an alias for "--json" key. }';
 
     protected $description = 'Uninstall localizations.';
 
