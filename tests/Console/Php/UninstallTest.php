@@ -26,7 +26,7 @@ class UninstallTest extends TestCase
         $this->assertFileExists($path . 'validation.php');
 
 //        $this->artisan('lang:uninstall')
-//            ->expectsConfirmation('Do you want to uninstall all localizations?', 'no')
+//            ->expectsConfirmation('Do you want to uninstall all localizations?')
 //            ->expectsChoice('What languages to uninstall? (specify the necessary localizations separated by commas)', 'ar', ['ar', 'en'])
 //            ->assertExitCode(0);
 //

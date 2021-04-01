@@ -1,7 +1,7 @@
 # Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify] and [Laravel Cashier][link_cashier]
-from [Laravel-Lang/lang][link_source] package.
+Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify]
+, [Laravel Cashier][link_cashier] and [Laravel Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
@@ -15,27 +15,6 @@ from [Laravel-Lang/lang][link_source] package.
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
-
-## Table of contents
-
-* [Installation](#installation)
-    * [Laravel Framework](#laravel-framework)
-    * [Laravel Jetstream](#laravel-jetstream)
-    * [Laravel Fortify](#laravel-fortify)
-    * [Lumen Framework](#lumen-framework)
-    * [Compatibility table](#compatibility-table)
-* [How to use](#how-to-use)
-    * [Important](#important)
-        * [General principles](#general-principles)
-    * [Install locales](#install-locales)
-    * [Update locales](#update-locales)
-    * [Uninstall locales](#uninstall-locales)
-    * [Reset locales](#reset-locales)
-* [Features](#features)
-    * [Alignment](#alignment)
-    * [Facades](#facades)
-        * [Config](#config)
-        * [Locale](#locale)
 
 ## Installation
 
@@ -99,6 +78,42 @@ php artisan lang:install --fortify de
 
 > `--fortify` is an alias for `--json`.
 
+#### Laravel Cashier
+
+The translation file for Laravel Cashier is merged with the Laravel translation json file.
+
+Use the `--json` or `--cash` parameter to install.
+
+For example:
+
+```
+php artisan lang:install --json en de ro zh-CN lv
+php artisan lang:install --json de
+
+php artisan lang:install --cashier en de ro zh-CN lv
+php artisan lang:install --cashier de
+```
+
+> `--cashier` is an alias for `--json`.
+
+#### Laravel Nova
+
+The translation file for Laravel Nova is merged with the Laravel translation json file.
+
+Use the `--json` or `--nova` parameter to install.
+
+For example:
+
+```
+php artisan lang:install --json en de ro zh-CN lv
+php artisan lang:install --json de
+
+php artisan lang:install --nova en de ro zh-CN lv
+php artisan lang:install --nova de
+```
+
+> `--nova` is an alias for `--json`.
+
 #### Lumen Framework
 
 This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a
@@ -159,7 +174,7 @@ He does not touch any other files.
 
 All commands have common key types:
 
-* `--json` (also `-j`) - runs a command to work with translation JSON files;
+* `--json` (also `-j`) - runs a command to work with translation JSON files. Available aliases: `--jet`, `--fortify`, `--cashier` and `--nova`;
 * `--force` (also `-f`) - runs a command to force execution (works on all but the `reset` command).
 
 Parameters on call (used in all except `update`):
@@ -489,7 +504,17 @@ Locale::getFallback(): string
 
 [link_build]:           https://github.com/andrey-helldar/laravel-lang-publisher/actions
 
+[link_cashier]:         https://laravel.com/docs/8.x/billing
+
+[link_fortify]:         https://github.com/laravel/fortify
+
+[link_jetstream]:       https://jetstream.laravel.com
+
+[link_laravel]:         https://laravel.com
+
 [link_license]:         LICENSE
+
+[link_nova]:            https://nova.laravel.com
 
 [link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
 
@@ -498,11 +523,3 @@ Locale::getFallback(): string
 [link_source]:          https://github.com/Laravel-Lang/lang
 
 [link_styleci]:         https://github.styleci.io/repos/119022335
-
-[link_laravel]:         https://laravel.com
-
-[link_jetstream]:       https://jetstream.laravel.com
-
-[link_fortify]:         https://github.com/laravel/fortify
-
-[link_cashier]:         https://laravel.com/docs/8.x/billing

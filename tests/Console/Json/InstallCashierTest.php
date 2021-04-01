@@ -8,7 +8,7 @@ use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
 
-final class InstallJetstreamTest extends TestCase
+final class InstallCashierTest extends TestCase
 {
     protected $processor = PublishJson::class;
 
@@ -22,7 +22,7 @@ final class InstallJetstreamTest extends TestCase
             ? $this->assertFileDoesNotExist($path)
             : $this->assertFileNotExists($path);
 
-        $this->artisan('lang:install', ['--jet' => true])
+        $this->artisan('lang:install', ['--cashier' => true])
             ->expectsConfirmation('Do you want to install all localizations?')
             ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available())
             ->assertExitCode(0);
@@ -36,8 +36,8 @@ final class InstallJetstreamTest extends TestCase
         $this->expectExceptionMessage('The source "foo" localization was not found.');
 
         $this->artisan('lang:install', [
-            'locales' => 'foo',
-            '--jet'   => true,
+            'locales'   => 'foo',
+            '--cashier' => true,
         ]);
     }
 
