@@ -8,7 +8,7 @@ use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Illuminate\Support\Arr;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Str;
 use SplFileInfo;
 
@@ -162,12 +162,23 @@ abstract class BaseProcessor implements Processor
         $target_custom     = Arr::get($target, 'custom', []);
         $target_attributes = Arr::get($target, 'attributes', []);
 
+        $source = Arr::except($source, ['custom', 'attributes']);
+        $target = Arr::except($target, ['custom', 'attributes']);
+
         $excluded_target     = $this->excluded($target, $filename);
         $excluded_custom     = $this->excluded($target_custom, $filename);
         $excluded_attributes = $this->excluded($target_attributes, $filename);
 
         $custom     = array_merge($source_custom, $target_custom, $excluded_custom);
         $attributes = array_merge($source_attributes, $target_attributes, $excluded_attributes);
+
+        $target = Arr::ksort($target);
+        $source = Arr::ksort($source);
+
+        $excluded_target = Arr::ksort($excluded_target);
+
+        $custom     = Arr::ksort($custom);
+        $attributes = Arr::ksort($attributes);
 
         $result = array_merge($target, $source, $excluded_target, compact('custom', 'attributes'));
 
