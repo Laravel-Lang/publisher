@@ -8,7 +8,7 @@ use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\File;
 use Helldar\LaravelLangPublisher\Facades\Locale;
-use Illuminate\Support\Arr;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Str;
 use SplFileInfo;
 
@@ -165,6 +165,13 @@ abstract class BaseProcessor implements Processor
         $excluded_target     = $this->excluded($target, $filename);
         $excluded_custom     = $this->excluded($target_custom, $filename);
         $excluded_attributes = $this->excluded($target_attributes, $filename);
+
+        $source_custom     = Arr::ksort($source_custom);
+        $source_attributes = Arr::ksort($source_attributes);
+
+        $excluded_target     = Arr::ksort($excluded_target);
+        $excluded_custom     = Arr::ksort($excluded_custom);
+        $excluded_attributes = Arr::ksort($excluded_attributes);
 
         $custom     = array_merge($source_custom, $target_custom, $excluded_custom);
         $attributes = array_merge($source_attributes, $target_attributes, $excluded_attributes);
