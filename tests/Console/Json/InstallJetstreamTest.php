@@ -23,7 +23,7 @@ final class InstallJetstreamTest extends TestCase
             : $this->assertFileNotExists($path);
 
         $this->artisan('lang:install', ['--jet' => true])
-            ->expectsConfirmation('Do you want to install all localizations?', 'no')
+            ->expectsConfirmation('Do you want to install all localizations?')
             ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locale::available())
             ->assertExitCode(0);
 
