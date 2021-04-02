@@ -15,13 +15,32 @@ class Missing extends Command
 
     public function handle(MissingSupport $missing)
     {
-        if ($locales = $missing->get()) {
-            $this->warn('We found the following localizations unavailable for installation:');
-            $this->warn(implode(', ', $locales));
-
+        if ($this->missingError($missing) || $this->unnecessaryError($missing)) {
             return;
         }
 
         $this->info('Congratulations! All localizations are available!');
+    }
+
+    protected function missingError(MissingSupport $missing): bool
+    {
+        return $this->isError($missing->missing(), 'We found the following localizations unavailable for installation:');
+    }
+
+    protected function unnecessaryError(MissingSupport $missing): bool
+    {
+        return $this->isError($missing->unnecessary(), 'We found the following unnecessary localizations:');
+    }
+
+    protected function isError(array $locales, string $message): bool
+    {
+        if (! empty($locales)) {
+            $this->warn($message);
+            $this->warn(implode(', ', $locales));
+
+            return true;
+        }
+
+        return false;
     }
 }

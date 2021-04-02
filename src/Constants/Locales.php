@@ -7,11 +7,16 @@ namespace Helldar\LaravelLangPublisher\Constants;
  *
  * @see https://laravel.com/docs/8.x/localization#introduction
  *
- * And Unicode standard (Intl)
+ * Unicode standard (Intl)
  * @see https://icu4c-demos.unicode.org/icu-bin/locexp
+ *
+ * ISO-639-1 standard
+ * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
 final class Locales
 {
+    public const AFRIKAANS = 'af';
+
     public const ALBANIAN = 'sq';
 
     public const ARABIC = 'ar';

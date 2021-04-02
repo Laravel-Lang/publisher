@@ -11,7 +11,7 @@ class MissingTest extends TestCase
     {
         $missing = new Missing();
 
-        $locales = $missing->get();
+        $locales = $missing->missing();
 
         $this->assertIsArray($locales);
         $this->assertEmpty($locales);

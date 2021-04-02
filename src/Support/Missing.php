@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Config as IlluminateConfig;
 
 class Missing
 {
-    public function get(): array
+    public function missing(): array
     {
         return array_diff($this->sourceAvailable(), $this->mainAvailable());
+    }
+
+    public function unnecessary(): array
+    {
+        return array_diff($this->mainAvailable(), $this->sourceAvailable());
     }
 
     protected function mainAvailable(): array
