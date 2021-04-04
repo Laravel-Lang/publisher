@@ -169,18 +169,12 @@ abstract class BaseProcessor implements Processor
         $excluded_custom     = $this->excluded($target_custom, $filename);
         $excluded_attributes = $this->excluded($target_attributes, $filename);
 
-        $custom     = array_merge($source_custom, $target_custom, $excluded_custom);
-        $attributes = array_merge($source_attributes, $target_attributes, $excluded_attributes);
+        $custom     = Arr::ksort(array_merge($source_custom, $target_custom, $excluded_custom));
+        $attributes = Arr::ksort(array_merge($source_attributes, $target_attributes, $excluded_attributes));
 
-        $target = Arr::ksort($target);
-        $source = Arr::ksort($source);
+        $main = Arr::ksort(array_merge($target, $source, $excluded_target));
 
-        $excluded_target = Arr::ksort($excluded_target);
-
-        $custom     = Arr::ksort($custom);
-        $attributes = Arr::ksort($attributes);
-
-        $result = array_merge($target, $source, $excluded_target, compact('custom', 'attributes'));
+        $result = array_merge($main, compact('custom', 'attributes'));
 
         File::save($dst, $result);
     }
