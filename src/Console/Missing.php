@@ -19,20 +19,20 @@ class Missing extends Command
             return;
         }
 
-        $this->info('Congratulations! All localizations are available!');
+        $this->info('All localizations are available!');
     }
 
     protected function missingError(MissingSupport $missing): bool
     {
-        return $this->isError($missing->missing(), 'We found the following localizations unavailable for installation:');
+        return $this->isError('We found the following localizations unavailable for installation:', $missing->missing());
     }
 
     protected function unnecessaryError(MissingSupport $missing): bool
     {
-        return $this->isError($missing->unnecessary(), 'We found the following unnecessary localizations:');
+        return $this->isError('We found the following unnecessary localizations:', $missing->unnecessary());
     }
 
-    protected function isError(array $locales, string $message): bool
+    protected function isError(string $message, array $locales): bool
     {
         if (! empty($locales)) {
             $this->warn($message);

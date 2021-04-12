@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static array excludes()
  * @method static array ignores()
- * @method static bool isAlignment()
- * @method static bool isInline()
+ * @method static bool hasAlignment()
+ * @method static bool hasInline()
  * @method static int getCase()
  * @method static string basePath()
+ * @method static string defaultLocale()
+ * @method static string fallbackLocale()
  * @method static string localesPath()
  * @method static string resourcesPath()
  */

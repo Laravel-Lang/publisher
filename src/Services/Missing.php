@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
+use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -21,12 +22,12 @@ final class Missing
 
     protected function main(): array
     {
-        return Locales::available();
+        return Locales::available(true);
     }
 
     protected function available(): array
     {
-        $locales = array_filter(array_merge(['en'], $this->locales()));
+        $locales = ArrFacade::unique(array_merge(['en'], $this->locales()));
 
         $sorted = Arr::sort($locales);
 

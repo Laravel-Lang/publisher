@@ -2,6 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Services\Processors\Uninstall as Processor;
+
 final class Uninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
@@ -11,12 +13,11 @@ final class Uninstall extends BaseCommand
 
     protected $action = 'uninstall';
 
-    public function handle()
+    protected function process(string $locale, string $source_path, string $target_path): void
     {
-        $this->exec($this->installed());
-
-        $this->result
-            ->setMessage('No uninstalled localizations.')
-            ->show();
+        Processor::make()
+            ->source($source_path)
+            ->target($target_path)
+            ->run();
     }
 }

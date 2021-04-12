@@ -2,6 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Services\Processors\Install as Processor;
+
 final class Install extends BaseCommand
 {
     protected $signature = 'lang:install'
@@ -10,12 +12,11 @@ final class Install extends BaseCommand
 
     protected $description = 'Install new localizations.';
 
-    public function handle()
+    protected function process(string $locale, string $source_path, string $target_path): void
     {
-        $this->exec($this->available());
-
-        $this->result
-            ->setMessage('Files were not copied.')
-            ->show();
+        Processor::make()
+            ->source($source_path)
+            ->target($target_path)
+            ->run();
     }
 }

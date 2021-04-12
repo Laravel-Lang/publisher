@@ -2,6 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Services\Processors\Reset as Processor;
+
 final class Reset extends BaseCommand
 {
     protected $signature = 'lang:reset'
@@ -12,14 +14,11 @@ final class Reset extends BaseCommand
 
     protected $action = 'reset';
 
-    protected $action_default = true;
-
-    public function handle()
+    protected function process(string $locale, string $source_path, string $target_path): void
     {
-        $this->exec($this->installed());
-
-        $this->result
-            ->setMessage('Files have not been reset.')
-            ->show();
+        Processor::make()
+            ->source($source_path)
+            ->target($target_path)
+            ->run();
     }
 }

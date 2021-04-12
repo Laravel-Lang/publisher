@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as Illuminate;
 
@@ -26,12 +27,12 @@ final class Config
         return Illuminate::get(self::KEY_PRIVATE . '.path.target');
     }
 
-    public function isInline(): bool
+    public function hasInline(): bool
     {
         return Illuminate::get(self::KEY_PUBLIC . '.inline');
     }
 
-    public function isAlignment(): bool
+    public function hasAlignment(): bool
     {
         return Illuminate::get(self::KEY_PUBLIC . '.alignment');
     }
@@ -49,5 +50,15 @@ final class Config
     public function getCase(): int
     {
         return Illuminate::get(self::KEY_PUBLIC . '.case', Caseable::NO_CASE);
+    }
+
+    public function defaultLocale(): string
+    {
+        return Illuminate::get('app.locale') ?: $this->fallbackLocale();
+    }
+
+    public function fallbackLocale(): string
+    {
+        return Illuminate::get('app.fallback_locale') ?: LocalesList::ENGLISH;
     }
 }
