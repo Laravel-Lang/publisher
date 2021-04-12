@@ -18,6 +18,5 @@ final class Update extends BaseCommand
 
     protected function process(string $locale, string $source_path, string $target_path): void
     {
-        //
     }
 }
