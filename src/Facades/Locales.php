@@ -2,13 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Support\Reflection as Support;
+use Helldar\LaravelLangPublisher\Support\Locales as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array getConstants(string $class)
+ * @method static array available()
  */
-final class Reflection extends Facade
+final class Locales extends Facade
 {
     protected static function getFacadeAccessor()
     {

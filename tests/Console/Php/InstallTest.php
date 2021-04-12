@@ -89,7 +89,7 @@ final class InstallTest extends TestCase
             in_array('ru', Locale::available())
         );
 
-        IlluminateConfig::set(SupportConfig::KEY . '.ignore', ['ru']);
+        IlluminateConfig::set(SupportConfig::KEY_PUBLIC . '.ignore', ['ru']);
 
         $this->assertNotEmpty(
             Config::getIgnore()

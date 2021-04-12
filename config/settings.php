@@ -1,9 +1,13 @@
 <?php
 
 return [
-    /*
-     * Path to source translation files.
-     */
 
-    'vendor' => base_path('vendor/laravel-lang/lang'),
+    'path' => [
+
+        'base' => base_path('vendor/laravel-lang/lang/source'),
+
+        'locales' => base_path('vendor/laravel-lang/lang/locales'),
+
+        'target' => resource_path('lang'),
+    ],
 ];

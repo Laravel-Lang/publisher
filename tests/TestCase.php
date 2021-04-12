@@ -29,8 +29,6 @@ abstract class TestCase extends BaseTestCase
 
     protected $default_locale = 'en';
 
-    protected $is_json = false;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -58,7 +56,7 @@ abstract class TestCase extends BaseTestCase
         $config->set('app.locale', $this->default_locale);
         $config->set(Config::KEY_PRIVATE . '.vendor', realpath(__DIR__ . '/../vendor/laravel-lang/lang'));
 
-        $config->set(Config::KEY . '.exclude', [
+        $config->set(Config::KEY_PUBLIC . '.exclude', [
             'auth' => ['failed'],
             'All rights reserved.',
             'Baz',
@@ -67,9 +65,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function resetDefaultLang(): void
     {
-        $locales = Locale::installed($this->wantsJson());
-
-        foreach ($locales as $locale) {
+        foreach (Locale::installed() as $locale) {
             $this->localization()
                 ->processor($this->getDeleteProcessor())
                 ->force()
@@ -115,11 +111,6 @@ abstract class TestCase extends BaseTestCase
     protected function localization(): Localizationable
     {
         return $this->container(Localization::class);
-    }
-
-    protected function wantsJson(): bool
-    {
-        return $this->is_json;
     }
 
     protected function getDeleteProcessor(): Processor

@@ -2,112 +2,52 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\PrettyArray\Contracts\Caseable;
-use Illuminate\Support\Arr as IlluminateArr;
-use Illuminate\Support\Facades\Config as IlluminateConfig;
+use Illuminate\Support\Facades\Config as Illuminate;
 
 final class Config
 {
-    public const KEY = 'lang-publisher';
-
     public const KEY_PRIVATE = 'lang-publisher-private';
 
-    /**
-     * Getting a link to the folder with the source localization files.
-     *
-     * @return string
-     */
-    public function getVendorPath(): string
-    {
-        $path = IlluminateConfig::get(self::KEY_PRIVATE . '.vendor');
+    public const KEY_PUBLIC = 'lang-publisher';
 
-        return rtrim($path, '\\/');
+    public function basePath(): string
+    {
+        return Illuminate::get(self::KEY_PRIVATE . '.path.base');
     }
 
-    /**
-     * Getting the default localization name.
-     *
-     * @return string
-     */
-    public function getLocale(): string
+    public function localesPath(): string
     {
-        return IlluminateConfig::get('app.locale') ?: $this->getFallbackLocale();
+        return Illuminate::get(self::KEY_PRIVATE . '.path.locales');
     }
 
-    /**
-     * Getting the fallback localization name.
-     *
-     * @return string
-     */
-    public function getFallbackLocale(): string
+    public function resourcesPath(): string
     {
-        return IlluminateConfig::get('app.fallback_locale', Locales::ENGLISH);
+        return Illuminate::get(self::KEY_PRIVATE . '.path.target');
     }
 
-    /**
-     * Will array alignment be applied.
-     *
-     * @return bool
-     */
-    public function isAlignment(): bool
-    {
-        return (bool) $this->config('alignment', true);
-    }
-
-    /**
-     * Returns an array of exceptions set by the developer
-     * when installing and updating localizations.
-     *
-     * @param  string  $key
-     * @param  array  $default
-     * @param  bool  $is_json
-     *
-     * @return array
-     */
-    public function getExclude(string $key, array $default = [], bool $is_json = false): array
-    {
-        $exclude = $this->config('exclude', []);
-
-        return $is_json
-            ? $exclude
-            : IlluminateArr::get($exclude, $key, $default);
-    }
-
-    public function getIgnore(): array
-    {
-        return $this->config('ignore', []);
-    }
-
-    /**
-     * Returns the key mapping label.
-     *
-     * @return int
-     */
-    public function getCase(): int
-    {
-        return $this->config('case', Caseable::NO_CASE);
-    }
-
-    /**
-     * Determines what type of files to use when updating language files.
-     *
-     * @return bool
-     */
     public function isInline(): bool
     {
-        return $this->config('inline', false);
+        return Illuminate::get(self::KEY_PUBLIC . '.inline');
     }
 
-    protected function config(string $key, $default = null)
+    public function isAlignment(): bool
     {
-        $key = $this->key($key);
-
-        return IlluminateConfig::get($key, $default);
+        return Illuminate::get(self::KEY_PUBLIC . '.alignment');
     }
 
-    protected function key(string $key): string
+    public function excludes(): array
     {
-        return self::KEY . '.' . $key;
+        return Illuminate::get(self::KEY_PUBLIC . '.exclude', []);
+    }
+
+    public function ignores(): array
+    {
+        return Illuminate::get(self::KEY_PUBLIC . '.ignore', []);
+    }
+
+    public function getCase(): int
+    {
+        return Illuminate::get(self::KEY_PUBLIC . '.case', Caseable::NO_CASE);
     }
 }

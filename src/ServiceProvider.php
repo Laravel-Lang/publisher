@@ -3,13 +3,13 @@
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\Install;
+use Helldar\LaravelLangPublisher\Console\Missing;
 use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Uninstall;
 use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Console\Missing;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Helldar\LaravelSupport\Facades\App;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Laravel\Lumen\Application;
 
 final class ServiceProvider extends BaseServiceProvider
 {
@@ -45,15 +45,15 @@ final class ServiceProvider extends BaseServiceProvider
     protected function config(): void
     {
         if ($this->isLumen()) {
-            $this->app->configure(Config::KEY);
+            $this->app->configure(Config::KEY_PUBLIC);
         }
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY);
+        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY_PUBLIC);
         $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', Config::KEY_PRIVATE);
     }
 
     protected function isLumen(): bool
     {
-        return class_exists(Application::class) && $this->app instanceof Application;
+        return App::isLumen();
     }
 }

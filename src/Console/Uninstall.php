@@ -2,18 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
-use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
-
 final class Uninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
-    . ' {locales?* : Space-separated list of, eg: de tk it}'
-    . ' {--j|json : Uninstall JSON files}'
-    . ' {--jet : Uninstall Jetstream JSON files. This is an alias for "--json" key. }'
-    . ' {--fortify : Uninstall Fortify JSON files. This is an alias for "--json" key. }'
-    . ' {--cashier : Uninstall Cashier JSON files. This is an alias for "--json" key. }'
-    . ' {--nova : Uninstall Nova JSON files. This is an alias for "--json" key. }';
+    . ' {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Uninstall localizations.';
 
@@ -21,7 +13,6 @@ final class Uninstall extends BaseCommand
 
     public function handle()
     {
-        $this->setProcessor(DeletePhp::class, DeleteJson::class);
 
         $this->exec($this->installed());
 

@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Support\Missing as MissingSupport;
+use Helldar\LaravelLangPublisher\Services\Missing as MissingSupport;
 use Illuminate\Console\Command;
 
 class Missing extends Command
