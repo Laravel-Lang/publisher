@@ -14,8 +14,6 @@ abstract class BaseCommand extends Command
 {
     use Logger;
 
-    abstract protected function process(string $locale, string $source_path, string $target_path): void;
-
     public function handle()
     {
         foreach ($this->locales() as $locale) {
@@ -27,6 +25,8 @@ abstract class BaseCommand extends Command
             }
         }
     }
+
+    abstract protected function process(string $locale, string $source_path, string $target_path): void;
 
     protected function installed(): array
     {
