@@ -29,7 +29,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^8.0"
+        "andrey-helldar/laravel-lang-publisher": "^9.0"
     }
 }
 ```
@@ -42,85 +42,12 @@ You can also publish the config file to change implementations (ie. interface to
 php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
 ```
 
-#### Laravel Jetstream
-
-The translation file for Laravel Jetstream is merged with the Laravel translation json file.
-
-Use the `--json` or `--jet` parameter to install.
-
-For example:
-
-```
-php artisan lang:install --json en de ro zh-CN lv
-php artisan lang:install --json de
-
-php artisan lang:install --jet en de ro zh-CN lv
-php artisan lang:install --jet de
-```
-
-> `--jet` is an alias for `--json`.
-
-#### Laravel Fortify
-
-The translation file for Laravel Fortify is merged with the Laravel translation json file.
-
-Use the `--json` or `--fortify` parameter to install.
-
-For example:
-
-```
-php artisan lang:install --json en de ro zh-CN lv
-php artisan lang:install --json de
-
-php artisan lang:install --fortify en de ro zh-CN lv
-php artisan lang:install --fortify de
-```
-
-> `--fortify` is an alias for `--json`.
-
-#### Laravel Cashier
-
-The translation file for Laravel Cashier is merged with the Laravel translation json file.
-
-Use the `--json` or `--cash` parameter to install.
-
-For example:
-
-```
-php artisan lang:install --json en de ro zh-CN lv
-php artisan lang:install --json de
-
-php artisan lang:install --cashier en de ro zh-CN lv
-php artisan lang:install --cashier de
-```
-
-> `--cashier` is an alias for `--json`.
-
-#### Laravel Nova
-
-The translation file for Laravel Nova is merged with the Laravel translation json file.
-
-Use the `--json` or `--nova` parameter to install.
-
-For example:
-
-```
-php artisan lang:install --json en de ro zh-CN lv
-php artisan lang:install --json de
-
-php artisan lang:install --nova en de ro zh-CN lv
-php artisan lang:install --nova de
-```
-
-> `--nova` is an alias for `--json`.
-
 #### Lumen Framework
 
-This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a
-barebone version of Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
+This package is focused on Laravel development, but it can also be used in Lumen with some workarounds. Because Lumen works a little different, as it is like a barebone version of
+Laravel and the main configuration parameters are instead located in `bootstrap/app.php`, some alterations must be made.
 
-You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can
-properly load.
+You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the App Service Providers so it can properly load.
 
 ```
 // $app->register(App\Providers\AppServiceProvider::class);
@@ -139,18 +66,14 @@ if ($app->environment() !== 'production') {
 
 |Laravel/Lumen version|PHP tested version|Package Tag|Comment|
 |---|---|---|---|
-|7.x, 8.x|7.2, 7.3, 7.4, 8.0|^8.0| ![Supported][badge_supported] Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^2.0` |
+|7.x, 8.x|7.2, 7.3, 7.4, 8.0|^8.0| ![Supported][badge_supported] [Laravel-Lang/lang](https://github.com/Laravel-Lang/lang) 9 version supported. Combined publishing php and json files into one command.  |
+|7.x, 8.x|7.2, 7.3, 7.4, 8.0|^8.0| ![Not Supported][badge_not_supported] Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^2.0` |
 |7.x, 8.x|7.2, 7.3, 7.4, 8.0|^7.0| ![Not Supported][badge_not_supported] [PHP Intl version](https://github.com/Laravel-Lang/lang/releases/tag/8.0.0), Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^1.0` |
 |7.x, 8.x|7.2, 7.3, 7.4|^6.0| ![Not Supported][badge_not_supported] Laravel [Jetstream](https://jetstream.laravel.com) and [Fortify](https://github.com/laravel/fortify) supported |
 |7.x, 8.x|7.2, 7.3, 7.4|^5.0| ![Not Supported][badge_not_supported] Changed localization names in accordance with the ISO 15897 standard (see [Laravel-Lang/lang](https://github.com/Laravel-Lang/lang/issues/1286) and [official docs](https://laravel.com/docs/7.x/localization#introduction).|
 |7.x, 8.x|7.2, 7.3, 7.4|^4.0| ![Not Supported][badge_not_supported] Support will end on September 3, 2020. If you installed the package before the release of version 4.0.1, To fix config cache errors on production, update the `case` key value in [config/lang-publisher.php](config/lang-publisher.php) file.|
 |6.x, 7.x|7.2, 7.3, 7.4|^3.0| ![Not Supported][badge_not_supported] |
 |5.8, 6.x, 7.x|7.2, 7.3, 7.4|^2.0| ![Not Supported][badge_not_supported] |
-|5.7, 5.8|7.2, 7.3|^1.0| ![Not Supported][badge_not_supported] You can install package `^1.0` version on the Laravel 5.8, but there are two nuances: translation files from version 5.7 will be copied, and there will be no support for [saving validator keys](https://github.com/andrey-helldar/laravel-lang-publisher#features). |
-|5.6|7.2, 7.3|^1.0| ![Not Supported][badge_not_supported] |
-|5.5|7.1, 7.2, 7.3|^1.0| ![Not Supported][badge_not_supported] |
-|5.4|5.6|^1.0| ![Not Supported][badge_not_supported] |
-|5.3|5.6|^1.0| ![Not Supported][badge_not_supported] |
 
 ## How to use
 
@@ -159,10 +82,11 @@ if ($app->environment() !== 'production') {
 The package replaces only certain files in your lang directories:
 
 ```
-auth.php
-pagination.php
-passwords.php
-validation.php
+resources/lang/<locale>.json
+resources/lang/<locale>/auth.php
+resources/lang/<locale>/pagination.php
+resources/lang/<locale>/passwords.php
+resources/lang/<locale>/validation.php
 ```
 
 **If you made changes to the files, they will be saved.**
@@ -174,7 +98,6 @@ He does not touch any other files.
 
 All commands have common key types:
 
-* `--json` (also `-j`) - runs a command to work with translation JSON files. Available aliases: `--jet`, `--fortify`, `--cashier` and `--nova`;
 * `--force` (also `-f`) - runs a command to force execution (works on all but the `reset` command).
 
 Parameters on call (used in all except `update`):
@@ -202,9 +125,6 @@ When executing the `php artisan lang:install` command, the list of localizations
 ```bash
 php artisan lang:install en de ro zh-CN lv
 php artisan lang:install de
-
-php artisan lang:install --json en de ro zh-CN lv
-php artisan lang:install --json de
 ```
 
 If files do not exist in the destination folder, they will be created. And if the files exist, the console will ask you for a replacement.
@@ -215,10 +135,6 @@ Also, if the files exist, and you do not want to agree each time, you can pass t
 php artisan lang:install de en ro zh-CN --force
 php artisan lang:install de --force
 php artisan lang:install de -f
-
-php artisan lang:install --json de en ro zh-CN --force
-php artisan lang:install --json de --force
-php artisan lang:install --json de -f
 ```
 
 You can also use the `*` symbol to install all localizations:
@@ -227,10 +143,6 @@ You can also use the `*` symbol to install all localizations:
 php artisan lang:install * -f
 php artisan lang:install * --force
 php artisan lang:install * -f
-
-php artisan lang:install --json * -f
-php artisan lang:install --json * --force
-php artisan lang:install --json * -f
 ```
 
 ### Update locales
@@ -238,12 +150,6 @@ php artisan lang:install --json * -f
 When executing the `php artisan lang:update` command, the package learns which localizations installed in your application and will replace the matching files.
 
 Command `php artisan lang:update` is an alias of `php artisan lang:install --force <locales>`.
-
-Also for updating files you can pass the `--json` key:
-
-```bash
-php artisan lang:update --json
-```
 
 ### Uninstall locales
 
@@ -255,16 +161,12 @@ To delete localizations, you must use `lang:uninstall` command, passing the lett
 
 ```bash
 php artisan lang:uninstall de ro zh-CN
-
-php artisan lang:uninstall --json de ro zh-CN
 ```
 
 You can also specify the `*` symbol to delete all localizations:
 
 ```bash
 php artisan lang:uninstall *
-
-php artisan lang:uninstall * --json
 ```
 
 In this case, everything will be deleted, except the default and fallback application locales.
@@ -286,28 +188,18 @@ php artisan lang:reset en de ro zh-CN lv
 php artisan lang:reset de
 php artisan lang:reset
 
-php artisan lang:reset --json *
-php artisan lang:reset --json en de ro zh-CN lv
-php artisan lang:reset --json de
-php artisan lang:reset --json
-
 php artisan lang:reset --full *
 php artisan lang:reset --full en de ro zh-CN lv
 php artisan lang:reset --full de
-php artisan lang:reset --full 
-
-php artisan lang:reset --full --json *
-php artisan lang:reset --full --json en de ro zh-CN lv
-php artisan lang:reset --full --json de
-php artisan lang:reset --full --json
+php artisan lang:reset --full
 ```
 
 ## Features
 
 ### Alignment
 
-When updating files, all comments from the final files are automatically deleted.
-Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know how to work with comments.
+When updating files, all comments from the final files are automatically deleted. Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know
+how to work with comments.
 
 Your file example:
 
@@ -459,7 +351,7 @@ use Helldar\LaravelLangPublisher\Facades\Locale;
 Locale::available(): array
 
 // List of installed locations.
-Locale::installed(bool $is_json = false): array
+Locale::installed(): array
 
 // Retrieving a list of protected locales.
 Locale::protects(): array
@@ -468,7 +360,7 @@ Locale::protects(): array
 Locale::isAvailable(string $locale): bool
 
 // Checks whether it is possible to install the language pack.
-Locale::isInstalled(string $locale, bool $is_json = false): bool
+Locale::isInstalled(string $locale): bool
 
 // The checked locale protecting.
 Locale::isProtected(string $locale): bool
