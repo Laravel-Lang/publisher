@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Console\Helpers;
+namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Support\Missing as MissingSupport;
 use Illuminate\Console\Command;

@@ -5,7 +5,7 @@ namespace Helldar\LaravelLangPublisher\Console;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
 use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 
-final class LangInstall extends BaseCommand
+final class Install extends BaseCommand
 {
     protected $signature = 'lang:install'
     . ' {locales?* : Space-separated list of, eg: de tk it}'

@@ -5,7 +5,7 @@ namespace Helldar\LaravelLangPublisher\Console;
 use Helldar\LaravelLangPublisher\Services\Processors\ResetJson;
 use Helldar\LaravelLangPublisher\Services\Processors\ResetPhp;
 
-final class LangReset extends BaseCommand
+final class Reset extends BaseCommand
 {
     protected $signature = 'lang:reset'
     . ' {locales?* : Space-separated list of, eg: de tk it}'

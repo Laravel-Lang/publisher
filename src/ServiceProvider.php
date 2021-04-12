@@ -2,11 +2,11 @@
 
 namespace Helldar\LaravelLangPublisher;
 
-use Helldar\LaravelLangPublisher\Console\Helpers\Missing;
-use Helldar\LaravelLangPublisher\Console\LangInstall;
-use Helldar\LaravelLangPublisher\Console\LangReset;
-use Helldar\LaravelLangPublisher\Console\LangUninstall;
-use Helldar\LaravelLangPublisher\Console\LangUpdate;
+use Helldar\LaravelLangPublisher\Console\Install;
+use Helldar\LaravelLangPublisher\Console\Reset;
+use Helldar\LaravelLangPublisher\Console\Uninstall;
+use Helldar\LaravelLangPublisher\Console\Update;
+use Helldar\LaravelLangPublisher\Console\Missing;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laravel\Lumen\Application;
@@ -27,10 +27,10 @@ final class ServiceProvider extends BaseServiceProvider
     protected function bootCommands(): void
     {
         $this->commands([
-            LangInstall::class,
-            LangReset::class,
-            LangUninstall::class,
-            LangUpdate::class,
+            Install::class,
+            Reset::class,
+            Uninstall::class,
+            Update::class,
             Missing::class,
         ]);
     }

@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-final class LangUpdate extends BaseCommand
+final class Update extends BaseCommand
 {
     protected $signature = 'lang:update'
     . ' {--j|json : Update JSON files}'

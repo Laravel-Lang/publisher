@@ -5,7 +5,7 @@ namespace Helldar\LaravelLangPublisher\Console;
 use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
 use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
 
-final class LangUninstall extends BaseCommand
+final class Uninstall extends BaseCommand
 {
     protected $signature = 'lang:uninstall'
     . ' {locales?* : Space-separated list of, eg: de tk it}'
