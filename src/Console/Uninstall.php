@@ -13,7 +13,6 @@ final class Uninstall extends BaseCommand
 
     public function handle()
     {
-
         $this->exec($this->installed());
 
         $this->result
