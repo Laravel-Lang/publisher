@@ -2,13 +2,24 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Constants\Locales;
+use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected $default_locale = 'en';
+    protected $default_locale = Locales::ENGLISH;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->refreshLocales();
+    }
 
     /**
      * @param  \Illuminate\Foundation\Application  $app
@@ -35,5 +46,47 @@ abstract class TestCase extends BaseTestCase
             'All rights reserved.',
             'Baz',
         ]);
+    }
+
+    protected function path(string $locale, string $filename = null, bool $directory = false): string
+    {
+        $is_json = empty($filename) && ! $directory;
+
+        $suffix = $is_json ? $locale . '.json' : $filename;
+
+        return Path::target($locale, $is_json) . '/' . $suffix;
+    }
+
+    protected function copyFixtures(): void
+    {
+        File::copy(
+            realpath(__DIR__ . '/fixtures/en.json'),
+            $this->path($this->default_locale)
+        );
+
+        File::copy(
+            realpath(__DIR__ . '/fixtures/auth.php'),
+            $this->path($this->default_locale, 'auth.php')
+        );
+    }
+
+    protected function refreshLocales(): void
+    {
+        $this->deleteLocales();
+        $this->installLocale();
+    }
+
+    protected function deleteLocales(): void
+    {
+        File::deleteDirectory(ConfigFacade::resourcesPath());
+    }
+
+    protected function installLocale(): void
+    {
+        $source = ConfigFacade::basePath();
+        $target = ConfigFacade::resourcesPath() . '/' . $this->default_locale;
+
+        File::copyDirectory($source, $target);
+        File::move($target . '/en.json', $target . '/../en.json');
     }
 }
