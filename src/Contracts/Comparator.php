@@ -8,7 +8,7 @@ interface Comparator extends Arrayable
 {
     public function key(string $key): self;
 
-    public function force(bool $force): self;
+    public function full(bool $full): self;
 
     public function source(array $array): self;
 

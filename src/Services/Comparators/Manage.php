@@ -20,7 +20,7 @@ final class Manage
 
     protected $filename;
 
-    protected $force = false;
+    protected $full = false;
 
     protected $key;
 
@@ -46,9 +46,9 @@ final class Manage
         return $this;
     }
 
-    public function force(bool $force): self
+    public function full(bool $full): self
     {
-        $this->force = $force;
+        $this->full = $full;
 
         return $this;
     }
@@ -58,7 +58,7 @@ final class Manage
         $this->log('Comparison object definition...');
 
         return $this->resolve()
-            ->force($this->force)
+            ->full($this->full)
             ->key($this->key)
             ->source($this->source)
             ->target($this->target);

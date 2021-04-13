@@ -15,7 +15,7 @@ abstract class Comparator implements Contract
 
     protected $key;
 
-    protected $force;
+    protected $full = false;
 
     protected $source;
 
@@ -29,7 +29,7 @@ abstract class Comparator implements Contract
     {
         $this->log('Merging source and target arrays...');
 
-        return array_merge($this->source, $this->target, $this->not_replace);
+        return $this->full ? $this->source : array_merge($this->source, $this->target, $this->not_replace);
     }
 
     public function key(string $key): Contract
@@ -39,9 +39,9 @@ abstract class Comparator implements Contract
         return $this;
     }
 
-    public function force(bool $force): Contract
+    public function full(bool $full): Contract
     {
-        $this->force = $force;
+        $this->full = $full;
 
         return $this;
     }
@@ -86,7 +86,7 @@ abstract class Comparator implements Contract
 
     protected function notReplace(): void
     {
-        if ($this->force) {
+        if ($this->full) {
             return;
         }
 

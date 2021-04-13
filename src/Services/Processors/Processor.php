@@ -11,6 +11,7 @@ use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 abstract class Processor implements Contract
 {
@@ -27,7 +28,7 @@ abstract class Processor implements Contract
 
     protected $force;
 
-    protected $full;
+    protected $full = false;
 
     public function locale(string $locale): Contract
     {
@@ -93,7 +94,7 @@ abstract class Processor implements Contract
 
         return Manage::make()
             ->filename($this->source_path)
-            ->force($this->force)
+            ->full($this->full)
             ->source($source)
             ->target($target)
             ->find()
@@ -140,5 +141,12 @@ abstract class Processor implements Contract
         $this->log('Getting the file extension for a path: ' . $path);
 
         return Path::extension($path);
+    }
+
+    protected function exists(): bool
+    {
+        $this->log('Checking for the existence of a file: ' . $this->target_path);
+
+        return File::exists($this->target_path);
     }
 }

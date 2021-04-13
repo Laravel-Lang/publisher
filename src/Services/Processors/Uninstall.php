@@ -12,13 +12,6 @@ final class Uninstall extends Processor
         return $this->exists() ? $this->delete() : $this->skipped();
     }
 
-    protected function exists(): bool
-    {
-        $this->log('Checking for the existence of a file: ' . $this->target_path);
-
-        return File::exists($this->target_path);
-    }
-
     protected function delete(): string
     {
         $this->log('Deleting a file: ' . $this->target_path);

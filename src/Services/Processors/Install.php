@@ -8,6 +8,10 @@ final class Install extends Processor
 {
     public function run(): string
     {
+        if (! $this->force || $this->exists()) {
+            return Status::SKIPPED;
+        }
+
         $source = $this->load($this->source_path);
         $target = $this->load($this->target_path);
 
