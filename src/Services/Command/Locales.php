@@ -3,22 +3,23 @@
 namespace Helldar\LaravelLangPublisher\Services\Command;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
-use Helldar\LaravelLangPublisher\Console\BaseCommand;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\Support\Concerns\Makeable;
+use Illuminate\Console\OutputStyle;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
- * @method static Locales make(BaseCommand $command, Actionable $action, array $locales)
+ * @method static Locales make(InputInterface $input, OutputStyle $output, Actionable $action, array $locales)
  */
 final class Locales
 {
     use Logger;
     use Makeable;
 
-    /** @var \Helldar\LaravelLangPublisher\Console\BaseCommand */
-    protected $command;
+    protected $input;
 
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Actionable */
+    protected $output;
+
     protected $action;
 
     protected $locales = [];
@@ -27,11 +28,12 @@ final class Locales
 
     protected $select_all_template = 'Do you want to %s all localizations?';
 
-    public function __construct(BaseCommand $command, Actionable $action, array $locales)
+    public function __construct(InputInterface $input, OutputStyle $output, Actionable $action, array $locales)
     {
         $this->log('Object initialization: ' . self::class);
 
-        $this->command = $command;
+        $this->input   = $input;
+        $this->output  = $output;
         $this->action  = $action;
         $this->locales = $locales;
     }
@@ -72,21 +74,21 @@ final class Locales
     {
         $this->log('Confirmation of processing of all localizations...');
 
-        return $this->command->confirm($this->confirmQuestion());
+        return $this->output->confirm($this->confirmQuestion());
     }
 
     protected function ask(): ?array
     {
         $this->log('Localization selection request...');
 
-        return (array) $this->command->choice($this->choiceQuestion(), $this->locales);
+        return (array) $this->output->choice($this->choiceQuestion(), $this->locales);
     }
 
     protected function input(): array
     {
         $this->log('Getting a list of localizations from arguments...');
 
-        return (array) $this->command->argument('locales');
+        return (array) $this->input->getArgument('locales');
     }
 
     protected function choiceQuestion(): string

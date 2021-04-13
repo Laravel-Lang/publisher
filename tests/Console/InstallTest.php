@@ -13,7 +13,7 @@ final class InstallTest extends TestCase
     {
         $this->artisan('lang:install')
             ->expectsConfirmation('Do you want to install all localizations?')
-            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', '*', Locales::available())
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
             ->assertExitCode(0)
             ->run();
     }
@@ -22,7 +22,7 @@ final class InstallTest extends TestCase
     {
         $this->artisan('lang:install')
             ->expectsConfirmation('Do you want to install all localizations?')
-            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', '*', Locales::available())
+            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
             ->assertExitCode(0)
             ->run();
     }

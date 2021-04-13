@@ -68,7 +68,7 @@ abstract class BaseCommand extends Command
     {
         $this->log('Getting a list of localizations...');
 
-        return LocalesSupport::make($this, $this->action(), $this->targetLocales())->get();
+        return LocalesSupport::make($this->input, $this->output, $this->action(), $this->targetLocales())->get();
     }
 
     protected function targetLocales(): array

@@ -26,7 +26,9 @@ final class Uninstall extends Processor
     {
         $this->log('Deleting a file: ' . $this->target_path);
 
-        File::delete($this->target_path);
+        if (File::exists($this->target_path)) {
+            File::delete($this->target_path);
+        }
     }
 
     protected function deleteDirectory(): void
