@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
+use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Processors\Install as Processor;
 use Helldar\LaravelLangPublisher\Support\Actions\Install as Action;
 
@@ -21,5 +22,12 @@ final class Install extends BaseCommand
         $this->log('Getting the processor: ' . Processor::class);
 
         return Processor::make()->force($this->hasForce());
+    }
+
+    protected function targetLocales(): array
+    {
+        $this->log('Getting a list of installed localizations...');
+
+        return Locales::available();
     }
 }

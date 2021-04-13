@@ -25,7 +25,9 @@ abstract class BaseCommand extends Command
 
     protected $pad = 0;
 
-    protected $locales;
+    protected $files;
+
+    abstract protected function processor(): Processor;
 
     public function handle()
     {
@@ -33,8 +35,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
@@ -67,27 +67,25 @@ abstract class BaseCommand extends Command
     {
         $this->log('Getting a list of localizations...');
 
-        if (! empty($this->locales)) {
-            return $this->locales;
-        }
-
-        $this->log('Localization list request...');
-
-        return $this->locales = LocalesSupport::make($this, $this->action(), $this->targetLocales())->get();
+        return LocalesSupport::make($this, $this->action(), $this->targetLocales())->get();
     }
 
     protected function targetLocales(): array
     {
-        $this->log('Getting a list of available localizations...');
+        $this->log('Getting a list of installed localizations...');
 
-        return Locales::available();
+        return Locales::installed();
     }
 
     protected function files(): array
     {
         $this->log('Getting a list of files...');
 
-        return File::names(Path::source(LocalesList::ENGLISH), static function ($filename) {
+        if (! empty($this->files)) {
+            return $this->files;
+        }
+
+        return $this->files = File::names(Path::source(LocalesList::ENGLISH), static function ($filename) {
             return ! Str::contains($filename, 'inline');
         });
     }

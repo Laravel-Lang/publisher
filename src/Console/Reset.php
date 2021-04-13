@@ -3,7 +3,6 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
-use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Processors\Reset as Processor;
 use Helldar\LaravelLangPublisher\Support\Actions\Reset as Action;
 
@@ -22,12 +21,5 @@ final class Reset extends BaseCommand
         $this->log('Getting the processor: ' . Processor::class);
 
         return Processor::make()->full($this->hasFull());
-    }
-
-    protected function targetLocales(): array
-    {
-        $this->log('Getting a list of installed localizations...');
-
-        return Locales::installed();
     }
 }
