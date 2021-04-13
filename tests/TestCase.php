@@ -88,5 +88,6 @@ abstract class TestCase extends BaseTestCase
 
         File::copyDirectory($source, $target);
         File::move($target . '/en.json', $target . '/../en.json');
+        File::delete($target . '/validation-inline.php');
     }
 }
