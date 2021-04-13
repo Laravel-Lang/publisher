@@ -69,6 +69,8 @@ abstract class Processor implements Contract
             $extension = Path::extension($filename);
 
             $filename = $name . '-inline.' . $extension;
+        } elseif ($this->isJson($filename)) {
+            $filename = $this->locale . '.json';
         }
 
         $this->source_path = Path::source($this->locale) . '/' . $filename;
