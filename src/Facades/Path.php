@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string filename(string $path)
  * @method static string locales(string $locale = null)
  * @method static string source(string $locale)
- * @method static string target(string $locale)
+ * @method static string target(string $locale, bool $is_json = false)
  */
 final class Path extends Facade
 {

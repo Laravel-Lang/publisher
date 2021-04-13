@@ -3,7 +3,6 @@
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\Install;
-use Helldar\LaravelLangPublisher\Console\Missing;
 use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Uninstall;
 use Helldar\LaravelLangPublisher\Console\Update;
@@ -31,7 +30,6 @@ final class ServiceProvider extends BaseServiceProvider
             Reset::class,
             Uninstall::class,
             Update::class,
-            Missing::class,
         ]);
     }
 

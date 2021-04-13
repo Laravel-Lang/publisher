@@ -4,9 +4,13 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Processor
 {
-    public function source(string $path): self;
+    public function locale(string $locale): self;
 
-    public function target(string $path): self;
+    public function filename(string $filename, bool $is_inline): self;
 
-    public function run(): void;
+    public function force(bool $force = false): self;
+
+    public function full(bool $full = false): self;
+
+    public function run(): string;
 }

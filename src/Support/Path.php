@@ -16,11 +16,13 @@ final class Path
         return $this->locales($locale);
     }
 
-    public function target(string $locale): string
+    public function target(string $locale, bool $is_json = false): string
     {
         $path = ConfigFacade::resourcesPath();
 
-        return $this->clean($path) . '/' . $locale;
+        $suffix = $is_json ? '' : $locale;
+
+        return $this->clean($path) . $suffix;
     }
 
     public function locales(string $locale = null): string

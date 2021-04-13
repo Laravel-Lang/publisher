@@ -2,7 +2,9 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
 use Helldar\LaravelLangPublisher\Services\Processors\Install as Processor;
+use Helldar\LaravelLangPublisher\Support\Actions\Install as Action;
 
 final class Install extends BaseCommand
 {
@@ -12,11 +14,10 @@ final class Install extends BaseCommand
 
     protected $description = 'Install new localizations.';
 
-    protected function process(string $locale, string $source_path, string $target_path): void
+    protected $action = Action::class;
+
+    protected function processor(): ProcessorContract
     {
-        Processor::make()
-            ->source($source_path)
-            ->target($target_path)
-            ->run();
+        return Processor::make()->force($this->hasForce());
     }
 }

@@ -2,7 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
+use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Processors\Reset as Processor;
+use Helldar\LaravelLangPublisher\Support\Actions\Reset as Action;
 
 final class Reset extends BaseCommand
 {
@@ -12,13 +15,15 @@ final class Reset extends BaseCommand
 
     protected $description = 'Resets installed locations.';
 
-    protected $action = 'reset';
+    protected $action = Action::class;
 
-    protected function process(string $locale, string $source_path, string $target_path): void
+    protected function processor(): ProcessorContract
     {
-        Processor::make()
-            ->source($source_path)
-            ->target($target_path)
-            ->run();
+        return Processor::make()->full($this->hasFull());
+    }
+
+    protected function targetLocales(): array
+    {
+        return Locales::installed();
     }
 }

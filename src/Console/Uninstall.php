@@ -2,7 +2,10 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
+use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Processors\Uninstall as Processor;
+use Helldar\LaravelLangPublisher\Support\Actions\Uninstall as Action;
 
 final class Uninstall extends BaseCommand
 {
@@ -11,13 +14,15 @@ final class Uninstall extends BaseCommand
 
     protected $description = 'Uninstall localizations.';
 
-    protected $action = 'uninstall';
+    protected $action = Action::class;
 
-    protected function process(string $locale, string $source_path, string $target_path): void
+    protected function processor(): ProcessorContract
     {
-        Processor::make()
-            ->source($source_path)
-            ->target($target_path)
-            ->run();
+        return Processor::make();
+    }
+
+    protected function targetLocales(): array
+    {
+        return Locales::installed();
     }
 }
