@@ -4,6 +4,7 @@ namespace Helldar\LaravelLangPublisher\Services\Comparators;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Contracts\Comparator as Contract;
+use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
 
@@ -12,17 +13,37 @@ abstract class Comparator implements Contract
     use Logger;
     use Makeable;
 
+    protected $key;
+
+    protected $force;
+
     protected $source;
 
     protected $target;
 
     protected $excludes = [];
 
+    protected $not_replace = [];
+
     public function handle(): array
     {
         $this->log('Merging source and target arrays...');
 
-        return array_merge($this->source, $this->target);
+        return array_merge($this->source, $this->target, $this->not_replace);
+    }
+
+    public function key(string $key): Contract
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    public function force(bool $force): Contract
+    {
+        $this->force = $force;
+
+        return $this;
     }
 
     public function source(array $array): Contract
@@ -41,7 +62,8 @@ abstract class Comparator implements Contract
 
     public function toArray(): array
     {
-        $this->split();
+        $this->notReplace();
+        $this->splitNotSortable();
 
         $array    = $this->sort($this->handle());
         $excludes = $this->sort($this->excludes);
@@ -51,7 +73,7 @@ abstract class Comparator implements Contract
         return array_merge($array, $excludes);
     }
 
-    protected function split(): void
+    protected function splitNotSortable(): void
     {
         $this->log('Splitting main arrays into excludes...');
 
@@ -60,6 +82,17 @@ abstract class Comparator implements Contract
             $this->ranExcludes();
             $this->extractExcludes();
         }
+    }
+
+    protected function notReplace(): void
+    {
+        if ($this->force) {
+            return;
+        }
+
+        $excludes = Arr::get(Config::excludes(), $this->key, []);
+
+        $this->not_replace = Arr::only($this->target, $excludes);
     }
 
     protected function ranExcludes(): void

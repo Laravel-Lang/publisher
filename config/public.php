@@ -34,7 +34,7 @@ return [
         // 'auth' => ['throttle'],
         // 'pagination' => ['previous'],
         // 'passwords' => ['reset', 'throttled', 'user'],
-        // 'Confirm Password',
+        // 'json' => ['Confirm Password'],
     ],
 
     /*
@@ -42,8 +42,10 @@ return [
      */
 
     'ignore' => [
-        // 'en',
+        // 'sq',
+        // 'ar',
         // Helldar\LaravelLangPublisher\Constants\Locales::ALBANIAN,
+        // Helldar\LaravelLangPublisher\Constants\Locales::ARABIC,
     ],
 
     /*

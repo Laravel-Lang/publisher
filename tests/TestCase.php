@@ -43,8 +43,7 @@ abstract class TestCase extends BaseTestCase
 
         $config->set(Config::KEY_PUBLIC . '.exclude', [
             'auth' => ['failed'],
-            'All rights reserved.',
-            'Baz',
+            'json' => ['All rights reserved.', 'Baz'],
         ]);
     }
 
@@ -59,15 +58,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function copyFixtures(): void
     {
-        File::copy(
-            realpath(__DIR__ . '/fixtures/en.json'),
-            $this->path($this->default_locale)
-        );
-
-        File::copy(
-            realpath(__DIR__ . '/fixtures/auth.php'),
-            $this->path($this->default_locale, 'auth.php')
-        );
+        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale));
+        File::copy(realpath(__DIR__ . '/fixtures/auth.php'), $this->path($this->default_locale, 'auth.php'));
     }
 
     protected function refreshLocales(): void

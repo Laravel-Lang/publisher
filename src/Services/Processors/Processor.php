@@ -93,6 +93,7 @@ abstract class Processor implements Contract
 
         return Manage::make()
             ->filename($this->source_path)
+            ->force($this->force)
             ->source($source)
             ->target($target)
             ->find()

@@ -58,6 +58,7 @@ abstract class BaseCommand extends Command
         $this->log('Launching the processor for localization: ' . $locale . ', ' . $filename);
 
         return $this->processor()
+            ->force($this->hasForce())
             ->locale($locale)
             ->filename($filename, $this->hasInline())
             ->run();

@@ -20,6 +20,10 @@ final class Manage
 
     protected $filename;
 
+    protected $force = false;
+
+    protected $key;
+
     public function source(array $array): self
     {
         $this->source = $array;
@@ -37,6 +41,14 @@ final class Manage
     public function filename(string $filename): self
     {
         $this->filename = Path::filename($filename);
+        $this->key      = $this->key($filename);
+
+        return $this;
+    }
+
+    public function force(bool $force): self
+    {
+        $this->force = $force;
 
         return $this;
     }
@@ -46,6 +58,8 @@ final class Manage
         $this->log('Comparison object definition...');
 
         return $this->resolve()
+            ->force($this->force)
+            ->key($this->key)
             ->source($this->source)
             ->target($this->target);
     }
@@ -55,5 +69,10 @@ final class Manage
         $this->log('Comparison object resolve...');
 
         return $this->isValidation($this->filename) ? Validation::make() : Basic::make();
+    }
+
+    protected function key(string $filename): string
+    {
+        return $this->isJson($filename) ? 'json' : Path::filename($filename);
     }
 }
