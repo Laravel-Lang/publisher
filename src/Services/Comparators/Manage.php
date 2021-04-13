@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Services\Comparators;
 
 use Helldar\LaravelLangPublisher\Concerns\Contains;
+use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Contracts\Comparator as ComparatorContract;
 use Helldar\LaravelLangPublisher\Facades\Path;
@@ -11,6 +12,7 @@ use Helldar\Support\Concerns\Makeable;
 final class Manage
 {
     use Contains;
+    use Keyable;
     use Logger;
     use Makeable;
 
@@ -69,10 +71,5 @@ final class Manage
         $this->log('Comparison object resolve...');
 
         return $this->isValidation($this->filename) ? Validation::make() : Basic::make();
-    }
-
-    protected function key(string $filename): string
-    {
-        return $this->isJson($filename) ? 'json' : Path::filename($filename);
     }
 }

@@ -88,7 +88,7 @@ abstract class Processor implements Contract
         $this->target_path = Path::target($this->locale, $is_json) . '/' . $filename;
     }
 
-    protected function compare(array $source, array $target = []): array
+    protected function compare(array $source, array $target): array
     {
         $this->log('Find an object and perform object comparison.');
 

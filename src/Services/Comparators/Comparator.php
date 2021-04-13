@@ -3,8 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Services\Comparators;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Concerns\Reservation;
 use Helldar\LaravelLangPublisher\Contracts\Comparator as Contract;
-use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
 
@@ -12,6 +12,7 @@ abstract class Comparator implements Contract
 {
     use Logger;
     use Makeable;
+    use Reservation;
 
     protected $key;
 
@@ -29,7 +30,7 @@ abstract class Comparator implements Contract
     {
         $this->log('Merging source and target arrays...');
 
-        return $this->full ? $this->source : array_merge($this->source, $this->target, $this->not_replace);
+        return $this->full ? $this->source : array_merge($this->target, $this->source, $this->not_replace);
     }
 
     public function key(string $key): Contract
@@ -62,7 +63,7 @@ abstract class Comparator implements Contract
 
     public function toArray(): array
     {
-        $this->notReplace();
+        $this->findNotReplace();
         $this->splitNotSortable();
 
         $array    = $this->sort($this->handle());
@@ -84,15 +85,13 @@ abstract class Comparator implements Contract
         }
     }
 
-    protected function notReplace(): void
+    protected function findNotReplace(): void
     {
         if ($this->full) {
             return;
         }
 
-        $excludes = Arr::get(Config::excludes(), $this->key, []);
-
-        $this->not_replace = Arr::only($this->target, $excludes);
+        $this->not_replace = $this->reserved($this->target, $this->key);
     }
 
     protected function ranExcludes(): void

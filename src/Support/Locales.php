@@ -11,6 +11,7 @@ use Helldar\LaravelLangPublisher\Facades\Reflection as ReflectionFacade;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Str;
 
 final class Locales
 {
@@ -41,8 +42,8 @@ final class Locales
     {
         $this->log('Getting list of installed locations...');
 
-        $json = File::names($this->resourcesPath());
-        $php  = Directory::names($this->resourcesPath());
+        $json = $this->findJsonFiles();
+        $php  = $this->findPhpFiles();
 
         $installed = ArrFacade::unique(array_merge($json, $php));
 
@@ -163,6 +164,24 @@ final class Locales
         return array_values(array_filter($unique, static function ($locale) use ($ignore) {
             return ! in_array($locale, $ignore, true);
         }));
+    }
+
+    protected function findJsonFiles(): array
+    {
+        $this->log('Getting a list of localizations from json files...');
+
+        $files = File::names($this->resourcesPath());
+
+        return Arr::map($files, static function ($filename) {
+            return Str::before($filename, '.');
+        });
+    }
+
+    protected function findPhpFiles(): array
+    {
+        $this->log('Getting a list of localizations from php files...');
+
+        return Directory::names($this->resourcesPath());
     }
 
     protected function resourcesPath(): string
