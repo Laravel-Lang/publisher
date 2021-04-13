@@ -90,6 +90,7 @@ abstract class Processor implements Contract
         $this->log('Find an object and perform object comparison.');
 
         return Manage::make()
+            ->filename($this->source_path)
             ->source($source)
             ->target($target)
             ->find()

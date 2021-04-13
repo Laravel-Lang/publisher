@@ -40,13 +40,21 @@ final class Locales
     {
         $input = $this->input();
 
-        if ($input === ['*'] && $this->confirm()) {
+        if ($this->hasAll($input) && $this->confirm()) {
             $this->log('Returning a list of all localizations...');
 
             return $this->locales;
         }
 
-        return $this->select();
+        if (! empty($input)) {
+            $this->log('Returning a input list of localizations...');
+
+            return $this->correctLocalesList($input);
+        }
+
+        $this->log('Asking what localizations need to be done...');
+
+        return $this->correctLocalesList($this->select());
     }
 
     protected function select(): array
@@ -71,7 +79,7 @@ final class Locales
     {
         $this->log('Localization selection request...');
 
-        return $this->command->choice($this->choiceQuestion(), $this->locales);
+        return (array) $this->command->choice($this->choiceQuestion(), $this->locales);
     }
 
     protected function input(): array
@@ -89,5 +97,19 @@ final class Locales
     protected function confirmQuestion(): string
     {
         return sprintf($this->select_all_template, $this->action->future());
+    }
+
+    protected function correctLocalesList(array $locales): array
+    {
+        $this->log('Correction of the array of localizations...');
+
+        return $this->hasAll($locales) ? $this->locales : $locales;
+    }
+
+    protected function hasAll(array $locales): bool
+    {
+        $this->log('Checking for occurrence of the return character of all localizations...');
+
+        return in_array('*', $locales, true) || empty($locales);
     }
 }

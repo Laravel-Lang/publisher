@@ -41,6 +41,8 @@ abstract class BaseCommand extends Command
         foreach ($this->locales() as $locale) {
             $this->log('Localization handling: ' . $locale);
 
+            $this->validateLocale($locale);
+
             foreach ($this->files() as $filename) {
                 $this->log('Processing the localization file: ' . $filename);
 
@@ -151,5 +153,10 @@ abstract class BaseCommand extends Command
     protected function boolOption(string $key): bool
     {
         return $this->hasOption($key) && $this->option($key);
+    }
+
+    protected function validateLocale(string $locale): void
+    {
+        Locales::validate($locale);
     }
 }

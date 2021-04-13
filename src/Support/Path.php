@@ -27,7 +27,7 @@ final class Path
 
         $path = ConfigFacade::resourcesPath();
 
-        $suffix = $is_json ? '' : $locale;
+        $suffix = $is_json ? '' : '/' . $locale;
 
         return $this->clean($path) . $suffix;
     }
