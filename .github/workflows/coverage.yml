@@ -21,6 +21,8 @@ jobs:
                     php-version: 7.4
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
                     coverage: xdebug
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Composer self update
                 run: composer self-update
