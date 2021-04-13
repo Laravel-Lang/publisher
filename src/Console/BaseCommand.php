@@ -27,14 +27,14 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
-    abstract protected function processor(): Processor;
-
     public function handle()
     {
         $this->start();
         $this->ran();
         $this->end();
     }
+
+    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
