@@ -18,6 +18,8 @@ final class Install extends BaseCommand
 
     protected function processor(): ProcessorContract
     {
+        $this->log('Getting the processor: ' . Processor::class);
+
         return Processor::make()->force($this->hasForce());
     }
 }

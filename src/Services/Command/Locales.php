@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Services\Command;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Console\BaseCommand;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\Support\Concerns\Makeable;
@@ -11,6 +12,7 @@ use Helldar\Support\Concerns\Makeable;
  */
 final class Locales
 {
+    use Logger;
     use Makeable;
 
     /** @var \Helldar\LaravelLangPublisher\Console\BaseCommand */
@@ -27,6 +29,8 @@ final class Locales
 
     public function __construct(BaseCommand $command, Actionable $action, array $locales)
     {
+        $this->log('Object initialization: ' . self::class);
+
         $this->command = $command;
         $this->action  = $action;
         $this->locales = $locales;
@@ -37,6 +41,8 @@ final class Locales
         $input = $this->input();
 
         if ($input === ['*'] && $this->confirm()) {
+            $this->log('Returning a list of all localizations...');
+
             return $this->locales;
         }
 
@@ -45,6 +51,8 @@ final class Locales
 
     protected function select(): array
     {
+        $this->log('Displaying an interactive question with a choice of localizations...');
+
         if ($locales = $this->ask()) {
             return $locales;
         }
@@ -54,16 +62,22 @@ final class Locales
 
     protected function confirm(): bool
     {
+        $this->log('Confirmation of processing of all localizations...');
+
         return $this->command->confirm($this->confirmQuestion());
     }
 
     protected function ask(): ?array
     {
+        $this->log('Localization selection request...');
+
         return $this->command->choice($this->choiceQuestion(), $this->locales);
     }
 
     protected function input(): array
     {
+        $this->log('Getting a list of localizations from arguments...');
+
         return (array) $this->command->argument('locales');
     }
 

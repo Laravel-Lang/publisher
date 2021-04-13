@@ -5,10 +5,13 @@ namespace Helldar\LaravelLangPublisher\Concerns;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Facades\Helpers\Str;
 
+/** @mixin \Helldar\LaravelLangPublisher\Concerns\Logger */
 trait Contains
 {
     protected function isValidation(string $filename, bool $is_path = false): bool
     {
+        $this->log('Does the file contain validation messages? ' . $filename);
+
         $filename = $is_path ? Path::filename($filename) : $filename;
 
         return Str::startsWith($filename, 'validation');
@@ -16,6 +19,8 @@ trait Contains
 
     protected function isJson(string $filename): bool
     {
+        $this->log('Does the file contain json? ' . $filename);
+
         return Str::endsWith($filename, 'json');
     }
 }

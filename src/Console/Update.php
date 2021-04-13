@@ -24,6 +24,8 @@ final class Update extends BaseCommand
 
     protected function processor(): ProcessorContract
     {
+        $this->log('Getting the processor: ' . Processor::class);
+
         return Processor::make()->force(true);
     }
 }

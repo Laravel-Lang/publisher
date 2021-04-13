@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
@@ -12,6 +13,8 @@ use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Locales
 {
+    use Logger;
+
     /**
      * List of available locations.
      *
@@ -21,6 +24,8 @@ final class Locales
      */
     public function available(bool $all = false): array
     {
+        $this->log('Getting list of available locations...');
+
         $locales = $this->all();
 
         return $all ? $locales : $this->filter($locales);
@@ -33,6 +38,8 @@ final class Locales
      */
     public function installed(): array
     {
+        $this->log('Getting list of installed locations...');
+
         $json = File::names($this->resourcesPath());
         $php  = Directory::names($this->resourcesPath());
 
@@ -50,6 +57,8 @@ final class Locales
      */
     public function protects(): array
     {
+        $this->log('Retrieving a list of protected locales...');
+
         return ArrFacade::unique([
             $this->getDefault(),
             $this->getFallback(),
@@ -65,6 +74,8 @@ final class Locales
      */
     public function isAvailable(string $locale): bool
     {
+        $this->log('Checks if a language pack is installed...');
+
         return in_array($locale, $this->available(), true);
     }
 
@@ -77,6 +88,8 @@ final class Locales
      */
     public function isProtected(string $locale): bool
     {
+        $this->log('The checked locale protecting...');
+
         return $locale === $this->getDefault() || $locale === $this->getFallback();
     }
 
@@ -89,6 +102,8 @@ final class Locales
      */
     public function isInstalled(string $locale): bool
     {
+        $this->log('Checks whether it is possible to install the language pack...');
+
         return in_array($locale, $this->installed(), true);
     }
 
@@ -99,6 +114,8 @@ final class Locales
      */
     public function getDefault(): string
     {
+        $this->log('Getting the default localization name...');
+
         return ConfigFacade::defaultLocale();
     }
 
@@ -109,16 +126,22 @@ final class Locales
      */
     public function getFallback(): string
     {
+        $this->log('Getting the fallback localization name...');
+
         return ConfigFacade::fallbackLocale();
     }
 
     protected function all(): array
     {
+        $this->log('Getting a list of all available localizations without filtering...');
+
         return array_values(ReflectionFacade::getConstants(LocalesList::class));
     }
 
     protected function filter(array $locales): array
     {
+        $this->log('Filtering localizations...');
+
         $unique = ArrFacade::unique($locales);
         $ignore = ConfigFacade::ignores();
 
@@ -129,6 +152,8 @@ final class Locales
 
     protected function resourcesPath(): string
     {
+        $this->log('Getting the path to application resources...');
+
         return ConfigFacade::resourcesPath();
     }
 }

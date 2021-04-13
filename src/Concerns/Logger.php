@@ -6,7 +6,7 @@ use Helldar\Verbose\Facades\Log;
 
 trait Logger
 {
-    protected function write(string $message): void
+    protected function log(string $message): void
     {
         Log::write($message);
     }

@@ -39,7 +39,11 @@ abstract class BaseCommand extends Command
     protected function ran(): void
     {
         foreach ($this->locales() as $locale) {
+            $this->log('Localization handling: ' . $locale);
+
             foreach ($this->files() as $filename) {
+                $this->log('Processing the localization file: ' . $filename);
+
                 $status = $this->process($locale, $filename);
 
                 $this->processed($locale, $status);
@@ -49,6 +53,8 @@ abstract class BaseCommand extends Command
 
     protected function process(string $locale, string $filename): string
     {
+        $this->log('Launching the processor for localization: ' . $locale . ', ' . $filename);
+
         return $this->processor()
             ->locale($locale)
             ->filename($filename, $this->hasInline())
@@ -57,20 +63,28 @@ abstract class BaseCommand extends Command
 
     protected function locales(): array
     {
+        $this->log('Getting a list of localizations...');
+
         if (! empty($this->locales)) {
             return $this->locales;
         }
+
+        $this->log('Localization list request...');
 
         return $this->locales = LocalesSupport::make($this, $this->action(), $this->targetLocales())->get();
     }
 
     protected function targetLocales(): array
     {
+        $this->log('Getting a list of available localizations...');
+
         return Locales::available();
     }
 
     protected function files(): array
     {
+        $this->log('Getting a list of files...');
+
         return File::names(Path::source(LocalesList::ENGLISH), static function ($filename) {
             return ! Str::contains($filename, 'inline');
         });
@@ -99,20 +113,28 @@ abstract class BaseCommand extends Command
 
     protected function length(): int
     {
+        $this->log('Getting the maximum length of a localization string...');
+
         if ($this->pad > 0) {
             return $this->pad;
         }
+
+        $this->log('Calculating the maximum length of a localization string...');
 
         return $this->pad = Arr::longestStringLength($this->locales());
     }
 
     protected function hasInline(): bool
     {
+        $this->log('Getting a use case for a validation file.');
+
         return Config::hasInline();
     }
 
     protected function action(): Actionable
     {
+        $this->log('Getting the action...');
+
         return $this->container($this->action);
     }
 

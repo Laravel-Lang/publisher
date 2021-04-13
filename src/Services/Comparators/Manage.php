@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Services\Comparators;
 
 use Helldar\LaravelLangPublisher\Concerns\Contains;
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Contracts\Comparator as ComparatorContract;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Concerns\Makeable;
@@ -10,6 +11,7 @@ use Helldar\Support\Concerns\Makeable;
 final class Manage
 {
     use Contains;
+    use Logger;
     use Makeable;
 
     protected $source;
@@ -41,6 +43,8 @@ final class Manage
 
     public function find(): ComparatorContract
     {
+        $this->log('Comparison object definition...');
+
         return $this->resolve()
             ->source($this->source)
             ->target($this->target);
@@ -48,6 +52,8 @@ final class Manage
 
     protected function resolve(): ComparatorContract
     {
+        $this->log('Comparison object resolve...');
+
         return $this->isValidation($this->filename) ? Validation::make() : Basic::make();
     }
 }

@@ -18,11 +18,15 @@ final class Uninstall extends BaseCommand
 
     protected function processor(): ProcessorContract
     {
+        $this->log('Getting the processor: ' . Processor::class);
+
         return Processor::make();
     }
 
     protected function targetLocales(): array
     {
+        $this->log('Getting a list of installed localizations...');
+
         return Locales::installed();
     }
 }

@@ -3,10 +3,13 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use Closure;
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\Support\Facades\Helpers\Arr as ArrSupport;
 
 final class Arr
 {
+    use Logger;
+
     /**
      * Getting unique values.
      *
@@ -16,6 +19,8 @@ final class Arr
      */
     public function unique(array $array): array
     {
+        $this->log('Getting unique values...');
+
         return array_values(array_filter(array_unique($array)));
     }
 
@@ -28,6 +33,8 @@ final class Arr
      */
     public function first(array $array)
     {
+        $this->log('Getting the first element of an array...');
+
         return array_shift($array);
     }
 
@@ -40,6 +47,8 @@ final class Arr
      */
     public function keys(array $array): array
     {
+        $this->log('Getting array keys...');
+
         return array_keys($array);
     }
 
@@ -53,6 +62,8 @@ final class Arr
      */
     public function transform(array $array, Closure $callback): array
     {
+        $this->log('Transforming an array using the callback function...');
+
         return ArrSupport::map($array, $callback);
     }
 }

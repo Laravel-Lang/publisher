@@ -14,11 +14,15 @@ final class Uninstall extends Processor
 
     protected function exists(): bool
     {
+        $this->log('Checking for the existence of a file: ' . $this->target_path);
+
         return File::exists($this->target_path);
     }
 
     protected function delete(): string
     {
+        $this->log('Deleting a file: ' . $this->target_path);
+
         File::delete($this->target_path);
 
         return Status::DELETED;
@@ -26,6 +30,8 @@ final class Uninstall extends Processor
 
     protected function skipped(): string
     {
+        $this->log('Skipping file processing: ' . $this->target_path);
+
         return Status::SKIPPED;
     }
 }
