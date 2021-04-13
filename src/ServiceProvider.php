@@ -36,7 +36,7 @@ final class ServiceProvider extends BaseServiceProvider
     protected function bootPublishes(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/lang-publisher.php' => $this->app->configPath('lang-publisher.php'),
+            __DIR__ . '/../config/public.php' => $this->app->configPath('lang-publisher.php'),
         ], 'config');
     }
 
@@ -46,8 +46,8 @@ final class ServiceProvider extends BaseServiceProvider
             $this->app->configure(Config::KEY_PUBLIC);
         }
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/lang-publisher.php', Config::KEY_PUBLIC);
-        $this->mergeConfigFrom(__DIR__ . '/../config/settings.php', Config::KEY_PRIVATE);
+        $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::KEY_PUBLIC);
+        $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::KEY_PRIVATE);
     }
 
     protected function isLumen(): bool
