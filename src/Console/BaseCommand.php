@@ -3,6 +3,8 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Containable;
+use Helldar\LaravelLangPublisher\Concerns\Contains;
+use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
@@ -19,6 +21,8 @@ use Illuminate\Console\Command;
 abstract class BaseCommand extends Command
 {
     use Containable;
+    use Contains;
+    use Keyable;
     use Logger;
 
     protected $action;
@@ -29,6 +33,8 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    abstract protected function processor(): Processor;
+
     public function handle()
     {
         $this->start();
@@ -36,8 +42,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
@@ -51,7 +55,7 @@ abstract class BaseCommand extends Command
 
                 $status = $this->process($locale, $filename);
 
-                $this->processed($locale, $status);
+                $this->processed($locale, $filename, $status);
             }
         }
     }
@@ -112,11 +116,19 @@ abstract class BaseCommand extends Command
         $this->info('Localizations have ben successfully ' . $action . '.');
     }
 
-    protected function processed(string $locale, string $status): void
+    protected function processed(string $locale, string $filename, string $status): void
     {
-        $locale = str_pad($locale . '...', $this->length() + 3);
+        $template = '[%s] %s...';
 
-        $this->info($locale . ' ' . $status);
+        $key = $this->key($filename);
+
+        $prefix = sprintf($template, $locale, $key);
+
+        $length = Str::length($template) - 4;
+
+        $locale = str_pad($prefix, $this->length() + $length);
+
+        $this->line($locale . ' ' . $status);
     }
 
     protected function length(): int

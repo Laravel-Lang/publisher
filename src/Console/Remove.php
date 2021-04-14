@@ -26,7 +26,7 @@ final class Remove extends BaseCommand
 
             $status = $this->doesntProtect($locale) ? $this->delete($locale) : Status::SKIPPED;
 
-            $this->processed($locale, $status);
+            $this->processed($locale, $locale, $status);
         }
     }
 
