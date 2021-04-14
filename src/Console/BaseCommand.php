@@ -2,130 +2,201 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Contracts\Localizationable;
-use Helldar\LaravelLangPublisher\Facades\Locale;
-use Helldar\LaravelLangPublisher\Services\Localization;
-use Helldar\LaravelLangPublisher\Support\Result;
-use Helldar\LaravelLangPublisher\Traits\Containable;
-use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
-use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
+use Helldar\LaravelLangPublisher\Concerns\Containable;
+use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
+use Helldar\LaravelLangPublisher\Contracts\Actionable;
+use Helldar\LaravelLangPublisher\Contracts\Processor;
+use Helldar\LaravelLangPublisher\Facades\Config;
+use Helldar\LaravelLangPublisher\Facades\Locales;
+use Helldar\LaravelLangPublisher\Facades\Message;
+use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
+use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 
 abstract class BaseCommand extends Command
 {
     use Containable;
-    use Processable;
-    use Pathable;
+    use Logger;
 
-    /** @var \Helldar\LaravelLangPublisher\Support\Result */
-    protected $result;
+    protected $action;
 
-    protected $select_template = 'What languages to %s? (specify the necessary localizations separated by commas)';
+    protected $locales_length = 0;
 
-    protected $select_all_template = 'Do you want to %s all localizations?';
+    protected $files_length = 0;
 
-    protected $action = 'install';
+    protected $files;
 
-    protected $action_default = false;
+    protected $locales;
 
-    public function __construct(Result $result)
+    public function handle()
     {
-        parent::__construct();
+        $this->setLogger();
+        $this->start();
+        $this->clean();
+        $this->ran();
+        $this->end();
+    }
 
-        $this->result = $result->setOutput($this);
+    abstract protected function processor(): Processor;
+
+    protected function ran(): void
+    {
+        foreach ($this->locales() as $locale) {
+            $this->log('Localization handling: ' . $locale);
+
+            $this->validateLocale($locale);
+
+            foreach ($this->files() as $filename) {
+                $this->log('Processing the localization file: ' . $filename);
+
+                $status = $this->process($locale, $filename);
+
+                $this->processed($locale, $filename, $status);
+            }
+        }
+    }
+
+    protected function process(string $locale, string $filename): string
+    {
+        $this->log('Launching the processor for localization: ' . $locale . ', ' . $filename);
+
+        return $this->processor()
+            ->force($this->hasForce())
+            ->locale($locale)
+            ->filename($filename, $this->hasInline())
+            ->run();
     }
 
     protected function locales(): array
     {
-        return (array) $this->argument('locales');
-    }
+        $this->log('Getting a list of localizations...');
 
-    protected function available(): array
-    {
-        return Locale::available();
-    }
-
-    protected function installed(): array
-    {
-        return Locale::installed($this->wantsJson());
-    }
-
-    protected function select(array $locales): array
-    {
-        $question = sprintf($this->select_all_template, $this->action);
-
-        return $this->confirm($question, $this->action_default)
-            ? ['*']
-            : $this->wrapSelectedValues($locales, $this->choiceLocales($locales));
-    }
-
-    protected function isForce(): bool
-    {
-        return $this->hasOption('force') && (bool) $this->option('force');
-    }
-
-    protected function isFull(): bool
-    {
-        return $this->hasOption('full') && (bool) $this->option('full');
-    }
-
-    protected function wantsJson(): bool
-    {
-        return (bool) $this->option('json')
-            || (bool) $this->option('jet')
-            || (bool) $this->option('fortify')
-            || (bool) $this->option('cashier')
-            || (bool) $this->option('nova');
-    }
-
-    protected function setProcessor(string $php, string $json): void
-    {
-        $this->processor = $this->wantsJson() ? $json : $php;
-    }
-
-    protected function exec(array $locales): void
-    {
-        foreach ($this->getLocales($locales) as $locale) {
-            $this->result->merge(
-                $this->localization()
-                    ->processor($this->getProcessor())
-                    ->force($this->isForce())
-                    ->full($this->isFull())
-                    ->run($locale)
-            );
+        if (! empty($this->locales)) {
+            return $this->locales;
         }
+
+        return $this->locales = LocalesSupport::make($this->input, $this->output, $this->action(), $this->targetLocales())->get();
     }
 
-    protected function getLocales(array $locales): array
+    protected function targetLocales(): array
     {
-        $items = $this->locales() ?: $this->select($locales);
+        $this->log('Getting a list of installed localizations...');
 
-        return $items === ['*'] ? $locales : $items;
+        return Locales::installed();
     }
 
-    protected function localization(): Localizationable
+    protected function files(): array
     {
-        return app(Localization::class);
+        $this->log('Getting a list of files...');
+
+        if (! empty($this->files)) {
+            return $this->files;
+        }
+
+        return $this->files = File::names(Path::source(LocalesList::ENGLISH), static function ($filename) {
+            return ! Str::contains($filename, 'inline');
+        });
     }
 
-    protected function wrapSelectedValues(array $available, $selected): array
+    protected function start(): void
     {
-        return Arr::wrap(
-            is_numeric($selected)
-                ? Arr::get($available, (int) $selected)
-                : $selected
-        );
+        $action = $this->action()->present(true);
+
+        $this->info($action . ' localizations...');
     }
 
-    protected function choiceLocales(array $locales)
+    protected function end(): void
     {
-        return $this->choice(
-            sprintf($this->select_template, $this->action),
-            $locales,
-            null,
-            null,
-            true
-        );
+        $action = $this->action()->past();
+
+        $this->info('Localizations have ben successfully ' . $action . '.');
+    }
+
+    protected function processed(string $locale, string $filename, string $status): void
+    {
+        $message = Message::same()
+            ->length($this->localesLength(), $this->filesLength())
+            ->locale($locale)
+            ->filename($filename)
+            ->status($status)
+            ->get();
+
+        $this->line($message);
+    }
+
+    protected function localesLength(): int
+    {
+        $this->log('Getting the maximum length of a localization string...');
+
+        if ($this->locales_length > 0) {
+            return $this->locales_length;
+        }
+
+        $this->log('Calculating the maximum length of a localization string...');
+
+        return $this->locales_length = Arr::longestStringLength($this->locales());
+    }
+
+    protected function filesLength(): int
+    {
+        $this->log('Getting the maximum length of a filenames...');
+
+        if ($this->files_length > 0) {
+            return $this->files_length;
+        }
+
+        $this->log('Calculating the maximum length of a filenames...');
+
+        return $this->files_length = Arr::longestStringLength($this->files());
+    }
+
+    protected function hasInline(): bool
+    {
+        $this->log('Getting a use case for a validation file.');
+
+        return Config::hasInline();
+    }
+
+    protected function action(): Actionable
+    {
+        $this->log('Getting the action...');
+
+        return $this->container($this->action);
+    }
+
+    protected function hasForce(): bool
+    {
+        return $this->boolOption('force');
+    }
+
+    protected function hasFull(): bool
+    {
+        return $this->boolOption('full');
+    }
+
+    protected function boolOption(string $key): bool
+    {
+        return $this->hasOption($key) && $this->option($key);
+    }
+
+    protected function validateLocale(string $locale): void
+    {
+        Locales::validate($locale);
+    }
+
+    protected function doesntProtect(string $locale): bool
+    {
+        return ! Locales::isProtected($locale);
+    }
+
+    protected function clean(): void
+    {
+        $this->log('Clear the variable from the saved localizations...');
+
+        $this->locales = null;
     }
 }

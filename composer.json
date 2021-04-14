@@ -1,23 +1,26 @@
 {
     "name": "andrey-helldar/laravel-lang-publisher",
-    "description": "Publisher lang files for the Laravel Framework + Laravel Jetstream from Laravel-Lang/lang",
+    "description": "Publisher lang files for the Laravel Framework, Jetstream, Fortify, Cashier and Nova from Laravel-Lang/lang",
     "type": "library",
     "license": "MIT",
     "keywords": [
-        "laravel",
-        "jetstream",
+        "cashier",
         "fortify",
-        "lumen",
-        "languages",
-        "lpm",
-        "lang",
-        "publisher",
-        "translations",
-        "localization",
-        "trans",
-        "validations",
         "i18n",
-        "locale"
+        "jetstream",
+        "lang",
+        "languages",
+        "laravel",
+        "locale",
+        "locales",
+        "localization",
+        "lpm",
+        "lumen",
+        "nova",
+        "publisher",
+        "trans",
+        "translations",
+        "validations"
     ],
     "authors": [
         {
@@ -30,23 +33,23 @@
         "source": "https://github.com/andrey-helldar/laravel-lang-publisher"
     },
     "suggest": {
-        "andrey-helldar/lang-translations": "Translation of main messages",
-        "laravel/jetstream": "Tailwind scaffolding for the Laravel framework.",
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
-        "php": "^7.2.5|^8.0",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
+        "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/pretty-array": "^2.0",
-        "andrey-helldar/support": "^2.0|^3.0",
-        "laravel-lang/lang": "^8.1.1",
+        "andrey-helldar/support": "^3.0",
+        "andrey-helldar/verbose": "^1.2",
         "illuminate/console": "^7.0|^8.0",
-        "illuminate/support": "^7.0|^8.0"
+        "illuminate/support": "^7.0|^8.0",
+        "laravel-lang/lang": "^9.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.3.1",
         "orchestra/testbench": "^5.0|^6.0",
-        "phpunit/phpunit": "^8.4|^9.0",
+        "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^5.2"
     },
     "autoload": {

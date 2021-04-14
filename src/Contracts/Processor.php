@@ -6,11 +6,11 @@ interface Processor
 {
     public function locale(string $locale): self;
 
-    public function force(bool $is_force = true): self;
+    public function filename(string $filename, bool $is_inline): self;
 
-    public function full(bool $is_full = true): self;
+    public function force(bool $force = false): self;
 
-    public function run(): array;
+    public function full(bool $full = false): self;
 
-    public function result(): array;
+    public function run(): string;
 }

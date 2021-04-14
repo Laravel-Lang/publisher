@@ -2,42 +2,23 @@
 
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Contracts\Localizationable;
-use Helldar\LaravelLangPublisher\Contracts\Processor;
-use Helldar\LaravelLangPublisher\Facades\Locale;
+use Helldar\LaravelLangPublisher\Constants\Locales;
+use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
+use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
-use Helldar\LaravelLangPublisher\Services\Localization;
-use Helldar\LaravelLangPublisher\Services\Processors\DeleteJson;
-use Helldar\LaravelLangPublisher\Services\Processors\DeletePhp;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishJson;
-use Helldar\LaravelLangPublisher\Services\Processors\PublishPhp;
 use Helldar\LaravelLangPublisher\Support\Config;
-use Helldar\LaravelLangPublisher\Traits\Containable;
-use Helldar\LaravelLangPublisher\Traits\Containers\Pathable;
-use Helldar\LaravelLangPublisher\Traits\Containers\Processable;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use Containable;
-    use Processable;
-    use Pathable;
-
-    /** @var \Helldar\LaravelLangPublisher\Contracts\Pathable */
-    protected $path;
-
-    protected $default_locale = 'en';
-
-    protected $is_json = false;
+    protected $default_locale = Locales::ENGLISH;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->path = $this->getPath();
-
-        $this->resetDefaultLang();
+        $this->refreshLocales();
     }
 
     /**
@@ -56,83 +37,47 @@ abstract class TestCase extends BaseTestCase
         $config = $app['config'];
 
         $config->set('app.locale', $this->default_locale);
-        $config->set(Config::KEY_PRIVATE . '.vendor', realpath(__DIR__ . '/../vendor/laravel-lang/lang'));
 
-        $config->set(Config::KEY . '.exclude', [
+        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor/laravel-lang/lang/source'));
+        $config->set(Config::KEY_PRIVATE . '.path.locales', realpath(__DIR__ . '/../vendor/laravel-lang/lang/locales'));
+
+        $config->set(Config::KEY_PUBLIC . '.exclude', [
             'auth' => ['failed'],
-            'All rights reserved.',
-            'Baz',
+            'json' => ['All rights reserved.', 'Baz'],
         ]);
     }
 
-    protected function resetDefaultLang(): void
+    protected function path(string $locale, string $filename = null, bool $directory = false): string
     {
-        $locales = Locale::installed($this->wantsJson());
+        $is_json = empty($filename) && ! $directory;
 
-        foreach ($locales as $locale) {
-            $this->localization()
-                ->processor($this->getDeleteProcessor())
-                ->force()
-                ->full()
-                ->run($locale);
-        }
-
-        $this->localization()
-            ->processor($this->getInstallProcessor())
-            ->force()
-            ->full()
-            ->run($this->default_locale);
+        return Path::targetFull($locale, $filename, $is_json);
     }
 
     protected function copyFixtures(): void
     {
-        if ($this->wantsJson()) {
-            File::copy(
-                realpath(__DIR__ . '/fixtures/en.json'),
-                $this->path->target($this->default_locale)
-            );
-
-            return;
-        }
-
-        File::copy(
-            realpath(__DIR__ . '/fixtures/auth.php'),
-            $this->path->target($this->default_locale, 'auth.php')
-        );
+        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale));
+        File::copy(realpath(__DIR__ . '/fixtures/auth.php'), $this->path($this->default_locale, 'auth.php'));
     }
 
-    protected function deleteLocales(array $locales): void
+    protected function refreshLocales(): void
     {
-        foreach ($locales as $locale) {
-            $target = $this->path->target($locale);
-
-            $this->wantsJson()
-                ? File::delete($target)
-                : File::deleteDirectory($target);
-        }
+        $this->deleteLocales();
+        $this->installLocale();
     }
 
-    protected function localization(): Localizationable
+    protected function deleteLocales(): void
     {
-        return $this->container(Localization::class);
+        File::deleteDirectory(ConfigFacade::resourcesPath());
     }
 
-    protected function wantsJson(): bool
+    protected function installLocale(): void
     {
-        return $this->is_json;
-    }
+        $source = ConfigFacade::basePath();
+        $target = ConfigFacade::resourcesPath() . '/' . $this->default_locale;
 
-    protected function getDeleteProcessor(): Processor
-    {
-        return $this->wantsJson()
-            ? $this->makeProcessor(DeleteJson::class)
-            : $this->makeProcessor(DeletePhp::class);
-    }
-
-    protected function getInstallProcessor(): Processor
-    {
-        return $this->wantsJson()
-            ? $this->makeProcessor(PublishJson::class)
-            : $this->makeProcessor(PublishPhp::class);
+        File::copyDirectory($source, $target);
+        File::move($target . '/en.json', $target . '/../en.json');
+        File::delete($target . '/validation-inline.php');
     }
 }

@@ -2,51 +2,16 @@ name: phpunit
 on: [ push ]
 
 jobs:
-    laravel_80:
+    laravel:
         runs-on: ubuntu-latest
 
         strategy:
             fail-fast: true
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "8.0" ]
-                support: [ "2.0", "3.0" ]
+                laravel: [ "7.0", "8.0" ]
 
-        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}, Support ${{ matrix.support }}
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v2
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
-                    coverage: none
-
-            -   name: Composer self update
-                run: composer self-update
-
-            -   name: Install dependencies
-                run: |
-                    composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
-                    composer update --prefer-stable --prefer-dist --no-progress --no-interaction
-
-            -   name: Execute tests
-                run: sudo vendor/bin/phpunit
-
-    laravel_70:
-        runs-on: ubuntu-latest
-
-        strategy:
-            fail-fast: true
-            matrix:
-                php: [ "7.2", "7.3", "7.4", "8.0" ]
-                laravel: [ "7.0" ]
-                support: [ "2.0", "3.0" ]
-
-        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}, Support ${{ matrix.support }}
+        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
@@ -58,13 +23,12 @@ jobs:
                     php-version: ${{ matrix.php }}
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
                     coverage: none
-
-            -   name: Composer self update
-                run: composer self-update
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Install dependencies
                 run: |
-                    composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
+                    composer require laravel/framework:^${{ matrix.laravel }}
                     composer update --prefer-stable --prefer-dist --no-progress --no-interaction
 
             -   name: Execute tests

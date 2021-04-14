@@ -2,91 +2,53 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
-use Helldar\LaravelLangPublisher\Constants\Locales;
+use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\PrettyArray\Contracts\Caseable;
-use Illuminate\Support\Arr as IlluminateArr;
-use Illuminate\Support\Facades\Config as IlluminateConfig;
+use Illuminate\Support\Facades\Config as Illuminate;
 
 final class Config
 {
-    public const KEY = 'lang-publisher';
+    use Logger;
 
     public const KEY_PRIVATE = 'lang-publisher-private';
 
+    public const KEY_PUBLIC = 'lang-publisher';
+
     /**
-     * Getting a link to the folder with the source localization files.
+     * Getting the path to the sources of the English localization.
      *
      * @return string
      */
-    public function getVendorPath(): string
+    public function basePath(): string
     {
-        $path = IlluminateConfig::get(self::KEY_PRIVATE . '.vendor');
+        $this->log('Getting the path to the sources of the English localization...');
 
-        return rtrim($path, '\\/');
+        return Illuminate::get(self::KEY_PRIVATE . '.path.base');
     }
 
     /**
-     * Getting the default localization name.
+     * Getting the path to localizations.
      *
      * @return string
      */
-    public function getLocale(): string
+    public function localesPath(): string
     {
-        return IlluminateConfig::get('app.locale') ?: $this->getFallbackLocale();
+        $this->log('Getting the path to localizations...');
+
+        return Illuminate::get(self::KEY_PRIVATE . '.path.locales');
     }
 
     /**
-     * Getting the fallback localization name.
+     * Getting the path to resources of the application.
      *
      * @return string
      */
-    public function getFallbackLocale(): string
+    public function resourcesPath(): string
     {
-        return IlluminateConfig::get('app.fallback_locale', Locales::ENGLISH);
-    }
+        $this->log('Getting the path to resources of the application...');
 
-    /**
-     * Will array alignment be applied.
-     *
-     * @return bool
-     */
-    public function isAlignment(): bool
-    {
-        return (bool) $this->config('alignment', true);
-    }
-
-    /**
-     * Returns an array of exceptions set by the developer
-     * when installing and updating localizations.
-     *
-     * @param  string  $key
-     * @param  array  $default
-     * @param  bool  $is_json
-     *
-     * @return array
-     */
-    public function getExclude(string $key, array $default = [], bool $is_json = false): array
-    {
-        $exclude = $this->config('exclude', []);
-
-        return $is_json
-            ? $exclude
-            : IlluminateArr::get($exclude, $key, $default);
-    }
-
-    public function getIgnore(): array
-    {
-        return $this->config('ignore', []);
-    }
-
-    /**
-     * Returns the key mapping label.
-     *
-     * @return int
-     */
-    public function getCase(): int
-    {
-        return $this->config('case', Caseable::NO_CASE);
+        return Illuminate::get(self::KEY_PRIVATE . '.path.target');
     }
 
     /**
@@ -94,20 +56,82 @@ final class Config
      *
      * @return bool
      */
-    public function isInline(): bool
+    public function hasInline(): bool
     {
-        return $this->config('inline', false);
+        $this->log('Determines what type of files to use when updating language files...');
+
+        return Illuminate::get(self::KEY_PUBLIC . '.inline');
     }
 
-    protected function config(string $key, $default = null)
+    /**
+     * Determines whether values should be aligned when saving.
+     *
+     * @return bool
+     */
+    public function hasAlignment(): bool
     {
-        $key = $this->key($key);
+        $this->log('Determines whether values should be aligned when saving...');
 
-        return IlluminateConfig::get($key, $default);
+        return Illuminate::get(self::KEY_PUBLIC . '.alignment');
     }
 
-    protected function key(string $key): string
+    /**
+     * Key exclusion when combining.
+     *
+     * @return array
+     */
+    public function excludes(): array
     {
-        return self::KEY . '.' . $key;
+        $this->log('Key exclusion when combining...');
+
+        return Illuminate::get(self::KEY_PUBLIC . '.exclude', []);
+    }
+
+    /**
+     * List of ignored localizations.
+     *
+     * @return array
+     */
+    public function ignores(): array
+    {
+        $this->log('List of ignored localizations...');
+
+        return Illuminate::get(self::KEY_PUBLIC . '.ignore', []);
+    }
+
+    /**
+     * Getting the value of the option to change the case of keys.
+     *
+     * @return int
+     */
+    public function getCase(): int
+    {
+        $this->log('Getting the value of the option to change the case of keys...');
+
+        return Illuminate::get(self::KEY_PUBLIC . '.case', Caseable::NO_CASE);
+    }
+
+    /**
+     * Getting the default localization name.
+     *
+     * @return string
+     */
+    public function defaultLocale(): string
+    {
+        $this->log('Getting the default localization name...');
+
+        return Illuminate::get('app.locale') ?: $this->fallbackLocale();
+    }
+
+    /**
+     * Getting the fallback localization name.
+     *
+     * @return string
+     */
+    public function fallbackLocale(): string
+    {
+        $this->log('Getting the fallback localization name...');
+
+        return Illuminate::get('app.fallback_locale') ?: LocalesList::ENGLISH;
     }
 }

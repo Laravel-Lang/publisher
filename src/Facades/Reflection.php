@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Support\Reflection as ReflectionSupport;
+use Helldar\LaravelLangPublisher\Support\Reflection as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -12,6 +12,6 @@ final class Reflection extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return ReflectionSupport::class;
+        return Support::class;
     }
 }
