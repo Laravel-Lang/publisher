@@ -33,6 +33,8 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    abstract protected function processor(): Processor;
+
     public function handle()
     {
         $this->start();
@@ -40,8 +42,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
@@ -118,15 +118,13 @@ abstract class BaseCommand extends Command
 
     protected function processed(string $locale, string $filename, string $status): void
     {
-        $template = '[%s] %s...';
-
         $key = $this->key($filename);
 
-        $prefix = sprintf($template, $locale, $key);
+        $template = '[%s] %s...';
 
         $length = Str::length($template) - 4;
 
-        $locale = str_pad($prefix, $this->length() + $length);
+        $locale = str_pad($template, $this->length() + $length, $key);
 
         $this->line($locale . ' ' . $status);
     }
@@ -141,7 +139,7 @@ abstract class BaseCommand extends Command
 
         $this->log('Calculating the maximum length of a localization string...');
 
-        return $this->pad = Arr::longestStringLength($this->locales());
+        return $this->pad = Arr::longestStringLength($this->locales()) + Arr::longestStringLength($this->files());
     }
 
     protected function hasInline(): bool
