@@ -5,12 +5,20 @@ namespace Helldar\LaravelLangPublisher\Support;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Constants\Status;
 
 final class Message
 {
     use Contains;
     use Keyable;
     use Logger;
+
+    protected $styles = [
+        Status::COPIED  => 'fg=green',
+        Status::RESET   => 'fg=magenta',
+        Status::SKIPPED => 'fg=default',
+        Status::DELETED => 'fg=red',
+    ];
 
     protected $locales_length = 0;
 
@@ -82,11 +90,13 @@ final class Message
 
     protected function getStatus(): string
     {
-        return $this->format($this->status, 'info');
+        $style = $this->styles[$this->status];
+
+        return $this->format($this->status, $style);
     }
 
     protected function format(string $value, string $style = null): string
     {
-        return $style ? "<$style>$value</$style>" : $value;
+        return $style ? "<$style>$value</>" : $value;
     }
 }
