@@ -27,9 +27,6 @@ jobs:
                 env:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   name: Composer self update
-                run: composer self-update
-
             -   name: Install dependencies
                 run: |
                     composer require laravel/framework:^${{ matrix.laravel }} andrey-helldar/support:^${{ matrix.support }}
@@ -59,10 +56,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
-                    coverage: none
-
-            -   name: Composer self update
-                run: composer self-update
+                    coverage: nones
 
             -   name: Install dependencies
                 run: |
