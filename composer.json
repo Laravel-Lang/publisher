@@ -36,7 +36,7 @@
         "symfony/thanks": "Give thanks (in the form of a GitHub) to your fellow PHP package maintainers"
     },
     "require": {
-        "php": "^7.2.5|^8.0",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/pretty-array": "^2.0",
