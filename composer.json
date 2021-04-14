@@ -40,7 +40,7 @@
         "ext-json": "*",
         "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/pretty-array": "^2.0",
-        "andrey-helldar/support": "^2.0|^3.0",
+        "andrey-helldar/support": "^3.0",
         "andrey-helldar/verbose": "^1.1",
         "illuminate/console": "^7.0|^8.0",
         "illuminate/support": "^7.0|^8.0",

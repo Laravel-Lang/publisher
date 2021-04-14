@@ -10,7 +10,7 @@ jobs:
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
                 laravel: [ "8.0" ]
-                support: [ "2.0", "3.0" ]
+                support: [ "3.0" ]
 
         name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}, Support ${{ matrix.support }}
 
@@ -43,7 +43,7 @@ jobs:
             matrix:
                 php: [ "7.2", "7.3", "7.4", "8.0" ]
                 laravel: [ "7.0" ]
-                support: [ "2.0", "3.0" ]
+                support: [ "3.0" ]
 
         name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}, Support ${{ matrix.support }}
 
