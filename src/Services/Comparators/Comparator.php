@@ -79,7 +79,6 @@ abstract class Comparator implements Contract
         $this->log('Splitting main arrays into excludes...');
 
         if (! empty($this->excludes)) {
-            $this->prepareExcludes();
             $this->ranExcludes();
             $this->extractExcludes();
         }
@@ -98,9 +97,7 @@ abstract class Comparator implements Contract
     {
         $this->log('Retrieving values from arrays...');
 
-        foreach ($this->excludes as $key => &$value) {
-            $value = $this->getFallbackValue($this->source, $this->target, $key);
-        }
+        $this->excludes = $this->getExcludedValues($this->source, $this->target, $this->excludes);
     }
 
     protected function extractExcludes(): void
@@ -113,11 +110,14 @@ abstract class Comparator implements Contract
         $this->target = Arr::except($this->target, $keys);
     }
 
-    protected function getFallbackValue(array $source, array $target, string $key): array
+    protected function getExcludedValues(array $source, array $target, array $keys): array
     {
-        $this->log('Retrieving values from arrays by the "' . $key . '" key...');
+        $this->log('Retrieving values from arrays by the "' . implode('", "', $keys) . '" key...');
 
-        return Arr::get($target, $key) ?: Arr::get($source, $key, []);
+        $excluded_source = Arr::only($source, $keys);
+        $excluded_target = Arr::only($target, $keys);
+
+        return array_merge($excluded_target, $excluded_source);
     }
 
     protected function sort(array $array): array
@@ -125,12 +125,5 @@ abstract class Comparator implements Contract
         $this->log('Sorting array...');
 
         return Arr::ksort($array);
-    }
-
-    protected function prepareExcludes(): void
-    {
-        $this->log('Exchanges all keys with their associated values in an array...');
-
-        $this->excludes = array_flip($this->excludes);
     }
 }
