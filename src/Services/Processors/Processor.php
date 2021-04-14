@@ -10,7 +10,6 @@ use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 abstract class Processor implements Contract
@@ -97,13 +96,6 @@ abstract class Processor implements Contract
             ->target($target)
             ->find()
             ->toArray();
-    }
-
-    protected function sort(array &$array): void
-    {
-        $this->log('Sorting an array.');
-
-        $array = Arr::ksort($array);
     }
 
     protected function load(string $path): array
