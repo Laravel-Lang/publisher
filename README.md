@@ -5,6 +5,10 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
+<p align="center">
+    [ <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> ]
+</p>
+
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
@@ -14,10 +18,6 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 [![Github Workflow Status][badge_build]][link_build]
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
-
-<p align="center">
-    [ <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> ]
-</p>
 
 
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
