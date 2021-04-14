@@ -27,14 +27,17 @@ abstract class BaseCommand extends Command
 
     protected $files;
 
+    protected $locales;
+
+    abstract protected function processor(): Processor;
+
     public function handle()
     {
         $this->start();
+        $this->clean();
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
@@ -68,7 +71,11 @@ abstract class BaseCommand extends Command
     {
         $this->log('Getting a list of localizations...');
 
-        return LocalesSupport::make($this->input, $this->output, $this->action(), $this->targetLocales())->get();
+        if (! empty($this->locales)) {
+            return $this->locales;
+        }
+
+        return $this->locales = LocalesSupport::make($this->input, $this->output, $this->action(), $this->targetLocales())->get();
     }
 
     protected function targetLocales(): array
@@ -157,5 +164,12 @@ abstract class BaseCommand extends Command
     protected function validateLocale(string $locale): void
     {
         Locales::validate($locale);
+    }
+
+    protected function clean(): void
+    {
+        $this->log('Clear the variable from the saved localizations...');
+
+        $this->locales = null;
     }
 }
