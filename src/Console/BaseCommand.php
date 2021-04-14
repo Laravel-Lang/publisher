@@ -166,6 +166,11 @@ abstract class BaseCommand extends Command
         Locales::validate($locale);
     }
 
+    protected function doesntProtect(string $locale): bool
+    {
+        return ! Locales::isProtected($locale);
+    }
+
     protected function clean(): void
     {
         $this->log('Clear the variable from the saved localizations...');

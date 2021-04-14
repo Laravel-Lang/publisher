@@ -21,6 +21,13 @@ final class Path
         return $this->locales($locale);
     }
 
+    public function sourceFull(string $locale, ?string $filename, bool $is_json = false): string
+    {
+        $suffix = $is_json ? $locale . '.json' : $filename;
+
+        return $this->source($locale) . '/' . $suffix;
+    }
+
     public function target(string $locale, bool $is_json = false): string
     {
         $this->log('Getting the path to the target files of the localization: ' . $locale);
@@ -30,6 +37,13 @@ final class Path
         $suffix = $is_json ? '' : '/' . $locale;
 
         return $this->clean($path) . $suffix;
+    }
+
+    public function targetFull(string $locale, ?string $filename, bool $is_json = false): string
+    {
+        $suffix = $is_json ? '../' . $locale . '.json' : $filename;
+
+        return $this->target($locale) . '/' . $suffix;
     }
 
     public function locales(string $locale = null): string

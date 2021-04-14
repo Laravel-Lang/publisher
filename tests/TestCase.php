@@ -51,9 +51,7 @@ abstract class TestCase extends BaseTestCase
     {
         $is_json = empty($filename) && ! $directory;
 
-        $suffix = $is_json ? $locale . '.json' : $filename;
-
-        return Path::target($locale, $is_json) . '/' . $suffix;
+        return Path::targetFull($locale, $filename, $is_json);
     }
 
     protected function copyFixtures(): void

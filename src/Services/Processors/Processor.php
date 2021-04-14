@@ -83,9 +83,7 @@ abstract class Processor implements Contract
 
         $is_json = $this->isJson($filename);
 
-        $filename = $is_json ? $this->locale . '.json' : $filename;
-
-        $this->target_path = Path::target($this->locale, $is_json) . '/' . $filename;
+        $this->target_path = Path::targetFull($this->locale, $filename, $is_json);
     }
 
     protected function compare(array $source, array $target): array
