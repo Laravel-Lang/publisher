@@ -5,11 +5,11 @@ namespace Helldar\LaravelLangPublisher\Console;
 use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Processors\Install as Processor;
-use Helldar\LaravelLangPublisher\Support\Actions\Install as Action;
+use Helldar\LaravelLangPublisher\Support\Actions\Add as Action;
 
-final class Install extends BaseCommand
+final class Add extends BaseCommand
 {
-    protected $signature = 'lang:install'
+    protected $signature = 'lang:add'
     . ' {locales?* : Space-separated list of, eg: de tk it}'
     . ' {--f|force : Override exiting files}';
 

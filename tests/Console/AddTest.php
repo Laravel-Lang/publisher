@@ -7,22 +7,22 @@ use Helldar\LaravelLangPublisher\Facades\Locales;
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
 
-final class InstallTest extends TestCase
+final class AddTest extends TestCase
 {
     public function testCancelConfirmation()
     {
-        $this->artisan('lang:install')
-            ->expectsConfirmation('Do you want to install all localizations?')
-            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
+        $this->artisan('lang:add')
+            ->expectsConfirmation('Do you want to add all localizations?')
+            ->expectsChoice('What languages to add? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
             ->assertExitCode(0)
             ->run();
     }
 
     public function testAcceptConfirmation()
     {
-        $this->artisan('lang:install')
-            ->expectsConfirmation('Do you want to install all localizations?')
-            ->expectsChoice('What languages to install? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
+        $this->artisan('lang:add')
+            ->expectsConfirmation('Do you want to add all localizations?')
+            ->expectsChoice('What languages to add? (specify the necessary localizations separated by commas)', 'ar', Locales::available())
             ->assertExitCode(0)
             ->run();
     }
@@ -34,7 +34,7 @@ final class InstallTest extends TestCase
 
         $locales = 'foo';
 
-        $this->artisan('lang:install', compact('locales'));
+        $this->artisan('lang:add', compact('locales'));
     }
 
     public function testCanInstallWithoutForce()
@@ -48,7 +48,7 @@ final class InstallTest extends TestCase
             $this->assertDirectoryDoesNotExist($php_path);
             $this->assertFileDoesNotExist($json_path);
 
-            $this->artisan('lang:install', ['locales' => $locale])->run();
+            $this->artisan('lang:add', ['locales' => $locale])->run();
 
             $this->assertDirectoryExists($php_path);
             $this->assertFileExists($json_path);
@@ -59,7 +59,7 @@ final class InstallTest extends TestCase
     {
         $this->copyFixtures();
 
-        $this->artisan('lang:install', [
+        $this->artisan('lang:add', [
             'locales' => $this->default_locale,
             '--force' => true,
         ])->run();
@@ -80,7 +80,7 @@ final class InstallTest extends TestCase
 
         Lang::setLoaded([]);
 
-        $this->artisan('lang:install', [
+        $this->artisan('lang:add', [
             'locales' => $this->default_locale,
             '--force' => true,
         ])->run();

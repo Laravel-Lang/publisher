@@ -2,9 +2,9 @@
 
 namespace Helldar\LaravelLangPublisher;
 
-use Helldar\LaravelLangPublisher\Console\Install;
+use Helldar\LaravelLangPublisher\Console\Add;
 use Helldar\LaravelLangPublisher\Console\Reset;
-use Helldar\LaravelLangPublisher\Console\Uninstall;
+use Helldar\LaravelLangPublisher\Console\Remove;
 use Helldar\LaravelLangPublisher\Console\Update;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelSupport\Facades\App;
@@ -26,9 +26,9 @@ final class ServiceProvider extends BaseServiceProvider
     protected function bootCommands(): void
     {
         $this->commands([
-            Install::class,
+            Add::class,
             Reset::class,
-            Uninstall::class,
+            Remove::class,
             Update::class,
         ]);
     }

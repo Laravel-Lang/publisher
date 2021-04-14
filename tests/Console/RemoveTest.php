@@ -6,13 +6,13 @@ use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Tests\TestCase;
 
-final class UninstallTest extends TestCase
+final class RemoveTest extends TestCase
 {
     public function testWithoutLanguageAttribute()
     {
         $locale = 'ar';
 
-        $this->artisan('lang:install', ['locales' => $locale])->run();
+        $this->artisan('lang:add', ['locales' => $locale])->run();
 
         $this->assertFileExists($this->path($locale));
         $this->assertFileExists($this->path($locale, 'auth.php'));
@@ -21,9 +21,9 @@ final class UninstallTest extends TestCase
         $this->assertFileExists($this->path($locale, 'validation.php'));
         $this->assertDirectoryExists($this->path($locale, null, true));
 
-        $this->artisan('lang:uninstall')
-            ->expectsConfirmation('Do you want to uninstall all localizations?')
-            ->expectsChoice('What languages to uninstall? (specify the necessary localizations separated by commas)', 'ar', Locales::installed())
+        $this->artisan('lang:rm')
+            ->expectsConfirmation('Do you want to remove all localizations?')
+            ->expectsChoice('What languages to remove? (specify the necessary localizations separated by commas)', 'ar', Locales::installed())
             ->assertExitCode(0);
 
         $this->assertFileDoesNotExist($this->path($locale));
@@ -38,7 +38,7 @@ final class UninstallTest extends TestCase
     {
         $locales = ['bg', 'da', 'gl', 'is'];
 
-        $this->artisan('lang:install', ['locales' => $locales, '--force' => true])->run();
+        $this->artisan('lang:add', ['locales' => $locales, '--force' => true])->run();
 
         foreach ($locales as $locale) {
             $this->assertFileExists($this->path($locale));
@@ -48,7 +48,7 @@ final class UninstallTest extends TestCase
             $this->assertFileExists($this->path($locale, 'validation.php'));
             $this->assertDirectoryExists($this->path($locale, null, true));
 
-            $this->artisan('lang:uninstall', ['locales' => $locale])->run();
+            $this->artisan('lang:rm', ['locales' => $locale])->run();
 
             $this->assertFileDoesNotExist($this->path($locale));
             $this->assertFileDoesNotExist($this->path($locale, 'auth.php'));
@@ -71,7 +71,7 @@ final class UninstallTest extends TestCase
             $this->assertFileDoesNotExist($this->path($locale, 'validation.php'));
             $this->assertDirectoryDoesNotExist($this->path($locale, null, true));
 
-            $this->artisan('lang:uninstall', ['locales' => $locale])->run();
+            $this->artisan('lang:rm', ['locales' => $locale])->run();
 
             $this->assertFileDoesNotExist($this->path($locale));
             $this->assertFileDoesNotExist($this->path($locale, 'auth.php'));
@@ -87,7 +87,7 @@ final class UninstallTest extends TestCase
         $php_path  = Path::target($this->default_locale) . '/';
         $json_path = Path::target($this->default_locale, true) . '/';
 
-        $this->artisan('lang:install', ['locales' => $this->default_locale, '--force' => true])->run();
+        $this->artisan('lang:add', ['locales' => $this->default_locale, '--force' => true])->run();
 
         $this->assertFileExists($json_path . 'en.json');
         $this->assertFileExists($php_path . 'auth.php');
@@ -95,7 +95,7 @@ final class UninstallTest extends TestCase
         $this->assertFileExists($php_path . 'passwords.php');
         $this->assertFileExists($php_path . 'validation.php');
 
-        $this->artisan('lang:uninstall', ['locales' => $this->default_locale])->run();
+        $this->artisan('lang:rm', ['locales' => $this->default_locale])->run();
 
         $this->assertFileExists($json_path . 'en.json');
         $this->assertFileExists($php_path . 'auth.php');

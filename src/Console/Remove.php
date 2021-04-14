@@ -5,15 +5,15 @@ namespace Helldar\LaravelLangPublisher\Console;
 use Helldar\LaravelLangPublisher\Constants\Status;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Path;
-use Helldar\LaravelLangPublisher\Support\Actions\Uninstall as Action;
+use Helldar\LaravelLangPublisher\Support\Actions\Remove as Action;
 use Illuminate\Support\Facades\File;
 
-final class Uninstall extends BaseCommand
+final class Remove extends BaseCommand
 {
-    protected $signature = 'lang:uninstall'
+    protected $signature = 'lang:rm'
     . ' {locales?* : Space-separated list of, eg: de tk it}';
 
-    protected $description = 'Uninstall localizations.';
+    protected $description = 'Remove localizations.';
 
     protected $action = Action::class;
 
