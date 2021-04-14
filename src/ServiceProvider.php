@@ -3,8 +3,8 @@
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\Add;
-use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Remove;
+use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Update;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\LaravelSupport\Facades\App;
