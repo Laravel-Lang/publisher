@@ -16,7 +16,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
 <p align="center">
-    [ [Documentation](/) ]
+    [ <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> ]
 </p>
 
 
