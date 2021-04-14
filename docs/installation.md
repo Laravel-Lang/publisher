@@ -42,7 +42,7 @@ the `Register Service Providers` section of your `bootstrap/app.php`.
 
 ```php
 if ($app->environment() !== 'production') {
-    $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
+    $app->register(Helldar\LaravelLangPublisher\ServiceProvider::class);
 }
 ```
 
