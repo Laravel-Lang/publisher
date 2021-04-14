@@ -41,7 +41,7 @@
         "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/pretty-array": "^2.0",
         "andrey-helldar/support": "^3.0",
-        "andrey-helldar/verbose": "^1.1",
+        "andrey-helldar/verbose": "^1.2",
         "illuminate/console": "^7.0|^8.0",
         "illuminate/support": "^7.0|^8.0",
         "laravel-lang/lang": "^9.0"
