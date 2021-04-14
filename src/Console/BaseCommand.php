@@ -124,7 +124,9 @@ abstract class BaseCommand extends Command
 
         $length = Str::length($template) - 4;
 
-        $locale = str_pad($template, $this->length() + $length, $key);
+        $message = sprintf($template, $locale, $key);
+
+        $locale = str_pad($message, $this->length() + $length);
 
         $this->line($locale . ' ' . $status);
     }
