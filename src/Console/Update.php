@@ -18,6 +18,16 @@ final class Update extends BaseCommand
     {
         $this->log('Getting the processor: ' . Processor::class);
 
-        return Processor::make()->force(true);
+        return Processor::make()->force($this->hasForce());
+    }
+
+    protected function locales(): array
+    {
+        return $this->targetLocales();
+    }
+
+    protected function hasForce(): bool
+    {
+        return true;
     }
 }
