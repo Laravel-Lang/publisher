@@ -14,6 +14,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 ## Table of contents
 
 * [Changelog](changelog/index.md)
+  * [9.x](changelog/9-x.md)
 * [Installation](installation.md)
 * [Compatibility](compatibility.md)
 * [Using](using/index.md)
