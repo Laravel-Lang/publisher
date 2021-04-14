@@ -46,9 +46,6 @@ Locales::getDefault(): string
 
 // Getting the fallback localization name.
 Locales::getFallback(): string
-
-// Checking for localization existence.
-Locales::validate(string $locale): void
 ```
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher

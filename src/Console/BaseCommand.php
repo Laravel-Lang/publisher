@@ -11,6 +11,7 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Facades\Message;
 use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
@@ -32,6 +33,8 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    abstract protected function processor(): Processor;
+
     public function handle()
     {
         $this->setLogger();
@@ -41,31 +44,36 @@ abstract class BaseCommand extends Command
         $this->end();
     }
 
-    abstract protected function processor(): Processor;
-
     protected function ran(): void
     {
-        foreach ($this->locales() as $locale) {
-            $this->log('Localization handling: ' . $locale);
+        foreach ($this->packages() as $package) {
+            $this->log('Packages handling: ' . $package);
 
-            $this->validateLocale($locale);
+            $this->validatePackage($package);
 
-            foreach ($this->files() as $filename) {
-                $this->log('Processing the localization file: ' . $filename);
+            foreach ($this->locales() as $locale) {
+                $this->log('Localization handling: ' . $locale);
 
-                $status = $this->process($locale, $filename);
+                $this->validateLocale($locale);
 
-                $this->processed($locale, $filename, $status);
+                foreach ($this->files($package) as $filename) {
+                    $this->log('Processing the localization file: ' . $filename);
+
+                    $status = $this->process($package, $locale, $filename);
+
+                    $this->processed($locale, $filename, $status, $package);
+                }
             }
         }
     }
 
-    protected function process(string $locale, string $filename): string
+    protected function process(string $package, string $locale, string $filename): string
     {
         $this->log('Launching the processor for localization: ' . $locale . ', ' . $filename);
 
         return $this->processor()
             ->force($this->hasForce())
+            ->package($package)
             ->locale($locale)
             ->filename($filename, $this->hasInline())
             ->run();
@@ -89,7 +97,12 @@ abstract class BaseCommand extends Command
         return Locales::installed();
     }
 
-    protected function files(): array
+    protected function packages(): array
+    {
+        return Config::packages();
+    }
+
+    protected function files(string $package): array
     {
         $this->log('Getting a list of files...');
 
@@ -116,10 +129,11 @@ abstract class BaseCommand extends Command
         $this->info('Localizations have ben successfully ' . $action . '.');
     }
 
-    protected function processed(string $locale, string $filename, string $status): void
+    protected function processed(string $locale, string $filename, string $status, string $package = null): void
     {
         $message = Message::same()
             ->length($this->localesLength(), $this->filesLength())
+            ->package($package)
             ->locale($locale)
             ->filename($filename)
             ->status($status)
@@ -185,7 +199,12 @@ abstract class BaseCommand extends Command
 
     protected function validateLocale(string $locale): void
     {
-        Locales::validate($locale);
+        Validator::locale($locale);
+    }
+
+    protected function validatePackage(string $package): void
+    {
+        Validator::package($package);
     }
 
     protected function doesntProtect(string $locale): bool

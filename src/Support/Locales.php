@@ -4,7 +4,6 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
 use Helldar\LaravelLangPublisher\Facades\Arr as ArrFacade;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Reflection as ReflectionFacade;
@@ -131,20 +130,6 @@ final class Locales
         $this->log('Getting the fallback localization name...');
 
         return ConfigFacade::fallbackLocale();
-    }
-
-    /**
-     * Checking for localization existence.
-     *
-     * @param  string  $locale
-     */
-    public function validate(string $locale): void
-    {
-        $this->log('Checking for localization existence: ' . $locale);
-
-        if (! $this->isAvailable($locale)) {
-            throw new SourceLocaleDoesntExistsException($locale);
-        }
     }
 
     protected function all(): array

@@ -10,29 +10,29 @@ final class Path
 {
     use Logger;
 
-    public function source(string $locale): string
+    public function source(string $package, string $locale): string
     {
         $this->log('Getting the path to the source files of the localization: ' . $locale);
 
         if ($this->isEnglish($locale)) {
-            return ConfigFacade::basePath();
+            return $this->cleanable($this->getBasePath(), $package, $this->getSourcePath());
         }
 
         return $this->locales($locale);
     }
 
-    public function sourceFull(string $locale, ?string $filename, bool $is_json = false): string
+    public function sourceFull(string $package, string $locale, ?string $filename, bool $is_json = false): string
     {
         $suffix = $is_json ? $locale . '.json' : $filename;
 
-        return $this->source($locale) . '/' . $suffix;
+        return $this->source($package, $locale) . '/' . $suffix;
     }
 
     public function target(string $locale, bool $is_json = false): string
     {
         $this->log('Getting the path to the target files of the localization: ' . $locale);
 
-        $path = ConfigFacade::resourcesPath();
+        $path = $this->getTargetPath();
 
         $suffix = $is_json ? '' : '/' . $locale;
 
@@ -46,22 +46,11 @@ final class Path
         return $this->target($locale) . '/' . $suffix;
     }
 
-    public function locales(string $locale = null): string
+    public function locales(string $package, string $locale = null): string
     {
         $this->log('Getting the path to excluding English localization: ' . $locale);
 
-        $path = ConfigFacade::localesPath();
-
-        return $this->clean($path) . '/' . $locale;
-    }
-
-    public function filename(string $path): string
-    {
-        $this->log('Getting file name without extension and path: ' . $path);
-
-        $path = pathinfo($path, PATHINFO_FILENAME);
-
-        return $this->clean($path);
+        return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath());
     }
 
     public function directory(string $path): string
@@ -73,6 +62,15 @@ final class Path
         return $this->clean($path);
     }
 
+    public function filename(string $path): string
+    {
+        $this->log('Getting file name without extension and path: ' . $path);
+
+        $path = pathinfo($path, PATHINFO_FILENAME);
+
+        return $this->clean($path);
+    }
+
     public function extension(string $path): string
     {
         $this->log('Getting file extension from path: ' . $path);
@@ -80,6 +78,17 @@ final class Path
         $path = pathinfo($path, PATHINFO_EXTENSION);
 
         return $this->clean($path);
+    }
+
+    protected function cleanable(...$values): string
+    {
+        $this->log('Preparing a directory from an array of variables...');
+
+        foreach ($values as &$value) {
+            $value = $this->clean($value);
+        }
+
+        return implode('/', $values);
     }
 
     protected function clean(string $path = null): ?string
@@ -94,5 +103,25 @@ final class Path
         $this->log('Check if localization is English: ' . $locale);
 
         return $locale === LocalesList::ENGLISH;
+    }
+
+    protected function getBasePath(): string
+    {
+        return ConfigFacade::basePath();
+    }
+
+    protected function getSourcePath(): string
+    {
+        return ConfigFacade::sourcePath();
+    }
+
+    protected function getLocalesPath(): string
+    {
+        return ConfigFacade::localesPath();
+    }
+
+    protected function getTargetPath(): string
+    {
+        return ConfigFacade::resourcesPath();
     }
 }

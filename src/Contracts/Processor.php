@@ -4,6 +4,8 @@ namespace Helldar\LaravelLangPublisher\Contracts;
 
 interface Processor
 {
+    public function package(string $package): self;
+
     public function locale(string $locale): self;
 
     public function filename(string $filename, bool $is_inline): self;

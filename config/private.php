@@ -1,10 +1,16 @@
 <?php
 
 return [
-    'path' => [
-        'base' => base_path('vendor/laravel-lang/lang/source'),
+    'packages' => [
+        'laravel-lang/lang',
+    ],
 
-        'locales' => base_path('vendor/laravel-lang/lang/locales'),
+    'path' => [
+        'base' => base_path('vendor'),
+
+        'source' => 'source',
+
+        'locales' => 'locales',
 
         'target' => resource_path('lang'),
     ],
