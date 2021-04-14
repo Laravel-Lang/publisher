@@ -3,14 +3,13 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Containable;
-use Helldar\LaravelLangPublisher\Concerns\Contains;
-use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Locales;
+use Helldar\LaravelLangPublisher\Facades\Message;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -21,13 +20,13 @@ use Illuminate\Console\Command;
 abstract class BaseCommand extends Command
 {
     use Containable;
-    use Contains;
-    use Keyable;
     use Logger;
 
     protected $action;
 
-    protected $pad = 0;
+    protected $locales_length = 0;
+
+    protected $files_length = 0;
 
     protected $files;
 
@@ -119,30 +118,40 @@ abstract class BaseCommand extends Command
 
     protected function processed(string $locale, string $filename, string $status): void
     {
-        $key = $this->key($filename);
+        $message = Message::same()
+            ->length($this->localesLength(), $this->filesLength())
+            ->locale($locale)
+            ->filename($filename)
+            ->status($status)
+            ->get();
 
-        $template = '[%s] %s...';
-
-        $length = Str::length($template) - 4;
-
-        $message = sprintf($template, $locale, $key);
-
-        $locale = str_pad($message, $this->length() + $length);
-
-        $this->line($locale . ' ' . $status);
+        $this->line($message);
     }
 
-    protected function length(): int
+    protected function localesLength(): int
     {
         $this->log('Getting the maximum length of a localization string...');
 
-        if ($this->pad > 0) {
-            return $this->pad;
+        if ($this->locales_length > 0) {
+            return $this->locales_length;
         }
 
         $this->log('Calculating the maximum length of a localization string...');
 
-        return $this->pad = Arr::longestStringLength($this->locales()) + Arr::longestStringLength($this->files());
+        return $this->locales_length = Arr::longestStringLength($this->locales());
+    }
+
+    protected function filesLength(): int
+    {
+        $this->log('Getting the maximum length of a filenames...');
+
+        if ($this->files_length > 0) {
+            return $this->files_length;
+        }
+
+        $this->log('Calculating the maximum length of a filenames...');
+
+        return $this->files_length = Arr::longestStringLength($this->files());
     }
 
     protected function hasInline(): bool

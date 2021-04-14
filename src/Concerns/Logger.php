@@ -5,7 +5,6 @@ namespace Helldar\LaravelLangPublisher\Concerns;
 use Helldar\Verbose\Facades\Log;
 use Helldar\Verbose\Services\Logger as Service;
 
-/** @mixin \Helldar\LaravelLangPublisher\Console\Add */
 trait Logger
 {
     protected function setLogger(): void

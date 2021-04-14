@@ -5,7 +5,6 @@ namespace Helldar\LaravelLangPublisher\Concerns;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Facades\Helpers\Str;
 
-/** @mixin \Helldar\LaravelLangPublisher\Concerns\Logger */
 trait Contains
 {
     protected function isValidation(string $filename, bool $is_path = false): bool
