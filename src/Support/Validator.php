@@ -3,14 +3,17 @@
 namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Exceptions\PackageDoesntExistsException;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
-use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Locales as LocalesFacade;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 class Validator
 {
     use Logger;
+    use Pathable;
 
     /**
      * Checking for localization existence.
@@ -30,7 +33,10 @@ class Validator
     {
         $this->log('Checking for package existence: ' . $package);
 
-        if (! in_array($package, ConfigFacade::packages(), true)) {
+        $source  = $this->pathSource($package, LocalesList::ENGLISH);
+        $locales = $this->pathLocales($package);
+
+        if (Directory::doesntExist($source) || Directory::doesntExist($locales)) {
             throw new PackageDoesntExistsException($package);
         }
     }

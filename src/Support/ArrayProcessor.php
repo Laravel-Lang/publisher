@@ -44,13 +44,6 @@ class ArrayProcessor implements Arrayable
         return $this;
     }
 
-    public function filter(callable $callback): self
-    {
-        $this->items = array_filter($this->items, $callback);
-
-        return $this;
-    }
-
     public function toArray(): array
     {
         return $this->items;

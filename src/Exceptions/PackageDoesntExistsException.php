@@ -8,6 +8,6 @@ final class PackageDoesntExistsException extends RuntimeException
 {
     public function __construct(string $package)
     {
-        parent::__construct('The "' . $package . '" package was not found.');
+        parent::__construct('The "' . $package . '" package is not a translation repository or does not exist.');
     }
 }
