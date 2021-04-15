@@ -12,6 +12,11 @@ final class Packages
 {
     use Pathable;
 
+    /**
+     * Returns a list of packets taking into account filtering.
+     *
+     * @return array
+     */
     public function filtered(): array
     {
         $packages = $this->all();
@@ -19,6 +24,11 @@ final class Packages
         return $this->map($packages);
     }
 
+    /**
+     * Returns the entire list of packages without filtering and sorting.
+     *
+     * @return array
+     */
     public function all(): array
     {
         $packages = ConfigFacade::packages();
