@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static Support same()
+ * @method static Support package(string $package)
  * @method static Support length(int $length)
  * @method static Support locale(string $locale)
  * @method static Support filename(string $filename)

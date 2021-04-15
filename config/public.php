@@ -61,5 +61,26 @@ return [
      *
      * By default, Caseable::NO_CASE
      */
-    'case'   => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    'case' => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    /*
+     * Determines from which packages to synchronize localization files.
+     *
+     * A prerequisite is compliance with a single file placement format:
+     *
+     * source/
+     * locales/
+     *   af/
+     *     af.json
+     *     <filename>.php
+     *   <locale>/
+     *     <locale>.json
+     *     <filename>.php
+     */
+
+    'packages' => [
+        // 'laravel-lang/lang',
+        // 'namespace/package-name',
+    ],
 ];

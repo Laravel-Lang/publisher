@@ -38,12 +38,17 @@ abstract class TestCase extends BaseTestCase
 
         $config->set('app.locale', $this->default_locale);
 
-        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor/laravel-lang/lang/source'));
-        $config->set(Config::KEY_PRIVATE . '.path.locales', realpath(__DIR__ . '/../vendor/laravel-lang/lang/locales'));
+        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor'));
 
         $config->set(Config::KEY_PUBLIC . '.exclude', [
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
+        ]);
+
+        $config->set(Config::KEY_PUBLIC . '.packages', [
+            'foo/bar',
+            'phpunit/phpunit',
+            'mockery/mockery',
         ]);
     }
 

@@ -4,13 +4,14 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Facades\Message;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -22,16 +23,19 @@ abstract class BaseCommand extends Command
 {
     use Containable;
     use Logger;
+    use Pathable;
 
     protected $action;
 
     protected $locales_length = 0;
 
-    protected $files_length = 0;
+    protected $files_length;
 
     protected $files;
 
     protected $locales;
+
+    abstract protected function processor(): Processor;
 
     public function handle()
     {
@@ -42,8 +46,6 @@ abstract class BaseCommand extends Command
         $this->end();
     }
 
-    abstract protected function processor(): Processor;
-
     protected function ran(): void
     {
         foreach ($this->packages() as $package) {
@@ -51,19 +53,29 @@ abstract class BaseCommand extends Command
 
             $this->validatePackage($package);
 
-            foreach ($this->locales() as $locale) {
-                $this->log('Localization handling: ' . $locale);
+            $this->ranLocales($package);
+        }
+    }
 
-                $this->validateLocale($locale);
+    protected function ranLocales(string $package): void
+    {
+        foreach ($this->locales() as $locale) {
+            $this->log('Localization handling: ' . $locale);
 
-                foreach ($this->files($package) as $filename) {
-                    $this->log('Processing the localization file: ' . $filename);
+            $this->validateLocale($locale);
 
-                    $status = $this->process($package, $locale, $filename);
+            $this->ranFiles($package, $locale);
+        }
+    }
 
-                    $this->processed($locale, $filename, $status, $package);
-                }
-            }
+    protected function ranFiles(string $package, string $locale): void
+    {
+        foreach ($this->files($package) as $filename) {
+            $this->log('Processing the localization file: ' . $filename);
+
+            $status = $this->process($package, $locale, $filename);
+
+            $this->processed($locale, $filename, $status, $package);
         }
     }
 
@@ -99,18 +111,20 @@ abstract class BaseCommand extends Command
 
     protected function packages(): array
     {
-        return Config::packages();
+        return Packages::filtered();
     }
 
     protected function files(string $package): array
     {
         $this->log('Getting a list of files...');
 
-        if (! empty($this->files)) {
-            return $this->files;
+        if ($this->files[$package] ?? false) {
+            return $this->files[$package];
         }
 
-        return $this->files = File::names(Path::source(LocalesList::ENGLISH), static function ($filename) {
+        $path = $this->pathSource($package, LocalesList::ENGLISH);
+
+        return $this->files[$package] = File::names($path, static function ($filename) {
             return ! Str::contains($filename, 'inline');
         });
     }
@@ -132,7 +146,7 @@ abstract class BaseCommand extends Command
     protected function processed(string $locale, string $filename, string $status, string $package = null): void
     {
         $message = Message::same()
-            ->length($this->localesLength(), $this->filesLength())
+            ->length($this->localesLength(), $this->filesLength($package))
             ->package($package)
             ->locale($locale)
             ->filename($filename)
@@ -155,17 +169,17 @@ abstract class BaseCommand extends Command
         return $this->locales_length = Arr::longestStringLength($this->locales());
     }
 
-    protected function filesLength(): int
+    protected function filesLength(string $package): int
     {
-        $this->log('Getting the maximum length of a filenames...');
+        $this->log('Getting the maximum length of a filenames for ' . $package . '...');
 
-        if ($this->files_length > 0) {
-            return $this->files_length;
+        if ($this->files_length[$package] ?? false) {
+            return $this->files_length[$package];
         }
 
-        $this->log('Calculating the maximum length of a filenames...');
+        $this->log('Calculating the maximum length of a filenames for ' . $package . '...');
 
-        return $this->files_length = Arr::longestStringLength($this->files());
+        return $this->files_length[$package] = Arr::longestStringLength($this->files($package));
     }
 
     protected function hasInline(): bool

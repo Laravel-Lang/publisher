@@ -6,6 +6,7 @@ use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Status;
+use Helldar\Support\Facades\Helpers\Str;
 
 final class Message
 {
@@ -24,6 +25,8 @@ final class Message
 
     protected $files_length = 0;
 
+    protected $package;
+
     protected $locale;
 
     protected $filename;
@@ -32,6 +35,13 @@ final class Message
 
     public function same(): self
     {
+        return $this;
+    }
+
+    public function package(string $package): self
+    {
+        $this->package = $package;
+
         return $this;
     }
 
@@ -66,12 +76,21 @@ final class Message
 
     public function get(): string
     {
-        return $this->getLocale() . $this->getFilename() . $this->getStatus();
+        return $this->getPackage() . $this->getLocale() . $this->getFilename() . $this->getStatus();
     }
 
     protected function pad(string $value, int $length): string
     {
         return str_pad($value, $length);
+    }
+
+    protected function getPackage(): string
+    {
+        $length = Str::length($this->package);
+
+        $value = $this->pad($this->package, $length + 1);
+
+        return $this->format($value, 'fg=#a6a6a6');
     }
 
     protected function getLocale(): string

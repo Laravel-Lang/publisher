@@ -15,11 +15,19 @@ final class Config
 
     public const KEY_PUBLIC = 'lang-publisher';
 
+    /**
+     * Getting a list of packages from which to synchronize localization files.
+     *
+     * @return array
+     */
     public function packages(): array
     {
         $this->log('Getting a list of supported packages...');
 
-        return Illuminate::get(self::KEY_PRIVATE . '.packages');
+        $private = Illuminate::get(self::KEY_PRIVATE . '.packages', []);
+        $public  = Illuminate::get(self::KEY_PUBLIC . '.packages', []);
+
+        return array_values(array_merge($public, $private));
     }
 
     /**

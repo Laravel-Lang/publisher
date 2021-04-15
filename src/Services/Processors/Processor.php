@@ -5,8 +5,8 @@ namespace Helldar\LaravelLangPublisher\Services\Processors;
 use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Contracts\Processor as Contract;
-use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Concerns\Makeable;
@@ -18,6 +18,9 @@ abstract class Processor implements Contract
     use Contains;
     use Logger;
     use Makeable;
+    use Pathable;
+
+    protected $package;
 
     protected $locale;
 
@@ -28,6 +31,13 @@ abstract class Processor implements Contract
     protected $force;
 
     protected $full = false;
+
+    public function package(string $package): Contract
+    {
+        $this->package = $package;
+
+        return $this;
+    }
 
     public function locale(string $locale): Contract
     {
@@ -65,15 +75,15 @@ abstract class Processor implements Contract
         if ($this->isValidation($filename) && $is_inline) {
             $this->log('The "' . $filename . '" file is a collection of inline validator messages. Processing in progress...');
 
-            $name      = Path::filename($filename);
-            $extension = Path::extension($filename);
+            $name      = $this->pathFilename($filename);
+            $extension = $this->pathExtension($filename);
 
             $filename = $name . '-inline.' . $extension;
         } elseif ($this->isJson($filename)) {
             $filename = $this->locale . '.json';
         }
 
-        $this->source_path = Path::source($this->locale) . '/' . $filename;
+        $this->source_path = $this->pathSource($this->package, $this->locale) . '/' . $filename;
     }
 
     protected function setTargetPath(string $filename): void
@@ -82,7 +92,7 @@ abstract class Processor implements Contract
 
         $is_json = $this->isJson($filename);
 
-        $this->target_path = Path::targetFull($this->locale, $filename, $is_json);
+        $this->target_path = $this->pathTargetFull($this->locale, $filename, $is_json);
     }
 
     protected function compare(array $source, array $target): array
@@ -123,14 +133,14 @@ abstract class Processor implements Contract
     {
         $this->log('Getting the directory name for a path: ' . $path);
 
-        return Path::directory($path);
+        return $this->pathDirectory($path);
     }
 
     protected function extension(string $path): string
     {
         $this->log('Getting the file extension for a path: ' . $path);
 
-        return Path::extension($path);
+        return $this->pathExtension($path);
     }
 
     protected function exists(): bool
