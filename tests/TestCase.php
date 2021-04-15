@@ -8,6 +8,7 @@ use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
@@ -51,9 +52,6 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         $config->set(Config::KEY_PUBLIC . '.packages', [
-            'foo/bar',
-            'phpunit/phpunit',
-            'mockery/mockery',
             'andrey-helldar/lang-translations',
         ]);
     }
@@ -90,5 +88,12 @@ abstract class TestCase extends BaseTestCase
         File::copyDirectory($source, $target);
         File::move($target . '/en.json', $target . '/../en.json');
         File::delete($target . '/validation-inline.php');
+    }
+
+    protected function setPackages(array $packages): void
+    {
+        $key = Config::KEY_PUBLIC;
+
+        IlluminateConfig::set($key . '.packages', $packages);
     }
 }

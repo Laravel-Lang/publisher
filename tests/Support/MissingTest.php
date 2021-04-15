@@ -39,7 +39,7 @@ class MissingTest extends TestCase
 
     protected function packages(): array
     {
-        return Packages::filtered();
+        return Packages::get();
     }
 
     protected function message(string $package, array $locales): string
