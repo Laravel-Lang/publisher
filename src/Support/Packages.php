@@ -18,7 +18,6 @@ final class Packages
 
         return ArrProcessor::of($packages)
             ->unique()
-            ->sort()
             ->values()
             ->toArray();
     }

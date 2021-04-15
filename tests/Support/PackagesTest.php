@@ -19,10 +19,16 @@ class PackagesTest extends TestCase
 
     public function testPackagesList()
     {
-        $this->setPackages(['foo/bar']);
+        $this->setPackages([
+            'a-foo/bar',
+            'e-foo/bar',
+            'b-foo/bar',
+        ]);
 
         $packages = [
-            'foo/bar',
+            'a-foo/bar',
+            'e-foo/bar',
+            'b-foo/bar',
             'laravel-lang/lang',
         ];
 
