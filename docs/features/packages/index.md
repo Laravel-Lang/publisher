@@ -1,4 +1,4 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / [Features](index.md) / Packages
+[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Features](../index.md) / Packages
 
 # Packages
 

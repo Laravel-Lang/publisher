@@ -2,7 +2,7 @@
 
 # Features
 
-* [Packages](packages.md)
+* [Packages](packages/index.md)
 * [Alignment](alignment.md)
 * [Facades](facades.md)
     * [Config](facades.md#config)

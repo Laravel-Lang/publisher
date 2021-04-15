@@ -24,7 +24,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
     * [Reset locales](using/reset.md)
     * [Remove locales](using/remove.md)
 * [Features](features/index.md)
-    * [Packages](features/packages.md)
+    * [Packages](features/packages/index.md)
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
         * [Alignment](features/alignment.md)
