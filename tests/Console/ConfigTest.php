@@ -33,6 +33,7 @@ final class ConfigTest extends TestCase
     public function testAllPackages(): void
     {
         $packages = [
+            'andrey-helldar/lang-translations',
             'foo/bar',
             'laravel-lang/lang',
             'mockery/mockery',
@@ -45,6 +46,7 @@ final class ConfigTest extends TestCase
     public function testFilteredPackages(): void
     {
         $packages = [
+            'andrey-helldar/lang-translations',
             'laravel-lang/lang',
         ];
 

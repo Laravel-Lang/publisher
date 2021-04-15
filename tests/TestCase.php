@@ -54,6 +54,7 @@ abstract class TestCase extends BaseTestCase
             'foo/bar',
             'phpunit/phpunit',
             'mockery/mockery',
+            'andrey-helldar/lang-translations',
         ]);
     }
 
