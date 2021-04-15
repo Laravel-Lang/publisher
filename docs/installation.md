@@ -13,7 +13,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^9.0"
+        "andrey-helldar/laravel-lang-publisher": "^9.1"
     }
 }
 ```
