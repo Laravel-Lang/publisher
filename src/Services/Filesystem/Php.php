@@ -29,8 +29,8 @@ final class Php extends Filesystem
 
         $service = Formatter::make();
 
-        $this->setCase($service);
-        $this->setAlignment($service);
+        $this->setFormatterCase($service);
+        $this->setFormatterAlignment($service);
 
         Pretty::make($service->raw($content))->store($path);
     }
@@ -40,14 +40,14 @@ final class Php extends Filesystem
         return Config::hasAlignment();
     }
 
-    protected function setCase(Formatter $formatter): void
+    protected function setFormatterCase(Formatter $formatter): void
     {
         $this->log('Setting the key conversion label.');
 
         $formatter->setCase(Config::getCase());
     }
 
-    protected function setAlignment(Formatter $formatter): void
+    protected function setFormatterAlignment(Formatter $formatter): void
     {
         $this->log('Setting the alignment label of values.');
 
