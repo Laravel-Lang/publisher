@@ -54,7 +54,6 @@ enabled:
     - phpdoc_types_order
     - phpdoc_var_without_name
     - property_separation
-    - property_visibility_required
     - self_accessor
     - short_array_syntax
     - short_list_syntax
