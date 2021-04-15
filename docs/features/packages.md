@@ -34,6 +34,10 @@ locales/         - The directory includes a list of folders with localization na
 
 Now, when the `php artisan lang:update` command is executed, the manager will check the specified packages and automatically update the files in your application.
 
+If files with the same names exist in different packages, for example, `custom.php`, then during their processing all keys from all files will be combined.
+
+Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `packages` key of the `config/lang-publisher.php` file.
+
 It's all. Enjoy! 😊
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
