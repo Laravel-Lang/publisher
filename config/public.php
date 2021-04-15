@@ -80,7 +80,6 @@ return [
      */
 
     'packages' => [
-        // 'laravel-lang/lang',
-        // 'namespace/package-name',
+        // 'andrey-helldar/lang-translations',
     ],
 ];
