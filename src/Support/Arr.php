@@ -21,7 +21,7 @@ final class Arr
     {
         $this->log('Getting unique values...');
 
-        return array_values(array_filter(array_unique($array)));
+        return array_filter(array_unique($array));
     }
 
     /**

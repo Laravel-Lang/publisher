@@ -31,6 +31,7 @@ final class Php extends Filesystem
 
         $this->setFormatterCase($service);
         $this->setFormatterAlignment($service);
+        $this->setFormatterKeyToString($service);
 
         Pretty::make($service->raw($content))->store($path);
     }
@@ -54,5 +55,12 @@ final class Php extends Filesystem
         if ($this->isAlignment()) {
             $formatter->setEqualsAlign();
         }
+    }
+
+    protected function setFormatterKeyToString(Formatter $formatter): void
+    {
+        $this->log('Setting the label for converting numeric keys to string...');
+
+        $formatter->setKeyAsString();
     }
 }

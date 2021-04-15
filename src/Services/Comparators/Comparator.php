@@ -5,6 +5,7 @@ namespace Helldar\LaravelLangPublisher\Services\Comparators;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Reservation;
 use Helldar\LaravelLangPublisher\Contracts\Comparator as Contract;
+use Helldar\LaravelLangPublisher\Facades\ArrayProcessor;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
 
@@ -30,7 +31,15 @@ abstract class Comparator implements Contract
     {
         $this->log('Merging source and target arrays...');
 
-        return $this->full ? $this->source : array_merge($this->target, $this->source, $this->not_replace);
+        if ($this->full) {
+            return $this->source;
+        }
+
+        return ArrayProcessor::keysAsString()
+            ->of($this->target)
+            ->merge($this->source)
+            ->merge($this->not_replace)
+            ->toArray();
     }
 
     public function key(string $key): Contract
@@ -71,7 +80,9 @@ abstract class Comparator implements Contract
 
         $this->log('Merging the main array with excluded data...');
 
-        return array_merge($array, $excludes);
+        return ArrayProcessor::of($array)
+            ->merge($excludes)
+            ->toArray();
     }
 
     protected function splitNotSortable(): void
@@ -117,7 +128,9 @@ abstract class Comparator implements Contract
         $excluded_source = Arr::only($source, $keys);
         $excluded_target = Arr::only($target, $keys);
 
-        return array_merge($excluded_target, $excluded_source);
+        return ArrayProcessor::of($excluded_target)
+            ->merge($excluded_source)
+            ->toArray();
     }
 
     protected function sort(array $array): array
