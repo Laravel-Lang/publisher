@@ -4,7 +4,6 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Constants\Status;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
-use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\Support\Actions\Remove as Action;
 use Illuminate\Support\Facades\File;
 
@@ -42,7 +41,7 @@ final class Remove extends BaseCommand
     {
         $this->log('Removing the localization directory for the locale: ' . $locale);
 
-        $path = Path::target($locale);
+        $path = $this->pathTarget($locale);
 
         if (File::exists($path)) {
             File::deleteDirectory($path);
@@ -57,7 +56,7 @@ final class Remove extends BaseCommand
     {
         $this->log('Removing the json localization file for the locale: ' . $locale);
 
-        $path = Path::targetFull($locale, null, true);
+        $path = $this->pathTargetFull($locale, null, true);
 
         if (File::exists($path)) {
             File::delete($path);

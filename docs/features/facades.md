@@ -9,6 +9,8 @@ Perhaps the facades will be useful to you:
 ```php
 use Helldar\LaravelLangPublisher\Facades\Config;
 
+// Getting a list of packages from which to synchronize localization files.
+Config::packages(): array
 
 // Getting the default localization name.
 Config::defaultLocale(): string
@@ -46,9 +48,15 @@ Locales::getDefault(): string
 
 // Getting the fallback localization name.
 Locales::getFallback(): string
+```
 
-// Checking for localization existence.
-Locales::validate(string $locale): void
+## Packages
+
+```php
+use Helldar\LaravelLangPublisher\Facades\Packages;
+
+// Returns a sorted list of packages identified for processing.
+Packages::get(): array
 ```
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher

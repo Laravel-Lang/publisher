@@ -2,6 +2,7 @@
 
 namespace Tests\Console;
 
+use Helldar\LaravelLangPublisher\Exceptions\PackageDoesntExistsException;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Illuminate\Support\Facades\Lang;
@@ -89,5 +90,25 @@ final class AddTest extends TestCase
         $this->assertSame('This is Bar', Lang::get('Bar'));
         $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
         $this->assertSame('Confirm Password', Lang::get('Confirm Password'));
+    }
+
+    public function testIncorrectPackageName()
+    {
+        $this->expectException(PackageDoesntExistsException::class);
+        $this->expectExceptionMessage('The "foo/bar" package is not a translation repository or does not exist.');
+
+        $this->setPackages(['foo/bar']);
+
+        $this->artisan('lang:add', ['locales' => $this->default_locale])->run();
+    }
+
+    public function testNotLocalized()
+    {
+        $this->expectException(PackageDoesntExistsException::class);
+        $this->expectExceptionMessage('The "phpunit/phpunit" package is not a translation repository or does not exist.');
+
+        $this->setPackages(['phpunit/phpunit']);
+
+        $this->artisan('lang:add', ['locales' => $this->default_locale])->run();
     }
 }

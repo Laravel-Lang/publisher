@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static array excludes()
  * @method static array ignores()
+ * @method static array packages()
  * @method static bool hasAlignment()
  * @method static bool hasInline()
  * @method static int getCase()
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string fallbackLocale()
  * @method static string localesPath()
  * @method static string resourcesPath()
+ * @method static string sourcePath()
  */
 final class Config extends Facade
 {

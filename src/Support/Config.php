@@ -16,6 +16,21 @@ final class Config
     public const KEY_PUBLIC = 'lang-publisher';
 
     /**
+     * Getting a list of packages from which to synchronize localization files.
+     *
+     * @return array
+     */
+    public function packages(): array
+    {
+        $this->log('Getting a list of supported packages...');
+
+        $private = Illuminate::get(self::KEY_PRIVATE . '.packages', []);
+        $public  = Illuminate::get(self::KEY_PUBLIC . '.packages', []);
+
+        return array_values(array_merge($public, $private));
+    }
+
+    /**
      * Getting the path to the sources of the English localization.
      *
      * @return string
@@ -25,6 +40,18 @@ final class Config
         $this->log('Getting the path to the sources of the English localization...');
 
         return Illuminate::get(self::KEY_PRIVATE . '.path.base');
+    }
+
+    /**
+     * Getting the path to source locale.
+     *
+     * @return string
+     */
+    public function sourcePath(): string
+    {
+        $this->log('Getting the path to source locale...');
+
+        return Illuminate::get(self::KEY_PRIVATE . '.path.source');
     }
 
     /**

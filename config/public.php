@@ -13,10 +13,10 @@ return [
      * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation.php
      * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation-inline.php
      *
-     * By default, `false`.
+     * By default, `true`.
      */
 
-    'inline' => false,
+    'inline' => true,
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
@@ -61,5 +61,25 @@ return [
      *
      * By default, Caseable::NO_CASE
      */
-    'case'   => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    'case' => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+
+    /*
+     * Determines from which packages to synchronize localization files.
+     *
+     * A prerequisite is compliance with a single file placement format:
+     *
+     * source/
+     * locales/
+     *   af/
+     *     af.json
+     *     <filename>.php
+     *   <locale>/
+     *     <locale>.json
+     *     <filename>.php
+     */
+
+    'packages' => [
+        // 'andrey-helldar/lang-translations',
+    ],
 ];

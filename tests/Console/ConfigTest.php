@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 final class ConfigTest extends TestCase
 {
-    public function testIgnore()
+    public function testIgnore(): void
     {
         $this->assertEmpty(Config::ignores());
 

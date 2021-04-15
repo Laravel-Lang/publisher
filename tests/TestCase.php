@@ -2,17 +2,23 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Pathable;
+
     protected $default_locale = Locales::ENGLISH;
+
+    protected $default_package = 'laravel-lang/lang';
 
     protected function setUp(): void
     {
@@ -38,12 +44,15 @@ abstract class TestCase extends BaseTestCase
 
         $config->set('app.locale', $this->default_locale);
 
-        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor/laravel-lang/lang/source'));
-        $config->set(Config::KEY_PRIVATE . '.path.locales', realpath(__DIR__ . '/../vendor/laravel-lang/lang/locales'));
+        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor'));
 
         $config->set(Config::KEY_PUBLIC . '.exclude', [
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
+        ]);
+
+        $config->set(Config::KEY_PUBLIC . '.packages', [
+            'andrey-helldar/lang-translations',
         ]);
     }
 
@@ -73,11 +82,18 @@ abstract class TestCase extends BaseTestCase
 
     protected function installLocale(): void
     {
-        $source = ConfigFacade::basePath();
-        $target = ConfigFacade::resourcesPath() . '/' . $this->default_locale;
+        $source = $this->pathSource($this->default_package, $this->default_locale);
+        $target = $this->pathTarget($this->default_locale);
 
         File::copyDirectory($source, $target);
         File::move($target . '/en.json', $target . '/../en.json');
         File::delete($target . '/validation-inline.php');
+    }
+
+    protected function setPackages(array $packages): void
+    {
+        $key = Config::KEY_PUBLIC;
+
+        IlluminateConfig::set($key . '.packages', $packages);
     }
 }
