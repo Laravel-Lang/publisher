@@ -14,7 +14,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 ## Table of contents
 
 * [Changelog](changelog/index.md)
-  * [9.x](changelog/9-x.md)
+    * [9.x](changelog/9-x.md)
 * [Installation](installation.md)
 * [Compatibility](compatibility.md)
 * [Using](using/index.md)
@@ -24,12 +24,14 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
     * [Reset locales](using/reset.md)
     * [Remove locales](using/remove.md)
 * [Features](features/index.md)
+    * [Packages](features/packages.md)
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
         * [Alignment](features/alignment.md)
         * [Facades](features/facades.md)
             * [Config](features/facades.md#config)
             * [Locales](features/facades.md#locales)
+            * [Packages](features/facades.md#packages)
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
 
