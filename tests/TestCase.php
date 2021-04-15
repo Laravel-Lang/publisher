@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Path;
@@ -12,7 +13,11 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Pathable;
+
     protected $default_locale = Locales::ENGLISH;
+
+    protected $default_package = 'laravel-lang/lang';
 
     protected function setUp(): void
     {
@@ -78,8 +83,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function installLocale(): void
     {
-        $source = ConfigFacade::basePath();
-        $target = ConfigFacade::resourcesPath() . '/' . $this->default_locale;
+        $source = $this->pathSource($this->default_package, $this->default_locale);
+        $target = $this->pathTarget($this->default_locale);
 
         File::copyDirectory($source, $target);
         File::move($target . '/en.json', $target . '/../en.json');

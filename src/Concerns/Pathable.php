@@ -21,6 +21,11 @@ trait Pathable
         return Path::targetFull($locale, $filename, $is_json);
     }
 
+    protected function pathLocales(string $package, string $locale = null): string
+    {
+        return Path::locales($package, $locale);
+    }
+
     protected function pathDirectory(string $path): string
     {
         return Path::directory($path);

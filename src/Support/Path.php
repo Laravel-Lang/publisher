@@ -18,7 +18,7 @@ final class Path
             return $this->cleanable($this->getBasePath(), $package, $this->getSourcePath());
         }
 
-        return $this->locales($locale);
+        return $this->locales($package, $locale);
     }
 
     public function sourceFull(string $package, string $locale, ?string $filename, bool $is_json = false): string
@@ -50,7 +50,7 @@ final class Path
     {
         $this->log('Getting the path to excluding English localization: ' . $locale);
 
-        return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath());
+        return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath(), $locale);
     }
 
     public function directory(string $path): string

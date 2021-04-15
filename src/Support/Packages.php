@@ -4,8 +4,8 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
+use Helldar\LaravelLangPublisher\Facades\ArrayProcessor as ArrProcessor;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
-use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 final class Packages
@@ -15,40 +15,34 @@ final class Packages
     public function filtered(): array
     {
         $packages = $this->all();
-        $unique   = $this->unique($packages);
-        $filtered = $this->filter($unique);
-        $sorted   = $this->sort($filtered);
 
-        return $this->values($sorted);
+        return $this->map($packages);
     }
 
     public function all(): array
     {
-        return ConfigFacade::packages();
+        $packages = ConfigFacade::packages();
+
+        return ArrProcessor::of($packages)->sort()->toArray();
     }
 
-    protected function filter(array $packages): array
+    protected function filter(): callable
     {
-        return array_filter($packages, static function ($package) {
+        return function ($package) {
             $source = $this->pathSource($package, LocalesList::ENGLISH);
             $target = $this->pathSource($package, LocalesList::RUSSIAN);
 
             return Directory::exists($source) && Directory::exists($target);
-        });
+        };
     }
 
-    protected function unique(array $packages): array
+    protected function map(array $packages): array
     {
-        return array_unique($packages);
-    }
-
-    protected function values(array $packages): array
-    {
-        return array_values($packages);
-    }
-
-    protected function sort(array $packages): array
-    {
-        return ArrHelper::sort($packages);
+        return ArrProcessor::of($packages)
+            ->unique()
+            ->filter($this->filter())
+            ->values()
+            ->sort()
+            ->toArray();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Support;
 
+use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Services\Missing;
 use Tests\TestCase;
 
@@ -9,28 +10,41 @@ class MissingTest extends TestCase
 {
     public function testMissing()
     {
-        $locales = $this->service()->missing();
+        foreach ($this->packages() as $package) {
+            $locales = $this->service()->missing($package);
 
-        $this->assertIsArray($locales);
-        $this->assertEmpty($locales, $this->message($locales));
+            $message = $this->message($package, $locales);
+
+            $this->assertIsArray($locales, $message);
+            $this->assertEmpty($locales, $message);
+        }
     }
 
     public function testUnnecessary()
     {
-        $locales = $this->service()->unnecessary();
+        foreach ($this->packages() as $package) {
+            $locales = $this->service()->unnecessary($package);
 
-        $this->assertIsArray($locales);
-        $this->assertEmpty($locales, $this->message($locales));
+            $message = $this->message($package, $locales);
+
+            $this->assertIsArray($locales, $message);
+            $this->assertEmpty($locales, $message);
+        }
     }
 
     protected function service(): Missing
     {
-        return new Missing();
+        return Missing::make();
     }
 
-    protected function message(array $locales): string
+    protected function packages(): array
     {
-        return 'Locales: ' . $this->implode($locales);
+        return Packages::filtered();
+    }
+
+    protected function message(string $package, array $locales): string
+    {
+        return '[' . $package . '] Locales: ' . $this->implode($locales);
     }
 
     protected function implode(array $array): string

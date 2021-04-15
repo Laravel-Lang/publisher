@@ -38,7 +38,7 @@ final class Message
         return $this;
     }
 
-    public function package(string $package): self
+    public function package(?string $package): self
     {
         $this->package = $package;
 
@@ -86,6 +86,10 @@ final class Message
 
     protected function getPackage(): string
     {
+        if (empty($this->package)) {
+            return '';
+        }
+
         $length = Str::length($this->package);
 
         $value = $this->pad($this->package, $length + 1);

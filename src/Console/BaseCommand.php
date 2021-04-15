@@ -169,7 +169,7 @@ abstract class BaseCommand extends Command
         return $this->locales_length = Arr::longestStringLength($this->locales());
     }
 
-    protected function filesLength(string $package): int
+    protected function filesLength(?string $package): int
     {
         $this->log('Getting the maximum length of a filenames for ' . $package . '...');
 
@@ -179,7 +179,7 @@ abstract class BaseCommand extends Command
 
         $this->log('Calculating the maximum length of a filenames for ' . $package . '...');
 
-        return $this->files_length[$package] = Arr::longestStringLength($this->files($package));
+        return $this->files_length[$package] = $package ? Arr::longestStringLength($this->files($package)) : 0;
     }
 
     protected function hasInline(): bool
