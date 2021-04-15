@@ -13,10 +13,10 @@ return [
      * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation.php
      * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation-inline.php
      *
-     * By default, `false`.
+     * By default, `true`.
      */
 
-    'inline' => false,
+    'inline' => true,
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
