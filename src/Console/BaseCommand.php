@@ -9,11 +9,12 @@ use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
+use Helldar\LaravelLangPublisher\Facades\Info;
 use Helldar\LaravelLangPublisher\Facades\Locales;
-use Helldar\LaravelLangPublisher\Facades\Message;
 use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
+use Helldar\LaravelLangPublisher\Support\Info as InfoSupport;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Str;
@@ -29,11 +30,13 @@ abstract class BaseCommand extends Command
 
     protected $locales_length = 0;
 
-    protected $files_length;
+    protected $files_length = 0;
 
     protected $files;
 
     protected $locales;
+
+    abstract protected function processor(): Processor;
 
     public function handle()
     {
@@ -43,8 +46,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {
@@ -72,6 +73,8 @@ abstract class BaseCommand extends Command
     {
         foreach ($this->files($package) as $filename) {
             $this->log('Processing the localization file: ' . $filename);
+
+            $this->processing($locale, $filename, $package);
 
             $status = $this->process($package, $locale, $filename);
 
@@ -143,17 +146,26 @@ abstract class BaseCommand extends Command
         $this->info('Localizations have ben successfully ' . $action . '.');
     }
 
+    protected function processing(string $locale, string $filename, string $package = null): void
+    {
+        $message = $this->message($locale, $filename, $package)->start();
+
+        $this->output->write($message);
+    }
+
     protected function processed(string $locale, string $filename, string $status, string $package = null): void
     {
-        $message = Message::same()
-            ->length($this->localesLength(), $this->filesLength($package))
-            ->package($package)
-            ->locale($locale)
-            ->filename($filename)
-            ->status($status)
-            ->get();
+        $message = $this->message($locale, $filename, $package)->finish($status);
 
-        $this->line($message);
+        $this->output->writeln($message);
+    }
+
+    protected function message(string $locale, string $filename, string $package = null): InfoSupport
+    {
+        return Info::same()
+            ->package($package)
+            ->locale($locale, $this->localesLength())
+            ->filename($filename, $this->filesLength());
     }
 
     protected function localesLength(): int
@@ -169,17 +181,23 @@ abstract class BaseCommand extends Command
         return $this->locales_length = Arr::longestStringLength($this->locales());
     }
 
-    protected function filesLength(?string $package): int
+    protected function filesLength(): int
     {
-        $this->log('Getting the maximum length of a filenames for ' . $package . '...');
+        $this->log('Getting the maximum length of a filenames...');
 
-        if ($this->files_length[$package] ?? false) {
-            return $this->files_length[$package];
+        if ($this->files_length > 0) {
+            return $this->files_length;
         }
 
-        $this->log('Calculating the maximum length of a filenames for ' . $package . '...');
+        $this->log('Calculating the maximum length of a filenames...');
 
-        return $this->files_length[$package] = $package ? Arr::longestStringLength($this->files($package)) : 0;
+        $files = [];
+
+        foreach ($this->packages() as $package) {
+            $files = array_merge($files, $this->files($package));
+        }
+
+        return $this->files_length = Arr::longestStringLength(array_unique($files));
     }
 
     protected function hasInline(): bool
