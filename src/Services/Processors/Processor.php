@@ -156,17 +156,10 @@ abstract class Processor implements Contract
         return $this->container(Manager::class);
     }
 
-    protected function extension(string $path): string
-    {
-        $this->log('Getting the file extension for a path:', $path);
-
-        return $this->pathExtension($path);
-    }
-
-    protected function exists(): bool
+    protected function doesntExists(): bool
     {
         $this->log('Checking for the existence of a file:', $this->target_path);
 
-        return File::exists($this->target_path);
+        return ! File::exists($this->target_path);
     }
 }

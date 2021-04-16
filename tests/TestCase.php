@@ -20,6 +20,8 @@ abstract class TestCase extends BaseTestCase
 
     protected $default_locale = Locales::ENGLISH;
 
+    protected $fallback_locale = Locales::KOREAN;
+
     protected $default_package = 'laravel-lang/lang';
 
     protected function setUp(): void
@@ -45,6 +47,7 @@ abstract class TestCase extends BaseTestCase
         $config = $app['config'];
 
         $config->set('app.locale', $this->default_locale);
+        $config->set('app.fallback_locale', $this->fallback_locale);
 
         $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor'));
 

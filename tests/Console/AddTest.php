@@ -70,6 +70,19 @@ final class AddTest extends TestCase
         $this->assertSame('Remember Me', Lang::get('Remember Me'));
     }
 
+    public function testSkipped()
+    {
+        $this->copyFixtures();
+
+        $this->artisan('lang:add', [
+            'locales' => $this->default_locale,
+        ])->run();
+
+        $this->assertSame('Foo', Lang::get('auth.throttle'));
+        $this->assertSame('This is Bar', Lang::get('Bar'));
+        $this->assertSame('Remember Me', Lang::get('Remember Me'));
+    }
+
     public function testExcludes()
     {
         $this->copyFixtures();
