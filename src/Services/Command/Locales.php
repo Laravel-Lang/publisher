@@ -65,11 +65,13 @@ final class Locales
     {
         $this->log('Displaying an interactive question with a choice of localizations...');
 
-        if ($locales = $this->ask()) {
-            return $locales;
+        $locales = null;
+
+        while (! $locales) {
+            $locales = $this->ask();
         }
 
-        return $this->ask();
+        return $locales;
     }
 
     protected function confirm(): bool
