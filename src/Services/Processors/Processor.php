@@ -129,13 +129,6 @@ abstract class Processor implements Contract
         return $this->container(Manager::class);
     }
 
-    protected function directory(string $path): string
-    {
-        $this->log('Getting the directory name for a path:', $path);
-
-        return $this->pathDirectory($path);
-    }
-
     protected function extension(string $path): string
     {
         $this->log('Getting the file extension for a path:', $path);

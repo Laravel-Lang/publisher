@@ -34,13 +34,6 @@ trait Pathable
         return Path::locales($package, $locale);
     }
 
-    protected function pathDirectory(string $path): string
-    {
-        $this->log('Getting a link to a directory from a file path:', $path);
-
-        return Path::directory($path);
-    }
-
     protected function pathFilename(string $path): string
     {
         $this->log('Getting file name without extension:', $path);
