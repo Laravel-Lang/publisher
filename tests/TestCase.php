@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
@@ -14,6 +15,7 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Logger;
     use Pathable;
 
     protected $default_locale = Locales::ENGLISH;
