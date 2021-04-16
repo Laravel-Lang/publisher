@@ -37,7 +37,7 @@ final class Info
         return $this;
     }
 
-    public function package(string $package): self
+    public function package(?string $package): self
     {
         $this->package = $package;
 
@@ -72,7 +72,7 @@ final class Info
 
     protected function getPackage(): ?string
     {
-        if (! $this->hasPackages()) {
+        if (! $this->package || ! $this->hasPackages()) {
             return null;
         }
 
