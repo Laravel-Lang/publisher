@@ -22,7 +22,7 @@ abstract class Filesystem implements Contract
 
     protected function doesntExists(string $path): bool
     {
-        $this->log('Checking for the existence of a path: ' . $path);
+        $this->log('Checking for the existence of a path:', $path);
 
         return ! File::exists($path);
     }

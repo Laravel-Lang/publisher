@@ -70,10 +70,10 @@ abstract class Processor implements Contract
 
     protected function setSourcePath(string $filename, bool $is_inline): void
     {
-        $this->log('Setting the path to the source file: ' . $filename);
+        $this->log('Setting the path to the source file:', $filename);
 
         if ($this->isValidation($filename) && $is_inline) {
-            $this->log('The "' . $filename . '" file is a collection of inline validator messages. Processing in progress...');
+            $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline validator messages. Processing in progress...');
 
             $name      = $this->pathFilename($filename);
             $extension = $this->pathExtension($filename);
@@ -88,7 +88,7 @@ abstract class Processor implements Contract
 
     protected function setTargetPath(string $filename): void
     {
-        $this->log('Setting the path to the target file: ' . $filename);
+        $this->log('Setting the path to the target file:', $filename);
 
         $is_json = $this->isJson($filename);
 
@@ -110,14 +110,14 @@ abstract class Processor implements Contract
 
     protected function load(string $path): array
     {
-        $this->log('Loading an array: ' . $path);
+        $this->log('Loading an array:', $path);
 
         return $this->manager()->load($path);
     }
 
     protected function store(string $path, array $content): void
     {
-        $this->log('Saving an array to a file: ' . $path);
+        $this->log('Saving an array to a file:', $path);
 
         $this->manager()->store($path, $content);
     }
@@ -131,21 +131,21 @@ abstract class Processor implements Contract
 
     protected function directory(string $path): string
     {
-        $this->log('Getting the directory name for a path: ' . $path);
+        $this->log('Getting the directory name for a path:', $path);
 
         return $this->pathDirectory($path);
     }
 
     protected function extension(string $path): string
     {
-        $this->log('Getting the file extension for a path: ' . $path);
+        $this->log('Getting the file extension for a path:', $path);
 
         return $this->pathExtension($path);
     }
 
     protected function exists(): bool
     {
-        $this->log('Checking for the existence of a file: ' . $this->target_path);
+        $this->log('Checking for the existence of a file:', $this->target_path);
 
         return File::exists($this->target_path);
     }

@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Services;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\ArrayProcessor;
@@ -11,6 +12,7 @@ use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 final class Missing
 {
+    use Logger;
     use Makeable;
     use Pathable;
 

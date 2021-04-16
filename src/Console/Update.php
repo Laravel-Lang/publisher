@@ -16,13 +16,15 @@ final class Update extends BaseCommand
 
     protected function processor(): ProcessorContract
     {
-        $this->log('Getting the processor: ' . Processor::class);
+        $this->log('Getting the processor:', Processor::class);
 
         return Processor::make()->force($this->hasForce());
     }
 
     protected function locales(): array
     {
+        $this->log('Getting a list of installed localizations...');
+
         return $this->targetLocales();
     }
 

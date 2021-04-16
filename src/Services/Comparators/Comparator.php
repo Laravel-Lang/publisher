@@ -72,6 +72,8 @@ abstract class Comparator implements Contract
 
     public function toArray(): array
     {
+        $this->log('Calling the method to return the result of comparing arrays...');
+
         $this->findNotReplace();
         $this->splitNotSortable();
 
@@ -97,6 +99,8 @@ abstract class Comparator implements Contract
 
     protected function findNotReplace(): void
     {
+        $this->log('Getting a list of reserved keys...');
+
         if ($this->full) {
             return;
         }
@@ -123,7 +127,7 @@ abstract class Comparator implements Contract
 
     protected function getExcludedValues(array $source, array $target, array $keys): array
     {
-        $this->log('Retrieving values from arrays by the "' . implode('", "', $keys) . '" key...');
+        $this->log('Retrieving values from arrays by the', $keys, 'keys...');
 
         $excluded_source = Arr::only($source, $keys);
         $excluded_target = Arr::only($target, $keys);

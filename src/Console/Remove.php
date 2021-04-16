@@ -18,10 +18,14 @@ final class Remove extends BaseCommand
 
     protected function ran(): void
     {
+        $this->log('Starting processing of the locales list...');
+
         foreach ($this->locales() as $locale) {
             $this->log('Localization handling: ' . $locale);
 
             $this->validateLocale($locale);
+
+            $this->processing($locale, $locale);
 
             $status = $this->doesntProtect($locale) ? $this->delete($locale) : Status::SKIPPED;
 
@@ -31,6 +35,8 @@ final class Remove extends BaseCommand
 
     protected function delete(string $locale): string
     {
+        $this->log('Removing json and php localization files:', $locale);
+
         $status_dir  = $this->deleteDirectory($locale);
         $status_file = $this->deleteFile($locale);
 
@@ -39,7 +45,7 @@ final class Remove extends BaseCommand
 
     protected function deleteDirectory(string $locale): string
     {
-        $this->log('Removing the localization directory for the locale: ' . $locale);
+        $this->log('Removing the localization directory for the locale:', $locale);
 
         $path = $this->pathTarget($locale);
 
@@ -54,7 +60,7 @@ final class Remove extends BaseCommand
 
     protected function deleteFile(string $locale): string
     {
-        $this->log('Removing the json localization file for the locale: ' . $locale);
+        $this->log('Removing the json localization file for the locale:', $locale);
 
         $path = $this->pathTargetFull($locale, null, true);
 

@@ -30,7 +30,7 @@ final class Locales
 
     public function __construct(InputInterface $input, OutputStyle $output, Actionable $action, array $locales)
     {
-        $this->log('Object initialization: ' . self::class);
+        $this->log('Object initialization:', self::class);
 
         $this->input   = $input;
         $this->output  = $output;
@@ -40,6 +40,8 @@ final class Locales
 
     public function get(): array
     {
+        $this->log('Getting a list of localizations...');
+
         $input = $this->input();
 
         if ($this->hasAll($input) && $this->confirm()) {

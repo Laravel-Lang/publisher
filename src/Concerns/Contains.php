@@ -9,7 +9,7 @@ trait Contains
 {
     protected function isValidation(string $filename, bool $is_path = false): bool
     {
-        $this->log('Does the file contain validation messages? ' . $filename);
+        $this->log('Does the file contain validation messages?', $filename);
 
         $filename = $is_path ? Path::filename($filename) : $filename;
 
@@ -18,7 +18,7 @@ trait Contains
 
     protected function isJson(string $filename): bool
     {
-        $this->log('Does the file contain json? ' . $filename);
+        $this->log('Does the file contain json?', $filename);
 
         return Str::endsWith($filename, 'json');
     }

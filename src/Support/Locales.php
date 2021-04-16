@@ -25,7 +25,7 @@ final class Locales
      */
     public function available(bool $all = false): array
     {
-        $this->log('Getting list of available locations...');
+        $this->log('Getting list of available locations. Is all =', $all);
 
         $locales = $this->all();
 
@@ -75,7 +75,7 @@ final class Locales
      */
     public function isAvailable(string $locale): bool
     {
-        $this->log('Checks if a language pack is installed...');
+        $this->log('Checks if a language pack is installed:', $locale);
 
         return in_array($locale, $this->available(true), true);
     }
@@ -89,7 +89,7 @@ final class Locales
      */
     public function isProtected(string $locale): bool
     {
-        $this->log('The checked locale protecting...');
+        $this->log('The checked locale protecting:', $locale);
 
         return $locale === $this->getDefault() || $locale === $this->getFallback();
     }
@@ -103,7 +103,7 @@ final class Locales
      */
     public function isInstalled(string $locale): bool
     {
-        $this->log('Checks whether it is possible to install the language pack...');
+        $this->log('Checks whether it is possible to install the language pack:', $locale);
 
         return in_array($locale, $this->installed(), true);
     }

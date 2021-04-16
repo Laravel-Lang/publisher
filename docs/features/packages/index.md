@@ -1,8 +1,10 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / [Features](index.md) / Packages
+[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Features](../index.md) / Packages
 
 # Packages
 
 > Starting with version 9.1, the [Laravel Lang Publisher][link_source] project can work with an unlimited number of packages containing localization files.
+>
+> [See list](extensions.md) of official packages working with the translation manager.
 
 For a manager to work, you need to do two things:
 
@@ -36,7 +38,8 @@ Now, when the `php artisan lang:update` command is executed, the manager will ch
 
 If files with the same names exist in different packages, for example, `custom.php`, then during their processing all keys from all files will be combined.
 
-Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `packages` key of the `config/lang-publisher.php` file.
+Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `packages` key of
+the `config/lang-publisher.php` file.
 
 It's all. Enjoy! 😊
 

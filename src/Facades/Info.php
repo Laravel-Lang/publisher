@@ -2,14 +2,13 @@
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Support\Packages as Support;
+use Helldar\LaravelLangPublisher\Support\Info as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array get()
- * @method static int count()
+ * @method static Support same()
  */
-final class Packages extends Facade
+final class Info extends Facade
 {
     protected static function getFacadeAccessor()
     {
