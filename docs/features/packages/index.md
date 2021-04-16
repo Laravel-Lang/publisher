@@ -41,6 +41,26 @@ If files with the same names exist in different packages, for example, `custom.p
 Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `packages` key of
 the `config/lang-publisher.php` file.
 
+An example of a processing log:
+
+```
+Updating localizations...
+andrey-helldar/lang-translations [en] errors.php...     copied
+andrey-helldar/lang-translations [ru] errors.php...     copied
+laravel-lang/lang                [en] auth.php...       copied
+laravel-lang/lang                [en] en.json...        copied
+laravel-lang/lang                [en] pagination.php... copied
+laravel-lang/lang                [en] passwords.php...  copied
+laravel-lang/lang                [en] validation.php... copied
+laravel-lang/lang                [ru] auth.php...       copied
+laravel-lang/lang                [ru] en.json...        copied
+laravel-lang/lang                [ru] pagination.php... copied
+laravel-lang/lang                [ru] passwords.php...  copied
+laravel-lang/lang                [ru] validation.php... copied
+Localizations have ben successfully updated.
+
+```
+
 It's all. Enjoy! 😊
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
