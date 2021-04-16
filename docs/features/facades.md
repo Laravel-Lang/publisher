@@ -57,6 +57,9 @@ use Helldar\LaravelLangPublisher\Facades\Packages;
 
 // Returns a sorted list of packages identified for processing.
 Packages::get(): array
+
+// Returns the count of processable packages.
+Packages::count(): int
 ```
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher

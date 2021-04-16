@@ -21,4 +21,14 @@ final class Packages
             ->values()
             ->toArray();
     }
+
+    /**
+     * Returns the count of processable packages.
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->get());
+    }
 }

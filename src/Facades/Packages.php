@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array get()
+ * @method static int count()
  */
 final class Packages extends Facade
 {
