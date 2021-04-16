@@ -15,21 +15,21 @@ final class Manager implements Contract
 
     public function load(string $path): array
     {
-        $this->log('Loading data from an array: ' . $path);
+        $this->log('Loading data from an array:', $path);
 
         return $this->filesystem($path)->load($path);
     }
 
     public function store(string $path, array $content)
     {
-        $this->log('Saving an array to a file: ' . $path);
+        $this->log('Saving an array to a file:', $path);
 
         return $this->filesystem($path)->store($path, $content);
     }
 
     protected function filesystem(string $path): Contract
     {
-        $this->log('Getting an object for working with files by the path: ' . $path);
+        $this->log('Getting an object for working with files by the path:', $path);
 
         return $this->isJson($path)
             ? $this->container(Json::class)

@@ -13,6 +13,8 @@ final class Reset extends Processor
 
     public function run(): string
     {
+        $this->log('Start the handler for execution:', self::class);
+
         $source = $this->load($this->source_path);
         $target = $this->load($this->target_path);
 
@@ -25,6 +27,8 @@ final class Reset extends Processor
 
     protected function compare(array $source, array $target): array
     {
+        $this->log('Combining arrays...');
+
         $target = $this->full ? [] : $this->only($target);
 
         return parent::compare($source, $target);
@@ -32,6 +36,8 @@ final class Reset extends Processor
 
     protected function only(array $array): array
     {
+        $this->log('Getting reserved keys from an array...');
+
         return $this->reserved($array, $this->key($this->target_path));
     }
 }

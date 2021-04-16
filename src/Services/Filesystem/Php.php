@@ -10,13 +10,15 @@ final class Php extends Filesystem
 {
     public function load(string $path): array
     {
+        $this->log('Loading the contents of the file:', $path);
+
         if ($this->doesntExists($path)) {
-            $this->log('File not found: ' . $path);
+            $this->log('File not found:', $path);
 
             return [];
         }
 
-        $this->log('Loading data from a file: ' . $path);
+        $this->log('Loading data from a file:', $path);
 
         $items = Pretty::make()->load($path);
 
@@ -25,7 +27,7 @@ final class Php extends Filesystem
 
     public function store(string $path, array $content)
     {
-        $this->log('Saving an array to a file: ' . $path);
+        $this->log('Saving an array to a file:', $path);
 
         $service = Formatter::make();
 

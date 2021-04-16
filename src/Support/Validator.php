@@ -22,7 +22,7 @@ class Validator
      */
     public function locale(string $locale): void
     {
-        $this->log('Checking for localization existence: ' . $locale);
+        $this->log('Checking for localization existence:', $locale);
 
         if (! LocalesFacade::isAvailable($locale)) {
             throw new SourceLocaleDoesntExistsException($locale);
@@ -31,7 +31,7 @@ class Validator
 
     public function package(string $package): void
     {
-        $this->log('Checking for package existence: ' . $package);
+        $this->log('Checking for package existence:', $package);
 
         $source  = $this->pathSource($package, LocalesList::ENGLISH);
         $locales = $this->pathLocales($package);

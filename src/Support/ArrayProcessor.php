@@ -2,11 +2,14 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
 use Illuminate\Contracts\Support\Arrayable;
 
 class ArrayProcessor implements Arrayable
 {
+    use Logger;
+
     protected $items = [];
 
     protected $keys_as_string = false;
@@ -27,6 +30,8 @@ class ArrayProcessor implements Arrayable
 
     public function push($value): self
     {
+        $this->log('Adding an item to an array...');
+
         array_push($this->items, $value);
 
         return $this;
@@ -34,6 +39,8 @@ class ArrayProcessor implements Arrayable
 
     public function merge(array $array): self
     {
+        $this->log('Merging arrays with string conversion...');
+
         $array = $this->stringingKeys($array);
 
         foreach ($array as $key => $value) {
@@ -45,6 +52,8 @@ class ArrayProcessor implements Arrayable
 
     public function unique(): self
     {
+        $this->log('Filtering an array by unique values...');
+
         $this->items = array_unique($this->items);
 
         return $this;
@@ -52,6 +61,8 @@ class ArrayProcessor implements Arrayable
 
     public function values(): self
     {
+        $this->log('Retrieving array values without keys...');
+
         $this->items = array_values($this->items);
 
         return $this;
@@ -59,6 +70,8 @@ class ArrayProcessor implements Arrayable
 
     public function sort(): self
     {
+        $this->log('Sorting array values...');
+
         $this->items = ArrHelper::sort($this->items);
 
         return $this;
@@ -71,7 +84,11 @@ class ArrayProcessor implements Arrayable
 
     protected function stringingKeys(array $array): array
     {
+        $this->log('Converting array keys to string type...');
+
         if (! $this->keys_as_string) {
+            $this->log('Conversion of array keys to string type is disabled.');
+
             return $array;
         }
 

@@ -12,8 +12,37 @@ trait Logger
         Service::io($this->output);
     }
 
-    protected function log(string $message): void
+    protected function log(...$message): void
     {
-        Log::write($message);
+        $value = $this->logProcess($message);
+
+        Log::write($value);
+    }
+
+    protected function logProcess(array $values): string
+    {
+        foreach ($values as &$value) {
+            switch (gettype($value)) {
+                case 'boolean':
+                case 'bool':
+                    $value = $value ? '"true"' : '"false"';
+                    break;
+
+                case 'integer':
+                case 'double':
+                    $value = '"' . $value . '"';
+                    break;
+
+                case 'array':
+                    $value = implode(', ', $value);
+                    break;
+
+                case 'NULL':
+                    $value = '"null"';
+                    break;
+            }
+        }
+
+        return implode(' ', $values);
     }
 }

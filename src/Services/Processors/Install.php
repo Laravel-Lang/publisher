@@ -8,7 +8,11 @@ final class Install extends Processor
 {
     public function run(): string
     {
+        $this->log('Start the handler for execution:', self::class);
+
         if (! $this->force && $this->exists()) {
+            $this->log('Skip processing:', self::class);
+
             return Status::SKIPPED;
         }
 

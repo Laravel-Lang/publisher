@@ -12,7 +12,7 @@ final class Path
 
     public function source(string $package, string $locale): string
     {
-        $this->log('Getting the path to the source files of the localization: ' . $locale);
+        $this->log('Getting the path to the source files of the localization:', $package, $locale);
 
         if ($this->isEnglish($locale)) {
             return $this->cleanable($this->getBasePath(), $package, $this->getSourcePath());
@@ -23,6 +23,8 @@ final class Path
 
     public function sourceFull(string $package, string $locale, ?string $filename, bool $is_json = false): string
     {
+        $this->log('Getting the full path to the source files of the localization:', $package, $locale, $filename, $is_json);
+
         $suffix = $is_json ? $locale . '.json' : $filename;
 
         return $this->source($package, $locale) . '/' . $suffix;
@@ -30,7 +32,7 @@ final class Path
 
     public function target(string $locale, bool $is_json = false): string
     {
-        $this->log('Getting the path to the target files of the localization: ' . $locale);
+        $this->log('Getting the path to the target files of the localization:', $locale, $is_json);
 
         $path = $this->getTargetPath();
 
@@ -41,6 +43,8 @@ final class Path
 
     public function targetFull(string $locale, ?string $filename, bool $is_json = false): string
     {
+        $this->log('Getting the full path to the target files of the localization:', $locale, $filename, $is_json);
+
         $suffix = $is_json ? '../' . $locale . '.json' : $filename;
 
         return $this->target($locale) . '/' . $suffix;
@@ -48,14 +52,14 @@ final class Path
 
     public function locales(string $package, string $locale = null): string
     {
-        $this->log('Getting the path to excluding English localization: ' . $locale);
+        $this->log('Getting the path to the source translation files for', $package, $locale);
 
         return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath(), $locale);
     }
 
     public function directory(string $path): string
     {
-        $this->log('Getting the path to a directory: ' . $path);
+        $this->log('Getting the path to a directory:', $path);
 
         $path = pathinfo($path, PATHINFO_DIRNAME);
 
@@ -64,7 +68,7 @@ final class Path
 
     public function filename(string $path): string
     {
-        $this->log('Getting file name without extension and path: ' . $path);
+        $this->log('Getting file name without extension and path:', $path);
 
         $path = pathinfo($path, PATHINFO_FILENAME);
 
@@ -73,7 +77,7 @@ final class Path
 
     public function extension(string $path): string
     {
-        $this->log('Getting file extension from path: ' . $path);
+        $this->log('Getting file extension from path:', $path);
 
         $path = pathinfo($path, PATHINFO_EXTENSION);
 
@@ -82,7 +86,7 @@ final class Path
 
     protected function cleanable(...$values): string
     {
-        $this->log('Preparing a directory from an array of variables...');
+        $this->log('Cleaning values to compile a path:', $values);
 
         foreach ($values as &$value) {
             $value = $this->clean($value);
@@ -93,7 +97,7 @@ final class Path
 
     protected function clean(string $path = null): ?string
     {
-        $this->log('Clearing the path from the trailing character: ' . $path);
+        $this->log('Clearing the path from the trailing character:', $path);
 
         return ! empty($path) ? rtrim($path, '\\/') : $path;
     }

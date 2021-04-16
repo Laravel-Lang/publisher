@@ -12,8 +12,13 @@ abstract class Action implements Actionable
 
     protected function text(string $value, bool $as_title = false): string
     {
-        $this->log('Convert text to TitleCase: ' . $value . '.');
+        $this->log($this->loggableMessage(), __FUNCTION__, $as_title);
 
         return $as_title ? Str::title($value) : $value;
+    }
+
+    protected function loggableMessage(): string
+    {
+        return 'Convert text to TitleCase for';
     }
 }

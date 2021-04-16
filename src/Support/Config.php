@@ -31,25 +31,25 @@ final class Config
     }
 
     /**
-     * Getting the path to the sources of the English localization.
+     * Retrieving a link to the "vendor" directory.
      *
      * @return string
      */
     public function basePath(): string
     {
-        $this->log('Getting the path to the sources of the English localization...');
+        $this->log('Retrieving a link to the "vendor" directory...');
 
         return Illuminate::get(self::KEY_PRIVATE . '.path.base');
     }
 
     /**
-     * Getting the path to source locale.
+     * Getting the name of the directory with the source files of the English localization.
      *
      * @return string
      */
     public function sourcePath(): string
     {
-        $this->log('Getting the path to source locale...');
+        $this->log('Getting the name of the directory with the source files of the English localization...');
 
         return Illuminate::get(self::KEY_PRIVATE . '.path.source');
     }

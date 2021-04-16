@@ -14,7 +14,7 @@ final class Reflection
      */
     public function getConstants(string $class): array
     {
-        $this->log('Getting a list of object constants: ' . $class);
+        $this->log('Getting a list of object constants:', $class);
 
         return $this->make($class)->getConstants();
     }
@@ -24,7 +24,7 @@ final class Reflection
      */
     protected function make(string $class): ReflectionClass
     {
-        $this->log('Creating a reflection object class: ' . $class);
+        $this->log('Creating a reflection object class:', $class);
 
         return new ReflectionClass($class);
     }
