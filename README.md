@@ -6,7 +6,10 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
 
 <p align="center">
-    [ <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> ]
+    [
+        <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> |
+        <a href="https://laravel-lang.github.io/lang/status.html">Translation status</a>
+    ]
 </p>
 
 [![Stable Version][badge_stable]][link_packagist]
