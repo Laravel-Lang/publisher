@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static Support keysAsString()
  * @method static Support of(array $items)
  */
-class ArrayProcessor extends Facade
+final class ArrayProcessor extends Facade
 {
     protected static function getFacadeAccessor()
     {

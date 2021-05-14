@@ -10,7 +10,7 @@ use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
 use Helldar\LaravelLangPublisher\Facades\Locales as LocalesFacade;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
-class Validator
+final class Validator
 {
     use Logger;
     use Pathable;

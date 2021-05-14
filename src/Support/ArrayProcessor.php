@@ -6,7 +6,7 @@ use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\Support\Facades\Helpers\Arr as ArrHelper;
 use Illuminate\Contracts\Support\Arrayable;
 
-class ArrayProcessor implements Arrayable
+final class ArrayProcessor implements Arrayable
 {
     use Logger;
 
