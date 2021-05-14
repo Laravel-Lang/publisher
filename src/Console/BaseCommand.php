@@ -88,15 +88,15 @@ abstract class BaseCommand extends Command
         }
     }
 
-    protected function process(string $package, string $locale, string $filename): string
+    protected function process(?string $package, ?string $locale, ?string $filename): string
     {
         $this->log('Launching the processor for localization:', $locale, ',', $filename);
 
         return $this->processor()
             ->force($this->hasForce())
-            ->package($package)
-            ->locale($locale)
-            ->filename($filename, $this->hasInline())
+            ->whenPackage($package)
+            ->whenLocale($locale)
+            ->whenFilename($filename, $this->hasInline())
             ->run();
     }
 
@@ -265,13 +265,6 @@ abstract class BaseCommand extends Command
         $this->log('Calling the package validation method: ', $package, '...');
 
         Validator::package($package);
-    }
-
-    protected function doesntProtect(string $locale): bool
-    {
-        $this->log('Check if the localization is among the protected:', $locale);
-
-        return ! Locales::isProtected($locale);
     }
 
     protected function clean(): void

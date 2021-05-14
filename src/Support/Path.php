@@ -21,15 +21,6 @@ final class Path
         return $this->locales($package, $locale);
     }
 
-    public function sourceFull(string $package, string $locale, ?string $filename, bool $is_json = false): string
-    {
-        $this->log('Getting the full path to the source files of the localization:', $package, $locale, $filename, $is_json);
-
-        $suffix = $is_json ? $locale . '.json' : $filename;
-
-        return $this->source($package, $locale) . '/' . $suffix;
-    }
-
     public function target(string $locale, bool $is_json = false): string
     {
         $this->log('Getting the path to the target files of the localization:', $locale, $is_json);
@@ -55,15 +46,6 @@ final class Path
         $this->log('Getting the path to the source translation files for', $package, $locale);
 
         return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath(), $locale);
-    }
-
-    public function directory(string $path): string
-    {
-        $this->log('Getting the path to a directory:', $path);
-
-        $path = pathinfo($path, PATHINFO_DIRNAME);
-
-        return $this->clean($path);
     }
 
     public function filename(string $path): string

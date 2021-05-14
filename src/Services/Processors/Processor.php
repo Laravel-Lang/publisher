@@ -46,7 +46,7 @@ abstract class Processor implements Contract
         return $this;
     }
 
-    public function filename(string $filename, bool $is_inline): Contract
+    public function filename(string $filename, bool $is_inline = true): Contract
     {
         $this->setSourcePath($filename, $is_inline);
         $this->setTargetPath($filename);
@@ -64,6 +64,33 @@ abstract class Processor implements Contract
     public function full(bool $full = false): Contract
     {
         $this->full = $full;
+
+        return $this;
+    }
+
+    public function whenPackage(?string $package): Contract
+    {
+        if ($package) {
+            $this->package($package);
+        }
+
+        return $this;
+    }
+
+    public function whenLocale(?string $locale): Contract
+    {
+        if ($locale) {
+            $this->locale($locale);
+        }
+
+        return $this;
+    }
+
+    public function whenFilename(?string $filename, bool $is_inline = true): Contract
+    {
+        if ($filename) {
+            $this->filename($filename, $is_inline);
+        }
 
         return $this;
     }
@@ -129,24 +156,10 @@ abstract class Processor implements Contract
         return $this->container(Manager::class);
     }
 
-    protected function directory(string $path): string
-    {
-        $this->log('Getting the directory name for a path:', $path);
-
-        return $this->pathDirectory($path);
-    }
-
-    protected function extension(string $path): string
-    {
-        $this->log('Getting the file extension for a path:', $path);
-
-        return $this->pathExtension($path);
-    }
-
-    protected function exists(): bool
+    protected function doesntExists(): bool
     {
         $this->log('Checking for the existence of a file:', $this->target_path);
 
-        return File::exists($this->target_path);
+        return ! File::exists($this->target_path);
     }
 }
