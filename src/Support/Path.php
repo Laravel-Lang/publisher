@@ -75,17 +75,6 @@ final class Path
         return $this->clean($path);
     }
 
-    protected function cleanable(...$values): string
-    {
-        $this->log('Cleaning values to compile a path:', $values);
-
-        foreach ($values as &$value) {
-            $value = $this->clean($value);
-        }
-
-        return implode('/', $values);
-    }
-
     public function clean(string $path = null, bool $both = false): ?string
     {
         $this->log('Clearing the path from the trailing character:', $path);
@@ -97,6 +86,17 @@ final class Path
         }
 
         return $path;
+    }
+
+    protected function cleanable(...$values): string
+    {
+        $this->log('Cleaning values to compile a path:', $values);
+
+        foreach ($values as &$value) {
+            $value = $this->clean($value);
+        }
+
+        return implode('/', $values);
     }
 
     protected function isEnglish(string $locale): bool

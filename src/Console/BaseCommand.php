@@ -184,7 +184,7 @@ abstract class BaseCommand extends Command
         }
 
         return $this->extra_packages = array_map(static function ($package) {
-            /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
+            /* @var \Helldar\LaravelLangPublisher\Packages\Package $package */
             return $package::make();
         }, PackagesConst::ALL);
     }
