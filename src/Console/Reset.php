@@ -16,10 +16,12 @@ final class Reset extends BaseCommand
 
     protected $action = Action::class;
 
-    protected function processor(): ProcessorContract
+    protected function processor(?string $filename): ProcessorContract
     {
         $this->log('Getting the processor:', Processor::class);
 
-        return Processor::make()->full($this->hasFull());
+        $full = $this->hasFull() && ! $this->hasProcessed($filename);
+
+        return Processor::make()->full($full);
     }
 }

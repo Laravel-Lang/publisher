@@ -12,7 +12,6 @@ final class Install extends Processor
 
         if ($this->force || $this->doesntExists()) {
             $this->main();
-            $this->packages();
 
             return Status::COPIED;
         }

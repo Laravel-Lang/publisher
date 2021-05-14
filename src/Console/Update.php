@@ -14,11 +14,13 @@ final class Update extends BaseCommand
 
     protected $action = Action::class;
 
-    protected function processor(): ProcessorContract
+    protected function processor(?string $filename): ProcessorContract
     {
         $this->log('Getting the processor:', Processor::class);
 
-        return Processor::make()->force($this->hasForce());
+        $has_force = $this->hasForce() || $this->hasProcessed($filename);
+
+        return Processor::make()->force($has_force);
     }
 
     protected function locales(): array

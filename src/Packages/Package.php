@@ -17,7 +17,7 @@ abstract class Package implements Contract
         return '/';
     }
 
-    public function has(): bool
+    public function has(string $package = null, string $locale = null): bool
     {
         return Directory::exists($this->basePath() . '/' . $this->vendor());
     }
@@ -31,9 +31,13 @@ abstract class Package implements Contract
 
     public function targetPath(string $locale): string
     {
-        $filename = $this->target() . '/' . $locale . '.json';
+        $target = Path::clean(Path::target($locale));
 
-        return Path::target($locale) . '/../' . $filename;
+        $path = $this->target();
+
+        $filename = Path::clean($path . '/' . $locale . '.json', true);
+
+        return $target . '/../' . $filename;
     }
 
     protected function basePath(): string

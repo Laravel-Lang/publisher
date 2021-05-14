@@ -132,7 +132,7 @@ final class Locales
         return ConfigFacade::fallbackLocale();
     }
 
-    protected function all(): array
+    public function all(): array
     {
         $this->log('Getting a list of all available localizations without filtering...');
 

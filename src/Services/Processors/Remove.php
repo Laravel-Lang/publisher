@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Services\Processors;
 
-use Helldar\LaravelLangPublisher\Constants\Packages;
 use Helldar\LaravelLangPublisher\Constants\Status;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Illuminate\Support\Facades\File;
@@ -25,11 +24,10 @@ final class Remove extends Processor
     {
         $this->log('Removing localization files:', $this->locale);
 
-        $status_dir      = $this->deleteDirectory($this->locale);
-        $status_file     = $this->deleteFile($this->locale);
-        $status_packages = $this->deletePackages($this->locale);
+        $status_dir  = $this->deleteDirectory($this->locale);
+        $status_file = $this->deleteFile($this->locale);
 
-        return $this->resolveStatus($status_dir, $status_file, $status_packages);
+        return $this->resolveStatus($status_dir, $status_file);
     }
 
     protected function deleteDirectory(string $locale): string
@@ -48,24 +46,6 @@ final class Remove extends Processor
         $path = $this->pathTargetFull($locale, null, true);
 
         return $this->file($path);
-    }
-
-    protected function deletePackages(string $locale): string
-    {
-        $this->log('Removing package files:', $locale);
-
-        /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
-        foreach (Packages::ALL as $package) {
-            $instance = $package::make();
-
-            if ($instance->has()) {
-                $path = $this->pathTargetPackage($locale, $instance);
-
-                return $this->file($path);
-            }
-        }
-
-        return Status::SKIPPED;
     }
 
     protected function resolveStatus(...$statuses): string

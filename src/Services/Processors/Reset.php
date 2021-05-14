@@ -16,7 +16,6 @@ final class Reset extends Processor
         $this->log('Start the handler for execution:', self::class);
 
         $this->main();
-        $this->packages();
 
         return Status::RESET;
     }

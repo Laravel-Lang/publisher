@@ -6,6 +6,7 @@ use Helldar\LaravelLangPublisher\Support\Locales as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static array all()
  * @method static array available(bool $all = false)
  * @method static array installed()
  * @method static array protects()

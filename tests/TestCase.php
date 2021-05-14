@@ -98,14 +98,17 @@ abstract class TestCase extends BaseTestCase
         $target = $this->pathTarget($this->default_locale);
 
         File::copyDirectory($source, $target);
+
         File::move($target . '/en.json', $target . '/../en.json');
+
         File::delete($target . '/validation-inline.php');
+        File::deleteDirectory($target . '/packages');
     }
 
     protected function emulatePaidPackages(): void
     {
-        Directory::ensureDirectory($this->pathVendor() . '/spark-stripe');
-        Directory::ensureDirectory($this->pathVendor() . '/nova');
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-stripe');
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/nova');
     }
 
     protected function setPackages(array $packages): void

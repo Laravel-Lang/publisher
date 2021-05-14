@@ -6,6 +6,8 @@ use Helldar\LaravelLangPublisher\Support\Path as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static string clean(string $path = null, bool $both = false)
+ * @method static string directory(string $path)
  * @method static string extension(string $path)
  * @method static string filename(string $path)
  * @method static string locales(string $package, string $locale = null)

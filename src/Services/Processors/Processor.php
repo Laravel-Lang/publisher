@@ -6,7 +6,6 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
-use Helldar\LaravelLangPublisher\Constants\Packages;
 use Helldar\LaravelLangPublisher\Contracts\Processor as Contract;
 use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
@@ -101,21 +100,6 @@ abstract class Processor implements Contract
         $this->process($this->source_path, $this->target_path);
     }
 
-    protected function packages(): void
-    {
-        /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
-        foreach (Packages::ALL as $package) {
-            $instance = $package::make();
-
-            if ($instance->has()) {
-                $source = $instance->sourcePath($this->package, $this->locale);
-                $target = $instance->targetPath($this->locale);
-
-                $this->process($source, $target);
-            }
-        }
-    }
-
     protected function process(string $source_path, string $target_path): void
     {
         $source = $this->load($source_path);
@@ -137,7 +121,7 @@ abstract class Processor implements Contract
             $extension = $this->pathExtension($filename);
 
             $filename = $name . '-inline.' . $extension;
-        } elseif ($this->isJson($filename)) {
+        } elseif ($this->isJsonMain($filename)) {
             $filename = $this->locale . '.json';
         }
 

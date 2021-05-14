@@ -48,6 +48,15 @@ final class Path
         return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath(), $locale);
     }
 
+    public function directory(string $path): string
+    {
+        $this->log('Getting the directory name from file path:', $path);
+
+        $path = pathinfo($path, PATHINFO_DIRNAME);
+
+        return $this->clean($path);
+    }
+
     public function filename(string $path): string
     {
         $this->log('Getting file name without extension and path:', $path);
@@ -77,11 +86,17 @@ final class Path
         return implode('/', $values);
     }
 
-    protected function clean(string $path = null): ?string
+    public function clean(string $path = null, bool $both = false): ?string
     {
         $this->log('Clearing the path from the trailing character:', $path);
 
-        return ! empty($path) ? rtrim($path, '\\/') : $path;
+        if (! empty($path)) {
+            $chars = '\\/';
+
+            return $both ? trim($path, $chars) : rtrim($path, $chars);
+        }
+
+        return $path;
     }
 
     protected function isEnglish(string $locale): bool

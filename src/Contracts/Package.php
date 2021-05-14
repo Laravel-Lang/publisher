@@ -14,5 +14,5 @@ interface Package
 
     public function targetPath(string $locale): string;
 
-    public function has(): bool;
+    public function has(string $package = null, string $locale = null): bool;
 }

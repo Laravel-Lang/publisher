@@ -6,6 +6,7 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
+use Helldar\LaravelLangPublisher\Constants\Packages as PackagesConst;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
@@ -16,6 +17,7 @@ use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\LaravelLangPublisher\Support\Info as InfoSupport;
 use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Str;
 use Illuminate\Console\Command;
@@ -36,6 +38,10 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    protected $extra_packages;
+
+    protected $processed = [];
+
     public function handle()
     {
         $this->setLogger();
@@ -45,7 +51,7 @@ abstract class BaseCommand extends Command
         $this->end();
     }
 
-    abstract protected function processor(): Processor;
+    abstract protected function processor(?string $filename): Processor;
 
     protected function ran(): void
     {
@@ -70,6 +76,7 @@ abstract class BaseCommand extends Command
             $this->validateLocale($locale);
 
             $this->ranFiles($package, $locale);
+            $this->ranPackages($package, $locale);
         }
     }
 
@@ -84,7 +91,34 @@ abstract class BaseCommand extends Command
 
             $status = $this->process($package, $locale, $filename);
 
+            $this->pushProcessed($filename);
+
             $this->processed($locale, $filename, $status, $package);
+        }
+    }
+
+    protected function ranPackages(string $package, string $locale): void
+    {
+        $this->log('Starting processing of extra files for the', $package, 'package and', $locale, 'localization...');
+
+        foreach ($this->extraPackages() as $extra_package) {
+            if (! $extra_package->has($package, $locale)) {
+                continue;
+            }
+
+            $name     = $extra_package->vendor();
+            $filename = $extra_package->source();
+            $path     = $extra_package->targetPath($locale);
+
+            $this->processing($locale, $name, $package);
+
+            $this->ensureDirectory($extra_package->targetPath($locale), true);
+
+            $status = $this->process($package, $locale, $filename);
+
+            $this->pushProcessed($path);
+
+            $this->processed($locale, $name, $status, $package);
         }
     }
 
@@ -92,8 +126,8 @@ abstract class BaseCommand extends Command
     {
         $this->log('Launching the processor for localization:', $locale, ',', $filename);
 
-        return $this->processor()
-            ->force($this->hasForce())
+        return $this->processor($filename)
+            ->force($this->hasForce() || $this->hasProcessed($filename))
             ->whenPackage($package)
             ->whenLocale($locale)
             ->whenFilename($filename, $this->hasInline())
@@ -138,6 +172,21 @@ abstract class BaseCommand extends Command
         return $this->files[$package] = File::names($path, static function ($filename) {
             return ! Str::contains($filename, 'inline');
         });
+    }
+
+    /**
+     * @return array|\Helldar\LaravelLangPublisher\Packages\Package[]
+     */
+    protected function extraPackages(): array
+    {
+        if (! empty($this->extra_packages)) {
+            return $this->extra_packages;
+        }
+
+        return $this->extra_packages = array_map(static function ($package) {
+            /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
+            return $package::make();
+        }, PackagesConst::ALL);
     }
 
     protected function start(): void
@@ -230,6 +279,29 @@ abstract class BaseCommand extends Command
         $this->log('Getting the action...');
 
         return $this->container($this->action);
+    }
+
+    protected function ensureDirectory(string $path, bool $is_file = false): void
+    {
+        $path = $is_file ? $this->pathDirectory($path) : $path;
+
+        Directory::ensureDirectory($path);
+    }
+
+    protected function pushProcessed(?string $filename): void
+    {
+        $this->log('Add a link to the processed file to the cache:', $filename);
+
+        if ($filename && ! $this->hasProcessed($filename)) {
+            $this->processed[] = $filename;
+        }
+    }
+
+    protected function hasProcessed(?string $filename): bool
+    {
+        $this->log('Check if the file was processed earlier:', $filename);
+
+        return $filename && in_array($filename, $this->processed, true);
     }
 
     protected function hasForce(): bool
