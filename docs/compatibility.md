@@ -2,9 +2,9 @@
 
 # Compatibility
 
-|Laravel / Lumen|PHP tested|Package Tag|Comment|
+|Laravel, Lumen|PHP tested|Package Tag|Comment|
 |---|---|---|---|
-|7.x, 8.x|7.2, 7.3, 7.4, 8.0|^9.0| ![Supported][badge_supported] [changelog 9.x](changelog/9-x.md)  |
+|7.x, 8.x|7.3, 7.4, 8.0|^9.0| ![Supported][badge_supported] [changelog 9.x](changelog/9-x.md)  |
 |7.x, 8.x|7.2, 7.3, 7.4, 8.0|^8.0| ![Not Supported][badge_not_supported] Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^2.0` |
 |7.x, 8.x|7.2, 7.3, 7.4, 8.0|^7.0| ![Not Supported][badge_not_supported] [PHP Intl version](https://github.com/Laravel-Lang/lang/releases/tag/8.0.0), Uses packages `andrey-helldar/support` and `andrey-helldar/pretty-array` version `^1.0` |
 |7.x, 8.x|7.2, 7.3, 7.4|^6.0| ![Not Supported][badge_not_supported] Laravel [Jetstream](https://jetstream.laravel.com) and [Fortify](https://github.com/laravel/fortify) supported |

@@ -1,9 +1,16 @@
 # Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify]
-, [Laravel Cashier][link_cashier] and [Laravel Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
+Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link_jetstream], [Fortify][link_fortify],
+[Cashier][link_cashier] and [Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
 
 ![lang publisher](https://user-images.githubusercontent.com/10347617/40197727-f26e0aac-5a1c-11e8-81fa-077ad71915d7.png)
+
+<p align="center">
+    [
+        <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> |
+        <a href="https://laravel-lang.github.io/lang/status.html">Translation status</a>
+    ]
+</p>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -15,9 +22,17 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstre
 [![Coverage Status][badge_coverage]][link_scrutinizer]
 [![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
 
-<p align="center">
-    [ <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> ]
-</p>
+
+## License
+
+This package is licensed under the [MIT License](LICENSE).
+
+
+## For Enterprise
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
 
 
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
