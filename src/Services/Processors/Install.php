@@ -11,21 +11,12 @@ final class Install extends Processor
         $this->log('Start the handler for execution:', self::class);
 
         if ($this->force || $this->doesntExists()) {
-            $this->process();
+            $this->main();
+            $this->packages();
 
             return Status::COPIED;
         }
 
         return Status::SKIPPED;
-    }
-
-    protected function process(): void
-    {
-        $source = $this->load($this->source_path);
-        $target = $this->load($this->target_path);
-
-        $result = $this->compare($source, $target);
-
-        $this->store($this->target_path, $result);
     }
 }

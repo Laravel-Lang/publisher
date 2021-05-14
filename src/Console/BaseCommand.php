@@ -36,6 +36,8 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    abstract protected function processor(): Processor;
+
     public function handle()
     {
         $this->setLogger();
@@ -44,8 +46,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(): Processor;
 
     protected function ran(): void
     {

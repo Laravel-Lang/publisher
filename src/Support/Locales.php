@@ -166,7 +166,9 @@ final class Locales
     {
         $this->log('Getting a list of localizations from php files...');
 
-        return Directory::names($this->resourcesPath());
+        return Directory::names($this->resourcesPath(), static function ($name) {
+            return ! in_array($name, ['spark', 'vendor'], true);
+        });
     }
 
     protected function resourcesPath(): string

@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Services\Processors;
 
+use Helldar\LaravelLangPublisher\Constants\Packages;
 use Helldar\LaravelLangPublisher\Constants\Status;
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Illuminate\Support\Facades\File;
@@ -22,12 +23,13 @@ final class Remove extends Processor
 
     protected function delete(): string
     {
-        $this->log('Removing json and php localization files:', $this->locale);
+        $this->log('Removing localization files:', $this->locale);
 
-        $status_dir  = $this->deleteDirectory($this->locale);
-        $status_file = $this->deleteFile($this->locale);
+        $status_dir      = $this->deleteDirectory($this->locale);
+        $status_file     = $this->deleteFile($this->locale);
+        $status_packages = $this->deletePackages($this->locale);
 
-        return $status_dir === $status_file ? $status_dir : Status::DELETED;
+        return $this->resolveStatus($status_dir, $status_file, $status_packages);
     }
 
     protected function deleteDirectory(string $locale): string
@@ -36,6 +38,52 @@ final class Remove extends Processor
 
         $path = $this->pathTarget($locale);
 
+        return $this->directory($path);
+    }
+
+    protected function deleteFile(string $locale): string
+    {
+        $this->log('Removing the json localization file for the locale:', $locale);
+
+        $path = $this->pathTargetFull($locale, null, true);
+
+        return $this->file($path);
+    }
+
+    protected function deletePackages(string $locale): string
+    {
+        $this->log('Removing package files:', $locale);
+
+        /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
+        foreach (Packages::ALL as $package) {
+            $instance = $package::make();
+
+            if ($instance->has()) {
+                $path = $this->pathTargetPackage($locale, $instance);
+
+                return $this->file($path);
+            }
+        }
+
+        return Status::SKIPPED;
+    }
+
+    protected function resolveStatus(...$statuses): string
+    {
+        for ($i = 0; $i < count($statuses); $i++) {
+            $current = $statuses[$i] ?? null;
+            $next    = $statuses[$i + 1] ?? null;
+
+            if ($current !== $next && ! is_null($next)) {
+                return Status::SKIPPED;
+            }
+        }
+
+        return Status::DELETED;
+    }
+
+    protected function directory(string $path): string
+    {
         if (File::exists($path)) {
             File::deleteDirectory($path);
 
@@ -45,12 +93,8 @@ final class Remove extends Processor
         return Status::SKIPPED;
     }
 
-    protected function deleteFile(string $locale): string
+    protected function file(string $path): string
     {
-        $this->log('Removing the json localization file for the locale:', $locale);
-
-        $path = $this->pathTargetFull($locale, null, true);
-
         if (File::exists($path)) {
             File::delete($path);
 

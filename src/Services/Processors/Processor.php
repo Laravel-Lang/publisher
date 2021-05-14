@@ -6,6 +6,7 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
+use Helldar\LaravelLangPublisher\Constants\Packages;
 use Helldar\LaravelLangPublisher\Contracts\Processor as Contract;
 use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
@@ -93,6 +94,36 @@ abstract class Processor implements Contract
         }
 
         return $this;
+    }
+
+    protected function main(): void
+    {
+        $this->process($this->source_path, $this->target_path);
+    }
+
+    protected function packages(): void
+    {
+        /** @var \Helldar\LaravelLangPublisher\Packages\Package $package */
+        foreach (Packages::ALL as $package) {
+            $instance = $package::make();
+
+            if ($instance->has()) {
+                $source = $instance->sourcePath($this->package, $this->locale);
+                $target = $instance->targetPath($this->locale);
+
+                $this->process($source, $target);
+            }
+        }
+    }
+
+    protected function process(string $source_path, string $target_path): void
+    {
+        $source = $this->load($source_path);
+        $target = $this->load($target_path);
+
+        $result = $this->compare($source, $target);
+
+        $this->store($target_path, $result);
     }
 
     protected function setSourcePath(string $filename, bool $is_inline): void
