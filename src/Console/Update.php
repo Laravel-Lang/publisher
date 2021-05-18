@@ -18,9 +18,7 @@ final class Update extends BaseCommand
     {
         $this->log('Getting the processor:', Processor::class);
 
-        $has_force = $this->hasForce() || $this->hasProcessed($filename);
-
-        return Processor::make()->force($has_force);
+        return Processor::make();
     }
 
     protected function locales(): array

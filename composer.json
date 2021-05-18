@@ -44,7 +44,7 @@
         "andrey-helldar/verbose": "^1.2",
         "illuminate/console": "^7.0|^8.0",
         "illuminate/support": "^7.0|^8.0",
-        "laravel-lang/lang": "dev-patch/2021-05-13/20-09"
+        "laravel-lang/lang": "^10.0"
     },
     "require-dev": {
         "andrey-helldar/lang-translations": "^4.0",
@@ -77,11 +77,5 @@
                 "Helldar\\LaravelLangPublisher\\ServiceProvider"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "github",
-            "url": "https://github.com/andrey-helldar/Laravel-lang.git"
-        }
-    ]
+    }
 }

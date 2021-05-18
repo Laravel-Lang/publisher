@@ -129,18 +129,21 @@ abstract class Processor implements Contract
     {
         $this->log('Setting the path to the source file:', $filename);
 
-        if ($this->isValidation($filename) && $is_inline) {
-            $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline validator messages. Processing in progress...');
+        $path = $this->pathSource($this->package, $this->locale);
 
+        if ($is_inline) {
+            $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline messages...');
+
+            $directory = $this->pathDirectory($filename);
             $name      = $this->pathFilename($filename);
             $extension = $this->pathExtension($filename);
 
-            $filename = $name . '-inline.' . $extension;
-        } elseif ($this->isJsonMain($filename)) {
-            $filename = $this->locale . '.json';
+            $inline_file = $directory . '/' . $name . '-inline.' . $extension;
         }
 
-        $this->source_path = $this->pathSource($this->package, $this->locale) . '/' . $filename;
+        $this->source_path = File::exists($path . '/' . $inline_file)
+            ? $path . '/' . $inline_file
+            : $path . '/' . $filename;
     }
 
     protected function setTargetPath(string $filename): void

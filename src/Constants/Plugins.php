@@ -9,7 +9,7 @@ use Helldar\LaravelLangPublisher\Plugins\Nova;
 use Helldar\LaravelLangPublisher\Plugins\SparkPaddle;
 use Helldar\LaravelLangPublisher\Plugins\SparkStripe;
 
-final class Packages
+final class Plugins
 {
     public const ALL = [
         Cashier::class,

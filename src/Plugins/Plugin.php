@@ -16,37 +16,28 @@ abstract class Plugin implements Contract
     use Logger;
     use Makeable;
 
-    public function target(): string
+    public function target(): ?string
     {
-        return '/';
+        return null;
     }
 
-    public function has(string $package = null, string $locale = null): bool
+    public function has(): bool
     {
-        return Directory::exists($this->basePath() . '/' . $this->vendor());
-    }
+        $source = $this->basePath() . '/' . $this->vendor();
 
-    public function sourcePath(string $package, string $locale): string
-    {
-        $path = Path::source($package, $locale);
-
-        return $path . '/' . $this->source();
+        return Directory::exists($source);
     }
 
     public function targetPath(string $locale, string $filename): string
     {
-        $target = Path::clean(Path::target($locale));
+        $path = $this->resolveTargetPath($locale, $filename);
 
-        $path = $this->target();
+        $target = $this->targetFilename($locale, $filename);
 
-        $name = $this->targetFilename($locale, $filename);
-
-        $filename = Path::clean($path . '/' . $name, true);
-
-        return $target . '/' . $filename;
+        return $this->cleanPath($path . '/' . $target);
     }
 
-    public function targetFilename(string $locale, string $filename): string
+    protected function targetFilename(string $locale, string $filename): string
     {
         if ($this->isJson($filename)) {
             return $locale . '.json';
@@ -63,5 +54,21 @@ abstract class Plugin implements Contract
     protected function fileBasename(string $filename): string
     {
         return Path::basename($filename);
+    }
+
+    protected function cleanPath(?string $path): ?string
+    {
+        return Path::clean($path, true);
+    }
+
+    protected function resolveTargetPath(string $locale, string $filename): ?string
+    {
+        $path = $this->cleanPath($this->target());
+
+        if ($this->isPhp($filename)) {
+            $path .= '/' . $locale;
+        }
+
+        return $this->cleanPath($path);
     }
 }

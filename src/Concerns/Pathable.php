@@ -42,11 +42,13 @@ trait Pathable
         return Config::basePath();
     }
 
-    protected function pathDirectory(string $path): string
+    protected function pathDirectory(string $path): ?string
     {
-        $this->log('Getting directory name from file path:', $path);
+        $this->log('Getting file directory:', $path);
 
-        return Path::directory($path);
+        $directory = Path::directory($path);
+
+        return $directory !== '.' ? $directory : null;
     }
 
     protected function pathFilename(string $path): string

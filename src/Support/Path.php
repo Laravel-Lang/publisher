@@ -38,13 +38,11 @@ final class Path
     {
         $this->log('Getting the full path to the target files of the localization:', $locale, $filename);
 
-        $is_main = ! empty($filename) && $this->isJsonMain($filename);
+        $is_json = ! empty($filename) && $this->isJson($filename);
 
-        $suffix = $is_main ? "../$locale.json" : $filename;
+        $path = $this->target($locale, $is_json);
 
-        $path = $this->target($locale, $is_main);
-
-        return $path . '/' . $suffix;
+        return $path . '/' . $filename;
     }
 
     public function locales(string $package, string $locale = null): string

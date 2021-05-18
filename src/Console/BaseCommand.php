@@ -6,8 +6,9 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Constants\Packages as PackagesConst;
+use Helldar\LaravelLangPublisher\Constants\Plugins as PluginsConst;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
+use Helldar\LaravelLangPublisher\Contracts\Plugin;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Info;
@@ -17,7 +18,6 @@ use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\LaravelLangPublisher\Support\Info as InfoSupport;
 use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Helldar\Support\Facades\Helpers\Str;
 use Illuminate\Console\Command;
@@ -38,7 +38,7 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
-    protected $extra_packages;
+    protected $plugins;
 
     protected $processed = [];
 
@@ -76,7 +76,7 @@ abstract class BaseCommand extends Command
             $this->validateLocale($locale);
 
             $this->ranFiles($package, $locale);
-            $this->ranPackages($package, $locale);
+            $this->ranPlugins($package, $locale);
         }
     }
 
@@ -89,7 +89,7 @@ abstract class BaseCommand extends Command
 
             $this->processing($locale, $filename, $package);
 
-            $status = $this->process($package, $locale, $filename, $filename);
+            $status = $this->process($package, $locale, $filename);
 
             $this->pushProcessed($filename);
 
@@ -97,45 +97,35 @@ abstract class BaseCommand extends Command
         }
     }
 
-    protected function ranPackages(string $package, string $locale): void
+    protected function ranPlugins(string $package, string $locale): void
     {
-        $this->log('Starting processing of extra files for the', $package, 'package and', $locale, 'localization...');
+        $this->log('Starting processing of plugin files for the', $package, 'package and', $locale, 'localization...');
 
-        foreach ($this->extraPackages() as $extra_package) {
-            if (! $extra_package->has($package, $locale)) {
-                continue;
-            }
+        foreach ($this->plugins() as $plugin) {
+            foreach ($plugin->source() as $source) {
+                $target = $plugin->targetPath($locale, $source);
 
-            $name      = $extra_package->vendor();
-            $filenames = $extra_package->source();
+                $this->processing($locale, $source, $package);
 
-            foreach ($filenames as $filename) {
-                $path   = $extra_package->targetPath($locale, $filename);
-                $target = $extra_package->targetFilename($locale, $filename);
+                $status = $this->process($package, $locale, $source, $target);
 
-                $this->processing($locale, $name, $package);
+                $this->pushProcessed($target);
 
-                $this->ensureDirectory($path, true);
-
-                $status = $this->process($package, $locale, $filename, $target);
-
-                $this->pushProcessed($path);
-
-                $this->processed($locale, $name, $status, $package);
+                $this->processed($locale, $source, $status, $package);
             }
         }
     }
 
-    protected function process(?string $package, ?string $locale, ?string $source_filename, ?string $target_filename): string
+    protected function process(?string $package, ?string $locale, ?string $source, string $target = null): string
     {
-        $this->log('Launching the processor for localization:', $locale, ',', $source_filename);
+        $this->log('Launching the processor for localization:', $locale, ',', $source);
 
-        return $this->processor($source_filename)
-            ->force($this->hasForce() || $this->hasProcessed($source_filename))
+        return $this->processor($source)
+            ->force($this->hasForce() || $this->hasProcessed($target))
             ->whenPackage($package)
             ->whenLocale($locale)
-            ->whenSourceFilename($source_filename, $this->hasInline())
-            ->whenTargetFilename($target_filename)
+            ->whenSourceFilename($source, $this->hasInline())
+            ->whenTargetFilename($target ?: $source)
             ->run();
     }
 
@@ -182,16 +172,22 @@ abstract class BaseCommand extends Command
     /**
      * @return array|\Helldar\LaravelLangPublisher\Plugins\Plugin[]
      */
-    protected function extraPackages(): array
+    protected function plugins(): array
     {
-        if (! empty($this->extra_packages)) {
-            return $this->extra_packages;
+        if (! empty($this->plugins)) {
+            return $this->plugins;
         }
 
-        return $this->extra_packages = array_map(static function ($package) {
-            /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $package */
-            return $package::make();
-        }, PackagesConst::ALL);
+        $plugins = array_map(static function ($plugin) {
+            /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $plugin */
+            return $plugin::make();
+        }, PluginsConst::ALL);
+
+        $plugins = array_filter($plugins, static function (Plugin $plugin) {
+            return $plugin->has();
+        });
+
+        return $this->plugins = $plugins;
     }
 
     protected function start(): void
@@ -284,13 +280,6 @@ abstract class BaseCommand extends Command
         $this->log('Getting the action...');
 
         return $this->container($this->action);
-    }
-
-    protected function ensureDirectory(string $path, bool $is_file = false): void
-    {
-        $path = $is_file ? $this->pathDirectory($path) : $path;
-
-        Directory::ensureDirectory($path);
     }
 
     protected function pushProcessed(?string $filename): void

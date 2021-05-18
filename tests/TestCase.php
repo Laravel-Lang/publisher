@@ -75,7 +75,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function copyFixtures(): void
     {
-        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale));
+        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale, 'en.json'));
         File::copy(realpath(__DIR__ . '/fixtures/auth.php'), $this->path($this->default_locale, 'auth.php'));
     }
 
