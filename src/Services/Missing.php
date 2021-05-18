@@ -30,7 +30,7 @@ final class Missing
 
     protected function available(): array
     {
-        return Locales::available(true);
+        return Locales::all();
     }
 
     protected function packageable(string $package): array

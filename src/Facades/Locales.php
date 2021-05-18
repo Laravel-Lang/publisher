@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array all()
- * @method static array available(bool $all = false)
+ * @method static array available()
  * @method static array installed()
  * @method static array protects()
  * @method static bool isAvailable(string $locale)

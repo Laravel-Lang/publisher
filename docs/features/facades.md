@@ -26,7 +26,7 @@ Config::fallbackLocale(): string
 use Helldar\LaravelLangPublisher\Facades\Locales;
 
 // List of available locations.
-Locales::available(bool $all = false): array
+Locales::available(): array
 
 // List of installed locations.
 Locales::installed(): array
