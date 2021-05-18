@@ -23,6 +23,8 @@ abstract class Plugin implements Contract
 
     public function has(): bool
     {
+        $this->log('Check if the package is installed:', $this->vendor());
+
         $source = $this->basePath() . '/' . $this->vendor();
 
         return Directory::exists($source);
@@ -30,6 +32,8 @@ abstract class Plugin implements Contract
 
     public function targetPath(string $locale, string $filename): string
     {
+        $this->log('Getting a link to the target file for:', $filename, '(', $locale, ')');
+
         $path = $this->resolveTargetPath($locale, $filename);
 
         $target = $this->targetFilename($locale, $filename);
@@ -39,6 +43,8 @@ abstract class Plugin implements Contract
 
     protected function targetFilename(string $locale, string $filename): string
     {
+        $this->log('Retrieving the changed filename:', $filename, '(', $locale, ')');
+
         if ($this->isJson($filename)) {
             return $locale . '.json';
         }
@@ -63,6 +69,8 @@ abstract class Plugin implements Contract
 
     protected function resolveTargetPath(string $locale, string $filename): ?string
     {
+        $this->log('Resolving the path to the target file:', $filename, '(', $locale, ')');
+
         $path = $this->cleanPath($this->target());
 
         if ($this->isPhp($filename)) {

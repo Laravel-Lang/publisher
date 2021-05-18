@@ -117,6 +117,8 @@ abstract class Processor implements Contract
 
     protected function process(string $source_path, string $target_path): void
     {
+        $this->log('The process of processing a file from', $source_path, 'to', $target_path, 'has begun.');
+
         $source = $this->load($source_path);
         $target = $this->load($target_path);
 

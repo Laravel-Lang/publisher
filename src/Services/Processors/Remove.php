@@ -10,6 +10,8 @@ final class Remove extends Processor
 {
     public function run(): string
     {
+        $this->log('Start the handler for execution:', self::class);
+
         return $this->doesntProtect() ? $this->delete() : Status::SKIPPED;
     }
 
