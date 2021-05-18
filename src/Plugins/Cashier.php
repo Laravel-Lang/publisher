@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class Cashier extends Package
+final class Cashier extends Plugin
 {
     public function vendor(): string
     {

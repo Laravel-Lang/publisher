@@ -1,16 +1,16 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
-use Helldar\LaravelLangPublisher\Contracts\Package as Contract;
+use Helldar\LaravelLangPublisher\Contracts\Plugin as Contract;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
-abstract class Package implements Contract
+abstract class Plugin implements Contract
 {
     use Contains;
     use Logger;

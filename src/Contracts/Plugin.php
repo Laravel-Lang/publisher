@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Contracts;
 
-interface Package
+interface Plugin
 {
     public function vendor(): string;
 

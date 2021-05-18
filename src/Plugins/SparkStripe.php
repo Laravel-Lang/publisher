@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class SparkStripe extends Package
+final class SparkStripe extends Plugin
 {
     public function vendor(): string
     {
@@ -14,7 +14,7 @@ final class SparkStripe extends Package
         return ['packages/spark-stripe.json'];
     }
 
-    public function target(): string
+    public function target(): ?string
     {
         return 'spark';
     }

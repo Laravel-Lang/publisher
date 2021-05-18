@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class Jetstream extends Package
+final class Jetstream extends Plugin
 {
     public function vendor(): string
     {

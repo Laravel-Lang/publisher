@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class Fortify extends Package
+final class Fortify extends Plugin
 {
     public function vendor(): string
     {

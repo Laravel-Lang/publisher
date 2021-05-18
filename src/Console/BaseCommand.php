@@ -58,7 +58,7 @@ abstract class BaseCommand extends Command
         $this->log('Starting processing of the package list...');
 
         foreach ($this->packages() as $package) {
-            $this->log('Packages handling:', $package);
+            $this->log('Plugins handling:', $package);
 
             $this->validatePackage($package);
 
@@ -180,7 +180,7 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @return array|\Helldar\LaravelLangPublisher\Packages\Package[]
+     * @return array|\Helldar\LaravelLangPublisher\Plugins\Plugin[]
      */
     protected function extraPackages(): array
     {
@@ -189,7 +189,7 @@ abstract class BaseCommand extends Command
         }
 
         return $this->extra_packages = array_map(static function ($package) {
-            /* @var \Helldar\LaravelLangPublisher\Packages\Package $package */
+            /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $package */
             return $package::make();
         }, PackagesConst::ALL);
     }

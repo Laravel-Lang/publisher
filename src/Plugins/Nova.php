@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class Nova extends Package
+final class Nova extends Plugin
 {
     public function vendor(): string
     {
@@ -14,7 +14,7 @@ final class Nova extends Package
         return ['packages/nova.json'];
     }
 
-    public function target(): string
+    public function target(): ?string
     {
         return 'vendor/nova';
     }

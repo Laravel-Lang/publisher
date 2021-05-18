@@ -1,8 +1,8 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Packages;
+namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class SparkPaddle extends Package
+final class SparkPaddle extends Plugin
 {
     public function vendor(): string
     {
@@ -14,7 +14,7 @@ final class SparkPaddle extends Package
         return ['packages/spark-paddle.json'];
     }
 
-    public function target(): string
+    public function target(): ?string
     {
         return 'spark';
     }
