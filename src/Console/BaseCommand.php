@@ -6,7 +6,6 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Constants\Plugins as PluginsConst;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
 use Helldar\LaravelLangPublisher\Contracts\Plugin;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
@@ -181,7 +180,7 @@ abstract class BaseCommand extends Command
         $plugins = array_map(static function ($plugin) {
             /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $plugin */
             return $plugin::make();
-        }, PluginsConst::ALL);
+        }, $this->getPlugins());
 
         $plugins = array_filter($plugins, static function (Plugin $plugin) {
             return $plugin->has();
@@ -273,6 +272,13 @@ abstract class BaseCommand extends Command
         $this->log('Getting a use case for a validation file.');
 
         return Config::hasInline();
+    }
+
+    protected function getPlugins(): array
+    {
+        $this->log('Getting a list of plugins...');
+
+        return Config::plugins();
     }
 
     protected function action(): Actionable

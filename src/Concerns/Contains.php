@@ -2,7 +2,6 @@
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
-use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Facades\Helpers\Str;
 
@@ -29,12 +28,5 @@ trait Contains
         $this->log('Does the file contain php?', $filename);
 
         return Str::endsWith($filename, 'php');
-    }
-
-    protected function isJsonMain(string $filename): bool
-    {
-        $this->log('Is the main json file?', $filename);
-
-        return $this->isJson($filename) && Str::startsWith($filename, Locales::all());
     }
 }

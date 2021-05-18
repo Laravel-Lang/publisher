@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array excludes()
  * @method static array ignores()
  * @method static array packages()
+ * @method static array plugins()
  * @method static bool hasAlignment()
  * @method static bool hasInline()
  * @method static int getCase()
