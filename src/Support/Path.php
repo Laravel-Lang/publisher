@@ -2,12 +2,14 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 
 final class Path
 {
+    use Contains;
     use Logger;
 
     public function source(string $package, string $locale): string
@@ -32,13 +34,17 @@ final class Path
         return $this->clean($path) . $suffix;
     }
 
-    public function targetFull(string $locale, ?string $filename, bool $is_json = false): string
+    public function targetFull(string $locale, ?string $filename): string
     {
-        $this->log('Getting the full path to the target files of the localization:', $locale, $filename, $is_json);
+        $this->log('Getting the full path to the target files of the localization:', $locale, $filename);
 
-        $suffix = $is_json ? '../' . $locale . '.json' : $filename;
+        $is_main = ! empty($filename) && $this->isJsonMain($filename);
 
-        return $this->target($locale) . '/' . $suffix;
+        $suffix = $is_main ? "../$locale.json" : $filename;
+
+        $path = $this->target($locale, $is_main);
+
+        return $path . '/' . $suffix;
     }
 
     public function locales(string $package, string $locale = null): string
@@ -62,6 +68,15 @@ final class Path
         $this->log('Getting file name without extension and path:', $path);
 
         $path = pathinfo($path, PATHINFO_FILENAME);
+
+        return $this->clean($path);
+    }
+
+    public function basename(string $path): string
+    {
+        $this->log('Getting file basename without extension and path:', $path);
+
+        $path = pathinfo($path, PATHINFO_BASENAME);
 
         return $this->clean($path);
     }

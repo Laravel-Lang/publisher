@@ -49,16 +49,16 @@ final class AddTest extends TestCase
         $this->assertDirectoryDoesNotExist($spark_path);
 
         foreach ($locales as $locale) {
-            $php_path  = $this->path($locale, null, true);
-            $json_path = $this->path($locale);
+            $path = $this->path($locale);
 
-            $this->assertDirectoryDoesNotExist($php_path);
-            $this->assertFileDoesNotExist($json_path);
+            $filename = $locale . '.json';
+
+            $this->assertDirectoryDoesNotExist($path);
 
             $this->artisan('lang:add', ['locales' => $locale])->run();
 
-            $this->assertDirectoryExists($php_path);
-            $this->assertFileExists($json_path);
+            $this->assertDirectoryExists($path);
+            $this->assertFileExists($nova_path . '/' . $filename);
         }
 
         $this->assertDirectoryExists($nova_path);

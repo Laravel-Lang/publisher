@@ -15,9 +15,13 @@ abstract class Filesystem implements Contract
     {
         $this->log('Correcting array values...');
 
-        return Arr::map($items, static function ($value) {
-            return str_replace('\"', '"', $value);
-        }, true);
+        $callback = static function ($value) {
+            return stripslashes($value);
+        };
+
+        $items = Arr::map($items, $callback, true);
+
+        return Arr::renameKeys($items, $callback);
     }
 
     protected function doesntExists(string $path): bool

@@ -46,9 +46,15 @@ abstract class Processor implements Contract
         return $this;
     }
 
-    public function filename(string $filename, bool $is_inline = true): Contract
+    public function sourceFilename(string $filename, bool $is_inline = true): Contract
     {
         $this->setSourcePath($filename, $is_inline);
+
+        return $this;
+    }
+
+    public function targetFilename(string $filename): Contract
+    {
         $this->setTargetPath($filename);
 
         return $this;
@@ -86,10 +92,19 @@ abstract class Processor implements Contract
         return $this;
     }
 
-    public function whenFilename(?string $filename, bool $is_inline = true): Contract
+    public function whenSourceFilename(?string $filename, bool $is_inline = true): Contract
     {
         if ($filename) {
-            $this->filename($filename, $is_inline);
+            $this->sourceFilename($filename, $is_inline);
+        }
+
+        return $this;
+    }
+
+    public function whenTargetFilename(?string $filename): Contract
+    {
+        if ($filename) {
+            $this->targetFilename($filename);
         }
 
         return $this;
@@ -132,9 +147,7 @@ abstract class Processor implements Contract
     {
         $this->log('Setting the path to the target file:', $filename);
 
-        $is_json = $this->isJson($filename);
-
-        $this->target_path = $this->pathTargetFull($this->locale, $filename, $is_json);
+        $this->target_path = $this->pathTargetFull($this->locale, $filename);
     }
 
     protected function compare(array $source, array $target): array

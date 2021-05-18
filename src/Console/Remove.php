@@ -26,7 +26,7 @@ final class Remove extends BaseCommand
 
             $this->processing($locale, $locale);
 
-            $status = $this->process(null, $locale, null);
+            $status = $this->process(null, $locale, null, null);
 
             $this->processed($locale, $locale, $status);
         }

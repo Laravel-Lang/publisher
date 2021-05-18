@@ -89,7 +89,7 @@ abstract class BaseCommand extends Command
 
             $this->processing($locale, $filename, $package);
 
-            $status = $this->process($package, $locale, $filename);
+            $status = $this->process($package, $locale, $filename, $filename);
 
             $this->pushProcessed($filename);
 
@@ -108,14 +108,16 @@ abstract class BaseCommand extends Command
 
             $name      = $extra_package->vendor();
             $filenames = $extra_package->source();
-            $path      = $extra_package->targetPath($locale);
 
             foreach ($filenames as $filename) {
+                $path   = $extra_package->targetPath($locale, $filename);
+                $target = $extra_package->targetFilename($locale, $filename);
+
                 $this->processing($locale, $name, $package);
 
                 $this->ensureDirectory($path, true);
 
-                $status = $this->process($package, $locale, $filename);
+                $status = $this->process($package, $locale, $filename, $target);
 
                 $this->pushProcessed($path);
 
@@ -124,15 +126,16 @@ abstract class BaseCommand extends Command
         }
     }
 
-    protected function process(?string $package, ?string $locale, ?string $filename): string
+    protected function process(?string $package, ?string $locale, ?string $source_filename, ?string $target_filename): string
     {
-        $this->log('Launching the processor for localization:', $locale, ',', $filename);
+        $this->log('Launching the processor for localization:', $locale, ',', $source_filename);
 
-        return $this->processor($filename)
-            ->force($this->hasForce() || $this->hasProcessed($filename))
+        return $this->processor($source_filename)
+            ->force($this->hasForce() || $this->hasProcessed($source_filename))
             ->whenPackage($package)
             ->whenLocale($locale)
-            ->whenFilename($filename, $this->hasInline())
+            ->whenSourceFilename($source_filename, $this->hasInline())
+            ->whenTargetFilename($target_filename)
             ->run();
     }
 

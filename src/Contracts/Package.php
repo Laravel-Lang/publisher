@@ -12,7 +12,9 @@ interface Package
 
     public function target(): string;
 
-    public function targetPath(string $locale): string;
+    public function targetPath(string $locale, string $filename): string;
+
+    public function targetFilename(string $locale, string $filename): string;
 
     public function has(string $package = null, string $locale = null): bool;
 }

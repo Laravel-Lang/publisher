@@ -19,7 +19,7 @@ final class RemoveTest extends TestCase
         $this->assertFileExists($this->path($locale, 'pagination.php'));
         $this->assertFileExists($this->path($locale, 'passwords.php'));
         $this->assertFileExists($this->path($locale, 'validation.php'));
-        $this->assertDirectoryExists($this->path($locale, null, true));
+        $this->assertDirectoryExists($this->path($locale));
 
         $this->artisan('lang:rm')
             ->expectsConfirmation('Do you want to remove all localizations?')
@@ -31,7 +31,7 @@ final class RemoveTest extends TestCase
         $this->assertFileDoesNotExist($this->path($locale, 'pagination.php'));
         $this->assertFileDoesNotExist($this->path($locale, 'passwords.php'));
         $this->assertFileDoesNotExist($this->path($locale, 'validation.php'));
-        $this->assertDirectoryDoesNotExist($this->path($locale, null, true));
+        $this->assertDirectoryDoesNotExist($this->path($locale));
     }
 
     public function testUninstall()
@@ -46,7 +46,7 @@ final class RemoveTest extends TestCase
             $this->assertFileExists($this->path($locale, 'pagination.php'));
             $this->assertFileExists($this->path($locale, 'passwords.php'));
             $this->assertFileExists($this->path($locale, 'validation.php'));
-            $this->assertDirectoryExists($this->path($locale, null, true));
+            $this->assertDirectoryExists($this->path($locale));
 
             $this->artisan('lang:rm', ['locales' => $locale])->run();
 
@@ -55,7 +55,7 @@ final class RemoveTest extends TestCase
             $this->assertFileDoesNotExist($this->path($locale, 'pagination.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'passwords.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'validation.php'));
-            $this->assertDirectoryDoesNotExist($this->path($locale, null, true));
+            $this->assertDirectoryDoesNotExist($this->path($locale));
         }
     }
 
@@ -69,7 +69,7 @@ final class RemoveTest extends TestCase
             $this->assertFileDoesNotExist($this->path($locale, 'pagination.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'passwords.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'validation.php'));
-            $this->assertDirectoryDoesNotExist($this->path($locale, null, true));
+            $this->assertDirectoryDoesNotExist($this->path($locale));
 
             $this->artisan('lang:rm', ['locales' => $locale])->run();
 
@@ -78,7 +78,7 @@ final class RemoveTest extends TestCase
             $this->assertFileDoesNotExist($this->path($locale, 'pagination.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'passwords.php'));
             $this->assertFileDoesNotExist($this->path($locale, 'validation.php'));
-            $this->assertDirectoryDoesNotExist($this->path($locale, null, true));
+            $this->assertDirectoryDoesNotExist($this->path($locale));
         }
     }
 

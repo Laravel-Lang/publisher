@@ -63,11 +63,9 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function path(string $locale, string $filename = null, bool $directory = false): string
+    protected function path(string $locale, string $filename = null): string
     {
-        $is_json = empty($filename) && ! $directory;
-
-        return Path::targetFull($locale, $filename, $is_json);
+        return Path::targetFull($locale, $filename);
     }
 
     protected function resources(string $path): string

@@ -2,6 +2,8 @@
 
 namespace Helldar\LaravelLangPublisher\Packages;
 
+use Helldar\LaravelLangPublisher\Concerns\Contains;
+use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Contracts\Package as Contract;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Path;
@@ -10,6 +12,8 @@ use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 abstract class Package implements Contract
 {
+    use Contains;
+    use Logger;
     use Makeable;
 
     public function target(): string
@@ -29,19 +33,35 @@ abstract class Package implements Contract
         return $path . '/' . $this->source();
     }
 
-    public function targetPath(string $locale): string
+    public function targetPath(string $locale, string $filename): string
     {
         $target = Path::clean(Path::target($locale));
 
         $path = $this->target();
 
-        $filename = Path::clean($path . '/' . $locale . '.json', true);
+        $name = $this->targetFilename($locale, $filename);
 
-        return $target . '/../' . $filename;
+        $filename = Path::clean($path . '/' . $name, true);
+
+        return $target . '/' . $filename;
+    }
+
+    public function targetFilename(string $locale, string $filename): string
+    {
+        if ($this->isJson($filename)) {
+            return $locale . '.json';
+        }
+
+        return $this->fileBasename($filename);
     }
 
     protected function basePath(): string
     {
         return Config::basePath();
+    }
+
+    protected function fileBasename(string $filename): string
+    {
+        return Path::basename($filename);
     }
 }

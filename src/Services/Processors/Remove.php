@@ -43,7 +43,7 @@ final class Remove extends Processor
     {
         $this->log('Removing the json localization file for the locale:', $locale);
 
-        $path = $this->pathTargetFull($locale, null, true);
+        $path = $this->pathTargetFull($locale, null);
 
         return $this->file($path);
     }

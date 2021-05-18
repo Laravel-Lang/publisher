@@ -21,11 +21,11 @@ trait Pathable
         return Path::target($locale, $is_json);
     }
 
-    protected function pathTargetFull(string $locale, ?string $filename, bool $is_json = false): string
+    protected function pathTargetFull(string $locale, ?string $filename): string
     {
-        $this->log('Retrieving a link to the target file for the', $locale, '(is json:', $is_json, ') localization, filename is ', $filename, '...');
+        $this->log('Retrieving a link to the target file for the', $locale, 'localization, filename is ', $filename, '...');
 
-        return Path::targetFull($locale, $filename, $is_json);
+        return Path::targetFull($locale, $filename);
     }
 
     protected function pathLocales(string $package, string $locale = null): string
