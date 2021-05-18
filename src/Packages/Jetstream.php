@@ -9,8 +9,8 @@ final class Jetstream extends Package
         return 'laravel/jetstream';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/jetstream.json';
+        return ['packages/jetstream.json'];
     }
 }

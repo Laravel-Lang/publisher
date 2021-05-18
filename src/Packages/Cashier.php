@@ -9,8 +9,8 @@ final class Cashier extends Package
         return 'laravel/cashier';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/cashier.json';
+        return ['packages/cashier.json'];
     }
 }

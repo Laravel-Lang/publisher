@@ -9,9 +9,9 @@ final class SparkStripe extends Package
         return 'laravel/spark-stripe';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/spark-stripe.json';
+        return ['packages/spark-stripe.json'];
     }
 
     public function target(): string

@@ -9,8 +9,8 @@ final class Fortify extends Package
         return 'laravel/fortify';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/fortify.json';
+        return ['packages/fortify.json'];
     }
 }

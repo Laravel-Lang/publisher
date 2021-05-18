@@ -42,6 +42,8 @@ abstract class BaseCommand extends Command
 
     protected $processed = [];
 
+    abstract protected function processor(?string $filename): Processor;
+
     public function handle()
     {
         $this->setLogger();
@@ -50,8 +52,6 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
-
-    abstract protected function processor(?string $filename): Processor;
 
     protected function ran(): void
     {
@@ -106,19 +106,21 @@ abstract class BaseCommand extends Command
                 continue;
             }
 
-            $name     = $extra_package->vendor();
-            $filename = $extra_package->source();
-            $path     = $extra_package->targetPath($locale);
+            $name      = $extra_package->vendor();
+            $filenames = $extra_package->source();
+            $path      = $extra_package->targetPath($locale);
 
-            $this->processing($locale, $name, $package);
+            foreach ($filenames as $filename) {
+                $this->processing($locale, $name, $package);
 
-            $this->ensureDirectory($extra_package->targetPath($locale), true);
+                $this->ensureDirectory($path, true);
 
-            $status = $this->process($package, $locale, $filename);
+                $status = $this->process($package, $locale, $filename);
 
-            $this->pushProcessed($path);
+                $this->pushProcessed($path);
 
-            $this->processed($locale, $name, $status, $package);
+                $this->processed($locale, $name, $status, $package);
+            }
         }
     }
 

@@ -6,7 +6,7 @@ interface Package
 {
     public function vendor(): string;
 
-    public function source(): string;
+    public function source(): array;
 
     public function sourcePath(string $package, string $locale): string;
 

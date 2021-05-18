@@ -80,8 +80,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "../../Laravel-Lang/lang"
+            "type": "github",
+            "url": "https://github.com/andrey-helldar/Laravel-lang.git"
         }
     ]
 }

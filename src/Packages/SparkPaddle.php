@@ -9,9 +9,9 @@ final class SparkPaddle extends Package
         return 'laravel/spark-paddle';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/spark-paddle.json';
+        return ['packages/spark-paddle.json'];
     }
 
     public function target(): string

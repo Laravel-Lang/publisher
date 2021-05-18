@@ -9,9 +9,9 @@ final class Nova extends Package
         return 'laravel/nova';
     }
 
-    public function source(): string
+    public function source(): array
     {
-        return 'packages/nova.json';
+        return ['packages/nova.json'];
     }
 
     public function target(): string
