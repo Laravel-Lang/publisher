@@ -2,8 +2,8 @@
 
 # Laravel Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify]
-, [Laravel Cashier][link_cashier] and [Laravel Nova][link_nova] from [Laravel-Lang/lang][link_laravel_lang] package.
+Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link_jetstream], [Fortify][link_fortify],
+[Cashier][link_cashier], [Spark][link_spark] and [Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -44,7 +44,9 @@ This package is licensed under the [MIT License](license.md).
 
 Available as part of the Tidelift Subscription.
 
-The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
+The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open
+source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you
+use. [Learn more][link_tidelift].
 
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
@@ -72,3 +74,7 @@ The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of othe
 [link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
 
 [link_source]:          https://github.com/andrey-helldar/laravel-lang-publisher
+
+[link_spark]:           https://spark.laravel.com
+
+[link_tidelift]         https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo
