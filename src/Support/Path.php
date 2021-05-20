@@ -4,7 +4,6 @@ namespace Helldar\LaravelLangPublisher\Support;
 
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 
 final class Path
@@ -110,13 +109,6 @@ final class Path
         }
 
         return implode('/', $values);
-    }
-
-    protected function isEnglish(string $locale): bool
-    {
-        $this->log('Check if localization is English: ' . $locale);
-
-        return $locale === LocalesList::ENGLISH;
     }
 
     protected function getBasePath(): string
