@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Containable;
+use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
@@ -24,6 +25,7 @@ use Illuminate\Console\Command;
 abstract class BaseCommand extends Command
 {
     use Containable;
+    use Contains;
     use Logger;
     use Pathable;
 
@@ -83,8 +85,10 @@ abstract class BaseCommand extends Command
     {
         $this->log('Starting processing of the files for the', $package, 'package and', $locale, 'localization...');
 
-        foreach ($this->files($package) as $filename) {
+        foreach ($this->files($package, $locale) as $filename) {
             $this->log('Processing the localization file:', $filename);
+
+            $filename = $this->pathResolveLocaleFilename($locale, $filename);
 
             $this->processing($locale, $filename, $package);
 
@@ -153,7 +157,7 @@ abstract class BaseCommand extends Command
         return Packages::get();
     }
 
-    protected function files(string $package): array
+    protected function files(string $package, string $locale = LocalesList::ENGLISH): array
     {
         $this->log('Getting a list of files for the ', $package, 'package...');
 
@@ -161,7 +165,7 @@ abstract class BaseCommand extends Command
             return $this->files[$package];
         }
 
-        $path = $this->pathSource($package, LocalesList::ENGLISH);
+        $path = $this->pathSource($package, $locale);
 
         return $this->files[$package] = File::names($path, static function ($filename) {
             return ! Str::contains($filename, 'inline');
