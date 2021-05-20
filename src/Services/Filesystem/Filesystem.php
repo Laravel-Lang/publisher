@@ -4,7 +4,7 @@ namespace Helldar\LaravelLangPublisher\Services\Filesystem;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Contracts\Filesystem as Contract;
-use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 abstract class Filesystem implements Contract
@@ -15,9 +15,14 @@ abstract class Filesystem implements Contract
     {
         $this->log('Correcting array values...');
 
-        return Arr::map($items, static function ($value) {
-            return str_replace('\"', '"', $value);
-        }, true);
+        $callback = static function ($value) {
+            return stripslashes($value);
+        };
+
+        return Arrayable::of($items)
+            ->map($callback, true)
+            ->renameKeys($callback)
+            ->get();
     }
 
     protected function doesntExists(string $path): bool

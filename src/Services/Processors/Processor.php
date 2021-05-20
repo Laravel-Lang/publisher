@@ -46,9 +46,15 @@ abstract class Processor implements Contract
         return $this;
     }
 
-    public function filename(string $filename, bool $is_inline = true): Contract
+    public function sourceFilename(string $filename, bool $is_inline = true): Contract
     {
         $this->setSourcePath($filename, $is_inline);
+
+        return $this;
+    }
+
+    public function targetFilename(string $filename): Contract
+    {
         $this->setTargetPath($filename);
 
         return $this;
@@ -86,40 +92,67 @@ abstract class Processor implements Contract
         return $this;
     }
 
-    public function whenFilename(?string $filename, bool $is_inline = true): Contract
+    public function whenSourceFilename(?string $filename, bool $is_inline = true): Contract
     {
         if ($filename) {
-            $this->filename($filename, $is_inline);
+            $this->sourceFilename($filename, $is_inline);
         }
 
         return $this;
+    }
+
+    public function whenTargetFilename(?string $filename): Contract
+    {
+        if ($filename) {
+            $this->targetFilename($filename);
+        }
+
+        return $this;
+    }
+
+    protected function main(): void
+    {
+        $this->process($this->source_path, $this->target_path);
+    }
+
+    protected function process(string $source_path, string $target_path): void
+    {
+        $this->log('The process of processing a file from', $source_path, 'to', $target_path, 'has begun.');
+
+        $source = $this->load($source_path);
+        $target = $this->load($target_path);
+
+        $result = $this->compare($source, $target);
+
+        $this->store($target_path, $result);
     }
 
     protected function setSourcePath(string $filename, bool $is_inline): void
     {
         $this->log('Setting the path to the source file:', $filename);
 
-        if ($this->isValidation($filename) && $is_inline) {
-            $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline validator messages. Processing in progress...');
+        $path = $this->pathSource($this->package, $this->locale);
 
+        if ($is_inline) {
+            $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline messages...');
+
+            $directory = $this->pathDirectory($filename);
             $name      = $this->pathFilename($filename);
             $extension = $this->pathExtension($filename);
 
-            $filename = $name . '-inline.' . $extension;
-        } elseif ($this->isJson($filename)) {
-            $filename = $this->locale . '.json';
+            $inline_file = $directory . '/' . $name . '-inline.' . $extension;
         }
 
-        $this->source_path = $this->pathSource($this->package, $this->locale) . '/' . $filename;
+        $this->source_path = File::exists($path . '/' . $inline_file)
+            ? $path . '/' . $inline_file
+            : $path . '/' . $filename;
     }
 
     protected function setTargetPath(string $filename): void
     {
         $this->log('Setting the path to the target file:', $filename);
 
-        $is_json = $this->isJson($filename);
-
-        $this->target_path = $this->pathTargetFull($this->locale, $filename, $is_json);
+        $this->target_path = $this->pathTargetFull($this->locale, $filename);
     }
 
     protected function compare(array $source, array $target): array

@@ -10,6 +10,8 @@ final class Remove extends Processor
 {
     public function run(): string
     {
+        $this->log('Start the handler for execution:', self::class);
+
         return $this->doesntProtect() ? $this->delete() : Status::SKIPPED;
     }
 
@@ -22,12 +24,12 @@ final class Remove extends Processor
 
     protected function delete(): string
     {
-        $this->log('Removing json and php localization files:', $this->locale);
+        $this->log('Removing localization files:', $this->locale);
 
         $status_dir  = $this->deleteDirectory($this->locale);
         $status_file = $this->deleteFile($this->locale);
 
-        return $status_dir === $status_file ? $status_dir : Status::DELETED;
+        return $this->resolveStatus($status_dir, $status_file);
     }
 
     protected function deleteDirectory(string $locale): string
@@ -36,6 +38,34 @@ final class Remove extends Processor
 
         $path = $this->pathTarget($locale);
 
+        return $this->directory($path);
+    }
+
+    protected function deleteFile(string $locale): string
+    {
+        $this->log('Removing the json localization file for the locale:', $locale);
+
+        $path = $this->pathTargetFull($locale, null);
+
+        return $this->file($path);
+    }
+
+    protected function resolveStatus(...$statuses): string
+    {
+        for ($i = 0; $i < count($statuses); $i++) {
+            $current = $statuses[$i] ?? null;
+            $next    = $statuses[$i + 1] ?? null;
+
+            if ($current !== $next && ! is_null($next)) {
+                return Status::SKIPPED;
+            }
+        }
+
+        return Status::DELETED;
+    }
+
+    protected function directory(string $path): string
+    {
         if (File::exists($path)) {
             File::deleteDirectory($path);
 
@@ -45,12 +75,8 @@ final class Remove extends Processor
         return Status::SKIPPED;
     }
 
-    protected function deleteFile(string $locale): string
+    protected function file(string $path): string
     {
-        $this->log('Removing the json localization file for the locale:', $locale);
-
-        $path = $this->pathTargetFull($locale, null, true);
-
         if (File::exists($path)) {
             File::delete($path);
 

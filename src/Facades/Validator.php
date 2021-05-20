@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void locale(string $locale)
  * @method static void package(string $locale)
  */
-class Validator extends Facade
+final class Validator extends Facade
 {
     protected static function getFacadeAccessor()
     {

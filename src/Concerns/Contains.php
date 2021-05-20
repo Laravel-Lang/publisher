@@ -22,4 +22,11 @@ trait Contains
 
         return Str::endsWith($filename, 'json');
     }
+
+    protected function isPhp(string $filename): bool
+    {
+        $this->log('Does the file contain php?', $filename);
+
+        return Str::endsWith($filename, 'php');
+    }
 }

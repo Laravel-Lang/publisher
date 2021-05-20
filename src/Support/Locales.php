@@ -19,17 +19,15 @@ final class Locales
     /**
      * List of available locations.
      *
-     * @param  bool  $all
-     *
      * @return array
      */
-    public function available(bool $all = false): array
+    public function available(): array
     {
-        $this->log('Getting list of available locations. Is all =', $all);
+        $this->log('Getting list of available locations.');
 
         $locales = $this->all();
 
-        return $all ? $locales : $this->filter($locales);
+        return $this->filter($locales);
     }
 
     /**
@@ -67,6 +65,18 @@ final class Locales
     }
 
     /**
+     * Getting a complete list of available localizations.
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        $this->log('Getting a list of all available localizations without filtering...');
+
+        return array_values(ReflectionFacade::getConstants(LocalesList::class));
+    }
+
+    /**
      * Checks if a language pack is installed.
      *
      * @param  string  $locale
@@ -77,7 +87,7 @@ final class Locales
     {
         $this->log('Checks if a language pack is installed:', $locale);
 
-        return in_array($locale, $this->available(true), true);
+        return in_array($locale, $this->all(), true);
     }
 
     /**
@@ -132,13 +142,6 @@ final class Locales
         return ConfigFacade::fallbackLocale();
     }
 
-    protected function all(): array
-    {
-        $this->log('Getting a list of all available localizations without filtering...');
-
-        return array_values(ReflectionFacade::getConstants(LocalesList::class));
-    }
-
     protected function filter(array $locales): array
     {
         $this->log('Filtering localizations...');
@@ -166,7 +169,9 @@ final class Locales
     {
         $this->log('Getting a list of localizations from php files...');
 
-        return Directory::names($this->resourcesPath());
+        return Directory::names($this->resourcesPath(), static function ($name) {
+            return ! in_array($name, ['spark', 'vendor'], true);
+        });
     }
 
     protected function resourcesPath(): string

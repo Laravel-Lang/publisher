@@ -15,10 +15,11 @@ final class Info
     use Keyable;
     use Logger;
 
+    protected $default_style = 'fg=default';
+
     protected $styles = [
         Status::COPIED  => 'fg=green',
         Status::RESET   => 'fg=magenta',
-        Status::SKIPPED => 'fg=default',
         Status::DELETED => 'fg=red',
     ];
 
@@ -113,7 +114,7 @@ final class Info
     {
         $this->log('Get rich text of a message with a status:', $status);
 
-        $style = $this->styles[$status];
+        $style = $this->styles[$status] ?? $this->default_style;
 
         return $this->format($status, $style);
     }

@@ -9,6 +9,7 @@ use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Support\Config;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -29,6 +30,9 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->refreshLocales();
+
+        $this->emulateFreePackages();
+        $this->emulatePaidPackages();
     }
 
     /**
@@ -61,16 +65,19 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function path(string $locale, string $filename = null, bool $directory = false): string
+    protected function path(string $locale, string $filename = null): string
     {
-        $is_json = empty($filename) && ! $directory;
+        return Path::targetFull($locale, $filename);
+    }
 
-        return Path::targetFull($locale, $filename, $is_json);
+    protected function resources(string $path): string
+    {
+        return resource_path($path);
     }
 
     protected function copyFixtures(): void
     {
-        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale));
+        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale, 'en.json'));
         File::copy(realpath(__DIR__ . '/fixtures/auth.php'), $this->path($this->default_locale, 'auth.php'));
     }
 
@@ -91,8 +98,23 @@ abstract class TestCase extends BaseTestCase
         $target = $this->pathTarget($this->default_locale);
 
         File::copyDirectory($source, $target);
+
         File::move($target . '/en.json', $target . '/../en.json');
+
         File::delete($target . '/validation-inline.php');
+        File::deleteDirectory($target . '/packages');
+    }
+
+    protected function emulateFreePackages(): void
+    {
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/fortify');
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/jetstream');
+    }
+
+    protected function emulatePaidPackages(): void
+    {
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-stripe');
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/nova');
     }
 
     protected function setPackages(array $packages): void
