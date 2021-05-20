@@ -77,4 +77,4 @@ use. [Learn more][link_tidelift].
 
 [link_spark]:           https://spark.laravel.com
 
-[link_tidelift]         https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo
+[link_tidelift]:        https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo
