@@ -30,6 +30,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->refreshLocales();
+
         $this->emulateFreePackages();
         $this->emulatePaidPackages();
     }
