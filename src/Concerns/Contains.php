@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\Support\Facades\Helpers\Str;
 
@@ -28,5 +29,12 @@ trait Contains
         $this->log('Does the file contain php?', $filename);
 
         return Str::endsWith($filename, 'php');
+    }
+
+    protected function isEnglish(string $locale): bool
+    {
+        $this->log('Check if localization is English: ' . $locale);
+
+        return $locale === LocalesList::ENGLISH;
     }
 }

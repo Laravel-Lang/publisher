@@ -64,4 +64,17 @@ trait Pathable
 
         return Path::extension($path);
     }
+
+    protected function pathResolveLocaleFilename(string $locale, string $filename): string
+    {
+        $directory = $this->pathDirectory($filename);
+        $name      = $this->pathFilename($filename);
+        $extension = $this->pathExtension($filename);
+
+        $name = $this->isEnglish($name) ? $locale : $name;
+
+        $path = $directory . '/' . $name . '.' . $extension;
+
+        return ltrim($path, '/');
+    }
 }
