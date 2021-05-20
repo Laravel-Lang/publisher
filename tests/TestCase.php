@@ -30,6 +30,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->refreshLocales();
+        $this->emulateFreePackages();
         $this->emulatePaidPackages();
     }
 
@@ -101,6 +102,12 @@ abstract class TestCase extends BaseTestCase
 
         File::delete($target . '/validation-inline.php');
         File::deleteDirectory($target . '/packages');
+    }
+
+    protected function emulateFreePackages(): void
+    {
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/fortify');
+        Directory::ensureDirectory($this->pathVendor() . '/laravel/jetstream');
     }
 
     protected function emulatePaidPackages(): void
