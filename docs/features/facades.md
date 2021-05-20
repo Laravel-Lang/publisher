@@ -12,6 +12,9 @@ use Helldar\LaravelLangPublisher\Facades\Config;
 // Getting a list of packages from which to synchronize localization files.
 Config::packages(): array
 
+// Getting a list of plugins.
+Config::plugins(): array
+
 // Getting the default localization name.
 Config::defaultLocale(): string
 
@@ -26,13 +29,16 @@ Config::fallbackLocale(): string
 use Helldar\LaravelLangPublisher\Facades\Locales;
 
 // List of available locations.
-Locales::available(bool $all = false): array
+Locales::available(): array
 
 // List of installed locations.
 Locales::installed(): array
 
 // Retrieving a list of protected locales.
 Locales::protects(): array
+
+// Getting a complete list of available localizations.
+Locales::all(): array;
 
 // Checks if a language pack is installed.
 Locales::isAvailable(string $locale): bool

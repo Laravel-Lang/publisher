@@ -2,12 +2,14 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 
 final class Path
 {
+    use Contains;
     use Logger;
 
     public function source(string $package, string $locale): string
@@ -32,13 +34,15 @@ final class Path
         return $this->clean($path) . $suffix;
     }
 
-    public function targetFull(string $locale, ?string $filename, bool $is_json = false): string
+    public function targetFull(string $locale, ?string $filename): string
     {
-        $this->log('Getting the full path to the target files of the localization:', $locale, $filename, $is_json);
+        $this->log('Getting the full path to the target files of the localization:', $locale, $filename);
 
-        $suffix = $is_json ? '../' . $locale . '.json' : $filename;
+        $is_json = ! empty($filename) && $this->isJson($filename);
 
-        return $this->target($locale) . '/' . $suffix;
+        $path = $this->target($locale, $is_json);
+
+        return $path . '/' . $filename;
     }
 
     public function locales(string $package, string $locale = null): string
@@ -48,11 +52,29 @@ final class Path
         return $this->cleanable($this->getBasePath(), $package, $this->getLocalesPath(), $locale);
     }
 
+    public function directory(string $path): string
+    {
+        $this->log('Getting the directory name from file path:', $path);
+
+        $path = pathinfo($path, PATHINFO_DIRNAME);
+
+        return $this->clean($path);
+    }
+
     public function filename(string $path): string
     {
         $this->log('Getting file name without extension and path:', $path);
 
         $path = pathinfo($path, PATHINFO_FILENAME);
+
+        return $this->clean($path);
+    }
+
+    public function basename(string $path): string
+    {
+        $this->log('Getting file basename without extension and path:', $path);
+
+        $path = pathinfo($path, PATHINFO_BASENAME);
 
         return $this->clean($path);
     }
@@ -66,6 +88,19 @@ final class Path
         return $this->clean($path);
     }
 
+    public function clean(string $path = null, bool $both = false): ?string
+    {
+        $this->log('Clearing the path from the trailing character:', $path);
+
+        if (! empty($path)) {
+            $chars = '\\/';
+
+            return $both ? trim($path, $chars) : rtrim($path, $chars);
+        }
+
+        return $path;
+    }
+
     protected function cleanable(...$values): string
     {
         $this->log('Cleaning values to compile a path:', $values);
@@ -75,13 +110,6 @@ final class Path
         }
 
         return implode('/', $values);
-    }
-
-    protected function clean(string $path = null): ?string
-    {
-        $this->log('Clearing the path from the trailing character:', $path);
-
-        return ! empty($path) ? rtrim($path, '\\/') : $path;
     }
 
     protected function isEnglish(string $locale): bool

@@ -32,7 +32,7 @@ final class Remove extends BaseCommand
         }
     }
 
-    protected function processor(): ProcessorContract
+    protected function processor(?string $filename): ProcessorContract
     {
         return Processor::make();
     }

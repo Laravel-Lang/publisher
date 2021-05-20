@@ -7,6 +7,7 @@ use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
+use Helldar\LaravelLangPublisher\Contracts\Plugin;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Info;
@@ -36,6 +37,10 @@ abstract class BaseCommand extends Command
 
     protected $locales;
 
+    protected $plugins;
+
+    protected $processed = [];
+
     public function handle()
     {
         $this->setLogger();
@@ -45,14 +50,14 @@ abstract class BaseCommand extends Command
         $this->end();
     }
 
-    abstract protected function processor(): Processor;
+    abstract protected function processor(?string $filename): Processor;
 
     protected function ran(): void
     {
         $this->log('Starting processing of the package list...');
 
         foreach ($this->packages() as $package) {
-            $this->log('Packages handling:', $package);
+            $this->log('Plugins handling:', $package);
 
             $this->validatePackage($package);
 
@@ -70,6 +75,7 @@ abstract class BaseCommand extends Command
             $this->validateLocale($locale);
 
             $this->ranFiles($package, $locale);
+            $this->ranPlugins($package, $locale);
         }
     }
 
@@ -84,19 +90,41 @@ abstract class BaseCommand extends Command
 
             $status = $this->process($package, $locale, $filename);
 
+            $this->pushProcessed($filename);
+
             $this->processed($locale, $filename, $status, $package);
         }
     }
 
-    protected function process(?string $package, ?string $locale, ?string $filename): string
+    protected function ranPlugins(string $package, string $locale): void
     {
-        $this->log('Launching the processor for localization:', $locale, ',', $filename);
+        $this->log('Starting processing of plugin files for the', $package, 'package and', $locale, 'localization...');
 
-        return $this->processor()
-            ->force($this->hasForce())
+        foreach ($this->plugins() as $plugin) {
+            foreach ($plugin->source() as $source) {
+                $target = $plugin->targetPath($locale, $source);
+
+                $this->processing($locale, $source, $package);
+
+                $status = $this->process($package, $locale, $source, $target);
+
+                $this->pushProcessed($target);
+
+                $this->processed($locale, $source, $status, $package);
+            }
+        }
+    }
+
+    protected function process(?string $package, ?string $locale, ?string $source, string $target = null): string
+    {
+        $this->log('Launching the processor for localization:', $locale, ',', $source);
+
+        return $this->processor($source)
+            ->force($this->hasForce() || $this->hasProcessed($target))
             ->whenPackage($package)
             ->whenLocale($locale)
-            ->whenFilename($filename, $this->hasInline())
+            ->whenSourceFilename($source, $this->hasInline())
+            ->whenTargetFilename($target ?: $source)
             ->run();
     }
 
@@ -138,6 +166,27 @@ abstract class BaseCommand extends Command
         return $this->files[$package] = File::names($path, static function ($filename) {
             return ! Str::contains($filename, 'inline');
         });
+    }
+
+    /**
+     * @return array|\Helldar\LaravelLangPublisher\Plugins\Plugin[]
+     */
+    protected function plugins(): array
+    {
+        if (! empty($this->plugins)) {
+            return $this->plugins;
+        }
+
+        $plugins = array_map(static function ($plugin) {
+            /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $plugin */
+            return $plugin::make();
+        }, $this->getPlugins());
+
+        $plugins = array_filter($plugins, static function (Plugin $plugin) {
+            return $plugin->has();
+        });
+
+        return $this->plugins = $plugins;
     }
 
     protected function start(): void
@@ -225,11 +274,34 @@ abstract class BaseCommand extends Command
         return Config::hasInline();
     }
 
+    protected function getPlugins(): array
+    {
+        $this->log('Getting a list of plugins...');
+
+        return Config::plugins();
+    }
+
     protected function action(): Actionable
     {
         $this->log('Getting the action...');
 
         return $this->container($this->action);
+    }
+
+    protected function pushProcessed(?string $filename): void
+    {
+        $this->log('Add a link to the processed file to the cache:', $filename);
+
+        if ($filename && ! $this->hasProcessed($filename)) {
+            $this->processed[] = $filename;
+        }
+    }
+
+    protected function hasProcessed(?string $filename): bool
+    {
+        $this->log('Check if the file was processed earlier:', $filename);
+
+        return $filename && in_array($filename, $this->processed, true);
     }
 
     protected function hasForce(): bool

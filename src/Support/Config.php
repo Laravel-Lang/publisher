@@ -30,6 +30,16 @@ final class Config
         return array_values(array_merge($public, $private));
     }
 
+    public function plugins(): array
+    {
+        $this->log('Getting a list of supported plugins...');
+
+        $private = Illuminate::get(self::KEY_PRIVATE . '.plugins', []);
+        $public  = Illuminate::get(self::KEY_PUBLIC . '.plugins', []);
+
+        return array_values(array_merge($public, $private));
+    }
+
     /**
      * Retrieving a link to the "vendor" directory.
      *

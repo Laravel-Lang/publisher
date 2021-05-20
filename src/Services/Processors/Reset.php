@@ -15,12 +15,7 @@ final class Reset extends Processor
     {
         $this->log('Start the handler for execution:', self::class);
 
-        $source = $this->load($this->source_path);
-        $target = $this->load($this->target_path);
-
-        $result = $this->compare($source, $target);
-
-        $this->store($this->target_path, $result);
+        $this->main();
 
         return Status::RESET;
     }

@@ -17,11 +17,11 @@ final class Add extends BaseCommand
 
     protected $action = Action::class;
 
-    protected function processor(): ProcessorContract
+    protected function processor(?string $filename): ProcessorContract
     {
         $this->log('Getting the processor:', Processor::class);
 
-        return Processor::make()->force($this->hasForce());
+        return Processor::make();
     }
 
     protected function targetLocales(): array

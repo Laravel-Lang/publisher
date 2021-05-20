@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
+use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Path;
 
 trait Pathable
@@ -20,11 +21,11 @@ trait Pathable
         return Path::target($locale, $is_json);
     }
 
-    protected function pathTargetFull(string $locale, ?string $filename, bool $is_json = false): string
+    protected function pathTargetFull(string $locale, ?string $filename): string
     {
-        $this->log('Retrieving a link to the target file for the', $locale, '(is json:', $is_json, ') localization, filename is ', $filename, '...');
+        $this->log('Retrieving a link to the target file for the', $locale, 'localization, filename is ', $filename, '...');
 
-        return Path::targetFull($locale, $filename, $is_json);
+        return Path::targetFull($locale, $filename);
     }
 
     protected function pathLocales(string $package, string $locale = null): string
@@ -32,6 +33,22 @@ trait Pathable
         $this->log('Getting the path to excluding English localization: ' . $locale);
 
         return Path::locales($package, $locale);
+    }
+
+    protected function pathVendor(): string
+    {
+        $this->log('Getting the vendor path.');
+
+        return Config::basePath();
+    }
+
+    protected function pathDirectory(string $path): ?string
+    {
+        $this->log('Getting file directory:', $path);
+
+        $directory = Path::directory($path);
+
+        return $directory !== '.' ? $directory : null;
     }
 
     protected function pathFilename(string $path): string

@@ -3,6 +3,7 @@
 namespace Helldar\LaravelLangPublisher\Services\Processors;
 
 use Helldar\LaravelLangPublisher\Constants\Status;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Install extends Processor
 {
@@ -10,8 +11,12 @@ final class Install extends Processor
     {
         $this->log('Start the handler for execution:', self::class);
 
+        if ($this->sourceDoesntExists()) {
+            return Status::NOT_FOUND;
+        }
+
         if ($this->force || $this->doesntExists()) {
-            $this->process();
+            $this->main();
 
             return Status::COPIED;
         }
@@ -19,13 +24,10 @@ final class Install extends Processor
         return Status::SKIPPED;
     }
 
-    protected function process(): void
+    protected function sourceDoesntExists(): bool
     {
-        $source = $this->load($this->source_path);
-        $target = $this->load($this->target_path);
+        $this->log('Checking for the existence of a file:', $this->source_path);
 
-        $result = $this->compare($source, $target);
-
-        $this->store($this->target_path, $result);
+        return ! File::exists($this->source_path);
     }
 }

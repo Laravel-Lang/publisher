@@ -8,7 +8,9 @@ interface Processor
 
     public function locale(string $locale): self;
 
-    public function filename(string $filename, bool $is_inline = true): self;
+    public function sourceFilename(string $filename, bool $is_inline = true): self;
+
+    public function targetFilename(string $filename): self;
 
     public function force(bool $force = false): self;
 
@@ -18,7 +20,9 @@ interface Processor
 
     public function whenLocale(?string $locale): self;
 
-    public function whenFilename(?string $filename, bool $is_inline = true): self;
+    public function whenSourceFilename(?string $filename, bool $is_inline = true): self;
+
+    public function whenTargetFilename(?string $filename): self;
 
     public function run(): string;
 }
