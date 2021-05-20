@@ -266,6 +266,12 @@ abstract class BaseCommand extends Command
 
         foreach ($this->packages() as $package) {
             $files = array_merge($files, $this->files($package));
+
+            foreach ($this->plugins() as $plugin) {
+                if ($plugin->has()) {
+                    $files = array_merge($files, $plugin->source());
+                }
+            }
         }
 
         return $this->files_length = Arr::longestStringLength(array_unique($files));
