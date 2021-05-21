@@ -2,7 +2,6 @@
 
 namespace Tests\Support;
 
-use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Services\Missing;
 use Tests\TestCase;
 
