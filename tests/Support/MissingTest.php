@@ -2,7 +2,6 @@
 
 namespace Tests\Support;
 
-use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Services\Missing;
 use Tests\TestCase;
 
@@ -35,11 +34,6 @@ class MissingTest extends TestCase
     protected function service(): Missing
     {
         return Missing::make();
-    }
-
-    protected function packages(): array
-    {
-        return Packages::get();
     }
 
     protected function message(string $package, array $locales): string
