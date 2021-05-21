@@ -10,7 +10,7 @@ use Helldar\LaravelLangPublisher\Plugins\SparkPaddle;
 use Helldar\LaravelLangPublisher\Plugins\SparkStripe;
 use Tests\TestCase;
 
-final class LaravelPackages extends TestCase
+final class PluginsTest extends TestCase
 {
     public function testInstalled()
     {
