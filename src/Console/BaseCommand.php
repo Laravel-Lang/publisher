@@ -4,11 +4,11 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
+use Helldar\LaravelLangPublisher\Concerns\Files;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
+use Helldar\LaravelLangPublisher\Concerns\Plugins;
 use Helldar\LaravelLangPublisher\Contracts\Actionable;
-use Helldar\LaravelLangPublisher\Contracts\Plugin;
 use Helldar\LaravelLangPublisher\Contracts\Processor;
 use Helldar\LaravelLangPublisher\Facades\Config;
 use Helldar\LaravelLangPublisher\Facades\Info;
@@ -18,28 +18,22 @@ use Helldar\LaravelLangPublisher\Facades\Validator;
 use Helldar\LaravelLangPublisher\Services\Command\Locales as LocalesSupport;
 use Helldar\LaravelLangPublisher\Support\Info as InfoSupport;
 use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Str;
 use Illuminate\Console\Command;
 
 abstract class BaseCommand extends Command
 {
     use Containable;
     use Contains;
+    use Files;
     use Logger;
     use Pathable;
+    use Plugins;
 
     protected $action;
 
     protected $locales_length = 0;
 
-    protected $files_length = 0;
-
-    protected $files;
-
     protected $locales;
-
-    protected $plugins;
 
     protected $processed = [];
 
@@ -157,42 +151,6 @@ abstract class BaseCommand extends Command
         return Packages::get();
     }
 
-    protected function files(string $package, string $locale = LocalesList::ENGLISH): array
-    {
-        $this->log('Getting a list of files for the ', $package, 'package...');
-
-        if ($this->files[$package] ?? false) {
-            return $this->files[$package];
-        }
-
-        $path = $this->pathSource($package, $locale);
-
-        return $this->files[$package] = File::names($path, static function ($filename) {
-            return ! Str::contains($filename, 'inline');
-        });
-    }
-
-    /**
-     * @return array|\Helldar\LaravelLangPublisher\Plugins\Plugin[]
-     */
-    protected function plugins(): array
-    {
-        if (! empty($this->plugins)) {
-            return $this->plugins;
-        }
-
-        $plugins = array_map(static function ($plugin) {
-            /* @var \Helldar\LaravelLangPublisher\Plugins\Plugin $plugin */
-            return $plugin::make();
-        }, $this->getPlugins());
-
-        $plugins = array_filter($plugins, static function (Plugin $plugin) {
-            return $plugin->has();
-        });
-
-        return $this->plugins = $plugins;
-    }
-
     protected function start(): void
     {
         $this->log('Running the console command:', parent::class);
@@ -252,43 +210,11 @@ abstract class BaseCommand extends Command
         return $this->locales_length = Arr::longestStringLength($this->locales());
     }
 
-    protected function filesLength(): int
-    {
-        $this->log('Getting the maximum length of a filenames...');
-
-        if ($this->files_length > 0) {
-            return $this->files_length;
-        }
-
-        $this->log('Calculating the maximum length of a filenames...');
-
-        $files = [];
-
-        foreach ($this->packages() as $package) {
-            $files = array_merge($files, $this->files($package));
-
-            foreach ($this->plugins() as $plugin) {
-                if ($plugin->has()) {
-                    $files = array_merge($files, $plugin->source());
-                }
-            }
-        }
-
-        return $this->files_length = Arr::longestStringLength(array_unique($files));
-    }
-
     protected function hasInline(): bool
     {
         $this->log('Getting a use case for a validation file.');
 
         return Config::hasInline();
-    }
-
-    protected function getPlugins(): array
-    {
-        $this->log('Getting a list of plugins...');
-
-        return Config::plugins();
     }
 
     protected function action(): Actionable

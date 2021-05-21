@@ -6,6 +6,7 @@ use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
+use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\LaravelLangPublisher\Support\Config;
@@ -33,6 +34,13 @@ abstract class TestCase extends BaseTestCase
 
         $this->emulateFreePackages();
         $this->emulatePaidPackages();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->removeEmulatedPackages();
+
+        parent::tearDown();
     }
 
     /**
@@ -111,10 +119,35 @@ abstract class TestCase extends BaseTestCase
         Directory::ensureDirectory($this->pathVendor() . '/laravel/jetstream');
     }
 
-    protected function emulatePaidPackages(): void
+    protected function emulatePaidPackages(bool $full = false): void
     {
         Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-stripe');
         Directory::ensureDirectory($this->pathVendor() . '/laravel/nova');
+
+        if ($full) {
+            Directory::ensureDirectory($this->pathVendor() . '/laravel/cashier');
+            Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-paddle');
+        }
+    }
+
+    protected function removeEmulatedPackages(): void
+    {
+        $names = [
+            '/laravel/cashier',
+            '/laravel/fortify',
+            '/laravel/jetstream',
+            '/laravel/nova',
+            '/laravel/spark-paddle',
+            '/laravel/spark-stripe',
+        ];
+
+        foreach ($names as $name) {
+            $path = $this->pathVendor() . $name;
+
+            if (Directory::exists($path)) {
+                Directory::delete($path);
+            }
+        }
     }
 
     protected function setPackages(array $packages): void
@@ -122,5 +155,10 @@ abstract class TestCase extends BaseTestCase
         $key = Config::KEY_PUBLIC;
 
         IlluminateConfig::set($key . '.packages', $packages);
+    }
+
+    protected function packages(): array
+    {
+        return Packages::get();
     }
 }

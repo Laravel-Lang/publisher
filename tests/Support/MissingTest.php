@@ -37,11 +37,6 @@ class MissingTest extends TestCase
         return Missing::make();
     }
 
-    protected function packages(): array
-    {
-        return Packages::get();
-    }
-
     protected function message(string $package, array $locales): string
     {
         return '[' . $package . '] Locales: ' . $this->implode($locales);
