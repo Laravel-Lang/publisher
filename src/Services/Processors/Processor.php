@@ -143,7 +143,7 @@ abstract class Processor implements Contract
             $inline_file = $directory . '/' . $name . '-inline.' . $extension;
         }
 
-        $this->source_path = File::exists($path . '/' . $inline_file)
+        $this->source_path = $is_inline && File::exists($path . '/' . $inline_file)
             ? $path . '/' . $inline_file
             : $path . '/' . $filename;
     }
