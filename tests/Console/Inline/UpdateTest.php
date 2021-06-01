@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Console;
+namespace Tests\Console\Inline;
 
 use Illuminate\Support\Facades\Lang;
-use Tests\TestCase;
+use Tests\TestCaseInline;
 
-final class UpdateTest extends TestCase
+final class UpdateTest extends TestCaseInline
 {
     public function testExcludes()
     {

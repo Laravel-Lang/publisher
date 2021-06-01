@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Console;
+namespace Tests\Console\Inline;
 
 use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Facades\Path;
-use Tests\TestCase;
+use Tests\TestCaseInline;
 
-final class RemoveTest extends TestCase
+final class RemoveTest extends TestCaseInline
 {
     public function testWithoutLanguageAttribute()
     {
