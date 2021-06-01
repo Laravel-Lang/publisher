@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Console;
+namespace Tests\Console\Inline;
 
 use Illuminate\Support\Facades\Lang;
-use Tests\TestCase;
+use Tests\TestCaseInline;
 
-final class ResetTest extends TestCase
+final class ResetTest extends TestCaseInline
 {
     public function testWithoutFullOption()
     {
