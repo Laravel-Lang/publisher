@@ -4,10 +4,12 @@
     "type": "library",
     "license": "MIT",
     "keywords": [
+        "breeze",
         "cashier",
         "fortify",
         "i18n",
         "jetstream",
+        "framework",
         "lang",
         "languages",
         "laravel",
