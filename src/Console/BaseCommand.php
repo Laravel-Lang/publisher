@@ -37,8 +37,6 @@ abstract class BaseCommand extends Command
 
     protected $processed = [];
 
-    abstract protected function processor(?string $filename): Processor;
-
     public function handle()
     {
         $this->setLogger();
@@ -47,6 +45,8 @@ abstract class BaseCommand extends Command
         $this->ran();
         $this->end();
     }
+
+    abstract protected function processor(?string $filename): Processor;
 
     protected function ran(): void
     {
