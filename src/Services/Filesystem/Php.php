@@ -8,8 +8,10 @@ use Helldar\PrettyArray\Services\Formatter;
 
 final class Php extends Filesystem
 {
-    public function load(string $path): array
+    public function load(string $path, string $filename): array
     {
+        $path = rtrim($path, '/') . '/' . $filename;
+
         $this->log('Loading the contents of the file:', $path);
 
         if ($this->doesntExists($path)) {

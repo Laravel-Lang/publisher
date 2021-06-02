@@ -24,7 +24,7 @@ trait Files
         $path = $this->pathSource($package, $locale);
 
         return $this->files[$package] = File::names($path, static function ($filename) {
-            return ! Str::contains($filename, 'inline');
+            return ! Str::contains($filename, ['inline', 'json']);
         });
     }
 

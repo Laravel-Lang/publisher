@@ -12,11 +12,7 @@ final class Framework extends Plugin
     public function source(): array
     {
         return [
-            '{locale}.json',
-            'auth.php',
-            'pagination.php',
-            'passwords.php',
-            'validation.php',
+            'en.json',
         ];
     }
 }

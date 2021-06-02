@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string filename(string $path)
  * @method static string locales(string $package, string $locale = null)
  * @method static string source(string $package, string $locale)
+ * @method static string sourceFull(string $package, string $locale, string $filename)
  * @method static string target(string $locale, bool $is_json = false)
  * @method static string targetFull(string $locale, ?string $filename)
  */

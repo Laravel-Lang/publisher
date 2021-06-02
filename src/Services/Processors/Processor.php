@@ -11,6 +11,7 @@ use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
+use Helldar\Support\Facades\Helpers\Str;
 
 abstract class Processor implements Contract
 {
@@ -27,6 +28,8 @@ abstract class Processor implements Contract
     protected $source_path;
 
     protected $target_path;
+
+    protected $filename;
 
     protected $force;
 
@@ -48,6 +51,8 @@ abstract class Processor implements Contract
 
     public function sourceFilename(string $filename, bool $is_inline = true): Contract
     {
+        $this->filename = $filename;
+
         $this->setSourcePath($filename, $is_inline);
 
         return $this;
@@ -122,6 +127,12 @@ abstract class Processor implements Contract
         $source = $this->load($source_path);
         $target = $this->load($target_path);
 
+        if (Str::endsWith($this->target_path, 'json')) {
+            dd(
+                $source_path
+            );
+        }
+
         $result = $this->compare($source, $target);
 
         $this->store($target_path, $result);
@@ -172,7 +183,7 @@ abstract class Processor implements Contract
     {
         $this->log('Loading an array:', $path);
 
-        return $this->manager()->load($path);
+        return $this->manager()->load($path, $this->filename);
     }
 
     protected function store(string $path, array $content): void
