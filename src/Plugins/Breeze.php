@@ -11,9 +11,6 @@ final class Breeze extends Plugin
 
     public function source(): array
     {
-        return [
-            'packages/fortify.json',
-            'packages/jetstream.json',
-        ];
+        return ['packages/breeze.json'];
     }
 }
