@@ -88,11 +88,6 @@ return [
      *
      * Files from these plugins will be installed for all packages specified in the `packages` key,
      * provided that the required package is installed in the application.
-     *
-     * For example:
-     *   \Helldar\LaravelLangPublisher\Plugins\Cashier::class,
-     *   \Helldar\LaravelLangPublisher\Plugins\Nova::class,
-     *   \Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
      */
 
     'plugins' => [
