@@ -1,11 +1,6 @@
 <?php
 
-use Helldar\LaravelLangPublisher\Plugins\Cashier;
-use Helldar\LaravelLangPublisher\Plugins\Fortify;
-use Helldar\LaravelLangPublisher\Plugins\Jetstream;
-use Helldar\LaravelLangPublisher\Plugins\Nova;
-use Helldar\LaravelLangPublisher\Plugins\SparkPaddle;
-use Helldar\LaravelLangPublisher\Plugins\SparkStripe;
+use Helldar\LaravelLangPublisher\Plugins\{Cashier, Fortify, Framework, Jetstream, Lumen, Nova, SparkPaddle, SparkStripe};
 
 return [
     'packages' => [
@@ -15,7 +10,9 @@ return [
     'plugins' => [
         Cashier::class,
         Fortify::class,
+        Framework::class,
         Jetstream::class,
+        Lumen::class,
         Nova::class,
         SparkPaddle::class,
         SparkStripe::class,
