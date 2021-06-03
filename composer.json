@@ -1,6 +1,6 @@
 {
     "name": "andrey-helldar/laravel-lang-publisher",
-    "description": "Publisher lang files for the Laravel Framework, Jetstream, Fortify, Cashier, Spark and Nova from Laravel-Lang/lang",
+    "description": "Publisher lang files for the Laravel and Lumen Frameworks, Jetstream, Fortify, Cashier, Spark and Nova from Laravel-Lang/lang",
     "type": "library",
     "license": "MIT",
     "keywords": [
