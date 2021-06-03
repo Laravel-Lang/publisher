@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Plugins;
 
-final class Framework extends Plugin
+final class Laravel extends Plugin
 {
     public function vendor(): string
     {
