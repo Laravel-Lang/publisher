@@ -47,7 +47,7 @@
         "andrey-helldar/verbose": "^1.2",
         "illuminate/console": "^7.0|^8.0",
         "illuminate/support": "^7.0|^8.0",
-        "laravel-lang/lang": "dev-master"
+        "laravel-lang/lang": "^10.1"
     },
     "require-dev": {
         "andrey-helldar/lang-translations": "^4.0",
