@@ -11,6 +11,15 @@ abstract class Filesystem implements Contract
 {
     use Logger;
 
+    public function ensureKeys(string $path): void
+    {
+        $this->log('Ensure array keys exist for a file', $path);
+
+        $content = $this->load($path);
+
+        $this->store($path, $content);
+    }
+
     protected function correctValues(array $items): array
     {
         $this->log('Correcting array values...');

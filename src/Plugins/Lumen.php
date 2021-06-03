@@ -11,8 +11,6 @@ final class Lumen extends Plugin
 
     public function source(): array
     {
-        return [
-            'en.json',
-        ];
+        return ['en.json'];
     }
 }

@@ -13,11 +13,11 @@ final class Manager implements Contract
     use Contains;
     use Logger;
 
-    public function load(string $path, string $filename): array
+    public function load(string $path, string $main_path = null): array
     {
-        $this->log('Loading data from an array:', $path);
+        $this->log('Loading data from an array:', $path, $main_path);
 
-        return $this->filesystem($path)->load($path, $filename);
+        return $this->filesystem($path)->load($path, $main_path);
     }
 
     public function store(string $path, array $content)
@@ -25,6 +25,13 @@ final class Manager implements Contract
         $this->log('Saving an array to a file:', $path);
 
         return $this->filesystem($path)->store($path, $content);
+    }
+
+    public function ensureKeys(string $path): void
+    {
+        $content = $this->load($path);
+
+        $this->store($path, $content);
     }
 
     protected function filesystem(string $path): Contract

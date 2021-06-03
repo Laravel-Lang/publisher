@@ -2,7 +2,6 @@
 
 namespace Tests\Console\Basic;
 
-use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Files;
 use Helldar\LaravelLangPublisher\Concerns\Plugins;
 use Helldar\LaravelLangPublisher\Exceptions\PackageDoesntExistsException;
@@ -11,11 +10,11 @@ use Helldar\LaravelLangPublisher\Facades\Locales;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 final class AddTest extends TestCase
 {
-    use Containable;
     use Files;
     use Plugins;
 
@@ -200,15 +199,17 @@ final class AddTest extends TestCase
         $source_array = $this->container(Manager::class)->load($source_path);
         $target_array = $this->container(Manager::class)->load($target_path);
 
+        $source_array = Str::endsWith($source_path, 'json') ? $source_array : array_keys($source_array);
+
         $source_array = Arr::ksort($source_array);
         $target_array = Arr::ksort($target_array);
 
         $this->assertNotEmpty($source_array, "The source array for $package, $locale, $source is empty!");
         $this->assertNotEmpty($target_array, "The target array for $package, $locale, $target is empty!");
 
-        $diff = Arr::only($target_array, array_keys($source_array));
+        $diff = Arr::only($target_array, $source_array);
 
-        $this->assertSame(array_keys($source_array), array_keys($diff), "Installed localization does not contain required source keys ($package, $locale, $source)!");
+        $this->assertSame($source_array, array_keys($diff), "Installed localization does not contain required source keys ($package, $locale, $source)!");
     }
 
     protected function resolveLocaleFilename(string $locale, string $filename): string

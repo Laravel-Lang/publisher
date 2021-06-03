@@ -6,12 +6,12 @@ use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Contains;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
+use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Contracts\Processor as Contract;
 use Helldar\LaravelLangPublisher\Services\Comparators\Manage;
 use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Str;
 
 abstract class Processor implements Contract
 {
@@ -29,7 +29,7 @@ abstract class Processor implements Contract
 
     protected $target_path;
 
-    protected $filename;
+    protected $main_path;
 
     protected $force;
 
@@ -51,8 +51,6 @@ abstract class Processor implements Contract
 
     public function sourceFilename(string $filename, bool $is_inline = true): Contract
     {
-        $this->filename = $filename;
-
         $this->setSourcePath($filename, $is_inline);
 
         return $this;
@@ -61,6 +59,7 @@ abstract class Processor implements Contract
     public function targetFilename(string $filename): Contract
     {
         $this->setTargetPath($filename);
+        $this->setMainPath($filename);
 
         return $this;
     }
@@ -117,21 +116,15 @@ abstract class Processor implements Contract
 
     protected function main(): void
     {
-        $this->process($this->source_path, $this->target_path);
+        $this->process($this->source_path, $this->target_path, $this->main_path);
     }
 
-    protected function process(string $source_path, string $target_path): void
+    protected function process(string $source_path, string $target_path, string $main_path = null): void
     {
         $this->log('The process of processing a file from', $source_path, 'to', $target_path, 'has begun.');
 
-        $source = $this->load($source_path);
+        $source = $this->load($source_path, $main_path);
         $target = $this->load($target_path);
-
-        if (Str::endsWith($this->target_path, 'json')) {
-            dd(
-                $source_path
-            );
-        }
 
         $result = $this->compare($source, $target);
 
@@ -142,7 +135,9 @@ abstract class Processor implements Contract
     {
         $this->log('Setting the path to the source file:', $filename);
 
-        $path = $this->pathSource($this->package, $this->locale);
+        $path = $this->isJson($filename)
+            ? $this->pathSource($this->package, Locales::ENGLISH)
+            : $this->pathSource($this->package, $this->locale);
 
         if ($is_inline) {
             $this->log('The', $filename, '(is inline: ', $is_inline, ')', 'file is a collection of inline messages...');
@@ -166,6 +161,19 @@ abstract class Processor implements Contract
         $this->target_path = $this->pathTargetFull($this->locale, $filename);
     }
 
+    protected function setMainPath(string $filename): void
+    {
+        $this->log('Setting the path to the json main file with', $filename);
+
+        if ($this->isJson($filename)) {
+            $path = $this->pathSource($this->package, $this->locale);
+
+            $file = $this->locale . '.json';
+
+            $this->main_path = $path . '/' . $file;
+        }
+    }
+
     protected function compare(array $source, array $target): array
     {
         $this->log('Find an object and perform object comparison.');
@@ -179,11 +187,11 @@ abstract class Processor implements Contract
             ->toArray();
     }
 
-    protected function load(string $path): array
+    protected function load(string $path, string $filename = null): array
     {
-        $this->log('Loading an array:', $path);
+        $this->log('Loading an array:', $path, $filename);
 
-        return $this->manager()->load($path, $this->filename);
+        return $this->manager()->load($path, $filename);
     }
 
     protected function store(string $path, array $content): void

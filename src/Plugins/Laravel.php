@@ -11,8 +11,6 @@ final class Laravel extends Plugin
 
     public function source(): array
     {
-        return [
-            'en.json',
-        ];
+        return ['en.json'];
     }
 }

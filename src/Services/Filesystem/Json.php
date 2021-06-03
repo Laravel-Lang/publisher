@@ -2,26 +2,30 @@
 
 namespace Helldar\LaravelLangPublisher\Services\Filesystem;
 
-use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\PrettyArray\Services\File as Pretty;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Arr;
 
 final class Json extends Filesystem
 {
-    public function load(string $path, string $filename): array
+    public function load(string $path, string $main_path = null): array
     {
-        $this->log('Loading the contents of the file:', $path);
+        $this->log('Loading the contents of the file:', $path, '(', $main_path, ')');
 
-        if ($this->doesntExists($path)) {
+        if ($this->doesntExists($path) || ($main_path && $this->doesntExists($main_path))) {
+            $path = $this->doesntExists($path) ? $path : $main_path;
+
             $this->log('File not found:', $path);
 
             return [];
         }
 
-        dd($path, $filename);
+        if (! empty($path) && empty($main_path)) {
+            return $this->loadTranslations($path);
+        }
 
         $keys   = $this->loadKeys($path);
-        $source = $this->loadTranslations($filename);
+        $source = $this->loadTranslations($main_path);
 
         return Arr::only($source, $keys);
     }
@@ -40,13 +44,16 @@ final class Json extends Filesystem
         return $this->loadFile($path);
     }
 
-    protected function loadTranslations(): array
+    protected function loadTranslations(string $path): array
     {
-        dd(
-            'aaaa',
-            Path::sourceFull('laravel-lang/lang', 'en', 'en.json'),
-        );
-        // $this->log('Loading translations from a file:', $path);
+        $this->log('Loading translations from a file:', $path);
+
+        $items = $this->loadFile($path);
+
+        return Arrayable::of($items)
+            ->renameKeys(static function ($key, $value) {
+                return is_numeric($key) ? $value : $key;
+            })->get();
     }
 
     protected function loadFile(string $path): array

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Concerns\Containable;
 use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Locales;
@@ -9,6 +10,7 @@ use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
 use Helldar\LaravelLangPublisher\Facades\Packages;
 use Helldar\LaravelLangPublisher\Facades\Path;
 use Helldar\LaravelLangPublisher\ServiceProvider;
+use Helldar\LaravelLangPublisher\Services\Filesystem\Manager;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Config as IlluminateConfig;
@@ -17,6 +19,7 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Containable;
     use Logger;
     use Pathable;
 
@@ -111,6 +114,8 @@ abstract class TestCase extends BaseTestCase
 
         File::delete($target . '/validation-inline.php');
         File::deleteDirectory($target . '/packages');
+
+        $this->container(Manager::class)->ensureKeys($target . '/../en.json');
     }
 
     protected function emulateFreePackages(): void
