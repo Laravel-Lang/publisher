@@ -44,7 +44,7 @@ final class ArrayProcessor implements Arrayable
         $array = $this->stringingKeys($array);
 
         foreach ($array as $key => $value) {
-            $this->items[$key] = $value;
+            $this->items[$key] = is_array($value) ? array_merge($this->items[$key] ?? [], $value) : $value;
         }
 
         return $this;
