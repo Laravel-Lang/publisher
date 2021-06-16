@@ -42,7 +42,7 @@ final class Locales
         $json = $this->findJsonFiles();
         $php  = $this->findPhpFiles();
 
-        $installed = ArrFacade::unique(array_merge($json, $php));
+        $installed = ArrFacade::unique(array_merge($json, $php, $this->protects()));
 
         $sorted = Arr::sort($installed);
 
