@@ -1,5 +1,6 @@
 <?php
 
+use Helldar\LaravelLangPublisher\Plugins\Breeze;
 use Helldar\LaravelLangPublisher\Plugins\Cashier;
 use Helldar\LaravelLangPublisher\Plugins\Fortify;
 use Helldar\LaravelLangPublisher\Plugins\Jetstream;
@@ -15,10 +16,11 @@ return [
     ],
 
     'plugins' => [
+        Breeze::class,
         Cashier::class,
         Fortify::class,
-        Laravel::class,
         Jetstream::class,
+        Laravel::class,
         Lumen::class,
         Nova::class,
         SparkPaddle::class,

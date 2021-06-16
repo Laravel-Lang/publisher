@@ -91,11 +91,14 @@ return [
      */
 
     'plugins' => [
-        // \Helldar\LaravelLangPublisher\Plugins\Cashier::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Fortify::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Jetstream::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Nova::class,
-        // \Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
-        // \Helldar\LaravelLangPublisher\Plugins\SparkStripe::class,
+        // Helldar\LaravelLangPublisher\Plugins\Breeze::class,
+        // Helldar\LaravelLangPublisher\Plugins\Cashier::class,
+        // Helldar\LaravelLangPublisher\Plugins\Fortify::class,
+        // Helldar\LaravelLangPublisher\Plugins\Jetstream::class,
+        // Helldar\LaravelLangPublisher\Plugins\Laravel::class,
+        // Helldar\LaravelLangPublisher\Plugins\Lumen::class,
+        // Helldar\LaravelLangPublisher\Plugins\Nova::class,
+        // Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
+        // Helldar\LaravelLangPublisher\Plugins\SparkStripe::class,
     ],
 ];
