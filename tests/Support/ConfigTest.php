@@ -3,7 +3,15 @@
 namespace Tests\Support;
 
 use Helldar\LaravelLangPublisher\Constants\Locales;
-use Helldar\LaravelLangPublisher\Plugins\{Breeze, Cashier, Fortify, Jetstream, Laravel, Lumen, Nova, SparkPaddle, SparkStripe};
+use Helldar\LaravelLangPublisher\Plugins\Breeze;
+use Helldar\LaravelLangPublisher\Plugins\Cashier;
+use Helldar\LaravelLangPublisher\Plugins\Fortify;
+use Helldar\LaravelLangPublisher\Plugins\Jetstream;
+use Helldar\LaravelLangPublisher\Plugins\Laravel;
+use Helldar\LaravelLangPublisher\Plugins\Lumen;
+use Helldar\LaravelLangPublisher\Plugins\Nova;
+use Helldar\LaravelLangPublisher\Plugins\SparkPaddle;
+use Helldar\LaravelLangPublisher\Plugins\SparkStripe;
 use Helldar\LaravelLangPublisher\Support\Config;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Tests\TestCase;
