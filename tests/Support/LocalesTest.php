@@ -29,6 +29,7 @@ final class LocalesTest extends TestCase
             LocalesList::CZECH,
             LocalesList::ENGLISH,
             LocalesList::BASQUE,
+            LocalesList::KOREAN,
             LocalesList::CHINESE_HONG_KONG,
         ];
 
@@ -46,9 +47,18 @@ final class LocalesTest extends TestCase
             LocalesList::BASQUE,
         ];
 
+        $installed = [
+            LocalesList::AFRIKAANS,
+            LocalesList::CZECH,
+            LocalesList::ENGLISH,
+            LocalesList::BASQUE,
+            LocalesList::KOREAN,
+            LocalesList::CHINESE_HONG_KONG,
+        ];
+
         $this->artisan('lang:add', compact('locales'))->run();
 
-        foreach ($locales as $locale) {
+        foreach ($installed as $locale) {
             $this->assertTrue(Locales::isInstalled($locale), 'Locale is not installed: ' . $locale);
         }
     }
