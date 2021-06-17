@@ -6,7 +6,7 @@ use Helldar\LaravelLangPublisher\Console\Add;
 use Helldar\LaravelLangPublisher\Console\Remove;
 use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Support\Config;
+use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider
