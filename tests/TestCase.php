@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use Helldar\LaravelLangPublisher\Concerns\Logger;
+use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigSupport;
@@ -13,11 +15,14 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Pathable;
+    use Logger;
+
     protected $default_locale = Locales::ENGLISH;
 
     protected $fallback_locale = Locales::KOREAN;
 
-    protected $emulate_packages = [
+    protected $emulate = [
         'laravel/breeze',
         'laravel/fortify',
         'laravel/jetstream',
@@ -105,14 +110,14 @@ abstract class TestCase extends BaseTestCase
 
     protected function emulatePackages(): void
     {
-        foreach ($this->emulate_packages as $package) {
+        foreach ($this->emulate as $package) {
             Directory::ensureDirectory($this->pathVendor($package));
         }
     }
 
     protected function removeEmulatedPackages(): void
     {
-        foreach ($this->emulate_packages as $package) {
+        foreach ($this->emulate as $package) {
             $path = $this->pathVendor($package);
 
             Directory::ensureDelete($path);

@@ -2,6 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Support;
 
+use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Config as ConfigSupport;
 use Helldar\LaravelLangPublisher\Facades\Path as PathSupport;
@@ -9,10 +10,11 @@ use Helldar\LaravelLangPublisher\Facades\Reflection as ReflectionSupport;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Str;
 
 final class Locales
 {
+    use Has;
+
     /**
      * List of available locations.
      *
@@ -34,6 +36,9 @@ final class Locales
     {
         return Arrayable::of()
             ->merge($this->findJson(), $this->findPhp())
+            ->filter(function ($locale) {
+                return $this->isAvailable($locale);
+            })
             ->unique()
             ->sort()
             ->values()
@@ -79,7 +84,7 @@ final class Locales
      */
     public function isAvailable(string $locale): bool
     {
-        return $this->in($locale, $this->all());
+        return $this->in($locale, $this->available());
     }
 
     /**
@@ -133,7 +138,7 @@ final class Locales
         return Arrayable::of($locales)
             ->unique()
             ->filter(function ($locale) use ($ignores) {
-                return ! $this->in($locale, $ignores);
+                return $this->isProtected($locale) || ! $this->in($locale, $ignores);
             })
             ->values()
             ->get();
@@ -149,10 +154,8 @@ final class Locales
         $files = File::names($this->resourcesPath(), null, true);
 
         return Arrayable::of($files)
-            ->filter(static function (string $filename) {
-                $extension = PathSupport::extension($filename);
-
-                return Str::lower($extension) === 'json';
+            ->filter(function (string $filename) {
+                return $this->hasJson($filename);
             })
             ->map(static function (string $filename) {
                 return PathSupport::filename($filename);
@@ -162,9 +165,7 @@ final class Locales
 
     protected function findPhp(): array
     {
-        return Directory::names($this->resourcesPath(), function ($name) {
-            return $this->isAvailable($name);
-        });
+        return Directory::names($this->resourcesPath());
     }
 
     protected function resourcesPath(): string
