@@ -79,26 +79,7 @@ return [
      *     <filename>.php
      */
 
-    'packages' => [
-        // 'andrey-helldar/lang-translations',
-    ],
-
-    /*
-     * Defines a list of plugins with non-standard paths for saving files.
-     *
-     * Files from these plugins will be installed for all packages specified in the `packages` key,
-     * provided that the required package is installed in the application.
-     */
-
     'plugins' => [
-        // Helldar\LaravelLangPublisher\Plugins\Breeze::class,
-        // Helldar\LaravelLangPublisher\Plugins\Cashier::class,
-        // Helldar\LaravelLangPublisher\Plugins\Fortify::class,
-        // Helldar\LaravelLangPublisher\Plugins\Jetstream::class,
-        // Helldar\LaravelLangPublisher\Plugins\Laravel::class,
-        // Helldar\LaravelLangPublisher\Plugins\Lumen::class,
-        // Helldar\LaravelLangPublisher\Plugins\Nova::class,
-        // Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
-        // Helldar\LaravelLangPublisher\Plugins\SparkStripe::class,
+        // 'andrey-helldar/lang-translations',
     ],
 ];
