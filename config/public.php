@@ -20,7 +20,6 @@ declare(strict_types=1);
 use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
-
     /*
      * Determines what type of files to use when updating language files.
      *
