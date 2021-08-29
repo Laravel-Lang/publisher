@@ -25,10 +25,6 @@ return [
     'path' => [
         'base' => base_path('vendor'),
 
-        'source' => 'source',
-
-        'locales' => 'locales',
-
-        'target' => resource_path('lang'),
+        'resources' => resource_path('lang'),
     ],
 ];
