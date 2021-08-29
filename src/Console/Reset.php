@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-final class Reset extends Base
+class Reset extends Base
 {
     protected $signature = 'lang:reset'
     . ' {locales?* : Space-separated list of, eg: de tk it}'

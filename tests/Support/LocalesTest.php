@@ -6,7 +6,7 @@ use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Support\Locales;
 use Tests\TestCase;
 
-final class LocalesTest extends TestCase
+class LocalesTest extends TestCase
 {
     public function testIsInstalled()
     {

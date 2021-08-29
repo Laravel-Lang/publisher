@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-final class Remove extends Base
+class Remove extends Base
 {
     protected $signature = 'lang:rm'
     . ' {locales?* : Space-separated list of, eg: de tk it}';

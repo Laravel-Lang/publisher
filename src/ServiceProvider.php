@@ -9,7 +9,7 @@ use Helldar\LaravelLangPublisher\Console\Update;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-final class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     public function boot(): void
     {

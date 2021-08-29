@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-final class Update extends Base
+class Update extends Base
 {
     protected $signature = 'lang:update';
 

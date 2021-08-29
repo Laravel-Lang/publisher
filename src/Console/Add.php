@@ -2,7 +2,7 @@
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-final class Add extends Base
+class Add extends Base
 {
     protected $signature = 'lang:add'
     . ' {locales?* : Space-separated list of, eg: de tk it}'

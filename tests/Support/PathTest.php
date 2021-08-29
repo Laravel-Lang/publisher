@@ -5,7 +5,7 @@ namespace Tests\Support;
 use Helldar\LaravelLangPublisher\Support\Path;
 use Tests\TestCase;
 
-final class PathTest extends TestCase
+class PathTest extends TestCase
 {
     public function testExtension()
     {
