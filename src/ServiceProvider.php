@@ -15,13 +15,14 @@
  * @see https://github.com/andrey-helldar/laravel-lang-publisher
  */
 
+declare(strict_types=1);
+
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\Add;
 use Helldar\LaravelLangPublisher\Console\Remove;
 use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider

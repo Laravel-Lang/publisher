@@ -15,6 +15,8 @@
  * @see https://github.com/andrey-helldar/laravel-lang-publisher
  */
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Helldar\LaravelLangPublisher\Concerns\Logger;
