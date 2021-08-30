@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Facades;
 
-use Helldar\LaravelLangPublisher\Config\Config as Instance;
+use Helldar\LaravelLangPublisher\Helpers\Config as Instance;
 use Illuminate\Support\Facades\Facade;
 
 /**
