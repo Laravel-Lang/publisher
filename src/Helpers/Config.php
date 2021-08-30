@@ -21,6 +21,7 @@ namespace Helldar\LaravelLangPublisher\Helpers;
 
 use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
+use Helldar\LaravelLangPublisher\Exceptions\UnknownPluginInstanceException;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Instance;
 use Illuminate\Support\Facades\Config as Illuminate;
@@ -42,12 +43,13 @@ class Config
         $private = $this->getPrivate('plugins');
         $public  = $this->getPublic('plugins');
 
-        return Arrayable::of()
-            ->merge($public, $private)
+        return Arrayable::of($public)
+            ->addUnique($private)
             ->unique()
-            ->filter(static function (string $plugin) {
-                return Instance::exists($plugin)
-                    && Instance::of($plugin, Provider::class);
+            ->tap(static function (string $plugin) {
+                if (! Instance::of($plugin, Provider::class)) {
+                    throw new UnknownPluginInstanceException($plugin);
+                }
             })
             ->sort()
             ->get();
