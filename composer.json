@@ -57,7 +57,7 @@
         "psr-4": {
             "Helldar\\LaravelLangPublisher\\": "src",
             "Helldar\\Contracts\\": "contracts",
-            "LaravelLang\\\\Lang\\": "laravel-lang"
+            "LaravelLang\\Lang\\": "laravel-lang"
         }
     },
     "autoload-dev": {
