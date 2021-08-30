@@ -47,7 +47,7 @@ return [
      * Key exclusion when combining.
      */
 
-    'exclude' => [
+    'excludes' => [
         // 'auth' => ['throttle'],
         // 'pagination' => ['previous'],
         // 'passwords' => ['reset', 'throttled', 'user'],
