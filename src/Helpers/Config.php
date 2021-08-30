@@ -23,8 +23,7 @@ use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Instance;
-
-use function config;
+use Illuminate\Support\Facades\Config as Illuminate;
 
 class Config
 {
@@ -78,14 +77,14 @@ class Config
     {
         $key = $this->privateKey($key);
 
-        return config($key);
+        return Illuminate::get($key);
     }
 
     protected function getPublic(string $key)
     {
         $key = $this->publicKey($key);
 
-        return config($key);
+        return Illuminate::get($key);
     }
 
     protected function privateKey(string $suffix): string
