@@ -31,6 +31,7 @@ class Config
             ->filter(static function (string $plugin) {
                 return Instance::exists($plugin);
             })
+            ->sort()
             ->get();
     }
 
