@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Config;
 
+use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Instance;
@@ -29,7 +30,8 @@ class Config
             ->merge($private)
             ->unique()
             ->filter(static function (string $plugin) {
-                return Instance::exists($plugin);
+                return Instance::exists($plugin)
+                    && Instance::of($plugin, Provider::class);
             })
             ->sort()
             ->get();
