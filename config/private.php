@@ -17,9 +17,11 @@
 
 declare(strict_types=1);
 
+use LaravelLang\Lang\Publisher\Provider as LaravelLang;
+
 return [
     'plugins' => [
-        // 'laravel-lang/lang',
+        LaravelLang::class,
     ],
 
     'path' => [
