@@ -19,12 +19,12 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Helpers;
 
+use function config;
 use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Instance;
 
-use function config;
+use Helldar\Support\Facades\Helpers\Instance;
 
 class Config
 {
