@@ -43,8 +43,8 @@ class Config
         $private = $this->getPrivate('plugins');
         $public  = $this->getPublic('plugins');
 
-        return Arrayable::of($public)
-            ->merge($private)
+        return Arrayable::of()
+            ->merge($public, $private)
             ->unique()
             ->filter(static function (string $plugin) {
                 return Instance::exists($plugin)
