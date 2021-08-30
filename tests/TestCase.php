@@ -23,7 +23,7 @@ use Helldar\LaravelLangPublisher\Concerns\Logger;
 use Helldar\LaravelLangPublisher\Concerns\Pathable;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
-use Helldar\LaravelLangPublisher\Facades\Config as ConfigSupport;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigSupport;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Artisan;
