@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Lang\Publisher;
 
-use Helldar\Contracts\LangPublisher\Provider as Contract;
+use Helldar\LaravelLangPublisher\Plugins\BaseProvider;
 use LaravelLang\Lang\Publisher\Plugins\Breeze;
 use LaravelLang\Lang\Publisher\Plugins\Cashier;
 use LaravelLang\Lang\Publisher\Plugins\Fortify;
@@ -15,7 +15,7 @@ use LaravelLang\Lang\Publisher\Plugins\Nova;
 use LaravelLang\Lang\Publisher\Plugins\SparkPaddle;
 use LaravelLang\Lang\Publisher\Plugins\SparkStripe;
 
-class Provider implements Contract
+class Provider extends BaseProvider
 {
     /**
      * Indicates the base path of the provider.
