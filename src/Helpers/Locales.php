@@ -47,8 +47,8 @@ class Locales
 
     public function installed(): array
     {
-        return Arrayable::of()
-            ->merge($this->findJson(), $this->findPhp())
+        return Arrayable::of($this->findJson())
+            ->addUnique($this->findPhp())
             ->filter(function (string $locale) {
                 return $this->isAvailable($locale);
             })
