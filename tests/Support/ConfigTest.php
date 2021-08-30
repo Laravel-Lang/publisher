@@ -19,136 +19,74 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use Helldar\Contracts\LangPublisher\Plugin;
+use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
+use Helldar\LaravelLangPublisher\Exceptions\UnknownPluginInstanceException;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\PrettyArray\Contracts\Caseable;
+use Illuminate\Support\Facades\Config as Illuminate;
+use LaravelLang\Lang\Publisher\Provider as LaravelLang;
 use Tests\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public function testPackages()
+    public function testPlugins()
     {
-        $actual = $this->resolve()->packages();
-
-        $expected = [
-            'laravel-lang/lang',
-            'andrey-helldar/lang-translations',
-        ];
-
-        $this->assertSame($expected, $actual);
+        $this->assertSame([
+            LaravelLang::class,
+        ], Config::plugins());
     }
 
-    public function testHasAlignment()
+    public function testInvalidPlugins()
     {
-        $actual = $this->resolve()->hasAlignment();
+        $this->expectException(UnknownPluginInstanceException::class);
+        $this->expectExceptionMessage('The foo/bar class is not a ' . Plugin::class . ' instance.');
 
-        $this->assertTrue($actual);
-    }
+        Illuminate::set(ConfigConst::PUBLIC_KEY . '.plugins', [
+            'foo/bar',
+        ]);
 
-    public function testResources()
-    {
-        $actual = $this->resolve()->resources();
-
-        $expected = resource_path('lang');
-
-        $this->assertSame($expected, $actual);
-    }
-
-    public function testDefaultLocale()
-    {
-        $actual = $this->resolve()->defaultLocale();
-
-        $this->assertSame($this->default_locale, $actual);
-    }
-
-    public function testIgnores()
-    {
-        $actual = $this->resolve()->ignores();
-
-        $expected = [
-            Locales::CATALAN,
-            Locales::GALICIAN,
-        ];
-
-        $this->assertSame($expected, $actual);
+        Config::plugins();
     }
 
     public function testExcludes()
     {
-        $actual = $this->resolve()->excludes();
-
-        $expected = [
+        $this->assertSame([
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
-        ];
+        ], Config::excludes());
+    }
 
-        $this->assertSame($expected, $actual);
+    public function testHasAlignment()
+    {
+        $this->assertTrue(Config::hasAlignment());
     }
 
     public function testHasInline()
     {
-        $actual = $this->resolve()->hasInline();
-
-        $this->assertTrue($actual);
+        $this->assertTrue(Config::hasInline());
     }
 
-    public function testPlugins()
+    public function testCase()
     {
-        $actual = $this->resolve()->plugins();
+        $actual = Config::case();
 
-        $expected = [
-            Breeze::class,
-            Cashier::class,
-            Fortify::class,
-            Jetstream::class,
-            Laravel::class,
-            Lumen::class,
-            Nova::class,
-            SparkPaddle::class,
-            SparkStripe::class,
-        ];
+        $this->assertIsNumeric($actual);
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame(Caseable::NO_CASE, $actual);
+    }
+
+    public function testResources()
+    {
+        $expected = resource_path('lang');
+
+        $this->assertSame($expected, Config::resources());
     }
 
     public function testVendor()
     {
-        $actual = $this->resolve()->vendor();
-
         $expected = realpath(__DIR__ . '/../../vendor');
 
-        $this->assertSame($expected, $actual);
-    }
-
-    public function testLocales()
-    {
-        $actual = $this->resolve()->locales();
-
-        $this->assertSame('locales', $actual);
-    }
-
-    public function testGetCase()
-    {
-        $actual = $this->resolve()->getCase();
-
-        $this->assertIsNumeric($actual);
-        $this->assertSame(Caseable::NO_CASE, $actual);
-    }
-
-    public function testSource()
-    {
-        $actual = $this->resolve()->source();
-
-        $this->assertSame('source', $actual);
-    }
-
-    public function testFallbackLocale()
-    {
-        $actual = $this->resolve()->fallbackLocale();
-
-        $this->assertSame($this->fallback_locale, $actual);
-    }
-
-    protected function resolve(): Config
-    {
-        return new Config();
+        $this->assertSame($expected, Config::vendor());
     }
 }

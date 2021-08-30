@@ -19,8 +19,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Concerns\Logger;
-use Helldar\LaravelLangPublisher\Concerns\Pathable;
+use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigSupport;
@@ -32,12 +31,11 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use Pathable;
-    use Logger;
+    use Has;
 
-    protected $default_locale = Locales::ENGLISH;
+    protected $default = Locales::ENGLISH;
 
-    protected $fallback_locale = Locales::KOREAN;
+    protected $fallback = Locales::KOREAN;
 
     protected $emulate = [
         'laravel/breeze',
@@ -68,24 +66,19 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('app.locale', $this->default_locale);
-        $config->set('app.fallback_locale', $this->fallback_locale);
+        $config->set('app.locale', $this->default);
+        $config->set('app.fallback_locale', $this->fallback);
 
-        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor'));
+        $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
 
-        $config->set(Config::KEY_PUBLIC . '.exclude', [
+        $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
         ]);
 
-        $config->set(Config::KEY_PUBLIC . '.ignore', [
-            Locales::CATALAN,
-            Locales::GALICIAN,
-        ]);
-
-        $config->set(Config::KEY_PUBLIC . '.packages', [
-            'andrey-helldar/lang-translations',
-        ]);
+        //$config->set(Config::PUBLIC_KEY . '.plugins', [
+        //    'andrey-helldar/lang-translations',
+        //]);
     }
 
     protected function copyFixtures(): void
@@ -97,7 +90,11 @@ abstract class TestCase extends BaseTestCase
         ];
 
         foreach ($files as $filename) {
-            File::copy(realpath(__DIR__ . '/fixtures/' . $filename), $this->path($this->default_locale, $filename));
+            $from = realpath(__DIR__ . '/fixtures/' . $filename);
+
+            $this->hasJson($filename)
+                ? File::copy($from, resource_path('lang/' . $filename))
+                : File::copy($from, resource_path('lang/' . $this->default . '/' . $filename));
         }
     }
 
@@ -117,10 +114,7 @@ abstract class TestCase extends BaseTestCase
     protected function installLocales(): void
     {
         Artisan::call('lang:add', [
-            'locales' => [
-                $this->default_locale,
-                $this->fallback_locale,
-            ],
+            'locales' => [$this->default, $this->fallback],
             '--force' => true,
         ]);
     }
@@ -139,5 +133,14 @@ abstract class TestCase extends BaseTestCase
 
             Directory::ensureDelete($path);
         }
+    }
+
+    protected function pathVendor(string $path): string
+    {
+        $vendor = ConfigSupport::vendor();
+
+        $chars = '/\\';
+
+        return rtrim($vendor, $chars) . '/' . ltrim($path, $chars);
     }
 }

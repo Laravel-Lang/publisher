@@ -20,44 +20,34 @@ declare(strict_types=1);
 namespace Tests\Support;
 
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Support\Locales;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class LocalesTest extends TestCase
 {
     public function testIsInstalled()
     {
-        $this->assertTrue($this->resolve()->isInstalled(LocalesList::ENGLISH));
-        $this->assertTrue($this->resolve()->isInstalled(LocalesList::KOREAN));
+        $this->assertTrue(Locales::isInstalled(LocalesList::ENGLISH));
+        $this->assertTrue(Locales::isInstalled(LocalesList::KOREAN));
 
-        $this->assertFalse($this->resolve()->isInstalled(LocalesList::FRENCH));
-        $this->assertFalse($this->resolve()->isInstalled(LocalesList::GERMAN));
-        $this->assertFalse($this->resolve()->isInstalled(LocalesList::RUSSIAN));
-    }
-
-    public function testGetDefault()
-    {
-        $actual = $this->resolve()->getDefault();
-
-        $expected = LocalesList::ENGLISH;
-
-        $this->assertSame($expected, $actual);
+        $this->assertFalse(Locales::isInstalled(LocalesList::FRENCH));
+        $this->assertFalse(Locales::isInstalled(LocalesList::GERMAN));
+        $this->assertFalse(Locales::isInstalled(LocalesList::RUSSIAN));
     }
 
     public function testIsProtected()
     {
-        $this->assertTrue($this->resolve()->isProtected(LocalesList::ENGLISH));
-        $this->assertTrue($this->resolve()->isProtected(LocalesList::KOREAN));
+        $this->assertTrue(Locales::isProtected(LocalesList::ENGLISH));
+        $this->assertTrue(Locales::isProtected(LocalesList::KOREAN));
 
-        $this->assertFalse($this->resolve()->isProtected(LocalesList::FRENCH));
-        $this->assertFalse($this->resolve()->isProtected(LocalesList::GERMAN));
-        $this->assertFalse($this->resolve()->isProtected(LocalesList::RUSSIAN));
+        $this->assertFalse(Locales::isProtected(LocalesList::FRENCH));
+        $this->assertFalse(Locales::isProtected(LocalesList::GERMAN));
+        $this->assertFalse(Locales::isProtected(LocalesList::RUSSIAN));
     }
 
     public function testAvailable()
     {
-        $actual = $this->resolve()->available();
-
         $expected = [
             'af',
             'ar',
@@ -137,29 +127,27 @@ class LocalesTest extends TestCase
             'zh_TW',
         ];
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame($expected, Locales::available());
     }
 
     public function testIsAvailable()
     {
-        $this->assertTrue($this->resolve()->isAvailable(LocalesList::ENGLISH));
-        $this->assertTrue($this->resolve()->isAvailable(LocalesList::KOREAN));
+        $this->assertTrue(Locales::isAvailable(LocalesList::ENGLISH));
+        $this->assertTrue(Locales::isAvailable(LocalesList::KOREAN));
 
-        $this->assertFalse($this->resolve()->isAvailable('foo'));
-        $this->assertFalse($this->resolve()->isAvailable('bar'));
-        $this->assertFalse($this->resolve()->isAvailable('baz'));
+        $this->assertFalse(Locales::isAvailable('foo'));
+        $this->assertFalse(Locales::isAvailable('bar'));
+        $this->assertFalse(Locales::isAvailable('baz'));
     }
 
     public function testProtects()
     {
-        $actual = $this->resolve()->protects();
-
         $expected = [
             LocalesList::ENGLISH,
             LocalesList::KOREAN,
         ];
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame($expected, Locales::protects());
     }
 
     public function testInstalled()
@@ -178,112 +166,27 @@ class LocalesTest extends TestCase
             LocalesList::KOREAN,
         ];
 
-        $this->assertSame($expected1, $this->resolve()->installed());
+        $this->assertSame($expected1, Locales::installed());
 
-        // insall
+        Artisan::call('lang:add', [
+            'locales' => [
+                LocalesList::BULGARIAN,
+                LocalesList::DANISH,
+                LocalesList::GALICIAN,
+                LocalesList::ICELANDIC,
+            ],
+        ]);
 
-        $this->assertSame($expected2, $this->resolve()->installed());
+        $this->assertSame($expected2, Locales::installed());
     }
 
-    public function testAll()
+    public function testGetDefault()
     {
-        $actual = $this->resolve()->all();
-
-        $expected = [
-            'af',
-            'ar',
-            'az',
-            'be',
-            'bg',
-            'bn',
-            'bs',
-            'ca',
-            'cs',
-            'cy',
-            'da',
-            'de',
-            'de_CH',
-            'el',
-            'en',
-            'es',
-            'et',
-            'eu',
-            'fa',
-            'fi',
-            'fil',
-            'fr',
-            'gl',
-            'he',
-            'hi',
-            'hr',
-            'hu',
-            'hy',
-            'id',
-            'is',
-            'it',
-            'ja',
-            'ka',
-            'kk',
-            'km',
-            'kn',
-            'ko',
-            'lt',
-            'lv',
-            'mk',
-            'mn',
-            'mr',
-            'ms',
-            'nb',
-            'ne',
-            'nl',
-            'nn',
-            'oc',
-            'pl',
-            'ps',
-            'pt',
-            'pt_BR',
-            'ro',
-            'ru',
-            'sc',
-            'si',
-            'sk',
-            'sl',
-            'sq',
-            'sr_Cyrl',
-            'sr_Latn',
-            'sr_Latn_ME',
-            'sv',
-            'sw',
-            'tg',
-            'th',
-            'tk',
-            'tl',
-            'tr',
-            'ug',
-            'uk',
-            'ur',
-            'uz_Cyrl',
-            'uz_Latn',
-            'vi',
-            'zh_CN',
-            'zh_HK',
-            'zh_TW',
-        ];
-
-        $this->assertSame($expected, $actual);
+        $this->assertSame(LocalesList::ENGLISH, Locales::getDefault());
     }
 
     public function testGetFallback()
     {
-        $actual = $this->resolve()->getFallback();
-
-        $expected = LocalesList::KOREAN;
-
-        $this->assertSame($expected, $actual);
-    }
-
-    protected function resolve(): Locales
-    {
-        return new Locales();
+        $this->assertSame(LocalesList::KOREAN, Locales::getFallback());
     }
 }
