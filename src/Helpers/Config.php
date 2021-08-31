@@ -46,13 +46,15 @@ class Config
         return Arrayable::of($public)
             ->addUnique($private)
             ->unique()
-            ->tap(static function (string $plugin) {
-                if (! Instance::of($plugin, Provider::class)) {
-                    throw new UnknownPluginInstanceException($plugin);
-                }
-            })
             ->sort()
-            ->get();
+            ->values()
+            ->map(static function (string $plugin) {
+                if (Instance::of($plugin, Provider::class)) {
+                    return new $plugin;
+                }
+
+                throw new UnknownPluginInstanceException($plugin);
+            })->get();
     }
 
     public function hasInline(): bool
