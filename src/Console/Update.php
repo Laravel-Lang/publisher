@@ -19,9 +19,24 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Helldar\LaravelLangPublisher\Processors\Update as Processor;
+
 class Update extends Base
 {
     protected $signature = 'lang:update';
 
     protected $description = 'Updating installed localizations.';
+
+    protected $processor = Processor::class;
+
+    protected function targetLocales(): array
+    {
+        return Locales::installed();
+    }
+
+    protected function hasForce(): bool
+    {
+        return true;
+    }
 }

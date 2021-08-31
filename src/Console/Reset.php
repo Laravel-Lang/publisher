@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Processors\Reset as Processor;
+
 class Reset extends Base
 {
     protected $signature = 'lang:reset'
@@ -26,4 +28,8 @@ class Reset extends Base
     . ' {--f|full : Reset files without excluded keys}';
 
     protected $description = 'Resets installed locations.';
+
+    protected $processor = Processor::class;
+
+    protected $load = false;
 }

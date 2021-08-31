@@ -19,10 +19,14 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Processors\Remove as Processor;
+
 class Remove extends Base
 {
     protected $signature = 'lang:rm'
     . ' {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Remove localizations.';
+
+    protected $processor = Processor::class;
 }
