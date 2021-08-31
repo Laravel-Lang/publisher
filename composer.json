@@ -38,7 +38,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "andrey-helldar/pretty-array": "^2.0",
+        "andrey-helldar/pretty-array": "^2.4",
         "andrey-helldar/support": "^4.6",
         "andrey-helldar/verbose": "^2.0",
         "illuminate/contracts": "^7.0|^8.0|^9.0",
