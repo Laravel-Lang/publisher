@@ -42,7 +42,7 @@ trait Paths
         $base_path = rtrim($base_path, $this->trim_chars);
 
         $parameters = Collection::make($parameters)
-            ->map(static function (string $parameter) {
+            ->map(function (string $parameter) {
                 return trim($parameter, $this->trim_chars);
             })->implode($this->directory_separator);
 
