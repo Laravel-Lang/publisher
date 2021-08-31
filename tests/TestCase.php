@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Helldar\LaravelLangPublisher\Concerns\Has;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigSupport;
@@ -32,6 +33,7 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     use Has;
+    use Paths;
 
     protected $default = Locales::ENGLISH;
 
@@ -134,25 +136,16 @@ abstract class TestCase extends BaseTestCase
     protected function emulatePackages(): void
     {
         foreach ($this->emulate as $package) {
-            Directory::ensureDirectory($this->pathVendor($package));
+            Directory::ensureDirectory($this->vendorPath($package));
         }
     }
 
     protected function removeEmulatedPackages(): void
     {
         foreach ($this->emulate as $package) {
-            $path = $this->pathVendor($package);
+            $path = $this->vendorPath($package);
 
             Directory::ensureDelete($path);
         }
-    }
-
-    protected function pathVendor(string $path): string
-    {
-        $vendor = ConfigSupport::vendor();
-
-        $chars = '/\\';
-
-        return rtrim($vendor, $chars) . '/' . ltrim($path, $chars);
     }
 }

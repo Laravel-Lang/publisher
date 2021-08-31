@@ -21,7 +21,6 @@ namespace Helldar\LaravelLangPublisher\Plugins;
 
 use Helldar\Contracts\LangPublisher\Plugin;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 abstract class BasePlugin implements Plugin
@@ -40,7 +39,7 @@ abstract class BasePlugin implements Plugin
 
     public function has(): bool
     {
-        $path = $this->path(Config::vendor(), $this->vendor());
+        $path = $this->vendorPath($this->vendor());
 
         return Directory::exists($path);
     }

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Illuminate\Support\Collection;
 
 trait Paths
@@ -47,5 +48,10 @@ trait Paths
             })->implode($this->directory_separator);
 
         return $base_path . $this->directory_separator . $parameters;
+    }
+
+    protected function vendorPath(string ...$parameters): string
+    {
+        return $this->path(Config::vendor(), ...$parameters);
     }
 }
