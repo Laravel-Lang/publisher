@@ -33,7 +33,7 @@ abstract class Base implements Filesystem
     protected function correct(array $items): array
     {
         $callback = static function ($value) {
-            return stripslashes($value);
+            return is_string($value) ? stripslashes($value) : $value;
         };
 
         return Arrayable::of($items)

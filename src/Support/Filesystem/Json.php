@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Support\Filesystem;
 
 use Helldar\PrettyArray\Services\File as Pretty;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Arr;
 
 class Json extends Base
@@ -41,15 +40,7 @@ class Json extends Base
     public function store(string $path, $content): string
     {
         Arr::storeAsJson($path, $content, false, JSON_UNESCAPED_UNICODE ^ JSON_PRETTY_PRINT);
-    }
 
-    protected function correct(array $items): array
-    {
-        $items = Arrayable::of($items)
-            ->renameKeys(static function ($key, string $value) {
-                return $value;
-            })->get();
-
-        return parent::correct($items);
+        return $path;
     }
 }
