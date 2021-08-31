@@ -54,4 +54,9 @@ trait Paths
     {
         return $this->path(Config::vendor(), ...$parameters);
     }
+
+    protected function resourcesPath(string ...$parameters): string
+    {
+        return $this->path(Config::resources(), ...$parameters);
+    }
 }
