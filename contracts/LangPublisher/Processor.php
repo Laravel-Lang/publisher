@@ -27,7 +27,5 @@ interface Processor
 
     public function hasForce(bool $force = false): self;
 
-    public function hasLoad(bool $has_load = true): self;
-
     public function store(): void;
 }

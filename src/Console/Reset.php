@@ -30,6 +30,4 @@ class Reset extends Base
     protected $description = 'Resets installed locations.';
 
     protected $processor = Processor::class;
-
-    protected $load = false;
 }

@@ -20,13 +20,14 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\Contracts\LangPublisher\Processor;
+use Helldar\LaravelLangPublisher\Concerns\Optionable;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
-    protected $load = true;
+    use Optionable;
 
     protected $processor;
 
@@ -71,27 +72,11 @@ abstract class Base extends Command
 
         return $this->processor = $processor
             ->locales($this->targetLocales())
-            ->hasForce($this->hasForce())
-            ->hasLoad($this->load);
+            ->hasForce($this->hasForce());
     }
 
     protected function targetLocales(): array
     {
         return Locales::installed();
-    }
-
-    protected function hasForce(): bool
-    {
-        return $this->boolOption('force');
-    }
-
-    protected function hasFull(): bool
-    {
-        return $this->boolOption('force');
-    }
-
-    protected function boolOption(string $key): bool
-    {
-        return $this->hasOption($key) && $this->option($key);
     }
 }
