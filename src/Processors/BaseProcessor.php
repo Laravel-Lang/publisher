@@ -99,7 +99,6 @@ abstract class BaseProcessor implements Processor
     protected function collectLocales(Provider $provider, Plugin $plugin): void
     {
         foreach ($this->locales as $locale) {
-
         }
     }
 
