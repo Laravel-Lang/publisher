@@ -68,7 +68,7 @@ return [
      * By default, Caseable::NO_CASE
      */
 
-    'case' => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+    'case' => Caseable::NO_CASE,
 
     /*
      * Determines from which packages to synchronize localization files.
