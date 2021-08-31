@@ -40,7 +40,7 @@ abstract class Base extends Command
     protected function collecting(): void
     {
         foreach ($this->plugins() as $provider) {
-            $this->info('Collecting ' . get_class($provider));
+            $this->info('Collecting ' . get_class($provider) . '...');
 
             $this->getProcessor()->provider($provider);
         }
