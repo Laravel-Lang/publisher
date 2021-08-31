@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support;
+namespace Tests\Inline\Support;
 
 use Helldar\Contracts\LangPublisher\Plugin;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
@@ -26,9 +26,9 @@ use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as Illuminate;
 use LaravelLang\Lang\Publisher\Provider as LaravelLang;
-use Tests\TestCase;
+use Tests\InlineTestCase;
 
-class ConfigTest extends TestCase
+class ConfigTest extends InlineTestCase
 {
     public function testPlugins()
     {

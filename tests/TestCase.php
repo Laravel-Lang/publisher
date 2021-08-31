@@ -37,6 +37,8 @@ abstract class TestCase extends BaseTestCase
 
     protected $fallback = Locales::KOREAN;
 
+    protected $inline = true;
+
     protected $emulate = [
         'laravel/breeze',
         'laravel/fortify',
@@ -68,6 +70,8 @@ abstract class TestCase extends BaseTestCase
 
         $config->set('app.locale', $this->default);
         $config->set('app.fallback_locale', $this->fallback);
+
+        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
         $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
 
