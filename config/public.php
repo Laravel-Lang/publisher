@@ -73,16 +73,7 @@ return [
     /*
      * Determines from which packages to synchronize localization files.
      *
-     * A prerequisite is compliance with a single file placement format:
-     *
-     * source/
-     * locales/
-     *   af/
-     *     af.json
-     *     <filename>.php
-     *   <locale>/
-     *     <locale>.json
-     *     <filename>.php
+     * @see https://github.com/andrey-helldar/translations-template
      */
 
     'plugins' => [
