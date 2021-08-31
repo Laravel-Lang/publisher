@@ -17,8 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Processors;
+namespace Helldar\LaravelLangPublisher\Constants;
 
-class Add extends BaseProcessor
+class Path
 {
+    public const SOURCE = 'source';
+
+    public const LOCALES = 'locales';
 }
