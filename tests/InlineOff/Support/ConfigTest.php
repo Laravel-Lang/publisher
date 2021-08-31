@@ -26,9 +26,9 @@ use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as Illuminate;
 use LaravelLang\Lang\Publisher\Provider as LaravelLang;
-use Tests\InlineOffTestCase;
-
 use function resource_path;
+
+use Tests\InlineOffTestCase;
 
 class ConfigTest extends InlineOffTestCase
 {

@@ -50,7 +50,7 @@ class Config
             ->values()
             ->map(static function (string $plugin) {
                 if (Instance::of($plugin, Provider::class)) {
-                    return new $plugin;
+                    return new $plugin();
                 }
 
                 throw new UnknownPluginInstanceException($plugin);

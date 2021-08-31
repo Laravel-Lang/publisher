@@ -67,7 +67,7 @@ abstract class Base extends Command
         }
 
         /** @var Processor $processor */
-        $processor = new $this->processor;
+        $processor = new $this->processor();
 
         return $this->processor = $processor
             ->locales($this->targetLocales())
