@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Normal\Support;
+namespace Tests\InlineOff\Support;
 
 use Helldar\Contracts\LangPublisher\Plugin;
 use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;

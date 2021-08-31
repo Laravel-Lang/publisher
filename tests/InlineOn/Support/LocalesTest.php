@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Normal\Support;
+namespace Tests\InlineOn\Support;
 
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Illuminate\Support\Facades\Artisan;
-use Tests\NormalTestCase;
+use Tests\InlineTestCase;
 
-class LocalesTest extends NormalTestCase
+class LocalesTest extends InlineTestCase
 {
     public function testIsInstalled()
     {
