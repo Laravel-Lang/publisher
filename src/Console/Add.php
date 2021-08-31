@@ -19,6 +19,9 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Helldar\LaravelLangPublisher\Processors\Add as Processor;
+
 class Add extends Base
 {
     protected $signature = 'lang:add'
@@ -26,4 +29,11 @@ class Add extends Base
     . ' {--f|force : Override exiting files}';
 
     protected $description = 'Install new localizations.';
+
+    protected $processor = Processor::class;
+
+    protected function targetLocales(): array
+    {
+        return Locales::available();
+    }
 }
