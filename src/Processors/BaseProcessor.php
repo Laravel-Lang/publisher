@@ -19,16 +19,21 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Processors;
 
+use Helldar\Contracts\LangPublisher\Plugin;
 use Helldar\Contracts\LangPublisher\Processor;
 use Helldar\Contracts\LangPublisher\Provider;
+use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Constants\Path;
+use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 abstract class BaseProcessor implements Processor
 {
+    use Has;
     use Paths;
 
     protected $force = false;
@@ -37,7 +42,7 @@ abstract class BaseProcessor implements Processor
 
     protected $source_keys = [];
 
-    protected $locales_keys = [];
+    protected $translates = [];
 
     public function locales(array $locales): Processor
     {
@@ -54,8 +59,10 @@ abstract class BaseProcessor implements Processor
             }
 
             foreach ($plugin->source() as $source) {
-                $this->loadSource($provider, $source, $plugin->target());
+                $this->collectSource($provider, $source, $plugin->target());
             }
+
+            $this->collectLocales($provider, $plugin);
         }
 
         return $this;
@@ -73,7 +80,7 @@ abstract class BaseProcessor implements Processor
         return $this;
     }
 
-    protected function loadSource(Provider $provider, string $source, string $target): void
+    protected function collectSource(Provider $provider, string $source, string $target): void
     {
         $path = $this->path($provider->basePath(), Path::SOURCE, $source);
 
@@ -81,7 +88,19 @@ abstract class BaseProcessor implements Processor
 
         $content = Filesystem::load($path);
 
-        $this->set($this->source_keys, $filename, $content);
+        if ($this->hasJson($source)) {
+            $content = $this->resolveKeys($content);
+        }
+
+        $this->set($this->source_keys, $filename, $this->getKeysOnly($content));
+        $this->set($this->translates, Locales::ENGLISH, $content);
+    }
+
+    protected function collectLocales(Provider $provider, Plugin $plugin): void
+    {
+        foreach ($this->locales as $locale) {
+
+        }
     }
 
     protected function set(array &$array, string $key, array $values): void
@@ -94,5 +113,30 @@ abstract class BaseProcessor implements Processor
     protected function preparePath(string $path, string $locale): string
     {
         return Str::replace('{locale}', $locale, $path);
+    }
+
+    protected function resolveKeys(array $array): array
+    {
+        return Arrayable::of($array)
+            ->renameKeys(static function ($key, $value) {
+                return is_numeric($key) && is_string($value) ? $value : $key;
+            })->get();
+    }
+
+    protected function getKeysOnly(array $array): array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result[$key] = $this->getKeysOnly($array);
+
+                continue;
+            }
+
+            array_push($result, $key);
+        }
+
+        return $result;
     }
 }
