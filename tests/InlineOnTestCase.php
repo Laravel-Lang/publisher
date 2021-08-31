@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-abstract class InlineTestCase extends TestCase
+abstract class InlineOnTestCase extends TestCase
 {
     protected $inline = true;
 }

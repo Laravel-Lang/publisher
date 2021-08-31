@@ -22,9 +22,9 @@ namespace Tests\InlineOff\Support;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Illuminate\Support\Facades\Artisan;
-use Tests\NormalTestCase;
+use Tests\InlineOffTestCase;
 
-class LocalesTest extends NormalTestCase
+class LocalesTest extends InlineOffTestCase
 {
     public function testIsInstalled()
     {
