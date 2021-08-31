@@ -7,13 +7,6 @@ namespace Helldar\Contracts\LangPublisher;
 interface Plugin
 {
     /**
-     * Determines if the source file is a JSON file.
-     *
-     * @return bool
-     */
-    public function isJson(): bool;
-
-    /**
      * Specifies the namespace of the package, upon detection
      * of which the localization will be installed.
      *
@@ -42,4 +35,18 @@ interface Plugin
      * @return string
      */
     public function target(): string;
+
+    /**
+     * Determines if the source file is a JSON file.
+     *
+     * @return bool
+     */
+    public function isJson(): bool;
+
+    /**
+     * Determines the existence of a vendor in the application.
+     *
+     * @return bool
+     */
+    public function has(): bool;
 }

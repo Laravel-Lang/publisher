@@ -20,16 +20,28 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Plugins;
 
 use Helldar\Contracts\LangPublisher\Plugin;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 abstract class BasePlugin implements Plugin
 {
+    use Paths;
+
+    public function target(): string
+    {
+        return '{locale}.json';
+    }
+
     public function isJson(): bool
     {
         return true;
     }
 
-    public function target(): string
+    public function has(): bool
     {
-        return '{locale}.json';
+        $path = $this->path(Config::vendor(), $this->vendor());
+
+        return Directory::exists($path);
     }
 }

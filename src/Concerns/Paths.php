@@ -19,8 +19,14 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
+use Illuminate\Support\Collection;
+
 trait Paths
 {
+    protected $trim_chars = '/\\';
+
+    protected $directory_separator = DIRECTORY_SEPARATOR;
+
     protected function extension(string $filename): string
     {
         return pathinfo($filename, PATHINFO_EXTENSION);
@@ -29,5 +35,17 @@ trait Paths
     protected function filename(string $filename): string
     {
         return pathinfo($filename, PATHINFO_FILENAME);
+    }
+
+    protected function path(string $base_path, ...$parameters): string
+    {
+        $base_path = rtrim($base_path, $this->trim_chars);
+
+        $parameters = Collection::make($parameters)
+            ->map(static function (string $parameter) {
+                return trim($parameter, $this->trim_chars);
+            })->implode($this->directory_separator);
+
+        return $base_path . $this->directory_separator . $parameters;
     }
 }
