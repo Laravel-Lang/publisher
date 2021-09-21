@@ -26,7 +26,7 @@ class Provider extends BaseProvider
      */
     public function basePath(): string
     {
-        return realpath(__DIR__ . '/../../vendor/laravel-lang/lang');
+        return realpath(__DIR__ . '/../../../vendor/laravel-lang/lang');
     }
 
     /**
