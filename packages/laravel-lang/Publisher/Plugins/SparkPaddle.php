@@ -13,13 +13,10 @@ class SparkPaddle extends BasePlugin
         return 'laravel/spark-paddle';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/spark-paddle.json'];
-    }
-
-    public function target(): string
-    {
-        return 'spark/{locale}.json';
+        return [
+            'packages/spark-paddle.json' => 'spark/{locale}.json',
+        ];
     }
 }

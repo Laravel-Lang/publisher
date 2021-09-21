@@ -32,11 +32,6 @@ abstract class BasePlugin implements Plugin
         return '{locale}.json';
     }
 
-    public function isJson(): bool
-    {
-        return true;
-    }
-
     public function has(): bool
     {
         $path = $this->vendorPath($this->vendor());

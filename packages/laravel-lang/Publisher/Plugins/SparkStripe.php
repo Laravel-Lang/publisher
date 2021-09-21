@@ -13,13 +13,10 @@ class SparkStripe extends BasePlugin
         return 'laravel/spark-stripe';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/spark-stripe.json'];
-    }
-
-    public function target(): string
-    {
-        return 'spark/{locale}.json';
+        return [
+            'packages/spark-stripe.json' => 'spark/{locale}.json',
+        ];
     }
 }

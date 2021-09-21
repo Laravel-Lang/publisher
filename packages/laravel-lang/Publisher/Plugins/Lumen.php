@@ -8,23 +8,18 @@ use Helldar\LaravelLangPublisher\Plugins\BasePlugin;
 
 class Lumen extends BasePlugin
 {
-    public function isJson(): bool
-    {
-        return false;
-    }
-
     public function vendor(): string
     {
         return 'laravel/lumen-framework';
     }
 
-    public function source(): array
+    public function files(): array
     {
         return [
-            'auth.php',
-            'pagination.php',
-            'passwords.php',
-            'validation.php',
+            'auth.php'       => '{locale}/auth.php',
+            'pagination.php' => '{locale}/pagination.php',
+            'passwords.php'  => '{locale}/passwords.php',
+            'validation.php' => '{locale}/validation.php',
         ];
     }
 }

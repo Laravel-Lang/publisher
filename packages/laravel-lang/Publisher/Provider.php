@@ -34,7 +34,7 @@ class Provider extends BaseProvider
      */
     public function plugins(): array
     {
-        return [
+        return $this->resolvePlugins([
             Breeze::class,
             Cashier::class,
             Fortify::class,
@@ -44,6 +44,6 @@ class Provider extends BaseProvider
             Nova::class,
             SparkPaddle::class,
             SparkStripe::class,
-        ];
+        ]);
     }
 }

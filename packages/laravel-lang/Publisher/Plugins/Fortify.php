@@ -13,8 +13,10 @@ class Fortify extends BasePlugin
         return 'laravel/fortify';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/fortify.json'];
+        return [
+            'packages/fortify.json' => '{locale}.json',
+        ];
     }
 }

@@ -21,27 +21,7 @@ interface Plugin
      *
      * @return array
      */
-    public function source(): array;
-
-    /**
-     * Specifies the relative path to the target file.
-     *
-     * Use `{locale}` to define localization.
-     *
-     * For example,
-     *     `vendor/nova/{locale}.json`
-     *     `spark/{locale}.json`
-     *
-     * @return string
-     */
-    public function target(): string;
-
-    /**
-     * Determines if the source file is a JSON file.
-     *
-     * @return bool
-     */
-    public function isJson(): bool;
+    public function files(): array;
 
     /**
      * Determines the existence of a vendor in the application.

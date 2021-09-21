@@ -13,8 +13,10 @@ class Jetstream extends BasePlugin
         return 'laravel/jetstream';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/jetstream.json'];
+        return [
+            'packages/jetstream.json' => '{locale}.json',
+        ];
     }
 }

@@ -20,7 +20,14 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Plugins;
 
 use Helldar\Contracts\LangPublisher\Provider;
+use Helldar\Support\Facades\Helpers\Arr;
 
 abstract class BaseProvider implements Provider
 {
+    public function resolvePlugins(array $plugins): array
+    {
+        return Arr::map($plugins, static function (string $plugin) {
+            return new $plugin;
+        });
+    }
 }

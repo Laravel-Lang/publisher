@@ -13,13 +13,10 @@ class Nova extends BasePlugin
         return 'laravel/nova';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/nova.json'];
-    }
-
-    public function target(): string
-    {
-        return 'vendor/nova/{locale}.json';
+        return [
+            'packages/nova.json' => 'vendor/nova/{locale}.json',
+        ];
     }
 }

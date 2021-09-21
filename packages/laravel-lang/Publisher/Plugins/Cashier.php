@@ -13,8 +13,10 @@ class Cashier extends BasePlugin
         return 'laravel/cashier';
     }
 
-    public function source(): array
+    public function files(): array
     {
-        return ['packages/cashier.json'];
+        return [
+            'packages/cashier.json' => '{locale}.json',
+        ];
     }
 }

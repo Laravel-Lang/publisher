@@ -13,11 +13,11 @@ class Breeze extends BasePlugin
         return 'laravel/breeze';
     }
 
-    public function source(): array
+    public function files(): array
     {
         return [
-            'packages/fortify.json',
-            'packages/jetstream.json',
+            'packages/fortify.json'   => '{locale}.json',
+            'packages/jetstream.json' => '{locale}.json',
         ];
     }
 }
