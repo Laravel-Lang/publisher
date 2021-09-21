@@ -34,6 +34,6 @@ class Add extends Base
 
     protected function targetLocales(): array
     {
-        return Locales::available();
+        return $this->argument('locales') ?: Locales::available();
     }
 }
