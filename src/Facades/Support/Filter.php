@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Facades\Support;
 
-use Helldar\LaravelLangPublisher\Support\Filter as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
