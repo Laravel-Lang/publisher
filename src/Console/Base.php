@@ -21,20 +21,25 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\Contracts\LangPublisher\Processor;
 use Helldar\LaravelLangPublisher\Concerns\Optionable;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
+use Helldar\LaravelLangPublisher\Facades\Support\Filter;
 use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
     use Optionable;
+    use Paths;
 
     protected $processor;
 
     public function handle()
     {
         $this->collecting();
-        $this->store();
+
+        $this->store($this->filter());
     }
 
     protected function collecting(): void
@@ -46,11 +51,27 @@ abstract class Base extends Command
         }
     }
 
-    protected function store(): void
+    protected function filter(): array
+    {
+        $this->info('Filtering...');
+
+        $source     = $this->getProcessor()->source();
+        $translated = $this->getProcessor()->translated();
+
+        return Filter::keys($source)
+            ->translated($translated)
+            ->get();
+    }
+
+    protected function store(array $items): void
     {
         $this->info('Storing...');
 
-        $this->getProcessor()->store();
+        foreach ($items as $filename => $values) {
+            $path = $this->resourcesPath($filename);
+
+            Filesystem::store($path, $values);
+        }
     }
 
     /**
@@ -63,16 +84,14 @@ abstract class Base extends Command
 
     protected function getProcessor(): Processor
     {
-        if (! empty($this->processor)) {
+        if (! is_string($this->processor)) {
             return $this->processor;
         }
 
-        /** @var Processor $processor */
-        $processor = new $this->processor();
+        $locales = $this->targetLocales();
+        $force   = $this->hasForce();
 
-        return $this->processor = $processor
-            ->locales($this->targetLocales())
-            ->hasForce($this->hasForce());
+        return $this->processor = new $this->processor($locales, $force);
     }
 
     protected function targetLocales(): array

@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Processors;
 
-use Helldar\Contracts\LangPublisher\Plugin;
 use Helldar\Contracts\LangPublisher\Processor;
 use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Concerns\Has;
@@ -28,7 +27,6 @@ use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Constants\Path;
 use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 abstract class BaseProcessor implements Processor
@@ -42,13 +40,12 @@ abstract class BaseProcessor implements Processor
 
     protected $source_keys = [];
 
-    protected $translates = [];
+    protected $translated = [];
 
-    public function locales(array $locales): Processor
+    public function __construct(array $locales, bool $force = false)
     {
         $this->locales = $locales;
-
-        return $this;
+        $this->force   = $force;
     }
 
     public function provider(Provider $provider): Processor
@@ -58,26 +55,23 @@ abstract class BaseProcessor implements Processor
                 continue;
             }
 
-            foreach ($plugin->source() as $source) {
-                $this->collectSource($provider, $source, $plugin->target());
+            foreach ($plugin->files() as $source => $target) {
+                $this->collectSource($provider, $source, $target);
+                $this->collectLocales($provider, $source, $target);
             }
-
-            $this->collectLocales($provider, $plugin);
         }
 
         return $this;
     }
 
-    public function store(): void
+    public function source(): array
     {
-        // TODO: Implement store() method.
+        return $this->source_keys;
     }
 
-    public function hasForce(bool $force = false): Processor
+    public function translated(): array
     {
-        $this->force = $force;
-
-        return $this;
+        return $this->translated;
     }
 
     protected function collectSource(Provider $provider, string $source, string $target): void
@@ -93,20 +87,34 @@ abstract class BaseProcessor implements Processor
         }
 
         $this->set($this->source_keys, $filename, $this->getKeysOnly($content));
-        $this->set($this->translates, Locales::ENGLISH, $content);
+        $this->set($this->translated, $filename, $content);
     }
 
-    protected function collectLocales(Provider $provider, Plugin $plugin): void
+    protected function collectLocales(Provider $provider, string $source, string $target): void
     {
         foreach ($this->locales as $locale) {
+            $this->collectLocale($provider, $locale, $source, $target);
         }
+    }
+
+    protected function collectLocale(Provider $provider, string $locale, string $source, string $target): void
+    {
+        $path = $this->hasJson($source)
+            ? $this->path($provider->basePath(), Path::LOCALES, $locale, $locale . '.json')
+            : $this->path($provider->basePath(), Path::LOCALES, $locale, $source);
+
+        $filename = $this->preparePath($target, $locale);
+
+        $content = Filesystem::load($path);
+
+        $this->set($this->translated, $filename, $content);
     }
 
     protected function set(array &$array, string $key, array $values): void
     {
-        $loaded = Arr::get($array, $key, []);
+        $loaded = $array[$key] ?? [];
 
-        Arr::set($array, $key, array_merge_recursive($loaded, $values));
+        $array[$key] = array_merge_recursive($loaded, $values);
     }
 
     protected function preparePath(string $path, string $locale): string

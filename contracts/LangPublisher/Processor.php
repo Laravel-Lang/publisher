@@ -23,9 +23,7 @@ interface Processor
 {
     public function provider(Provider $provider): self;
 
-    public function locales(array $locales): self;
+    public function source(): array;
 
-    public function hasForce(bool $force = false): self;
-
-    public function store(): void;
+    public function translated(): array;
 }
