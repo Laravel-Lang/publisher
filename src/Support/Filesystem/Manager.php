@@ -21,12 +21,14 @@ namespace Helldar\LaravelLangPublisher\Support\Filesystem;
 
 use Helldar\Contracts\Support\Filesystem;
 use Helldar\LaravelLangPublisher\Concerns\Has;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\Support\Concerns\Resolvable;
 
 class Manager
 {
-    use Resolvable;
     use Has;
+    use Paths;
+    use Resolvable;
 
     public function load(string $path): array
     {
