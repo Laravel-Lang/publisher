@@ -45,6 +45,7 @@
     </coverage>
     <php>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="RAY_ENABLED" value="false"/>
     </php>
     <testsuites>
         <testsuite name="Test Suite">
