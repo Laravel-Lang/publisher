@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\Contracts\LangPublisher\Processor;
 use Helldar\LaravelLangPublisher\Concerns\Optionable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
@@ -37,9 +36,19 @@ abstract class Base extends Command
 
     public function handle()
     {
+        $this->resolveProcessor();
+
         $this->collecting();
 
         $this->store($this->filter());
+    }
+
+    protected function resolveProcessor(): void
+    {
+        $locales = $this->targetLocales();
+        $force   = $this->hasForce();
+
+        $this->processor = new $this->processor($locales, $force);
     }
 
     protected function collecting(): void
@@ -47,7 +56,7 @@ abstract class Base extends Command
         foreach ($this->plugins() as $provider) {
             $this->info('Collecting ' . get_class($provider) . '...');
 
-            $this->getProcessor()->provider($provider);
+            $this->processor->provider($provider);
         }
     }
 
@@ -55,8 +64,8 @@ abstract class Base extends Command
     {
         $this->info('Filtering...');
 
-        $source     = $this->getProcessor()->source();
-        $translated = $this->getProcessor()->translated();
+        $source     = $this->processor->source();
+        $translated = $this->processor->translated();
 
         return Filter::keys($source)
             ->translated($translated)
@@ -80,18 +89,6 @@ abstract class Base extends Command
     protected function plugins(): array
     {
         return Config::plugins();
-    }
-
-    protected function getProcessor(): Processor
-    {
-        if (! is_string($this->processor)) {
-            return $this->processor;
-        }
-
-        $locales = $this->targetLocales();
-        $force   = $this->hasForce();
-
-        return $this->processor = new $this->processor($locales, $force);
     }
 
     protected function targetLocales(): array

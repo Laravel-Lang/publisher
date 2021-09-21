@@ -56,16 +56,14 @@ class AddTest extends InlineOffTestCase
         $this->assertDirectoryDoesNotExist($spark_path);
 
         foreach ($locales as $locale) {
-            $path = $this->path($locale);
-
-            $filename = $locale . '.json';
+            $path = $this->resourcesPath($locale);
 
             $this->assertDirectoryDoesNotExist($path);
 
             $this->artisan('lang:add', ['locales' => $locale])->run();
 
             $this->assertDirectoryExists($path);
-            $this->assertFileExists($nova_path . '/' . $filename);
+            $this->assertFileExists($nova_path . '/' . $locale . '.json');
         }
 
         $this->assertDirectoryExists($nova_path);

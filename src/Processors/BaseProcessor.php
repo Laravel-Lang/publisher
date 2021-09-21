@@ -22,6 +22,7 @@ namespace Helldar\LaravelLangPublisher\Processors;
 use Helldar\Contracts\LangPublisher\Processor;
 use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Concerns\Has;
+use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Constants\Path;
@@ -32,6 +33,7 @@ use Illuminate\Support\Str;
 abstract class BaseProcessor implements Processor
 {
     use Has;
+    use Keyable;
     use Paths;
 
     protected $force = false;
@@ -128,22 +130,5 @@ abstract class BaseProcessor implements Processor
             ->renameKeys(static function ($key, $value) {
                 return is_numeric($key) && is_string($value) ? $value : $key;
             })->get();
-    }
-
-    protected function getKeysOnly(array $array): array
-    {
-        $result = [];
-
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                $result[$key] = $this->getKeysOnly($array);
-
-                continue;
-            }
-
-            array_push($result, $key);
-        }
-
-        return $result;
     }
 }
