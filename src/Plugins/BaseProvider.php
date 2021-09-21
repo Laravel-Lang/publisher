@@ -27,7 +27,7 @@ abstract class BaseProvider implements Provider
     public function resolvePlugins(array $plugins): array
     {
         return Arr::map($plugins, static function (string $plugin) {
-            return new $plugin;
+            return new $plugin();
         });
     }
 }
