@@ -27,11 +27,6 @@ abstract class BasePlugin implements Plugin
 {
     use Paths;
 
-    public function target(): string
-    {
-        return '{locale}.json';
-    }
-
     public function has(): bool
     {
         $path = $this->vendorPath($this->vendor());
