@@ -24,6 +24,7 @@ use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Support\Str;
 
 abstract class BaseProcessor implements Processor
@@ -55,14 +56,14 @@ abstract class BaseProcessor implements Processor
 
     protected function compare(): array
     {
-        return (new $this->comparator($this->source_keys, $this->translated))->get();
+        return (new $this->comparator($this->source_keys, $this->translated, $this->force))->get();
     }
 
     protected function set(array &$array, string $key, array $values): void
     {
         $loaded = $array[$key] ?? [];
 
-        $array[$key] = array_merge_recursive($loaded, $values);
+        $array[$key] = Arr::merge($loaded, $values);
     }
 
     protected function preparePath(string $path, string $locale): string

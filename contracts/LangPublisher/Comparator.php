@@ -6,7 +6,7 @@ namespace Helldar\Contracts\LangPublisher;
 
 interface Comparator
 {
-    public function __construct(array $keys, array $translations);
+    public function __construct(array $keys, array $translations, bool $force);
 
     public function get(): array;
 }

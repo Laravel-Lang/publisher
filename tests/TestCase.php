@@ -64,6 +64,7 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         $this->deleteLocales();
+
         $this->removeEmulatedPackages();
 
         parent::tearDown();
@@ -108,8 +109,8 @@ abstract class TestCase extends BaseTestCase
             $from = realpath(__DIR__ . '/fixtures/' . $filename);
 
             $this->hasJson($filename)
-                ? File::copy($from, resource_path('lang/' . $filename))
-                : File::copy($from, resource_path('lang/' . $this->default . '/' . $filename));
+                ? File::copy($from, $this->resourcesPath($filename))
+                : File::copy($from, $this->resourcesPath($this->default . '/' . $filename));
         }
     }
 
@@ -142,7 +143,9 @@ abstract class TestCase extends BaseTestCase
     protected function emulatePackages(): void
     {
         foreach ($this->emulate as $package) {
-            Directory::ensureDirectory($this->vendorPath($package));
+            $path = $this->vendorPath($package);
+
+            Directory::ensureDirectory($path);
         }
     }
 
