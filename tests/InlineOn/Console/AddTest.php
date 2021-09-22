@@ -19,8 +19,84 @@ declare(strict_types=1);
 
 namespace Tests\InlineOn\Console;
 
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Tests\InlineOnTestCase;
 
 class AddTest extends InlineOnTestCase
 {
+    public function testAcceptConfirmation()
+    {
+        $this->artisan('lang:add')
+            ->expectsConfirmation('Do you want to add all localizations?')
+            ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', 'ar', Locales::available())
+            ->assertExitCode(0)
+            ->run();
+    }
+
+    public function testUnknownLanguageFromCommand()
+    {
+        $this->expectException(SourceLocaleDoesntExistsException::class);
+        $this->expectExceptionMessage('The source "foo" localization was not found.');
+
+        $locales = 'foo';
+
+        $this->artisan('lang:add', compact('locales'))->run();
+    }
+
+    public function testExcludes()
+    {
+        $this->copyFixtures();
+
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
+
+        $this->refreshTranslations();
+
+        $this->artisan('lang:add', [
+            'locales' => $this->default,
+        ])->run();
+
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('Confirm Password', __('Confirm Password'));
+    }
+
+    public function testWithForce()
+    {
+        $this->copyFixtures();
+
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
+
+        $this->refreshTranslations();
+
+        $this->artisan('lang:add', [
+            'locales' => $this->default,
+            '--force' => true,
+        ])->run();
+
+        $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
+        $this->assertSame('This field must be accepted.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+
+        $this->assertSame('All rights reserved.', __('All rights reserved.'));
+        $this->assertSame('Confirm Password', __('Confirm Password'));
+    }
 }

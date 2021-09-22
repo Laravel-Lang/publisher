@@ -18,6 +18,8 @@
 declare(strict_types=1);
 
 return [
+    'accepted' => 'Foo.',
+
     'custom' => [
         'foo' => [
             'required' => 'Custom rule message',

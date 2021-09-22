@@ -21,7 +21,6 @@ namespace Tests\InlineOff\Console;
 
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Illuminate\Support\Facades\Lang;
 use Tests\InlineOffTestCase;
 
 class AddTest extends InlineOffTestCase
@@ -45,66 +44,44 @@ class AddTest extends InlineOffTestCase
         $this->artisan('lang:add', compact('locales'))->run();
     }
 
-    public function testCanInstallWithoutForce()
-    {
-        $locales = ['de', 'ru', 'fr', 'zh_CN'];
-
-        $nova_path  = $this->resourcesPath('vendor/nova');
-        $spark_path = $this->resourcesPath('spark');
-
-        $this->assertDirectoryDoesNotExist($nova_path);
-        $this->assertDirectoryDoesNotExist($spark_path);
-
-        foreach ($locales as $locale) {
-            $path = $this->resourcesPath($locale);
-
-            $this->assertDirectoryDoesNotExist($path);
-
-            $this->artisan('lang:add', ['locales' => $locale])->run();
-
-            $this->assertDirectoryExists($path);
-            $this->assertFileExists($nova_path . '/' . $locale . '.json');
-        }
-
-        $this->assertDirectoryExists($nova_path);
-        $this->assertDirectoryExists($spark_path);
-    }
-
-    public function testCanInstallWithForce()
-    {
-        $this->copyFixtures();
-
-        $this->artisan('lang:add', [
-            'locales' => $this->default,
-            '--force' => true,
-        ])->run();
-
-        $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', Lang::get('auth.throttle'));
-        $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('Remember Me', Lang::get('Remember Me'));
-    }
-
-    public function testSkipped()
-    {
-        $this->copyFixtures();
-
-        $this->artisan('lang:add', [
-            'locales' => $this->default,
-        ])->run();
-
-        $this->assertSame('Foo', Lang::get('auth.throttle'));
-        $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('Remember Me', Lang::get('Remember Me'));
-    }
-
     public function testExcludes()
     {
         $this->copyFixtures();
 
-        $this->assertSame('This is Foo', Lang::get('Foo'));
-        $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
-        $this->assertSame('This is Baq', Lang::get('Confirm Password'));
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
+
+        $this->refreshTranslations();
+
+        $this->artisan('lang:add', [
+            'locales' => $this->default,
+        ])->run();
+
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('Confirm Password', __('Confirm Password'));
+    }
+
+    public function testWithForce()
+    {
+        $this->copyFixtures();
+
+        $this->assertSame('Foo', __('auth.throttle'));
+        $this->assertSame('Foo.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
 
         $this->refreshTranslations();
 
@@ -113,9 +90,13 @@ class AddTest extends InlineOffTestCase
             '--force' => true,
         ])->run();
 
-        $this->assertSame('This is Foo', Lang::get('Foo'));
-        $this->assertSame('This is Bar', Lang::get('Bar'));
-        $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
-        $this->assertSame('Confirm Password', Lang::get('Confirm Password'));
+        $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
+        $this->assertSame('The :attribute must be accepted.', __('validation.accepted'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+
+        $this->assertSame('All rights reserved.', __('All rights reserved.'));
+        $this->assertSame('Confirm Password', __('Confirm Password'));
     }
 }
