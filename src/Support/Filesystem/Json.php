@@ -21,6 +21,7 @@ namespace Helldar\LaravelLangPublisher\Support\Filesystem;
 
 use Helldar\PrettyArray\Services\File as Pretty;
 use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 class Json extends Base
 {
@@ -42,5 +43,10 @@ class Json extends Base
         Arr::storeAsJson($path, $content, false, JSON_UNESCAPED_UNICODE ^ JSON_PRETTY_PRINT);
 
         return $path;
+    }
+
+    public function delete(string $path): void
+    {
+        File::ensureDelete($path);
     }
 }

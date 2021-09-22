@@ -6,18 +6,24 @@ namespace Helldar\LaravelLangPublisher\Concerns;
 
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Str;
 
 trait Ask
 {
-    protected function askLocales(string $method): array
+    protected function getLocales(): array
     {
         if ($locales = $this->argument('locales')) {
-            return Arr::wrap($locales);
+            return $this->resolveSelectedLocales($locales);
         }
 
-        $locales = $this->confirm("Do you want to $method all localizations?") ? $this->getAllLocales() : $this->selectLocales();
+        return $this->askLocales($this->getMethod());
+    }
 
-        return Arr::wrap($locales);
+    protected function askLocales(string $method): array
+    {
+        $locales = $this->confirm("Do you want to $method all localizations?") ? $this->getAllLocales() : $this->selectLocales($method);
+
+        return $this->resolveSelectedLocales($locales);
     }
 
     protected function getAllLocales(): array
@@ -25,8 +31,31 @@ trait Ask
         return Locales::available();
     }
 
-    protected function selectLocales()
+    protected function selectLocales(string $method)
     {
-        return $this->choice('What languages to add? (specify the necessary localizations separated by commas)', $this->getAllLocales(), null, null, true);
+        return $this->choice("Select localizations to $method (specify the necessary localizations separated by commas):", $this->getAllLocales(), null, null, true);
+    }
+
+    protected function resolveSelectedLocales($locales): array
+    {
+        $locales = Arr::wrap($locales);
+
+        return $this->validatedLocales($locales);
+    }
+
+    protected function getMethod(): string
+    {
+        $name = class_basename(static::class);
+
+        return Str::lower($name);
+    }
+
+    protected function validatedLocales(array $locales): array
+    {
+        foreach ($locales as $locale) {
+            Locales::validate($locale);
+        }
+
+        return $locales;
     }
 }

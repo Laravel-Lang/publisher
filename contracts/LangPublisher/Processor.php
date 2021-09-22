@@ -21,9 +21,7 @@ namespace Helldar\Contracts\LangPublisher;
 
 interface Processor
 {
-    public function provider(Provider $provider): self;
+    public function handle(Provider $provider): void;
 
-    public function source(): array;
-
-    public function translated(): array;
+    public function finish(): void;
 }

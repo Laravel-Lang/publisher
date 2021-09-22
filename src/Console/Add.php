@@ -31,10 +31,8 @@ class Add extends Base
 
     protected $processor = Processor::class;
 
-    protected $method = 'add';
-
     protected function targetLocales(): array
     {
-        return $this->askLocales($this->method);
+        return $this->getLocales();
     }
 }

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array load(string $path)
+ * @method static void delete(array|string $path)
  * @method static void store(string $path, array $content)
  */
 class Filesystem extends Facade

@@ -22,6 +22,7 @@ namespace Helldar\LaravelLangPublisher\Helpers;
 use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
+use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigHelper;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
@@ -89,6 +90,13 @@ class Locales
     public function getFallback(): string
     {
         return Illuminate::get('app.fallback_locale', LocalesList::ENGLISH);
+    }
+
+    public function validate(string $locale): void
+    {
+        if (! $this->isAvailable($locale)) {
+            throw new SourceLocaleDoesntExistsException($locale);
+        }
     }
 
     protected function in(string $locale, array $locales): bool

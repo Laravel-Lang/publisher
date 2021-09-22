@@ -21,6 +21,7 @@ namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Helldar\LaravelLangPublisher\Processors\Update as Processor;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 
 class Update extends Base
 {
@@ -30,13 +31,21 @@ class Update extends Base
 
     protected $processor = Processor::class;
 
-    protected function targetLocales(): array
-    {
-        return Locales::installed();
-    }
-
     protected function hasForce(): bool
     {
         return true;
+    }
+
+    protected function targetLocales(): array
+    {
+        $locales = parent::targetLocales();
+
+        $protected = Locales::protects();
+
+        return Arrayable::of($locales)
+            ->addUnique($protected)
+            ->sort()
+            ->values()
+            ->get();
     }
 }

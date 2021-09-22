@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isProtected(string $locale)
  * @method static string getDefault()
  * @method static string getFallback()
+ * @method static void validate(string $locale)
  */
 class Locales extends Facade
 {

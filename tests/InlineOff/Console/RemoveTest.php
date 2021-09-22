@@ -39,7 +39,7 @@ class RemoveTest extends InlineOffTestCase
 
         $this->artisan('lang:rm')
             ->expectsConfirmation('Do you want to remove all localizations?')
-            ->expectsChoice('What languages to remove? (specify the necessary localizations separated by commas)', 'ar', Locales::installed())
+            ->expectsChoice('Select localizations to remove (specify the necessary localizations separated by commas):', 'ar', Locales::installed())
             ->assertExitCode(0);
 
         $this->assertFileDoesNotExist($this->resourcesPath($locale));

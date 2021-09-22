@@ -22,6 +22,7 @@ namespace Helldar\LaravelLangPublisher\Support\Filesystem;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\PrettyArray\Services\File as Pretty;
 use Helldar\PrettyArray\Services\Formatter;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 
 class Php extends Base
 {
@@ -43,6 +44,11 @@ class Php extends Base
         Pretty::make($service->raw($content))->store($path);
 
         return $path;
+    }
+
+    public function delete(string $path): void
+    {
+        Directory::ensureDelete($path);
     }
 
     protected function formatter(): Formatter

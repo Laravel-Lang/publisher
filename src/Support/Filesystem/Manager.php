@@ -23,6 +23,7 @@ use Helldar\Contracts\Support\Filesystem;
 use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\Support\Concerns\Resolvable;
+use Helldar\Support\Facades\Helpers\Arr;
 
 class Manager
 {
@@ -38,6 +39,16 @@ class Manager
     public function store(string $path, array $content): void
     {
         $this->filesystem($path)->store($path, $content);
+    }
+
+    /**
+     * @param  array|string  $path
+     */
+    public function delete($path): void
+    {
+        foreach (Arr::wrap($path) as $name) {
+            $this->filesystem($name)->delete($name);
+        }
     }
 
     protected function filesystem(string $path): Filesystem
