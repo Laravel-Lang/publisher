@@ -19,7 +19,9 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Processors\Remove as Processor;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 class Remove extends Base
 {
@@ -28,5 +30,37 @@ class Remove extends Base
 
     protected $description = 'Remove localizations.';
 
-    protected $processor = Processor::class;
+    protected $method = 'remove';
+
+    public function handle()
+    {
+        foreach ($this->targetLocales() as $locale) {
+            $this->removeDirectory($locale);
+            $this->removeJson($locale);
+        }
+    }
+
+    protected function removeDirectory(string $locale): void
+    {
+        $path = $this->resourcesPath($locale);
+
+        Directory::ensureDelete($path);
+    }
+
+    protected function removeJson(string $locale): void
+    {
+        $path = $this->resourcesPath($locale . '.json');
+
+        File::ensureDelete($path);
+    }
+
+    protected function targetLocales(): array
+    {
+        return $this->askLocales($this->method);
+    }
+
+    protected function getAllLocales(): array
+    {
+        return Locales::installed();
+    }
 }

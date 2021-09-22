@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Concerns\Ask;
 use Helldar\LaravelLangPublisher\Concerns\Optionable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
@@ -29,6 +30,7 @@ use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
+    use Ask;
     use Optionable;
     use Paths;
 

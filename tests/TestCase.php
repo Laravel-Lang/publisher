@@ -28,6 +28,7 @@ use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -110,6 +111,11 @@ abstract class TestCase extends BaseTestCase
                 ? File::copy($from, resource_path('lang/' . $filename))
                 : File::copy($from, resource_path('lang/' . $this->default . '/' . $filename));
         }
+    }
+
+    protected function refreshTranslations(): void
+    {
+        Lang::setLoaded([]);
     }
 
     protected function refreshLocales(): void

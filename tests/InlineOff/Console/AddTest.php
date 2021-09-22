@@ -106,7 +106,7 @@ class AddTest extends InlineOffTestCase
         $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
         $this->assertSame('This is Baq', Lang::get('Confirm Password'));
 
-        Lang::setLoaded([]);
+        $this->refreshTranslations();
 
         $this->artisan('lang:add', [
             'locales' => $this->default,
@@ -117,26 +117,5 @@ class AddTest extends InlineOffTestCase
         $this->assertSame('This is Bar', Lang::get('Bar'));
         $this->assertSame('This is Baz', Lang::get('All rights reserved.'));
         $this->assertSame('Confirm Password', Lang::get('Confirm Password'));
-    }
-
-    public function testCheckInstalledKeys()
-    {
-        $this->emulatePaidPackages(true);
-
-        $locales = Locales::available();
-
-        $this->artisan('lang:add', [
-            'locales' => $locales,
-            '--force' => true,
-        ])->run();
-
-        foreach ($this->packages() as $package) {
-            foreach ($locales as $locale) {
-                $this->assertTrue(Locales::isInstalled($locale), 'Locale is not installed: ' . $locale);
-
-                $this->filesTest($package, $locale);
-                $this->pluginsTest($package, $locale);
-            }
-        }
     }
 }
