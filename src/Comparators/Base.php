@@ -6,7 +6,9 @@ namespace Helldar\LaravelLangPublisher\Comparators;
 
 use Helldar\Contracts\LangPublisher\Comparator;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
+use Helldar\Support\Facades\Helpers\Arr;
 
 abstract class Base implements Comparator
 {
@@ -28,5 +30,16 @@ abstract class Base implements Comparator
         $path = $this->resourcesPath($filename);
 
         return Filesystem::load($path);
+    }
+
+    protected function excludes(string $filename, array $user): array
+    {
+        foreach (Config::excludes() as $key => $values) {
+            if ($this->filename($filename) === $key) {
+                return Arr::only($user, $values);
+            }
+        }
+
+        return [];
     }
 }

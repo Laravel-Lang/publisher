@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Comparators;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\LaravelLangPublisher\Facades\Support\Filter;
 use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
 
 class Add extends Base
 {
@@ -41,16 +39,5 @@ class Add extends Base
     protected function filenames(): array
     {
         return array_keys($this->keys);
-    }
-
-    protected function excludes(string $filename, array $user): array
-    {
-        foreach (Config::excludes() as $key => $values) {
-            if (Str::contains($filename, $key)) {
-                return Arr::only($user, $values);
-            }
-        }
-
-        return [];
     }
 }
