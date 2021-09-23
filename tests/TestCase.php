@@ -30,9 +30,11 @@ use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tests\Concerns\Asserts;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Asserts;
     use Has;
     use Paths;
 

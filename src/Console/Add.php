@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Helldar\LaravelLangPublisher\Processors\Add as Processor;
 
 class Add extends Base
@@ -33,5 +34,10 @@ class Add extends Base
     protected function targetLocales(): array
     {
         return $this->getLocales();
+    }
+
+    protected function getAllLocales(): array
+    {
+        return Locales::available();
     }
 }

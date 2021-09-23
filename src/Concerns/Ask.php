@@ -53,6 +53,10 @@ trait Ask
 
     protected function resolveSelectedLocales($locales): array
     {
+        if ($locales === '*') {
+            return $this->getAllLocales();
+        }
+
         $locales = Arr::wrap($locales);
 
         return $this->validatedLocales($locales);

@@ -79,6 +79,11 @@ abstract class Base extends Command
         return Locales::installed();
     }
 
+    protected function getAllLocales(): array
+    {
+        return Locales::installed();
+    }
+
     protected function hasFull(): bool
     {
         return $this->hasOption('full')

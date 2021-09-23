@@ -71,7 +71,7 @@ return [
     'case' => Caseable::NO_CASE,
 
     /*
-     * Determines from which packages to synchronize localization files.
+     * Determines from which plugins to synchronize localization files.
      *
      * @see https://github.com/andrey-helldar/translations-template
      */

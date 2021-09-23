@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Helldar\LaravelLangPublisher\Processors\Remove as Processor;
 
 class Remove extends Base
@@ -36,10 +35,5 @@ class Remove extends Base
         $locales = $this->getLocales();
 
         return array_intersect($locales, parent::targetLocales());
-    }
-
-    protected function getAllLocales(): array
-    {
-        return Locales::installed();
     }
 }
