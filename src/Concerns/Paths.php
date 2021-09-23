@@ -39,11 +39,6 @@ trait Paths
         return pathinfo($filename, PATHINFO_FILENAME);
     }
 
-    protected function basename(string $filename): string
-    {
-        return pathinfo($filename, PATHINFO_BASENAME);
-    }
-
     protected function extension(string $filename): string
     {
         return pathinfo($filename, PATHINFO_EXTENSION);

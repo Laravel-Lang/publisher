@@ -46,7 +46,6 @@ class Config
         return Arrayable::of($public)
             ->addUnique($private)
             ->unique()
-            ->sort()
             ->values()
             ->map(static function (string $plugin) {
                 if (Instance::of($plugin, Provider::class)) {

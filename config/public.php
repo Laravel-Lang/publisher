@@ -77,6 +77,6 @@ return [
      */
 
     'plugins' => [
-        // 'andrey-helldar/lang-translations',
+        // \LaravelLang\Lang\Publisher\Provider::class,
     ],
 ];

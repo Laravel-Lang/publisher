@@ -25,6 +25,7 @@ use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\ServiceProvider;
+use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
@@ -141,5 +142,89 @@ abstract class TestCase extends BaseTestCase
 
             Directory::ensureDirectory($path);
         }
+    }
+
+    protected function getAllLocales(): array
+    {
+        return Arr::sort([
+            LocalesList::AFRIKAANS,
+            LocalesList::ALBANIAN,
+            LocalesList::ARABIC,
+            LocalesList::ARMENIAN,
+            LocalesList::AZERBAIJANI,
+            LocalesList::BASQUE,
+            LocalesList::BELARUSIAN,
+            LocalesList::BENGALI,
+            LocalesList::BOSNIAN,
+            LocalesList::BULGARIAN,
+            LocalesList::CATALAN,
+            LocalesList::CENTRAL_KHMER,
+            LocalesList::CHINESE,
+            LocalesList::CHINESE_HONG_KONG,
+            LocalesList::CHINESE_T,
+            LocalesList::CROATIAN,
+            LocalesList::CZECH,
+            LocalesList::DANISH,
+            LocalesList::DUTCH,
+            LocalesList::ENGLISH,
+            LocalesList::ESTONIAN,
+            LocalesList::FINNISH,
+            LocalesList::FRENCH,
+            LocalesList::GALICIAN,
+            LocalesList::GEORGIAN,
+            LocalesList::GERMAN,
+            LocalesList::GERMAN_SWITZERLAND,
+            LocalesList::GREEK,
+            LocalesList::HEBREW,
+            LocalesList::HINDI,
+            LocalesList::HUNGARIAN,
+            LocalesList::ICELANDIC,
+            LocalesList::INDONESIAN,
+            LocalesList::ITALIAN,
+            LocalesList::JAPANESE,
+            LocalesList::KANNADA,
+            LocalesList::KAZAKH,
+            LocalesList::KOREAN,
+            LocalesList::LATVIAN,
+            LocalesList::LITHUANIAN,
+            LocalesList::MACEDONIAN,
+            LocalesList::MALAY,
+            LocalesList::MARATHI,
+            LocalesList::MONGOLIAN,
+            LocalesList::NEPALI,
+            LocalesList::NORWEGIAN_BOKMAL,
+            LocalesList::NORWEGIAN_NYNORSK,
+            LocalesList::OCCITAN,
+            LocalesList::PASHTO,
+            LocalesList::PERSIAN,
+            LocalesList::PILIPINO,
+            LocalesList::POLISH,
+            LocalesList::PORTUGUESE,
+            LocalesList::PORTUGUESE_BRAZIL,
+            LocalesList::ROMANIAN,
+            LocalesList::RUSSIAN,
+            LocalesList::SARDINIAN,
+            LocalesList::SERBIAN_CYRILLIC,
+            LocalesList::SERBIAN_LATIN,
+            LocalesList::SERBIAN_MONTENEGRIN,
+            LocalesList::SINHALA,
+            LocalesList::SLOVAK,
+            LocalesList::SLOVENIAN,
+            LocalesList::SPANISH,
+            LocalesList::SWAHILI,
+            LocalesList::SWEDISH,
+            LocalesList::TAGALOG,
+            LocalesList::TAJIK,
+            LocalesList::THAI,
+            LocalesList::TURKISH,
+            LocalesList::TURKMEN,
+            LocalesList::UIGHUR,
+            LocalesList::UKRAINIAN,
+            LocalesList::URDU,
+            LocalesList::UZBEK_CYRILLIC,
+            LocalesList::UZBEK_LATIN,
+            LocalesList::VIETNAMESE,
+            LocalesList::WELSH,
+        ]);
     }
 }
