@@ -18,7 +18,7 @@
 declare(strict_types=1);
 
 return [
-    'accepted' => 'Foo.',
+    'accepted' => 'Foo Accepted',
 
     'custom' => [
         'foo' => [
@@ -27,8 +27,8 @@ return [
     ],
 
     'attributes' => [
-        'foo' => 'Foo',
-        'bar' => 'Bar',
-        'baz' => 'Baz',
+        'foo' => 'Foo Attribute',
+        'bar' => 'Bar Attribute',
+        'baz' => 'Baz Attribute',
     ],
 ];

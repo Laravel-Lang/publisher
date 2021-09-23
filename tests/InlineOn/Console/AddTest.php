@@ -56,7 +56,7 @@ class AddTest extends InlineOnTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('This is Baq', __('Confirm Password'));
 
-        $this->refreshTranslations();
+        $this->refreshLocales();
 
         $this->artisan('lang:add', [
             'locales' => $this->default,
@@ -83,11 +83,10 @@ class AddTest extends InlineOnTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('This is Baq', __('Confirm Password'));
 
-        $this->refreshTranslations();
+        $this->refreshLocales();
 
         $this->artisan('lang:add', [
             'locales' => $this->default,
-            '--force' => true,
         ])->run();
 
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));

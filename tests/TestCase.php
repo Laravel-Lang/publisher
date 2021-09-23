@@ -39,7 +39,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $default = Locales::ENGLISH;
 
-    protected $fallback = Locales::KOREAN;
+    protected $fallback = Locales::GERMAN;
 
     protected $locale = Locales::ALBANIAN;
 
@@ -66,7 +66,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->refreshLocales();
+        $this->reinstallLocales();
 
         $this->emulatePackages();
     }
@@ -124,12 +124,12 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function refreshTranslations(): void
+    protected function refreshLocales(): void
     {
         Lang::setLoaded([]);
     }
 
-    protected function refreshLocales(): void
+    protected function reinstallLocales(): void
     {
         $this->deleteLocales();
         $this->installLocales();
@@ -146,7 +146,6 @@ abstract class TestCase extends BaseTestCase
     {
         Artisan::call('lang:add', [
             'locales' => [$this->default, $this->fallback],
-            '--force' => true,
         ]);
     }
 
