@@ -1,5 +1,20 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
 declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Comparators;
@@ -16,6 +31,8 @@ abstract class Base implements Comparator
     use Has;
     use Paths;
 
+    protected $full;
+
     protected $keys = [];
 
     protected $translations = [];
@@ -24,12 +41,16 @@ abstract class Base implements Comparator
 
     protected $exclude = ['attributes', 'custom'];
 
-    public function __construct(array $keys, array $translations)
+    public function __construct(array $keys, array $translations, bool $full = false)
     {
         $this->keys = $keys;
 
         $this->translations = $translations;
+
+        $this->full = $full;
     }
+
+    abstract protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array;
 
     public function get(): array
     {
@@ -45,8 +66,6 @@ abstract class Base implements Comparator
 
         return $this->getResult();
     }
-
-    abstract protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array;
 
     protected function compare(string $filename, string $locale): array
     {

@@ -28,8 +28,8 @@ class ResetTest extends InlineOffTestCase
     public function testAcceptConfirmation()
     {
         $this->artisan('lang:reset')
-            ->expectsConfirmation('Do you want to add all localizations?')
-            ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
+            ->expectsConfirmation('Do you want to reset all localizations?')
+            ->expectsChoice('Select localizations to reset (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
             ->assertExitCode(0)
             ->run();
     }
@@ -73,7 +73,7 @@ class ResetTest extends InlineOffTestCase
 
         $this->refreshLocales();
 
-        $this->assertSame('Foo Failed', __('auth.failed'));
+        $this->assertSame('These credentials do not match our records.', __('auth.failed'));
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
         $this->assertSame('The provided password is incorrect.', __('auth.password'));
 

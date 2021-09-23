@@ -31,21 +31,19 @@ class Update extends Base
 
     protected $processor = Processor::class;
 
-    protected function hasForce(): bool
-    {
-        return true;
-    }
-
     protected function targetLocales(): array
     {
         $locales = parent::targetLocales();
 
-        $protected = Locales::protects();
-
         return Arrayable::of($locales)
-            ->addUnique($protected)
+            ->addUnique($this->getProtected())
             ->sort()
             ->values()
             ->get();
+    }
+
+    protected function getProtected(): array
+    {
+        return Locales::protects();
     }
 }

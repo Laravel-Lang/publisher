@@ -52,8 +52,9 @@ abstract class Base extends Command
     protected function resolveProcessor(): void
     {
         $locales = $this->targetLocales();
+        $full    = $this->hasFull();
 
-        $this->processor = new $this->processor($locales);
+        $this->processor = new $this->processor($locales, $full);
     }
 
     protected function collecting(): void
@@ -76,5 +77,11 @@ abstract class Base extends Command
     protected function targetLocales(): array
     {
         return Locales::installed();
+    }
+
+    protected function hasFull(): bool
+    {
+        return $this->hasOption('full')
+            && $this->option('full');
     }
 }

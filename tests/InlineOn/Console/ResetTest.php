@@ -73,7 +73,7 @@ class ResetTest extends InlineOnTestCase
 
         $this->refreshLocales();
 
-        $this->assertSame('Foo Failed', __('auth.failed'));
+        $this->assertSame('These credentials do not match our records.', __('auth.failed'));
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
         $this->assertSame('The provided password is incorrect.', __('auth.password'));
 

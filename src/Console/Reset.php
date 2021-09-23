@@ -30,4 +30,9 @@ class Reset extends Base
     protected $description = 'Resets installed locations.';
 
     protected $processor = Processor::class;
+
+    protected function targetLocales(): array
+    {
+        return $this->getLocales();
+    }
 }
