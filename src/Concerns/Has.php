@@ -32,4 +32,11 @@ trait Has
 
         return Str::lower($extension) === 'json';
     }
+
+    protected function hasValidation(string $filename): bool
+    {
+        $name = $this->filename($filename);
+
+        return Str::startsWith($name, 'validation');
+    }
 }

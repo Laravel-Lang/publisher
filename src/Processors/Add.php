@@ -57,16 +57,14 @@ class Add extends BaseProcessor
     {
         $path = $this->path($provider->basePath(), Path::SOURCE, $source);
 
-        $filename = $this->preparePath($target, Locales::ENGLISH);
-
         $content = Filesystem::load($path);
 
         if ($this->hasJson($source)) {
             $content = $this->resolveKeys($content);
         }
 
-        $this->set($this->source_keys, $filename, $this->getKeysOnly($content));
-        $this->set($this->translated, $filename, $content);
+        $this->setResourceKeys($target, $this->getKeysOnly($content));
+        $this->setResource(Locales::ENGLISH, $target, $content);
     }
 
     protected function collectLocales(Provider $provider, string $source, string $target): void
@@ -82,11 +80,9 @@ class Add extends BaseProcessor
             ? $this->path($provider->basePath(), Path::LOCALES, $locale, $locale . '.json')
             : $this->path($provider->basePath(), Path::LOCALES, $locale, $source);
 
-        $filename = $this->preparePath($target, $locale);
-
         $content = Filesystem::load($path);
 
-        $this->set($this->translated, $filename, $content);
+        $this->setResource($locale, $target, $content);
     }
 
     protected function resolveKeys(array $array): array

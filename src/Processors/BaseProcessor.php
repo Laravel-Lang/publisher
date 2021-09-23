@@ -24,8 +24,7 @@ use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Keyable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\Support\Facades\Helpers\Arr;
-use Illuminate\Support\Str;
+use Helldar\LaravelLangPublisher\Resources\Translation;
 
 abstract class BaseProcessor implements Processor
 {
@@ -36,11 +35,11 @@ abstract class BaseProcessor implements Processor
     /** @var Provider */
     protected $provider;
 
+    /** @var array */
     protected $locales = [];
 
-    protected $source_keys = [];
-
-    protected $translated = [];
+    /** @var \Helldar\LaravelLangPublisher\Resources\Translation */
+    protected $resources;
 
     /** @var \Helldar\Contracts\LangPublisher\Comparator */
     protected $comparator;
@@ -48,27 +47,30 @@ abstract class BaseProcessor implements Processor
     public function __construct(array $locales)
     {
         $this->locales = $this->prepareLocales($locales);
+
+        $this->resources = Translation::make();
     }
 
     protected function compare(): array
     {
-        return (new $this->comparator($this->source_keys, $this->translated))->get();
-    }
+        $keys  = $this->resources->getKeys();
+        $trans = $this->resources->getTranslations();
 
-    protected function set(array &$array, string $key, array $values): void
-    {
-        $loaded = $array[$key] ?? [];
-
-        $array[$key] = Arr::merge($loaded, $values);
-    }
-
-    protected function preparePath(string $path, string $locale): string
-    {
-        return Str::replace('{locale}', $locale, $path);
+        return (new $this->comparator($keys, $trans))->get();
     }
 
     protected function prepareLocales(array $locales): array
     {
         return $locales;
+    }
+
+    protected function setResourceKeys(string $target, array $keys): void
+    {
+        $this->resources->keys($target, $keys);
+    }
+
+    protected function setResource(string $locale, string $target, array $translations): void
+    {
+        $this->resources->translation($locale, $target, $translations);
     }
 }

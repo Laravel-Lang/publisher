@@ -24,12 +24,10 @@ use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigSupport;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Lang;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -73,8 +71,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function tearDown(): void
     {
-        $this->deleteLocales();
-
         $this->removeEmulatedPackages();
 
         parent::tearDown();
@@ -126,7 +122,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function refreshLocales(): void
     {
-        Lang::setLoaded([]);
+        app('translator')->setLoaded([]);
     }
 
     protected function reinstallLocales(): void
@@ -137,7 +133,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function deleteLocales(): void
     {
-        $path = ConfigSupport::resources();
+        $path = $this->resourcesPath();
 
         Directory::ensureDelete($path);
     }

@@ -21,6 +21,7 @@ namespace Helldar\LaravelLangPublisher\Concerns;
 
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 trait Paths
 {
@@ -36,6 +37,11 @@ trait Paths
     protected function filename(string $filename): string
     {
         return pathinfo($filename, PATHINFO_FILENAME);
+    }
+
+    protected function basename(string $filename): string
+    {
+        return pathinfo($filename, PATHINFO_BASENAME);
     }
 
     protected function path(string $base_path, ...$parameters): string
@@ -58,5 +64,10 @@ trait Paths
     protected function resourcesPath(string ...$parameters): string
     {
         return $this->path(Config::resources(), ...$parameters);
+    }
+
+    protected function resolvePath(string $path, string $locale): string
+    {
+        return Str::replace('{locale}', $locale, $path);
     }
 }
