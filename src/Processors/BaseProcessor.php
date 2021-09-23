@@ -36,8 +36,6 @@ abstract class BaseProcessor implements Processor
     /** @var Provider */
     protected $provider;
 
-    protected $force = false;
-
     protected $locales = [];
 
     protected $source_keys = [];
@@ -47,16 +45,14 @@ abstract class BaseProcessor implements Processor
     /** @var \Helldar\Contracts\LangPublisher\Comparator */
     protected $comparator;
 
-    public function __construct(array $locales, bool $force = false)
+    public function __construct(array $locales)
     {
         $this->locales = $this->prepareLocales($locales);
-
-        $this->force = $force;
     }
 
     protected function compare(): array
     {
-        return (new $this->comparator($this->source_keys, $this->translated, $this->force))->get();
+        return (new $this->comparator($this->source_keys, $this->translated))->get();
     }
 
     protected function set(array &$array, string $key, array $values): void

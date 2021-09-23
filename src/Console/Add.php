@@ -24,8 +24,7 @@ use Helldar\LaravelLangPublisher\Processors\Add as Processor;
 class Add extends Base
 {
     protected $signature = 'lang:add'
-    . ' {locales?* : Space-separated list of, eg: de tk it}'
-    . ' {--f|force : Override exiting files}';
+    . ' {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Install new localizations.';
 

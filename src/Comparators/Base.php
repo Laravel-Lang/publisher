@@ -16,15 +16,11 @@ abstract class Base implements Comparator
 
     protected $translations = [];
 
-    protected $force;
-
-    public function __construct(array $keys, array $translations, bool $force)
+    public function __construct(array $keys, array $translations)
     {
         $this->keys = $keys;
 
         $this->translations = $translations;
-
-        $this->force = $force;
     }
 
     protected function load(string $filename): array

@@ -35,9 +35,7 @@ class Add extends Base
 
     protected function merge(array $translated, array $user, array $excludes): array
     {
-        return $this->force
-            ? Arr::merge($user, $translated, $excludes)
-            : Arr::merge($translated, $user, $excludes);
+        return Arr::merge($user, $translated, $excludes);
     }
 
     protected function filenames(): array

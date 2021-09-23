@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Concerns\Ask;
-use Helldar\LaravelLangPublisher\Concerns\Optionable;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
@@ -29,7 +28,6 @@ use Illuminate\Console\Command;
 abstract class Base extends Command
 {
     use Ask;
-    use Optionable;
     use Paths;
 
     /** @var \Helldar\Contracts\LangPublisher\Processor */
@@ -54,9 +52,8 @@ abstract class Base extends Command
     protected function resolveProcessor(): void
     {
         $locales = $this->targetLocales();
-        $force   = $this->hasForce();
 
-        $this->processor = new $this->processor($locales, $force);
+        $this->processor = new $this->processor($locales);
     }
 
     protected function collecting(): void

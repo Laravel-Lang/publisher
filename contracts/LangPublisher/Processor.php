@@ -21,6 +21,8 @@ namespace Helldar\Contracts\LangPublisher;
 
 interface Processor
 {
+    public function __construct(array $locales);
+
     public function handle(Provider $provider): void;
 
     public function finish(): void;
