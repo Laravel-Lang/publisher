@@ -4,19 +4,7 @@
 
 ## Important
 
-The package replaces only certain files in your lang directories:
-
-```
-resources/lang/<locale>.json
-resources/lang/<locale>/auth.php
-resources/lang/<locale>/pagination.php
-resources/lang/<locale>/passwords.php
-resources/lang/<locale>/validation.phpf
-```
-
-If you made changes to these files, they will be saved.
-
-Other files will not be changed in any way during the execution of the actions, except for the execution of the command to delete localizations.
+Any changes you make will be saved in the translation files.
 
 
 ## Table of contents

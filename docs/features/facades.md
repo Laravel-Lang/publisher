@@ -42,10 +42,10 @@ Locales::getFallback(): string
 ```php
 use Helldar\LaravelLangPublisher\Facades\Packages;
 
-// Returns a sorted list of packages identified for processing.
+// Returns a sorted list of plugins identified for processing.
 Packages::get(): array
 
-// Returns the count of processable packages.
+// Returns the count of processable plugins.
 Packages::count(): int
 ```
 

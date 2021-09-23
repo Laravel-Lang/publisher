@@ -2,11 +2,9 @@
 
 # General principles
 
-All commands have common key types:
+Almost all console commands accept an array of localizations as a parameter.
 
-* `--force` (also `-f`) - runs a command to force execution (works on all except the `lang:reset` command).
-
-Parameters on call (used in all except the `lang:update` command):
+For example:
 
 ```bash
 php artisan lang:<command> en de ro
@@ -21,8 +19,8 @@ Where:
 * `de` - it is also possible to specify a single localization name;
 * `*` - when transmitting the asterisk symbol, the action will be performed for all locales
 * if the parameter is not passed during the call, the script will ask two questions:
-    * `Do you want to %s all localizations?`, when `%s` is `install`, `uninstall` or `reset`;
-    * If `no`, then next question is `What languages to %s? (specify the necessary localizations separated by commas)`.
+    * `Do you want to %s all localizations?`, when `%s` is `install`, `remove` or `reset`;
+    * If `no`, then next question is `Select localizations to add (specify the necessary localizations separated by commas)`.
 
 > When performing any work with files (`install`, `uninstall`, `reset` and `update`), in addition to php files, work with json files, including translation for [Laravel Framework][link_laravel], [Laravel Jetstream][link_jetstream], [Laravel Fortify][link_fortify]
 , [Laravel Cashier][link_cashier] and [Laravel Nova][link_nova], will also be automatically performed.

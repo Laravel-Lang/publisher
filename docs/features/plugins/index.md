@@ -1,6 +1,6 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Features](../index.md) / Packages
+[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Features](../index.md) / Plugins
 
-# Packages
+# Plugins
 
 > Starting with version 9.1, the [Laravel Lang Publisher][link_source] project can work with an unlimited number of packages containing localization files.
 >
@@ -18,8 +18,8 @@ For a manager to work, you need to do two things:
    > return [
    >     // ...
    > 
-   >     'packages' => [
-   >         'andrey-helldar/lang-translations',
+   >     'plugins' => [
+   >         \Helldar\LangTranslations\Provider::class,
    >     ],
    > ];
    > ``` 
@@ -38,28 +38,10 @@ Now, when the `php artisan lang:update` command is executed, the manager will ch
 
 If files with the same names exist in different packages, for example, `custom.php`, then during their processing all keys from all files will be combined.
 
-Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `packages` key of
+Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `plugins` key of
 the `config/lang-publisher.php` file.
 
-An example of a processing log:
-
-```
-Updating localizations...
-andrey-helldar/lang-translations [en] errors.php...     copied
-andrey-helldar/lang-translations [ru] errors.php...     copied
-laravel-lang/lang                [en] auth.php...       copied
-laravel-lang/lang                [en] en.json...        copied
-laravel-lang/lang                [en] pagination.php... copied
-laravel-lang/lang                [en] passwords.php...  copied
-laravel-lang/lang                [en] validation.php... copied
-laravel-lang/lang                [ru] auth.php...       copied
-laravel-lang/lang                [ru] en.json...        copied
-laravel-lang/lang                [ru] pagination.php... copied
-laravel-lang/lang                [ru] passwords.php...  copied
-laravel-lang/lang                [ru] validation.php... copied
-Localizations have ben successfully updated.
-
-```
+> For ease of development, use a ready-made [`andrey-helldar/translations-template`](https://github.com/andrey-helldar/translations-template).
 
 It's all. Enjoy! 😊
 
