@@ -31,8 +31,6 @@ abstract class Base implements Comparator
         $this->translations = $translations;
     }
 
-    abstract protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array;
-
     public function get(): array
     {
         foreach ($this->filenames() as $filename) {
@@ -47,6 +45,8 @@ abstract class Base implements Comparator
 
         return $this->getResult();
     }
+
+    abstract protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array;
 
     protected function compare(string $filename, string $locale): array
     {
