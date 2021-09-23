@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Concerns;
 
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
+use Helldar\Support\Facades\Helpers\Str;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 trait Paths
 {
@@ -68,6 +68,6 @@ trait Paths
 
     protected function resolvePath(string $path, string $locale): string
     {
-        return Str::replace('{locale}', $locale, $path);
+        return Str::replace($path, compact('locale'), '{%s}');
     }
 }
