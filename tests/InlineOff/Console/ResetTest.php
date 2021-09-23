@@ -44,7 +44,7 @@ class ResetTest extends InlineOffTestCase
         $this->artisan('lang:reset', compact('locales'))->run();
     }
 
-    public function testDefault()
+    public function testReset()
     {
         $this->copyFixtures();
 
@@ -67,13 +67,13 @@ class ResetTest extends InlineOffTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('This is Baq', __('Confirm Password'));
 
-        $this->artisan('lang:add', [
+        $this->artisan('lang:reset', [
             'locales' => $this->default,
         ])->run();
 
         $this->refreshLocales();
 
-        $this->assertSame('These credentials do not match our records.', __('auth.failed'));
+        $this->assertSame('Foo Failed', __('auth.failed'));
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
         $this->assertSame('The provided password is incorrect.', __('auth.password'));
 
@@ -89,7 +89,7 @@ class ResetTest extends InlineOffTestCase
         $this->assertSame('This is Bar', __('Bar'));
         $this->assertSame('This is Baz', __('Baz'));
 
-        $this->assertSame('All rights reserved.', __('All rights reserved.'));
+        $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('Confirm Password', __('Confirm Password'));
     }
 
@@ -116,7 +116,7 @@ class ResetTest extends InlineOffTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('This is Baq', __('Confirm Password'));
 
-        $this->artisan('lang:add', [
+        $this->artisan('lang:reset', [
             'locales' => $this->default,
             '--full'  => true,
         ])->run();

@@ -32,27 +32,19 @@ use Tests\TestCase;
 
 class PluginsTest extends TestCase
 {
-    protected $emulate = [
-        'laravel/breeze',
-        'laravel/fortify',
-        'laravel/jetstream',
-        'laravel/nova',
-        'laravel/spark-stripe',
-    ];
-
     public function testHas()
     {
         $plugins = [
             Breeze::class      => true,
+            Cashier::class     => true,
             Fortify::class     => true,
             Jetstream::class   => true,
             Laravel::class     => true,
             Nova::class        => true,
+            SparkPaddle::class => true,
             SparkStripe::class => true,
 
-            Cashier::class     => false,
-            Lumen::class       => false,
-            SparkPaddle::class => false,
+            Lumen::class => false,
         ];
 
         foreach ($plugins as $plugin => $expected) {

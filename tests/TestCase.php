@@ -69,13 +69,6 @@ abstract class TestCase extends BaseTestCase
         $this->emulatePackages();
     }
 
-    protected function tearDown(): void
-    {
-        $this->removeEmulatedPackages();
-
-        parent::tearDown();
-    }
-
     protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
@@ -151,15 +144,6 @@ abstract class TestCase extends BaseTestCase
             $path = $this->vendorPath($package);
 
             Directory::ensureDirectory($path);
-        }
-    }
-
-    protected function removeEmulatedPackages(): void
-    {
-        foreach ($this->emulate as $package) {
-            $path = $this->vendorPath($package);
-
-            Directory::ensureDelete($path);
         }
     }
 }

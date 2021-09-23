@@ -7,7 +7,6 @@ namespace Helldar\LaravelLangPublisher\Processors;
 use Helldar\Contracts\LangPublisher\Provider;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
-use Helldar\Support\Facades\Helpers\Arr;
 
 class Remove extends BaseProcessor
 {
@@ -32,7 +31,7 @@ class Remove extends BaseProcessor
     {
         $except = Locales::protects();
 
-        return Arr::except($locales, $except);
+        return array_diff($locales, $except);
     }
 
     protected function push(string ...$paths): void
