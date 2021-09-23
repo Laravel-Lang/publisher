@@ -23,6 +23,7 @@ use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigSupport;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
@@ -39,6 +40,15 @@ abstract class TestCase extends BaseTestCase
     protected $default = Locales::ENGLISH;
 
     protected $fallback = Locales::KOREAN;
+
+    protected $locale = Locales::ALBANIAN;
+
+    protected $locales = [
+        LocalesList::BULGARIAN,
+        LocalesList::DANISH,
+        LocalesList::GALICIAN,
+        LocalesList::ICELANDIC,
+    ];
 
     protected $inline = true;
 

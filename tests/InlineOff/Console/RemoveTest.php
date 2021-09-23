@@ -19,19 +19,11 @@ declare(strict_types=1);
 
 namespace Tests\InlineOff\Console;
 
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Tests\InlineOffTestCase;
 
 class RemoveTest extends InlineOffTestCase
 {
-    protected $locales = [
-        LocalesList::BULGARIAN,
-        LocalesList::DANISH,
-        LocalesList::GALICIAN,
-        LocalesList::ICELANDIC,
-    ];
-
     public function testWithoutLanguageAttribute()
     {
         foreach ($this->locales as $locale) {

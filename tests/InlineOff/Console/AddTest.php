@@ -29,7 +29,7 @@ class AddTest extends InlineOffTestCase
     {
         $this->artisan('lang:add')
             ->expectsConfirmation('Do you want to add all localizations?')
-            ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', 'ar', Locales::available())
+            ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
             ->assertExitCode(0)
             ->run();
     }
