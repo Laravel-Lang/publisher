@@ -24,7 +24,8 @@ use Helldar\LaravelLangPublisher\Processors\Reset as Processor;
 class Reset extends Base
 {
     protected $signature = 'lang:reset'
-    . ' {locales?* : Space-separated list of, eg: de tk it}';
+    . ' {locales?* : Space-separated list of, eg: de tk it}'
+    . ' {--full : Delete custom keys}';
 
     protected $description = 'Resets installed locations.';
 
