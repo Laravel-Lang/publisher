@@ -1,0 +1,27 @@
+
+<!--
+  ~ This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  ~
+  ~ @author Andrey Helldar <helldar@ai-rus.com>
+  ~
+  ~ @copyright 2021 Andrey Helldar
+  ~
+  ~ @license MIT
+  ~
+  ~ @see https://github.com/andrey-helldar/laravel-lang-publisher
+  -->
+
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Coverage UnitTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <CommandLine>
+      <envs>
+        <env name="XDEBUG_MODE" value="coverage" />
+      </envs>
+    </CommandLine>
+    <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" scope="XML" options="--teamcity --coverage-text --coverage-clover=coverage.clover" use_alternative_configuration_file="true" />
+    <method v="2" />
+  </configuration>
+</component>
