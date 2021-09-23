@@ -20,11 +20,16 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Support\Filesystem;
 
 use Helldar\Contracts\Support\Filesystem;
+use Helldar\LaravelLangPublisher\Concerns\Has;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 abstract class Base implements Filesystem
 {
+    use Has;
+    use Paths;
+
     protected function doesntExists(string $path): bool
     {
         return ! File::exists($path);

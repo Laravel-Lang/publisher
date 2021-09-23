@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Console;
 
 use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Helldar\LaravelLangPublisher\Processors\Update as Processor;
+use Helldar\LaravelLangPublisher\Processors\Add as Processor;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 
 class Update extends Base

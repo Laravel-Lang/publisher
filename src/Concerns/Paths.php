@@ -29,9 +29,9 @@ trait Paths
 
     protected $directory_separator = DIRECTORY_SEPARATOR;
 
-    protected function extension(string $filename): string
+    protected function directory(string $path): string
     {
-        return pathinfo($filename, PATHINFO_EXTENSION);
+        return pathinfo($path, PATHINFO_DIRNAME);
     }
 
     protected function filename(string $filename): string
@@ -42,6 +42,11 @@ trait Paths
     protected function basename(string $filename): string
     {
         return pathinfo($filename, PATHINFO_BASENAME);
+    }
+
+    protected function extension(string $filename): string
+    {
+        return pathinfo($filename, PATHINFO_EXTENSION);
     }
 
     protected function path(string $base_path, ...$parameters): string

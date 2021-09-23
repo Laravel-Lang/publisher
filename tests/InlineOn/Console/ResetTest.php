@@ -28,7 +28,7 @@ class ResetTest extends InlineOnTestCase
     public function testAcceptConfirmation()
     {
         $this->artisan('lang:reset')
-            ->expectsConfirmation('Do you want to add all localizations?')
+            ->expectsConfirmation('Do you want to reset all localizations?')
             ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
             ->assertExitCode(0)
             ->run();

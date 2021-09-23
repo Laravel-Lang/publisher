@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Concerns;
 
+use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\Support\Facades\Helpers\Str;
 
 /**
@@ -38,5 +39,15 @@ trait Has
         $name = $this->filename($filename);
 
         return Str::startsWith($name, 'validation');
+    }
+
+    protected function hasAlignment(): bool
+    {
+        return Config::hasAlignment();
+    }
+
+    protected function hasInline(): bool
+    {
+        return Config::hasInline();
     }
 }

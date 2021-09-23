@@ -23,11 +23,14 @@ use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
 use Helldar\PrettyArray\Services\File as Pretty;
 use Helldar\PrettyArray\Services\Formatter;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 class Php extends Base
 {
-    public function load(string $path)
+    public function load(string $path): array
     {
+        $path = $this->resolveAlignedPath($path);
+
         if ($this->doesntExists($path)) {
             return [];
         }
@@ -49,6 +52,21 @@ class Php extends Base
     public function delete(string $path): void
     {
         Directory::ensureDelete($path);
+    }
+
+    protected function resolveAlignedPath(string $path): string
+    {
+        if (! $this->hasInline()) {
+            return $path;
+        }
+
+        $directory = $this->directory($path);
+        $filename  = $this->filename($path);
+        $extension = $this->extension($path);
+
+        $inline_path = $this->path($directory, $filename . '-inline.' . $extension);
+
+        return File::exists($inline_path) ? $inline_path : $path;
     }
 
     protected function formatter(): Formatter
@@ -84,10 +102,5 @@ class Php extends Base
     protected function getCase(): int
     {
         return Config::case();
-    }
-
-    protected function hasAlignment(): bool
-    {
-        return Config::hasAlignment();
     }
 }
