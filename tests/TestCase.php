@@ -90,10 +90,6 @@ abstract class TestCase extends BaseTestCase
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
         ]);
-
-        //$config->set(Config::PUBLIC_KEY . '.plugins', [
-        //    'andrey-helldar/lang-translations',
-        //]);
     }
 
     protected function copyFixtures(): void

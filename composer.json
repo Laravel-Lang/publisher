@@ -47,7 +47,6 @@
         "laravel-lang/lang": "^10.1"
     },
     "require-dev": {
-        "andrey-helldar/lang-translations": "^4.0",
         "mockery/mockery": "^1.4.3",
         "orchestra/testbench": "^5.0|^6.0|^7.0",
         "phpunit/phpunit": "^9.4",
