@@ -29,7 +29,7 @@ class ResetTest extends InlineOnTestCase
     {
         $this->artisan('lang:reset')
             ->expectsConfirmation('Do you want to reset all localizations?')
-            ->expectsChoice('Select localizations to add (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
+            ->expectsChoice('Select localizations to reset (specify the necessary localizations separated by commas):', $this->locale, Locales::available())
             ->assertExitCode(0)
             ->run();
     }
@@ -77,7 +77,7 @@ class ResetTest extends InlineOnTestCase
         $this->assertSame('Too many login attempts. Please try again in :seconds seconds.', __('auth.throttle'));
         $this->assertSame('The provided password is incorrect.', __('auth.password'));
 
-        $this->assertSame('The :attribute must be accepted.', __('validation.accepted'));
+        $this->assertSame('This field must be accepted.', __('validation.accepted'));
 
         $this->assertSame('Custom rule message', __('validation.custom.foo.required'));
 
