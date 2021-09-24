@@ -92,7 +92,8 @@ abstract class TestCase extends BaseTestCase
 
         $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],
-            'json' => ['All rights reserved.', 'Baz'],
+
+            '{locale}' => ['All rights reserved.', 'Baz'],
         ]);
 
         $config->set(Config::PRIVATE_KEY . '.plugins', [

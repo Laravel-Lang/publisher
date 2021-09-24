@@ -67,8 +67,8 @@ class ConfigTest extends InlineOnTestCase
         $config = Config::excludes();
 
         $this->assertSame([
-            'auth' => ['failed'],
-            'json' => ['All rights reserved.', 'Baz'],
+            'auth'     => ['failed'],
+            '{locale}' => ['All rights reserved.', 'Baz'],
         ], $config);
     }
 
