@@ -25,6 +25,9 @@ class Add extends Base
 {
     protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array
     {
-        return Arr::merge($local, $translated, $excluded, $extra_local, $extra_translated);
+        $main  = $this->sortAndMerge($local, $translated, $excluded);
+        $extra = $this->sortAndMerge($extra_local, $extra_translated);
+
+        return Arr::merge($main, $extra);
     }
 }

@@ -25,7 +25,10 @@ class Reset extends Base
 {
     protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array
     {
-        return Arr::merge($local, $excluded, $translated, $extra_local, $extra_translated);
+        $main  = $this->sortAndMerge($local, $excluded, $translated);
+        $extra = $this->sortAndMerge($extra_local, $translated);
+
+        return Arr::merge($main, $extra);
     }
 
     protected function resource(string $filename, string $locale): array
