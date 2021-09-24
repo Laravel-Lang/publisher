@@ -35,13 +35,11 @@ class Provider extends BaseProvider
     /**
      * Indicates the base path of the provider.
      *
-     * For example, `__DIR__`
-     *
      * @return string
      */
     public function basePath(): string
     {
-        return realpath(__DIR__ . '/../../../vendor/laravel-lang/lang');
+        return base_path('vendor/laravel-lang/lang');
     }
 
     /**
