@@ -65,20 +65,25 @@ abstract class Base implements Comparator
         return $this->getResult();
     }
 
-    abstract protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array;
+    abstract protected function merge(array $local, array $translated, array $excluded): array;
 
     protected function compare(string $filename, string $locale): array
     {
         $local      = $this->resource($filename, $locale);
         $translated = $this->translated($filename, $locale);
 
-        return $this->merge(
+        $main = $this->merge(
             $this->extract($filename, $local),
             $this->extract($filename, $translated),
             $this->excludes($filename, $local),
+        );
+
+        $extra = $this->sortAndMerge(
             $this->extra($filename, $local),
             $this->extra($filename, $translated),
         );
+
+        return Arr::merge($main, $extra);
     }
 
     protected function resource(string $filename, string $locale): array

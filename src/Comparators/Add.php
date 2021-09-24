@@ -19,15 +19,10 @@ declare(strict_types=1);
 
 namespace Helldar\LaravelLangPublisher\Comparators;
 
-use Helldar\Support\Facades\Helpers\Arr;
-
 class Add extends Base
 {
-    protected function merge(array $local, array $translated, array $excluded, array $extra_local, array $extra_translated): array
+    protected function merge(array $local, array $translated, array $excluded): array
     {
-        $main  = $this->sortAndMerge($local, $translated, $excluded);
-        $extra = $this->sortAndMerge($extra_local, $extra_translated);
-
-        return Arr::merge($main, $extra);
+        return $this->sortAndMerge($local, $translated, $excluded);
     }
 }
