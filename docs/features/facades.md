@@ -18,9 +18,6 @@ Locales::installed(): array
 // Retrieving a list of protected locales.
 Locales::protects(): array
 
-// Getting a complete list of available localizations.
-Locales::all(): array;
-
 // Checks if a language pack is installed.
 Locales::isAvailable(string $locale): bool
 
@@ -35,30 +32,6 @@ Locales::getDefault(): string
 
 // Getting the fallback localization name.
 Locales::getFallback(): string
-```
-
-## Packages
-
-```php
-use Helldar\LaravelLangPublisher\Facades\Packages;
-
-// Returns a sorted list of plugins identified for processing.
-Packages::get(): array
-
-// Returns the count of processable plugins.
-Packages::count(): int
-```
-
-## Plugins
-
-```php
-use Helldar\LaravelLangPublisher\Facades\Plugins;
-
-// Returns a sorted list of plugins identified for processing.
-Plugins::get(): array
-
-// Returns the count of plugins.
-Plugins::count(): int
 ```
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
