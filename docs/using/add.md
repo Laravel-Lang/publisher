@@ -17,10 +17,4 @@ If you do not specify arguments when passing parameters, then an interactive que
 php artisan lang:add
 ```
 
-To install all localizations, specify the `*` symbol:
-
-```bash
-php artisan lang:add *
-```
-
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher

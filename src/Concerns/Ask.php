@@ -55,10 +55,6 @@ trait Ask
     {
         $locales = Arr::wrap($locales);
 
-        if (in_array('*', $locales)) {
-            return $this->getAllLocales();
-        }
-
         return $this->validatedLocales($locales);
     }
 

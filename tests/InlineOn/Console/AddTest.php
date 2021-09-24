@@ -92,35 +92,4 @@ class AddTest extends InlineOnTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('Confirm Password', __('Confirm Password'));
     }
-
-    public function testAsterisk()
-    {
-        $locales = Locales::available();
-
-        foreach ($locales as $locale) {
-            if (Locales::isProtected($locale)) {
-                $this->checkExists($locale . '.json', $locale);
-                $this->checkExists($locale . '/auth.php', $locale);
-                $this->checkExists($locale . '/pagination.php', $locale);
-                $this->checkExists($locale . '/passwords.php', $locale);
-                $this->checkExists($locale . '/validation.php', $locale);
-            } else {
-                $this->checkDoesntExist($locale . '.json', $locale);
-                $this->checkDoesntExist($locale . '/auth.php', $locale);
-                $this->checkDoesntExist($locale . '/pagination.php', $locale);
-                $this->checkDoesntExist($locale . '/passwords.php', $locale);
-                $this->checkDoesntExist($locale . '/validation.php', $locale);
-            }
-        }
-
-        $this->artisan('lang:add', ['locales' => '*'])->run();
-
-        foreach ($locales as $locale) {
-            $this->checkExists($locale . '.json', $locale);
-            $this->checkExists($locale . '/auth.php', $locale);
-            $this->checkExists($locale . '/pagination.php', $locale);
-            $this->checkExists($locale . '/passwords.php', $locale);
-            $this->checkExists($locale . '/validation.php', $locale);
-        }
-    }
 }
