@@ -55,7 +55,7 @@ class Add extends BaseProcessor
 
     protected function collectSource(Provider $provider, string $source, string $target): void
     {
-        $path = $this->vendorPath($provider->name(), Path::SOURCE, $source);
+        $path = $this->path($provider->basePath(), Path::SOURCE, $source);
 
         $content = Filesystem::load($path);
 
@@ -77,8 +77,8 @@ class Add extends BaseProcessor
     protected function collectLocale(Provider $provider, string $locale, string $source, string $target): void
     {
         $path = $this->hasJson($source)
-            ? $this->vendorPath($provider->name(), Path::LOCALES, $locale, $locale . '.json')
-            : $this->vendorPath($provider->name(), Path::LOCALES, $locale, $source);
+            ? $this->path($provider->basePath(), Path::LOCALES, $locale, $locale . '.json')
+            : $this->path($provider->basePath(), Path::LOCALES, $locale, $source);
 
         $content = Filesystem::load($path);
 

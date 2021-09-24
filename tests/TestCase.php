@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
+use Tests\Providers\Provider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -92,6 +93,10 @@ abstract class TestCase extends BaseTestCase
         $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
+        ]);
+
+        $config->set(Config::PRIVATE_KEY . '.plugins', [
+            Provider::class,
         ]);
     }
 
