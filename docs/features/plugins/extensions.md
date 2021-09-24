@@ -6,6 +6,6 @@ List of official packages working with the translation manager:
 
 | Package | Comment |
 |:---|:---|
-| [andrey-helldar/lang-translations](https://github.com/andrey-helldar/lang-translations) | Extends the application with localized  HTTP codes messages |
+| [laravel-lang/http-statuses](https://github.com/Laravel-Lang/http-statuses) | List of 77 languages for HTTP statuses |
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
