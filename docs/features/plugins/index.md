@@ -8,7 +8,7 @@
 
 For a manager to work, you need to do two things:
 
-1. Install the package into your application. For example, `composer require andrey-helldar/lang-translations --dev`.
+1. Install the package into your application. For example, `composer require laravel-lang/http-statuses --dev`.
 2. Specify the namespace of the package in the configuration file of your app:
    > // config/lang-publisher.php
    >
@@ -19,7 +19,7 @@ For a manager to work, you need to do two things:
    >     // ...
    > 
    >     'plugins' => [
-   >         \Helldar\LangTranslations\Provider::class,
+   >         \LaravelLang\HttpStatuses\Provider::class,
    >     ],
    > ];
    > ``` 
