@@ -1,5 +1,22 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
 use Helldar\PrettyArray\Contracts\Caseable;
 
 return [
@@ -30,22 +47,11 @@ return [
      * Key exclusion when combining.
      */
 
-    'exclude' => [
+    'excludes' => [
         // 'auth' => ['throttle'],
         // 'pagination' => ['previous'],
         // 'passwords' => ['reset', 'throttled', 'user'],
         // 'json' => ['Confirm Password'],
-    ],
-
-    /*
-     * List of ignored localizations.
-     */
-
-    'ignore' => [
-        // 'sq',
-        // 'ar',
-        // Helldar\LaravelLangPublisher\Constants\Locales::ALBANIAN,
-        // Helldar\LaravelLangPublisher\Constants\Locales::ARABIC,
     ],
 
     /*
@@ -62,45 +68,15 @@ return [
      * By default, Caseable::NO_CASE
      */
 
-    'case' => interface_exists(Caseable::class) ? Caseable::NO_CASE : 0,
+    'case' => Caseable::NO_CASE,
 
     /*
-     * Determines from which packages to synchronize localization files.
+     * Determines from which plugins to synchronize localization files.
      *
-     * A prerequisite is compliance with a single file placement format:
-     *
-     * source/
-     * locales/
-     *   af/
-     *     af.json
-     *     <filename>.php
-     *   <locale>/
-     *     <locale>.json
-     *     <filename>.php
-     */
-
-    'packages' => [
-        // 'andrey-helldar/lang-translations',
-    ],
-
-    /*
-     * Defines a list of plugins with non-standard paths for saving files.
-     *
-     * Files from these plugins will be installed for all packages specified in the `packages` key,
-     * provided that the required package is installed in the application.
-     *
-     * For example:
-     *   \Helldar\LaravelLangPublisher\Plugins\Cashier::class,
-     *   \Helldar\LaravelLangPublisher\Plugins\Nova::class,
-     *   \Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
+     * @see https://github.com/andrey-helldar/translations-template
      */
 
     'plugins' => [
-        // \Helldar\LaravelLangPublisher\Plugins\Cashier::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Fortify::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Jetstream::class,
-        // \Helldar\LaravelLangPublisher\Plugins\Nova::class,
-        // \Helldar\LaravelLangPublisher\Plugins\SparkPaddle::class,
-        // \Helldar\LaravelLangPublisher\Plugins\SparkStripe::class,
+        // \LaravelLang\Lang\Publisher\Provider::class,
     ],
 ];

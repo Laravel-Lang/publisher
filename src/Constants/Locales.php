@@ -1,5 +1,22 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
 namespace Helldar\LaravelLangPublisher\Constants;
 
 /**
@@ -13,7 +30,7 @@ namespace Helldar\LaravelLangPublisher\Constants;
  * ISO-639-1 standard
  * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
-final class Locales
+class Locales
 {
     public const AFRIKAANS = 'af';
 

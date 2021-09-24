@@ -13,7 +13,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/laravel-lang-publisher": "^10.0"
+        "andrey-helldar/laravel-lang-publisher": "^10.1"
     }
 }
 ```
@@ -42,7 +42,7 @@ the `Register Service Providers` section of your `bootstrap/app.php`.
 
 ```php
 if ($app->environment() !== 'production') {
-    $app->register(Helldar\LaravelLangPublisher\ServiceProvider::class);
+    $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
 }
 ```
 

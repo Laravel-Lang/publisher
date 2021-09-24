@@ -1,6 +1,5 @@
 [Laravel Lang Publisher][link_source] / [Main Page](index.md) / License
 
-
 # MIT License
 
 Copyright (c) 2021 Andrey Helldar

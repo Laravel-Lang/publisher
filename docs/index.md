@@ -25,15 +25,13 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
     * [Reset locales](using/reset.md)
     * [Remove locales](using/remove.md)
 * [Features](features/index.md)
-    * [Packages](features/packages/index.md)
-        * [Extensions](features/packages/extensions.md)
+    * [Plugins](features/plugins/index.md)
+        * [Extensions](features/plugins/extensions.md)
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
         * [Alignment](features/alignment.md)
         * [Facades](features/facades.md)
-            * [Config](features/facades.md#config)
             * [Locales](features/facades.md#locales)
-            * [Packages](features/facades.md#packages)
 
 ## License
 

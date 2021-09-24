@@ -1,164 +1,232 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Concerns\Logger;
-use Helldar\LaravelLangPublisher\Concerns\Pathable;
+use Helldar\LaravelLangPublisher\Concerns\Has;
+use Helldar\LaravelLangPublisher\Concerns\Paths;
+use Helldar\LaravelLangPublisher\Constants\Config;
 use Helldar\LaravelLangPublisher\Constants\Locales;
-use Helldar\LaravelLangPublisher\Facades\Config as ConfigFacade;
-use Helldar\LaravelLangPublisher\Facades\Packages;
-use Helldar\LaravelLangPublisher\Facades\Path;
+use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\ServiceProvider;
-use Helldar\LaravelLangPublisher\Support\Config;
+use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Illuminate\Support\Facades\Config as IlluminateConfig;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tests\Concerns\Asserts;
 
 abstract class TestCase extends BaseTestCase
 {
-    use Logger;
-    use Pathable;
+    use Asserts;
+    use Has;
+    use Paths;
 
-    protected $default_locale = Locales::ENGLISH;
+    protected $default = Locales::ENGLISH;
 
-    protected $fallback_locale = Locales::KOREAN;
+    protected $fallback = Locales::GERMAN;
 
-    protected $default_package = 'laravel-lang/lang';
+    protected $locale = Locales::ALBANIAN;
+
+    protected $locales = [
+        LocalesList::BULGARIAN,
+        LocalesList::DANISH,
+        LocalesList::GALICIAN,
+        LocalesList::ICELANDIC,
+    ];
+
+    protected $inline = true;
+
+    protected $emulate = [
+        'laravel/breeze',
+        'laravel/fortify',
+        'laravel/jetstream',
+        'laravel/cashier',
+        'laravel/nova',
+        'laravel/spark-paddle',
+        'laravel/spark-stripe',
+    ];
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->refreshLocales();
+        $this->reinstallLocales();
 
-        $this->emulateFreePackages();
-        $this->emulatePaidPackages();
+        $this->emulatePackages();
     }
 
-    protected function tearDown(): void
-    {
-        $this->removeEmulatedPackages();
-
-        parent::tearDown();
-    }
-
-    /**
-     * @param  \Illuminate\Foundation\Application  $app
-     *
-     * @return array
-     */
     protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
     }
 
-    protected function getEnvironmentSetUp($app): void
+    protected function getEnvironmentSetUp($app)
     {
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('app.locale', $this->default_locale);
-        $config->set('app.fallback_locale', $this->fallback_locale);
+        $config->set('app.locale', $this->default);
+        $config->set('app.fallback_locale', $this->fallback);
 
-        $config->set(Config::KEY_PRIVATE . '.path.base', realpath(__DIR__ . '/../vendor'));
+        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
-        $config->set(Config::KEY_PUBLIC . '.exclude', [
+        $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
+
+        $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],
             'json' => ['All rights reserved.', 'Baz'],
         ]);
-
-        $config->set(Config::KEY_PUBLIC . '.packages', [
-            'andrey-helldar/lang-translations',
-        ]);
-    }
-
-    protected function path(string $locale, string $filename = null): string
-    {
-        return Path::targetFull($locale, $filename);
-    }
-
-    protected function resources(string $path): string
-    {
-        return resource_path($path);
     }
 
     protected function copyFixtures(): void
     {
-        File::copy(realpath(__DIR__ . '/fixtures/en.json'), $this->path($this->default_locale, 'en.json'));
-        File::copy(realpath(__DIR__ . '/fixtures/auth.php'), $this->path($this->default_locale, 'auth.php'));
+        $files = [
+            'en.json',
+            'auth.php',
+            'validation.php',
+        ];
+
+        foreach ($files as $filename) {
+            $from = realpath(__DIR__ . '/fixtures/' . $filename);
+
+            $this->hasJson($filename)
+                ? File::copy($from, $this->resourcesPath($filename))
+                : File::copy($from, $this->resourcesPath($this->default . '/' . $filename));
+        }
     }
 
     protected function refreshLocales(): void
     {
+        app('translator')->setLoaded([]);
+    }
+
+    protected function reinstallLocales(): void
+    {
         $this->deleteLocales();
-        $this->installLocale();
+        $this->installLocales();
     }
 
     protected function deleteLocales(): void
     {
-        File::deleteDirectory(ConfigFacade::resourcesPath());
+        $path = $this->resourcesPath();
+
+        Directory::ensureDelete($path);
     }
 
-    protected function installLocale(): void
+    protected function installLocales(): void
     {
-        $source = $this->pathSource($this->default_package, $this->default_locale);
-        $target = $this->pathTarget($this->default_locale);
-
-        File::copyDirectory($source, $target);
-
-        File::move($target . '/en.json', $target . '/../en.json');
-
-        File::delete($target . '/validation-inline.php');
-        File::deleteDirectory($target . '/packages');
+        Artisan::call('lang:add', [
+            'locales' => [$this->default, $this->fallback],
+        ]);
     }
 
-    protected function emulateFreePackages(): void
+    protected function emulatePackages(): void
     {
-        Directory::ensureDirectory($this->pathVendor() . '/laravel/fortify');
-        Directory::ensureDirectory($this->pathVendor() . '/laravel/jetstream');
-    }
+        foreach ($this->emulate as $package) {
+            $path = $this->vendorPath($package);
 
-    protected function emulatePaidPackages(bool $full = false): void
-    {
-        Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-stripe');
-        Directory::ensureDirectory($this->pathVendor() . '/laravel/nova');
-
-        if ($full) {
-            Directory::ensureDirectory($this->pathVendor() . '/laravel/cashier');
-            Directory::ensureDirectory($this->pathVendor() . '/laravel/spark-paddle');
+            Directory::ensureDirectory($path);
         }
     }
 
-    protected function removeEmulatedPackages(): void
+    protected function getAllLocales(): array
     {
-        $names = [
-            '/laravel/cashier',
-            '/laravel/fortify',
-            '/laravel/jetstream',
-            '/laravel/nova',
-            '/laravel/spark-paddle',
-            '/laravel/spark-stripe',
-        ];
-
-        foreach ($names as $name) {
-            $path = $this->pathVendor() . $name;
-
-            if (Directory::exists($path)) {
-                Directory::delete($path);
-            }
-        }
-    }
-
-    protected function setPackages(array $packages): void
-    {
-        $key = Config::KEY_PUBLIC;
-
-        IlluminateConfig::set($key . '.packages', $packages);
-    }
-
-    protected function packages(): array
-    {
-        return Packages::get();
+        return Arr::sort([
+            LocalesList::AFRIKAANS,
+            LocalesList::ALBANIAN,
+            LocalesList::ARABIC,
+            LocalesList::ARMENIAN,
+            LocalesList::AZERBAIJANI,
+            LocalesList::BASQUE,
+            LocalesList::BELARUSIAN,
+            LocalesList::BENGALI,
+            LocalesList::BOSNIAN,
+            LocalesList::BULGARIAN,
+            LocalesList::CATALAN,
+            LocalesList::CENTRAL_KHMER,
+            LocalesList::CHINESE,
+            LocalesList::CHINESE_HONG_KONG,
+            LocalesList::CHINESE_T,
+            LocalesList::CROATIAN,
+            LocalesList::CZECH,
+            LocalesList::DANISH,
+            LocalesList::DUTCH,
+            LocalesList::ENGLISH,
+            LocalesList::ESTONIAN,
+            LocalesList::FINNISH,
+            LocalesList::FRENCH,
+            LocalesList::GALICIAN,
+            LocalesList::GEORGIAN,
+            LocalesList::GERMAN,
+            LocalesList::GERMAN_SWITZERLAND,
+            LocalesList::GREEK,
+            LocalesList::HEBREW,
+            LocalesList::HINDI,
+            LocalesList::HUNGARIAN,
+            LocalesList::ICELANDIC,
+            LocalesList::INDONESIAN,
+            LocalesList::ITALIAN,
+            LocalesList::JAPANESE,
+            LocalesList::KANNADA,
+            LocalesList::KAZAKH,
+            LocalesList::KOREAN,
+            LocalesList::LATVIAN,
+            LocalesList::LITHUANIAN,
+            LocalesList::MACEDONIAN,
+            LocalesList::MALAY,
+            LocalesList::MARATHI,
+            LocalesList::MONGOLIAN,
+            LocalesList::NEPALI,
+            LocalesList::NORWEGIAN_BOKMAL,
+            LocalesList::NORWEGIAN_NYNORSK,
+            LocalesList::OCCITAN,
+            LocalesList::PASHTO,
+            LocalesList::PERSIAN,
+            LocalesList::PILIPINO,
+            LocalesList::POLISH,
+            LocalesList::PORTUGUESE,
+            LocalesList::PORTUGUESE_BRAZIL,
+            LocalesList::ROMANIAN,
+            LocalesList::RUSSIAN,
+            LocalesList::SARDINIAN,
+            LocalesList::SERBIAN_CYRILLIC,
+            LocalesList::SERBIAN_LATIN,
+            LocalesList::SERBIAN_MONTENEGRIN,
+            LocalesList::SINHALA,
+            LocalesList::SLOVAK,
+            LocalesList::SLOVENIAN,
+            LocalesList::SPANISH,
+            LocalesList::SWAHILI,
+            LocalesList::SWEDISH,
+            LocalesList::TAGALOG,
+            LocalesList::TAJIK,
+            LocalesList::THAI,
+            LocalesList::TURKISH,
+            LocalesList::TURKMEN,
+            LocalesList::UIGHUR,
+            LocalesList::UKRAINIAN,
+            LocalesList::URDU,
+            LocalesList::UZBEK_CYRILLIC,
+            LocalesList::UZBEK_LATIN,
+            LocalesList::VIETNAMESE,
+            LocalesList::WELSH,
+        ]);
     }
 }

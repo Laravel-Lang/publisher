@@ -1,33 +1,43 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
 namespace Helldar\LaravelLangPublisher\Console;
 
-use Helldar\LaravelLangPublisher\Contracts\Processor as ProcessorContract;
-use Helldar\LaravelLangPublisher\Facades\Locales;
-use Helldar\LaravelLangPublisher\Services\Processors\Install as Processor;
-use Helldar\LaravelLangPublisher\Support\Actions\Add as Action;
+use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use Helldar\LaravelLangPublisher\Processors\Add as Processor;
 
-final class Add extends BaseCommand
+class Add extends Base
 {
     protected $signature = 'lang:add'
-    . ' {locales?* : Space-separated list of, eg: de tk it}'
-    . ' {--f|force : Override exiting files}';
+    . ' {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Install new localizations.';
 
-    protected $action = Action::class;
-
-    protected function processor(?string $filename): ProcessorContract
-    {
-        $this->log('Getting the processor:', Processor::class);
-
-        return Processor::make();
-    }
+    protected $processor = Processor::class;
 
     protected function targetLocales(): array
     {
-        $this->log('Getting a list of installed localizations...');
+        return $this->getLocales();
+    }
 
+    protected function getAllLocales(): array
+    {
         return Locales::available();
     }
 }

@@ -1,33 +1,32 @@
 <?php
 
-use Helldar\LaravelLangPublisher\Plugins\Cashier;
-use Helldar\LaravelLangPublisher\Plugins\Fortify;
-use Helldar\LaravelLangPublisher\Plugins\Jetstream;
-use Helldar\LaravelLangPublisher\Plugins\Nova;
-use Helldar\LaravelLangPublisher\Plugins\SparkPaddle;
-use Helldar\LaravelLangPublisher\Plugins\SparkStripe;
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
+use LaravelLang\Lang\Publisher\Provider as LaravelLang;
 
 return [
-    'packages' => [
-        'laravel-lang/lang',
-    ],
-
     'plugins' => [
-        Cashier::class,
-        Fortify::class,
-        Jetstream::class,
-        Nova::class,
-        SparkPaddle::class,
-        SparkStripe::class,
+        LaravelLang::class,
     ],
 
     'path' => [
         'base' => base_path('vendor'),
 
-        'source' => 'source',
-
-        'locales' => 'locales',
-
-        'target' => resource_path('lang'),
+        'resources' => resource_path('lang'),
     ],
 ];

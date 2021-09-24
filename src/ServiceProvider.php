@@ -1,16 +1,32 @@
 <?php
 
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
 namespace Helldar\LaravelLangPublisher;
 
 use Helldar\LaravelLangPublisher\Console\Add;
 use Helldar\LaravelLangPublisher\Console\Remove;
 use Helldar\LaravelLangPublisher\Console\Reset;
 use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Support\Config;
-use Helldar\LaravelSupport\Facades\App;
+use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-final class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     public function boot(): void
     {
@@ -36,22 +52,13 @@ final class ServiceProvider extends BaseServiceProvider
     protected function bootPublishes(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/public.php' => $this->app->configPath('lang-publisher.php'),
+            __DIR__ . '/../config/public.php' => $this->app->configPath(Config::PUBLIC_KEY . '.php'),
         ], 'config');
     }
 
     protected function config(): void
     {
-        if ($this->isLumen()) {
-            $this->app->configure(Config::KEY_PUBLIC);
-        }
-
-        $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::KEY_PUBLIC);
-        $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::KEY_PRIVATE);
-    }
-
-    protected function isLumen(): bool
-    {
-        return App::isLumen();
+        $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::PUBLIC_KEY);
+        $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::PRIVATE_KEY);
     }
 }

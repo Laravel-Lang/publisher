@@ -4,25 +4,6 @@
 
 Perhaps the facades will be useful to you:
 
-## Config
-
-```php
-use Helldar\LaravelLangPublisher\Facades\Config;
-
-// Getting a list of packages from which to synchronize localization files.
-Config::packages(): array
-
-// Getting a list of plugins.
-Config::plugins(): array
-
-// Getting the default localization name.
-Config::defaultLocale(): string
-
-
-// Getting the fallback localization name.
-Config::fallbackLocale(): string
-```
-
 ## Locales
 
 ```php
@@ -61,11 +42,23 @@ Locales::getFallback(): string
 ```php
 use Helldar\LaravelLangPublisher\Facades\Packages;
 
-// Returns a sorted list of packages identified for processing.
+// Returns a sorted list of plugins identified for processing.
 Packages::get(): array
 
-// Returns the count of processable packages.
+// Returns the count of processable plugins.
 Packages::count(): int
+```
+
+## Plugins
+
+```php
+use Helldar\LaravelLangPublisher\Facades\Plugins;
+
+// Returns a sorted list of plugins identified for processing.
+Plugins::get(): array
+
+// Returns the count of plugins.
+Plugins::count(): int
 ```
 
 [link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher

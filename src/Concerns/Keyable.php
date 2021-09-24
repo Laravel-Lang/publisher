@@ -1,15 +1,40 @@
 <?php
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
 
-use Helldar\LaravelLangPublisher\Facades\Path;
+declare(strict_types=1);
+
+namespace Helldar\LaravelLangPublisher\Concerns;
 
 trait Keyable
 {
-    protected function key(string $filename): string
+    protected function getKeysOnly(array $array): array
     {
-        $this->log('Retrieving a key name from a file...');
+        $result = [];
 
-        return $this->isJson($filename) ? 'json' : Path::filename($filename);
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result[$key] = $this->getKeysOnly($value);
+
+                continue;
+            }
+
+            array_push($result, $key);
+        }
+
+        return $result;
     }
 }
