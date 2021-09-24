@@ -9,7 +9,6 @@ For example:
 ```bash
 php artisan lang:<command> en de ro
 php artisan lang:<command> de
-php artisan lang:<command> *
 php artisan lang:<command>
 ```
 
@@ -17,7 +16,6 @@ Where:
 
 * `en de ro` - a list of locales separated by a space;
 * `de` - it is also possible to specify a single localization name;
-* `*` - when transmitting the asterisk symbol, the action will be performed for all locales
 * if the parameter is not passed during the call, the script will ask two questions:
     * `Do you want to %s all localizations?`, when `%s` is `install`, `remove` or `reset`;
     * If `no`, then next question is `Select localizations to add (specify the necessary localizations separated by commas)`.

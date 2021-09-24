@@ -12,12 +12,6 @@ To delete localizations, you must use `lang:rm` command, passing the letter abbr
 php artisan lang:rm de ro zh-CN
 ```
 
-You can also specify the `*` symbol to delete all localizations:
-
-```bash
-php artisan lang:rm *
-```
-
 If you do not specify arguments when passing parameters, then an interactive question will be displayed in the console with a choice of localizations from among the available ones.
 
 ```bash
