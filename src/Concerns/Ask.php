@@ -41,11 +41,6 @@ trait Ask
         return $this->resolveSelectedLocales($locales);
     }
 
-    protected function getAllLocales(): array
-    {
-        return Locales::available();
-    }
-
     protected function selectLocales(string $method)
     {
         return $this->choice("Select localizations to $method (specify the necessary localizations separated by commas):", $this->getAllLocales(), null, null, true);
