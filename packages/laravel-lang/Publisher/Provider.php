@@ -32,14 +32,9 @@ use LaravelLang\Lang\Publisher\Plugins\SparkStripe;
 
 class Provider extends BaseProvider
 {
-    /**
-     * Indicates the base path of the provider.
-     *
-     * @return string
-     */
-    public function basePath(): string
+    public function name(): string
     {
-        return base_path('vendor/laravel-lang/lang');
+        return 'laravel-lang/lang';
     }
 
     /**
