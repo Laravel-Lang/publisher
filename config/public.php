@@ -51,7 +51,7 @@ return [
         // 'auth' => ['throttle'],
         // 'pagination' => ['previous'],
         // 'passwords' => ['reset', 'throttled', 'user'],
-        // 'json' => ['Confirm Password'],
+        // '{locale}' => ['Confirm Password'],
     ],
 
     /*
@@ -78,5 +78,6 @@ return [
 
     'plugins' => [
         // \LaravelLang\Lang\Publisher\Provider::class,
+        // \LaravelLang\HttpStatuses\Provider::class,
     ],
 ];
