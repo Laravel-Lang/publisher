@@ -23,7 +23,7 @@ use Helldar\LaravelLangPublisher\Plugins\BasePlugin;
 
 class Jetstream extends BasePlugin
 {
-    public function vendor(): string
+    public function vendor(): ?string
     {
         return 'laravel/jetstream';
     }

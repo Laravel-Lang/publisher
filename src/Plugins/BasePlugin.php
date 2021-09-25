@@ -27,10 +27,19 @@ abstract class BasePlugin implements Plugin
 {
     use Paths;
 
+    public function vendor(): ?string
+    {
+        return null;
+    }
+
     public function has(): bool
     {
-        $path = $this->vendorPath($this->vendor());
+        if ($vendor = $this->vendor()) {
+            $path = $this->vendorPath($vendor);
 
-        return Directory::exists($path);
+            return Directory::exists($path);
+        }
+
+        return true;
     }
 }
