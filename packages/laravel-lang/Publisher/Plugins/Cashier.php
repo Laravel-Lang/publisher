@@ -23,7 +23,7 @@ use Helldar\LaravelLangPublisher\Plugins\BasePlugin;
 
 class Cashier extends BasePlugin
 {
-    public function vendor(): string
+    public function vendor(): ?string
     {
         return 'laravel/cashier';
     }

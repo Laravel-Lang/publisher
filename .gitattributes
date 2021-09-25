@@ -12,4 +12,4 @@ tests/ export-ignore
 .styleci.yml export-ignore
 
 phpunit.php export-ignore
-phpunit.yml export-ignore
+phpunit.xml export-ignore
