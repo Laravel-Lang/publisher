@@ -34,7 +34,7 @@ class Provider extends BaseProvider
 {
     public function basePath(): string
     {
-        return base_path('laravel-lang/lang');
+        return base_path('vendor/laravel-lang/lang');
     }
 
     /**
