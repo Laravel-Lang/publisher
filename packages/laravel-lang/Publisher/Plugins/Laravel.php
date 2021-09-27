@@ -35,6 +35,8 @@ class Laravel extends BasePlugin
             'pagination.php' => '{locale}/pagination.php',
             'passwords.php'  => '{locale}/passwords.php',
             'validation.php' => '{locale}/validation.php',
+
+            'validation-attributes.php' => '{locale}/validation.php',
         ];
     }
 }
