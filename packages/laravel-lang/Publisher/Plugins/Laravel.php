@@ -38,7 +38,7 @@ class Laravel extends BasePlugin
 
             'validation-attributes.php' => '{locale}/validation.php',
 
-            'packages/framework.json' => '{locale}.json',
+            'en.json' => '{locale}.json',
         ];
     }
 }
