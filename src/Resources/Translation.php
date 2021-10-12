@@ -40,7 +40,7 @@ class Translation implements Resource
     {
         $values = $this->keys[$target] ?? [];
 
-        $this->keys[$target] = $this->merge($keys, $values);
+        $this->keys[$target] = $this->merge($values, $keys);
 
         return $this;
     }
@@ -49,7 +49,7 @@ class Translation implements Resource
     {
         $values = $this->translations[$target][$locale] ?? [];
 
-        $this->translations[$target][$locale] = $this->merge($translations, $values);
+        $this->translations[$target][$locale] = $this->merge($values, $translations);
 
         return $this;
     }
