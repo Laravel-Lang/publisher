@@ -31,7 +31,8 @@ class Jetstream extends BasePlugin
     public function files(): array
     {
         return [
-            'packages/jetstream.json' => '{locale}.json',
+            'packages/jetstream.json'     => '{locale}.json',
+            'packages/jetstream-ext.json' => '{locale}.json',
         ];
     }
 }
