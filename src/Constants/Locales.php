@@ -88,6 +88,8 @@ class Locales
 
     public const GREEK = 'el';
 
+    public const GUJARATI = 'gu';
+
     public const HEBREW = 'he';
 
     public const HINDI = 'hi';

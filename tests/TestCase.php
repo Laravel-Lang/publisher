@@ -182,6 +182,7 @@ abstract class TestCase extends BaseTestCase
             LocalesList::GERMAN,
             LocalesList::GERMAN_SWITZERLAND,
             LocalesList::GREEK,
+            LocalesList::GUJARATI,
             LocalesList::HEBREW,
             LocalesList::HINDI,
             LocalesList::HUNGARIAN,

@@ -30,14 +30,28 @@ class MissingTest extends TestCase
 {
     use Paths;
 
-    public function testSame()
+    public function testMissing()
     {
         $const = $this->available();
         $lang  = $this->laravelLang();
 
-        $message = implode(', ', $this->diff($lang, $const));
+        $missed = $this->diff($const, $lang);
 
-        $this->assertSame($lang, $const, $message);
+        $message = 'Missed localizations: ' . $missed;
+
+        $this->assertEmpty($missed, $message);
+    }
+
+    public function testExtra()
+    {
+        $const = $this->available();
+        $lang  = $this->laravelLang();
+
+        $extra = $this->diff($lang, $const);
+
+        $message = 'Extra localizations: ' . $extra;
+
+        $this->assertEmpty($extra, $message);
     }
 
     protected function available(): array
@@ -58,8 +72,10 @@ class MissingTest extends TestCase
             ->get();
     }
 
-    protected function diff(array $first, array $second): array
+    protected function diff(array $first, array $second): string
     {
-        return array_diff($first, $second);
+        $array = array_diff($first, $second);
+
+        return implode(', ', $array);
     }
 }
