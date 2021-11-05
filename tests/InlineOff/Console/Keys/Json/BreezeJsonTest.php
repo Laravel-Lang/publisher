@@ -24,7 +24,8 @@ use Tests\InlineOff\Console\Keys\BaseJsonTestCase;
 class BreezeJsonTest extends BaseJsonTestCase
 {
     protected $items = [
-        'A new verification link has been sent to the email address you provided during registration.' => 'Новая ссылка для подтверждения была отправлена на Ваш email-адрес, указанный при регистрации.',
+        'A new verification link has been sent to the email address you provided during registration.' =>
+            'Новая ссылка для подтверждения была отправлена на Ваш email-адрес, указанный при регистрации.',
 
         'Already registered?' => 'Уже зарегистрированы?',
         'Confirm'             => 'Подтвердить',
@@ -35,7 +36,8 @@ class BreezeJsonTest extends BaseJsonTestCase
         'Email Password Reset Link' => 'Ссылка для сброса пароля',
         'Forgot your password?'     => 'Забыли пароль?',
 
-        'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.' => 'Забыли пароль? Нет проблем. Просто сообщите Ваш email-адрес и мы пришлём Вам ссылку для сброса пароля.',
+        'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.' =>
+            'Забыли пароль? Нет проблем. Просто сообщите Ваш email-адрес и мы пришлём Вам ссылку для сброса пароля.',
 
         'Log in'      => 'Войти',
         'Log Out'     => 'Выйти',
@@ -48,9 +50,11 @@ class BreezeJsonTest extends BaseJsonTestCase
 
         'Reset Password' => 'Сбросить пароль',
 
-        'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.' => 'Спасибо за регистрацию! Прежде чем начать, не могли бы Вы подтвердить адрес своей электронной почты перейдя по ссылке, которую мы Вам отправили? Если Вы не получили письмо, мы с радостью отправим новое.',
+        'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.' =>
+            'Спасибо за регистрацию! Прежде чем начать, не могли бы Вы подтвердить адрес своей электронной почты перейдя по ссылке, которую мы Вам отправили? Если Вы не получили письмо, мы с радостью отправим новое.',
 
-        'This is a secure area of the application. Please confirm your password before continuing.' => 'Это защищённая область приложения. Пожалуйста, подтвердите Ваш пароль, прежде чем продолжить.',
+        'This is a secure area of the application. Please confirm your password before continuing.' =>
+            'Это защищённая область приложения. Пожалуйста, подтвердите Ваш пароль, прежде чем продолжить.',
 
         'Whoops! Something went wrong.' => 'Упс! Что-то пошло не так.',
     ];

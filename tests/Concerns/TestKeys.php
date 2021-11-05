@@ -21,6 +21,8 @@ namespace Tests\Concerns;
 
 trait TestKeys
 {
+    use Backtrace;
+
     protected $trans_prefix;
 
     protected $items = [];
@@ -34,8 +36,15 @@ trait TestKeys
 
     protected function testSame(string $expected, string $key, string $locale = null): void
     {
-        $message = static::class . ': ' . $this->trans_prefix . $key;
+        $message = $this->getTestMessage($key, $locale);
 
         $this->assertSame($expected, $this->trans($key, $locale), $message);
+    }
+
+    protected function getTestMessage(string $key, string $locale = null): string
+    {
+        $method = $this->getCalledMethod();
+
+        return sprintf('%s::%s(%s): %s%s', static::class, $method, $locale, $this->trans_prefix, $key);
     }
 }
