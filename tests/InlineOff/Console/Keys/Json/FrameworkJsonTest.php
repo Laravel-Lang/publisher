@@ -39,10 +39,10 @@ class FrameworkJsonTest extends BaseJsonTestCase
         'If you did not request a password reset, no further action is required.' =>
             'Если Вы не запрашивали сброс пароля, то дополнительных действий не требуется.',
 
-        "If you're having trouble clicking the \':actionText\' button, copy and paste the URL below\ninto your web browser:" =>
+        "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:" =>
             "Если у Вас возникли проблемы с кликом по кнопке \":actionText\", скопируйте и вставьте адрес\nв адресную строку браузера:",
 
-        "If you’re having trouble clicking the \':actionText\' button, copy and paste the URL below\ninto your web browser:" =>
+        "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:" =>
             "Если у Вас возникли проблемы с кликом по кнопке \":actionText\", скопируйте и вставьте адрес\nв адресную строку браузера:",
 
         'Login'  => 'Войти',
