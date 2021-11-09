@@ -1,4 +1,4 @@
-# Lang Publisher
+# Publisher
 
 Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link_jetstream], [Fortify][link_fortify],
 [Cashier][link_cashier], [Spark][link_spark] and [Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
@@ -7,7 +7,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 
 <p align="center">
     [
-        <a href="https://andrey-helldar.github.io/laravel-lang-publisher">Documentation</a> |
+        <a href="https://laravel-lang.github.io/laravel-lang-publisher">Documentation</a> |
         <a href="https://laravel-lang.github.io/lang/status.html">Translation status</a>
     ]
 </p>
@@ -26,13 +26,6 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 ## License
 
 This package is licensed under the [MIT License](LICENSE).
-
-
-## For Enterprise
-
-Available as part of the Tidelift Subscription.
-
-The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo).
 
 
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/laravel-lang-publisher/phpunit?style=flat-square
