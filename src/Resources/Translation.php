@@ -50,7 +50,7 @@ class Translation implements Resource
     {
         $values = $this->translations[$target][$locale] ?? [];
 
-        $this->translations[$target][$locale] = $this->merge($values, $translations);
+        $this->translations[$target][$locale] = $this->mergeArray($values, $translations);
 
         return $this;
     }
