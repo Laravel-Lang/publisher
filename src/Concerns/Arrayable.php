@@ -25,7 +25,7 @@ trait Arrayable
 {
     protected function combine(array ...$arrays): array
     {
-        return Arr::combine($arrays);
+        return Arr::combine(...$arrays);
     }
 
     protected function mergeArray(array ...$arrays): array
