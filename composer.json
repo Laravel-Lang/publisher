@@ -40,7 +40,7 @@
         "ext-json": "*",
         "dragon-code/contracts": "^1.21.1",
         "andrey-helldar/pretty-array": "^2.4",
-        "andrey-helldar/support": "^4.6",
+        "andrey-helldar/support": "^4.8",
         "illuminate/console": "^7.0|^8.0|^9.0",
         "illuminate/contracts": "^7.0|^8.0|^9.0",
         "illuminate/support": "^7.0|^8.0|^9.0",

@@ -40,7 +40,7 @@ class Translation implements Resource
     {
         $values = $this->keys[$target] ?? [];
 
-        $this->keys[$target] = $this->merge($values, $keys);
+        $this->keys[$target] = $this->combine($values, $keys);
 
         return $this;
     }
@@ -57,6 +57,11 @@ class Translation implements Resource
     public function getTranslations(): array
     {
         return $this->translations;
+    }
+
+    protected function combine(array ...$arrays): array
+    {
+        return Arr::combine($arrays);
     }
 
     protected function merge(array ...$arrays): array
