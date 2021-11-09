@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Comparators;
 
 use Helldar\Contracts\LangPublisher\Comparator;
+use Helldar\LaravelLangPublisher\Concerns\Arrayable;
 use Helldar\LaravelLangPublisher\Concerns\Has;
 use Helldar\LaravelLangPublisher\Concerns\Paths;
 use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
@@ -28,6 +29,7 @@ use Helldar\Support\Facades\Helpers\Arr;
 
 abstract class Base implements Comparator
 {
+    use Arrayable;
     use Has;
     use Paths;
 
@@ -83,7 +85,7 @@ abstract class Base implements Comparator
             $this->extra($filename, $translated),
         );
 
-        return Arr::merge($main, $extra);
+        return $this->mergeArray($main, $extra);
     }
 
     protected function resource(string $filename, string $locale): array
@@ -151,17 +153,5 @@ abstract class Base implements Comparator
     protected function locales(string $filename): array
     {
         return array_keys($this->translations[$filename]);
-    }
-
-    protected function sortAndMerge(array ...$arrays): array
-    {
-        $array = Arr::merge(...$arrays);
-
-        return $this->sort($array);
-    }
-
-    protected function sort(array $array): array
-    {
-        return Arr::ksort($array);
     }
 }

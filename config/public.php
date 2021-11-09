@@ -17,8 +17,6 @@
 
 declare(strict_types=1);
 
-use Helldar\PrettyArray\Contracts\Caseable;
-
 return [
     /*
      * Determines what type of files to use when updating language files.
@@ -59,16 +57,16 @@ return [
      *
      * Available values:
      *
-     *   Helldar\PrettyArray\Contracts\Caseable::NO_CASE      - Case does not change
-     *   Helldar\PrettyArray\Contracts\Caseable::CAMEL_CASE   - camelCase
-     *   Helldar\PrettyArray\Contracts\Caseable::KEBAB_CASE   - kebab-case
-     *   Helldar\PrettyArray\Contracts\Caseable::PASCAL_CASE  - PascalCase
-     *   Helldar\PrettyArray\Contracts\Caseable::SNAKE_CASE   - snake_case
+     *   0 - Case does not change
+     *   1 - camelCase
+     *   2 - snake_case
+     *   3 - kebab-case
+     *   4 - PascalCase
      *
-     * By default, Caseable::NO_CASE
+     * By default, 0
      */
 
-    'case' => Caseable::NO_CASE,
+    'case' => 0,
 
     /*
      * Determines from which plugins to synchronize localization files.
@@ -77,7 +75,6 @@ return [
      */
 
     'plugins' => [
-        // \LaravelLang\Lang\Publisher\Provider::class,
         // \LaravelLang\HttpStatuses\Provider::class,
     ],
 ];

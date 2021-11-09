@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\InlineOff\Helpers;
+namespace Tests\Main;
 
 use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;

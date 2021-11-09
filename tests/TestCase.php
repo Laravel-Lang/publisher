@@ -27,7 +27,6 @@ use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
 use Helldar\LaravelLangPublisher\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
@@ -43,7 +42,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $fallback = Locales::GERMAN;
 
-    protected $locale = Locales::ALBANIAN;
+    protected $locale = Locales::RUSSIAN;
 
     protected $locales = [
         LocalesList::BULGARIAN,
@@ -138,9 +137,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function installLocales(): void
     {
-        Artisan::call('lang:add', [
+        $this->artisan('lang:add', [
             'locales' => [$this->default, $this->fallback],
-        ]);
+        ])->run();
     }
 
     protected function emulatePackages(): void
@@ -183,6 +182,7 @@ abstract class TestCase extends BaseTestCase
             LocalesList::GERMAN,
             LocalesList::GERMAN_SWITZERLAND,
             LocalesList::GREEK,
+            LocalesList::GUJARATI,
             LocalesList::HEBREW,
             LocalesList::HINDI,
             LocalesList::HUNGARIAN,

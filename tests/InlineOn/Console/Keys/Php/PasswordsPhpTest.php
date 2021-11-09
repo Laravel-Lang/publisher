@@ -1,0 +1,35 @@
+<?php
+
+/*
+ * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@ai-rus.com>
+ *
+ * @copyright 2021 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ */
+
+declare(strict_types=1);
+
+namespace Tests\InlineOn\Console\Keys\Php;
+
+use Tests\InlineOn\Console\Keys\BasePhpTestCase;
+
+class PasswordsPhpTest extends BasePhpTestCase
+{
+    protected $trans_prefix = 'passwords.';
+
+    protected $items = [
+        'reset'     => ['Your password has been reset!', 'Ваш пароль был сброшен!'],
+        'sent'      => ['We have emailed your password reset link!', 'Ссылка на сброс пароля была отправлена!'],
+        'throttled' => ['Please wait before retrying.', 'Пожалуйста, подождите перед повторной попыткой.'],
+        'token'     => ['This password reset token is invalid.', 'Ошибочный код сброса пароля.'],
+        'user'      => ['We can\'t find a user with that email address.', 'Не удалось найти пользователя с указанным электронным адресом.'],
+    ];
+}

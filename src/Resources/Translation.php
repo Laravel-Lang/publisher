@@ -20,11 +20,12 @@ declare(strict_types=1);
 namespace Helldar\LaravelLangPublisher\Resources;
 
 use Helldar\Contracts\LangPublisher\Translation as Resource;
+use Helldar\LaravelLangPublisher\Concerns\Arrayable;
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Arr;
 
 class Translation implements Resource
 {
+    use Arrayable;
     use Makeable;
 
     protected $keys = [];
@@ -40,7 +41,7 @@ class Translation implements Resource
     {
         $values = $this->keys[$target] ?? [];
 
-        $this->keys[$target] = $this->merge($keys, $values);
+        $this->keys[$target] = $this->combine($values, $keys);
 
         return $this;
     }
@@ -49,7 +50,7 @@ class Translation implements Resource
     {
         $values = $this->translations[$target][$locale] ?? [];
 
-        $this->translations[$target][$locale] = $this->merge($translations, $values);
+        $this->translations[$target][$locale] = $this->mergeArray($values, $translations);
 
         return $this;
     }
@@ -57,10 +58,5 @@ class Translation implements Resource
     public function getTranslations(): array
     {
         return $this->translations;
-    }
-
-    protected function merge(array ...$arrays): array
-    {
-        return Arr::merge(...$arrays);
     }
 }

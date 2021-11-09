@@ -89,7 +89,7 @@ class ResetTest extends InlineOnTestCase
         $this->assertSame('This is Bar', __('Bar'));
         $this->assertSame('This is Baz', __('Baz'));
 
-        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('All rights reserved.', __('All rights reserved.'));
         $this->assertSame('Confirm Password', __('Confirm Password'));
     }
 

@@ -38,7 +38,7 @@ trait Has
     {
         $name = $this->filename($filename);
 
-        return Str::startsWith($name, 'validation');
+        return Str::startsWith(Str::lower($name), 'validation');
     }
 
     protected function hasAlignment(): bool
