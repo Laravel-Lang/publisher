@@ -1,5 +1,5 @@
 {
-    "name": "andrey-helldar/laravel-lang-publisher",
+    "name": "laravel-lang/publisher",
     "description": "Publisher lang files for the Laravel and Lumen Frameworks, Jetstream, Fortify, Cashier, Spark and Nova from Laravel-Lang/lang",
     "type": "library",
     "license": "MIT",
@@ -32,8 +32,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/laravel-lang-publisher/issues",
-        "source": "https://github.com/andrey-helldar/laravel-lang-publisher"
+        "issues": "https://github.com/laravel-lang/laravel-lang-publisher/issues",
+        "source": "https://github.com/laravel-lang/laravel-lang-publisher"
     },
     "require": {
         "php": "^7.3|^8.0",
