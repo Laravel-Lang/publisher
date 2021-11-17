@@ -15,12 +15,8 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
-[![License][badge_license]][link_license]
-
-[![StyleCI Status][badge_styleci]][link_styleci]
 [![Github Workflow Status][badge_build]][link_build]
-[![Coverage Status][badge_coverage]][link_scrutinizer]
-[![Scrutinizer Code Quality][badge_quality]][link_scrutinizer]
+[![License][badge_license]][link_license]
 
 
 ## License
@@ -30,23 +26,11 @@ This package is licensed under the [MIT License](LICENSE).
 
 [badge_build]:          https://img.shields.io/github/workflow/status/laravel-lang/publisher/phpunit?style=flat-square
 
-[badge_coming_soon]:    https://img.shields.io/badge/coming%20soon-blue?style=flat-square
-
-[badge_coverage]:       https://img.shields.io/scrutinizer/coverage/g/laravel-lang/publisher.svg?style=flat-square
-
 [badge_downloads]:      https://img.shields.io/packagist/dt/laravel-lang/publisher.svg?style=flat-square
 
 [badge_license]:        https://img.shields.io/packagist/l/laravel-lang/publisher.svg?style=flat-square
 
-[badge_not_supported]:  https://img.shields.io/badge/not%20supported-lightgrey?style=flat-square
-
-[badge_quality]:        https://img.shields.io/scrutinizer/g/laravel-lang/publisher.svg?style=flat-square
-
 [badge_stable]:         https://img.shields.io/github/v/release/laravel-lang/publisher?label=stable&style=flat-square
-
-[badge_styleci]:        https://styleci.io/repos/119022335/shield
-
-[badge_supported]:      https://img.shields.io/badge/supported-green?style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
@@ -68,8 +52,4 @@ This package is licensed under the [MIT License](LICENSE).
 
 [link_packagist]:       https://packagist.org/packages/laravel-lang/publisher
 
-[link_scrutinizer]:     https://scrutinizer-ci.com/g/laravel-lang/publisher/?branch=main
-
 [link_source]:          https://github.com/Laravel-Lang/lang
-
-[link_styleci]:         https://github.styleci.io/repos/119022335
