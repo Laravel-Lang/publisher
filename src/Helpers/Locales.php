@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,23 +12,23 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Helpers;
+namespace LaravelLang\Publisher\Helpers;
 
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config as ConfigHelper;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
-use Helldar\Support\Facades\Helpers\Reflection;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Reflection;
 use Illuminate\Support\Facades\Config as Illuminate;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Constants\Locales as LocalesList;
+use LaravelLang\Publisher\Exceptions\SourceLocaleDoesntExistsException;
+use LaravelLang\Publisher\Facades\Helpers\Config as ConfigHelper;
 
 class Locales
 {

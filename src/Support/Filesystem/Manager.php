@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,18 +12,18 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Support\Filesystem;
+namespace LaravelLang\Publisher\Support\Filesystem;
 
-use Helldar\Contracts\Support\Filesystem;
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\Support\Concerns\Resolvable;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\Support\Filesystem;
+use DragonCode\Support\Concerns\Resolvable;
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Paths;
 
 class Manager
 {

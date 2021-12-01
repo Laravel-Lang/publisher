@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,18 +12,18 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Support\Filesystem;
+namespace LaravelLang\Publisher\Support\Filesystem;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\PrettyArray\Services\File as Pretty;
-use Helldar\PrettyArray\Services\Formatter;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\PrettyArray\Services\File as Pretty;
+use DragonCode\PrettyArray\Services\Formatter;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 
 class Php extends Base
 {

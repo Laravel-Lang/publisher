@@ -1,4 +1,4 @@
-name: phpunit
+name: "Laravel 8"
 on: [ push ]
 
 jobs:
@@ -8,10 +8,10 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "7.0", "8.0" ]
+                php: [ "7.3", "7.4", "8.0", "8.1" ]
+                laravel: [ "8.0" ]
 
-        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
+        name: PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
@@ -27,9 +27,7 @@ jobs:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Install dependencies
-                run: |
-                    composer require laravel/framework:^${{ matrix.laravel }}
-                    composer update --prefer-stable --prefer-dist --no-progress --no-interaction
+                run: composer require laravel/framework:^${{ matrix.laravel }}
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit

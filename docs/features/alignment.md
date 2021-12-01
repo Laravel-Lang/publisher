@@ -129,4 +129,4 @@ return [
 ];
 ```
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

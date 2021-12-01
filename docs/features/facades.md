@@ -7,7 +7,7 @@ Perhaps the facades will be useful to you:
 ## Locales
 
 ```php
-use Helldar\LaravelLangPublisher\Facades\Locales;
+use LaravelLang\Publisher\Facades\Locales;
 
 // List of available locations.
 Locales::available(): array
@@ -34,4 +34,4 @@ Locales::getDefault(): string
 Locales::getFallback(): string
 ```
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

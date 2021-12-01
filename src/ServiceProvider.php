@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,19 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher;
+namespace LaravelLang\Publisher;
 
-use Helldar\LaravelLangPublisher\Console\Add;
-use Helldar\LaravelLangPublisher\Console\Remove;
-use Helldar\LaravelLangPublisher\Console\Reset;
-use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelLang\Publisher\Console\Add;
+use LaravelLang\Publisher\Console\Remove;
+use LaravelLang\Publisher\Console\Reset;
+use LaravelLang\Publisher\Console\Update;
+use LaravelLang\Publisher\Constants\Config;
 
 class ServiceProvider extends BaseServiceProvider
 {

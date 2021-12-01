@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+  ~ This file is part of the "laravel-lang/publisher" project.
   ~
   ~ For the full copyright and license information, please view the LICENSE
   ~ file that was distributed with this source code.
@@ -12,7 +12,7 @@
   ~
   ~ @license MIT
   ~
-  ~ @see https://github.com/andrey-helldar/laravel-lang-publisher
+  ~ @see https://github.com/Laravel-Lang/publisher
   -->
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

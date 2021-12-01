@@ -32,28 +32,34 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/laravel-lang/laravel-lang-publisher/issues",
-        "source": "https://github.com/laravel-lang/laravel-lang-publisher"
+        "issues": "https://github.com/Laravel-Lang/publisher/issues",
+        "source": "https://github.com/Laravel-Lang/publisher"
     },
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "dragon-code/contracts": "^1.21.1",
-        "andrey-helldar/pretty-array": "^2.4",
-        "andrey-helldar/support": "^4.9.1",
+        "dragon-code/contracts": "^2.0",
+        "dragon-code/pretty-array": "^3.0",
+        "dragon-code/support": "^5.2",
         "illuminate/console": "^7.0|^8.0|^9.0",
         "illuminate/contracts": "^7.0|^8.0|^9.0",
         "illuminate/support": "^7.0|^8.0|^9.0",
-        "laravel-lang/lang": "^10.1.9"
+        "laravel-lang/lang": "^10.1.11"
     },
     "require-dev": {
         "orchestra/testbench": "^5.0|^6.0|^7.0",
         "phpunit/phpunit": "^9.4",
         "symfony/var-dumper": "^5.0|^6.0"
     },
+    "conflict": {
+        "andrey-helldar/laravel-lang-publisher": "*",
+        "dragon-code/contracts": "<2.0",
+        "dragon-code/pretty-array": "<3.0",
+        "dragon-code/support": "<5.0"
+    },
     "autoload": {
         "psr-4": {
-            "Helldar\\LaravelLangPublisher\\": "src",
+            "LaravelLang\\Publisher\\": "src",
             "LaravelLang\\Lang\\": "packages/laravel-lang"
         }
     },
@@ -71,7 +77,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Helldar\\LaravelLangPublisher\\ServiceProvider"
+                "LaravelLang\\Publisher\\ServiceProvider"
             ]
         }
     }

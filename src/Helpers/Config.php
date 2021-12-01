@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,19 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Helpers;
+namespace LaravelLang\Publisher\Helpers;
 
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\LaravelLangPublisher\Constants\Config as ConfigConst;
-use Helldar\LaravelLangPublisher\Exceptions\UnknownPluginInstanceException;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Instance;
+use DragonCode\Contracts\LangPublisher\Provider;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Instance;
 use Illuminate\Support\Facades\Config as Illuminate;
+use LaravelLang\Publisher\Constants\Config as ConfigConst;
+use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 
 class Config
 {

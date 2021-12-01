@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,22 +12,22 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
 namespace Tests;
 
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Constants\Config;
-use Helldar\LaravelLangPublisher\Constants\Locales;
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesList;
-use Helldar\LaravelLangPublisher\ServiceProvider;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\File;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Constants\Config;
+use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Publisher\Constants\Locales as LocalesList;
+use LaravelLang\Publisher\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
 use Tests\Providers\Provider;

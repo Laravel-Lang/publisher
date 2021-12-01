@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/laravel-lang-publisher" project.
+ * This file is part of the "laravel-lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,20 +12,20 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/laravel-lang-publisher
+ * @see https://github.com/Laravel-Lang/publisher
  */
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Comparators;
+namespace LaravelLang\Publisher\Comparators;
 
-use Helldar\Contracts\LangPublisher\Comparator;
-use Helldar\LaravelLangPublisher\Concerns\Arrayable;
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\LangPublisher\Comparator;
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Concerns\Arrayable;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Facades\Helpers\Config;
+use LaravelLang\Publisher\Facades\Support\Filesystem;
 
 abstract class Base implements Comparator
 {
@@ -52,6 +52,8 @@ abstract class Base implements Comparator
         $this->full = $full;
     }
 
+    abstract protected function merge(array $local, array $translated, array $excluded): array;
+
     public function get(): array
     {
         foreach ($this->filenames() as $filename) {
@@ -66,8 +68,6 @@ abstract class Base implements Comparator
 
         return $this->getResult();
     }
-
-    abstract protected function merge(array $local, array $translated, array $excluded): array;
 
     protected function compare(string $filename, string $locale): array
     {

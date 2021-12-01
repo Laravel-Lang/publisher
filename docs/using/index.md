@@ -15,4 +15,4 @@ Any changes you make will be saved in the translation files.
 * [Reset locales](reset.md)
 * [Remove locales](remove.md)
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher
