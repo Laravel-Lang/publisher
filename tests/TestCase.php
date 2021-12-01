@@ -22,6 +22,7 @@ namespace Tests;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\File;
+use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
 use LaravelLang\Publisher\Constants\Config;
@@ -74,7 +75,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app): array
     {
-        return [ServiceProvider::class];
+        return [
+            ServiceProvider::class,
+            LangServiceProvider::class,
+        ];
     }
 
     protected function getEnvironmentSetUp($app)

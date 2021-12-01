@@ -75,6 +75,7 @@ return [
      */
 
     'plugins' => [
+        // \LaravelLang\Lang\Provider::class,
         // \LaravelLang\HttpStatuses\Provider::class,
     ],
 ];
