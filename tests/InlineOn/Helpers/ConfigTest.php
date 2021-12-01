@@ -21,7 +21,7 @@ namespace Tests\InlineOn\Helpers;
 
 use DragonCode\Contracts\LangPublisher\Plugin;
 use DragonCode\Contracts\LangPublisher\Provider;
-use DragonCode\PrettyArray\Contracts\Caseable;
+use DragonCode\Contracts\Pretty\Arr\Caseable;
 use Illuminate\Support\Facades\Config as Illuminate;
 use LaravelLang\Publisher\Constants\Config as Names;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
