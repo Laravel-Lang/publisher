@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Providers;
 
-use LaravelLang\Lang\Publisher\Provider as LaravelLang;
+use LaravelLang\Lang\Provider as LaravelLang;
 
 class Provider extends LaravelLang
 {
