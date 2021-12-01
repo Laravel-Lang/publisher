@@ -1,4 +1,4 @@
-# Laravel Lang: Publisher
+# Laravel Lang Publisher
 
 <img src="https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel" alt="Laravel Lang Publisher"/>
 
