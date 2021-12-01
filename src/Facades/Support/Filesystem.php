@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Facades\Support;
+namespace LaravelLang\Publisher\Facades\Support;
 
-use Helldar\LaravelLangPublisher\Support\Filesystem\Manager;
 use Illuminate\Support\Facades\Facade;
+use LaravelLang\Publisher\Support\Filesystem\Manager;
 
 /**
  * @method static array load(string $path)

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Console;
+namespace LaravelLang\Publisher\Console;
 
-use Helldar\LaravelLangPublisher\Processors\Remove as Processor;
+use LaravelLang\Publisher\Processors\Remove as Processor;
 
 class Remove extends Base
 {

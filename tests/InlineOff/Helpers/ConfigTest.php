@@ -19,13 +19,13 @@ declare(strict_types=1);
 
 namespace Tests\InlineOff\Helpers;
 
-use Helldar\Contracts\LangPublisher\Plugin;
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\LaravelLangPublisher\Constants\Config as Names;
-use Helldar\LaravelLangPublisher\Exceptions\UnknownPluginInstanceException;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\PrettyArray\Contracts\Caseable;
+use DragonCode\Contracts\LangPublisher\Plugin;
+use DragonCode\Contracts\LangPublisher\Provider;
+use DragonCode\PrettyArray\Contracts\Caseable;
 use Illuminate\Support\Facades\Config as Illuminate;
+use LaravelLang\Publisher\Constants\Config as Names;
+use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 use Tests\InlineOffTestCase;
 
 class ConfigTest extends InlineOffTestCase

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Exceptions;
+namespace LaravelLang\Publisher\Exceptions;
 
-use Helldar\Contracts\LangPublisher\Plugin;
+use DragonCode\Contracts\LangPublisher\Plugin;
 use RuntimeException;
 
 class UnknownPluginInstanceException extends RuntimeException

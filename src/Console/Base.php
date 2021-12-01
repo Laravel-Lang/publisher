@@ -17,20 +17,20 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Console;
+namespace LaravelLang\Publisher\Console;
 
-use Helldar\LaravelLangPublisher\Concerns\Ask;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
 use Illuminate\Console\Command;
+use LaravelLang\Publisher\Concerns\Ask;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Facades\Helpers\Config;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 
 abstract class Base extends Command
 {
     use Ask;
     use Paths;
 
-    /** @var \Helldar\Contracts\LangPublisher\Processor */
+    /** @var \DragonCode\Contracts\LangPublisher\Processor */
     protected $processor;
 
     public function handle()
@@ -67,7 +67,7 @@ abstract class Base extends Command
     }
 
     /**
-     * @return \Helldar\Contracts\LangPublisher\Provider[]
+     * @return \DragonCode\Contracts\LangPublisher\Provider[]
      */
     protected function plugins(): array
     {

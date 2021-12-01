@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Exceptions;
+namespace LaravelLang\Publisher\Exceptions;
 
 use RuntimeException;
 

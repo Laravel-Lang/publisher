@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Processors;
+namespace LaravelLang\Publisher\Processors;
 
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
+use DragonCode\Contracts\LangPublisher\Provider;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Facades\Support\Filesystem;
 
 class Remove extends BaseProcessor
 {

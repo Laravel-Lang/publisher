@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Constants;
+namespace LaravelLang\Publisher\Constants;
 
 /**
  * Based on ISO 15897.

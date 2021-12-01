@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Support\Filesystem;
+namespace LaravelLang\Publisher\Support\Filesystem;
 
-use Helldar\Contracts\Support\Filesystem;
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Contracts\Support\Filesystem;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Paths;
 
 abstract class Base implements Filesystem
 {

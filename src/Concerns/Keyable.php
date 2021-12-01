@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+namespace LaravelLang\Publisher\Concerns;
 
 trait Keyable
 {

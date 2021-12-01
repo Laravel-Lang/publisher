@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Processors;
+namespace LaravelLang\Publisher\Processors;
 
-use Helldar\Contracts\LangPublisher\Processor;
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\LaravelLangPublisher\Concerns\Has;
-use Helldar\LaravelLangPublisher\Concerns\Keyable;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Resources\Translation;
+use DragonCode\Contracts\LangPublisher\Processor;
+use DragonCode\Contracts\LangPublisher\Provider;
+use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Keyable;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Resources\Translation;
 
 abstract class BaseProcessor implements Processor
 {
@@ -38,10 +38,10 @@ abstract class BaseProcessor implements Processor
     /** @var array */
     protected $locales = [];
 
-    /** @var \Helldar\LaravelLangPublisher\Resources\Translation */
+    /** @var \LaravelLang\Publisher\Resources\Translation */
     protected $resources;
 
-    /** @var \Helldar\Contracts\LangPublisher\Comparator */
+    /** @var \DragonCode\Contracts\LangPublisher\Comparator */
     protected $comparator;
 
     /** @var bool */

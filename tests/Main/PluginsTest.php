@@ -54,7 +54,7 @@ class PluginsTest extends TestCase
 
     protected function testPlugin(string $class, bool $expected)
     {
-        /** @var \Helldar\Contracts\LangPublisher\Plugin $instance */
+        /** @var \DragonCode\Contracts\LangPublisher\Plugin $instance */
         $instance = new $class();
 
         $actual = $instance->has();

@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Lang\Publisher;
 
-use Helldar\LaravelLangPublisher\Plugins\BaseProvider;
 use LaravelLang\Lang\Publisher\Plugins\Breeze;
 use LaravelLang\Lang\Publisher\Plugins\Cashier;
 use LaravelLang\Lang\Publisher\Plugins\Fortify;
@@ -29,6 +28,7 @@ use LaravelLang\Lang\Publisher\Plugins\Lumen;
 use LaravelLang\Lang\Publisher\Plugins\Nova;
 use LaravelLang\Lang\Publisher\Plugins\SparkPaddle;
 use LaravelLang\Lang\Publisher\Plugins\SparkStripe;
+use LaravelLang\Publisher\Plugins\BaseProvider;
 
 class Provider extends BaseProvider
 {
@@ -38,7 +38,7 @@ class Provider extends BaseProvider
     }
 
     /**
-     * @return \Helldar\Contracts\LangPublisher\Plugin[]
+     * @return \DragonCode\Contracts\LangPublisher\Plugin[]
      */
     public function plugins(): array
     {

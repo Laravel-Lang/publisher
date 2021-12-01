@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\InlineOn\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\InlineOnTestCase;
 
 class RemoveTest extends InlineOnTestCase

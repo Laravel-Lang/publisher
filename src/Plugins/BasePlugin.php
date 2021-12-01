@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Plugins;
+namespace LaravelLang\Publisher\Plugins;
 
-use Helldar\Contracts\LangPublisher\Plugin;
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Contracts\LangPublisher\Plugin;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use LaravelLang\Publisher\Concerns\Paths;
 
 abstract class BasePlugin implements Plugin
 {

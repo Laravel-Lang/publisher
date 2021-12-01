@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Processors;
+namespace LaravelLang\Publisher\Processors;
 
-use Helldar\LaravelLangPublisher\Comparators\Reset as Comparator;
+use LaravelLang\Publisher\Comparators\Reset as Comparator;
 
 class Reset extends Add
 {

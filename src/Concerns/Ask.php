@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+namespace LaravelLang\Publisher\Concerns;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 
 trait Ask
 {

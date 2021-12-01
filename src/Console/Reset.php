@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Console;
+namespace LaravelLang\Publisher\Console;
 
-use Helldar\LaravelLangPublisher\Processors\Reset as Processor;
+use LaravelLang\Publisher\Processors\Reset as Processor;
 
 class Reset extends Base
 {

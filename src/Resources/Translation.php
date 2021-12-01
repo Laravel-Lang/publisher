@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Resources;
+namespace LaravelLang\Publisher\Resources;
 
-use Helldar\Contracts\LangPublisher\Translation as Resource;
-use Helldar\LaravelLangPublisher\Concerns\Arrayable;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\LangPublisher\Translation as Resource;
+use DragonCode\Support\Concerns\Makeable;
+use LaravelLang\Publisher\Concerns\Arrayable;
 
 class Translation implements Resource
 {

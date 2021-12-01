@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Console;
+namespace LaravelLang\Publisher\Console;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Helldar\LaravelLangPublisher\Processors\Add as Processor;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Processors\Add as Processor;
 
 class Update extends Base
 {

@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Plugins;
+namespace LaravelLang\Publisher\Plugins;
 
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\LangPublisher\Provider;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 abstract class BaseProvider implements Provider
 {

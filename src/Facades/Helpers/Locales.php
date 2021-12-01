@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Facades\Helpers;
+namespace LaravelLang\Publisher\Facades\Helpers;
 
-use Helldar\LaravelLangPublisher\Helpers\Locales as Helper;
 use Illuminate\Support\Facades\Facade;
+use LaravelLang\Publisher\Helpers\Locales as Helper;
 
 /**
  * @method static array available()

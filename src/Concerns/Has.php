@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+namespace LaravelLang\Publisher\Concerns;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Str;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 
 /**
- * @mixin \Helldar\LaravelLangPublisher\Concerns\Paths
+ * @mixin \LaravelLang\Publisher\Concerns\Paths
  */
 trait Has
 {

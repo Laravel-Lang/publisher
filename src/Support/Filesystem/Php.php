@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Support\Filesystem;
+namespace LaravelLang\Publisher\Support\Filesystem;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\PrettyArray\Services\File as Pretty;
-use Helldar\PrettyArray\Services\Formatter;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\PrettyArray\Services\File as Pretty;
+use DragonCode\PrettyArray\Services\Formatter;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 
 class Php extends Base
 {

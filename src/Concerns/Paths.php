@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+namespace LaravelLang\Publisher\Concerns;
 
-use Helldar\LaravelLangPublisher\Facades\Helpers\Config;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Support\Collection;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 
 trait Paths
 {

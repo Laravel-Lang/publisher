@@ -19,11 +19,11 @@ declare(strict_types=1);
 
 namespace Tests\Main;
 
-use Helldar\LaravelLangPublisher\Concerns\Paths;
-use Helldar\LaravelLangPublisher\Constants\Locales as LocalesConst;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use LaravelLang\Publisher\Concerns\Paths;
+use LaravelLang\Publisher\Constants\Locales as LocalesConst;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\TestCase;
 
 class MissingTest extends TestCase

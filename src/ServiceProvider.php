@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher;
+namespace LaravelLang\Publisher;
 
-use Helldar\LaravelLangPublisher\Console\Add;
-use Helldar\LaravelLangPublisher\Console\Remove;
-use Helldar\LaravelLangPublisher\Console\Reset;
-use Helldar\LaravelLangPublisher\Console\Update;
-use Helldar\LaravelLangPublisher\Constants\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelLang\Publisher\Console\Add;
+use LaravelLang\Publisher\Console\Remove;
+use LaravelLang\Publisher\Console\Reset;
+use LaravelLang\Publisher\Console\Update;
+use LaravelLang\Publisher\Constants\Config;
 
 class ServiceProvider extends BaseServiceProvider
 {

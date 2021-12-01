@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Support\Filesystem;
+namespace LaravelLang\Publisher\Support\Filesystem;
 
-use Helldar\PrettyArray\Services\File as Pretty;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\PrettyArray\Services\File as Pretty;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
 
 class Json extends Base
 {

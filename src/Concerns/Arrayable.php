@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Concerns;
+namespace LaravelLang\Publisher\Concerns;
 
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 trait Arrayable
 {

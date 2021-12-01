@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace Tests\InlineOn\Console;
 
-use Helldar\LaravelLangPublisher\Exceptions\SourceLocaleDoesntExistsException;
-use Helldar\LaravelLangPublisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Exceptions\SourceLocaleDoesntExistsException;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\InlineOnTestCase;
 
 class ResetTest extends InlineOnTestCase

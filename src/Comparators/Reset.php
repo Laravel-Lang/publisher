@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Comparators;
+namespace LaravelLang\Publisher\Comparators;
 
 class Reset extends Base
 {

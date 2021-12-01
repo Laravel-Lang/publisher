@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Helldar\LaravelLangPublisher\Processors;
+namespace LaravelLang\Publisher\Processors;
 
-use Helldar\Contracts\LangPublisher\Provider;
-use Helldar\LaravelLangPublisher\Comparators\Add as Comparator;
-use Helldar\LaravelLangPublisher\Constants\Locales;
-use Helldar\LaravelLangPublisher\Constants\Path;
-use Helldar\LaravelLangPublisher\Facades\Support\Filesystem;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Contracts\LangPublisher\Provider;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use LaravelLang\Publisher\Comparators\Add as Comparator;
+use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Publisher\Constants\Path;
+use LaravelLang\Publisher\Facades\Support\Filesystem;
 
 class Add extends BaseProcessor
 {
