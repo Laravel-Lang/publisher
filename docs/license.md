@@ -15,4 +15,4 @@ AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABL
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-[link_source]:          https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

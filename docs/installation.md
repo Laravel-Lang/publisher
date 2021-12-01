@@ -2,10 +2,10 @@
 
 # Installation
 
-To get the latest version of Laravel Lang Publisher, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Laravel Lang Publisher`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/laravel-lang-publisher --dev
+$ composer require laravel-lang/publisher --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -13,7 +13,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "laravel-lang/publisher": "^10.3"
+        "laravel-lang/publisher": "^11.0"
     }
 }
 ```
@@ -23,7 +23,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 You can also publish the config file to change implementations (ie. interface to specific class):
 
 ```
-php artisan vendor:publish --provider="Helldar\LaravelLangPublisher\ServiceProvider"
+php artisan vendor:publish --provider="LaravelLang\Publisher\ServiceProvider"
 ```
 
 #### Lumen Framework
@@ -42,8 +42,15 @@ the `Register Service Providers` section of your `bootstrap/app.php`.
 
 ```php
 if ($app->environment() !== 'production') {
-    $app->register(\Helldar\LaravelLangPublisher\ServiceProvider::class);
+    $app->register(\LaravelLang\Publisher\ServiceProvider::class);
 }
 ```
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+## Upgrade from `andrey-helldar/laravel-lang-publisher`
+
+1. Replace `"andrey-helldar/laravel-lang-publisher": "^10.0"` with `"laravel-lang/publisher": "^11.0"` in the `composer.json` file;
+2. Replace the `Helldar\LaravelLangPublisher` namespace prefix with `LaravelLang\Publisher` in your application;
+2. Remove the `Helldar\PrettyArray\Contracts\Caseable` from `config/lang-publisher.php` file;
+3. Call the `composer update` console command.
+
+[link_source]:  https://github.com/Laravel-Lang/publisher

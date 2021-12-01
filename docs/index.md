@@ -13,9 +13,7 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 
 ## Table of contents
 
-* [Changelog](changelog/index.md)
-    * [10.x](changelog/10-x.md)
-    * [9.x](changelog/9-x.md)
+* [Changelog](changelog.md)
 * [Installation](installation.md)
 * [Compatibility](compatibility.md)
 * [Using](using/index.md)
@@ -38,20 +36,11 @@ Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link
 This package is licensed under the [MIT License](license.md).
 
 
-## For Enterprise
+[badge_downloads]:      https://img.shields.io/packagist/dt/laravel-lang/publisher.svg?style=flat-square
 
-Available as part of the Tidelift Subscription.
+[badge_license]:        https://img.shields.io/packagist/l/laravel-lang/publisher.svg?style=flat-square
 
-The maintainers of `andrey-helldar/laravel-lang-publisher` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open
-source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you
-use. [Learn more][link_tidelift].
-
-
-[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-
-[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/laravel-lang-publisher.svg?style=flat-square
-
-[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/laravel-lang-publisher?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/laravel-lang/publisher?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
@@ -63,16 +52,12 @@ use. [Learn more][link_tidelift].
 
 [link_laravel]:         https://laravel.com
 
-[link_laravel_lang]:    https://github.com/Laravel-Lang/lang
-
 [link_license]:         license.md
 
 [link_nova]:            https://nova.laravel.com
 
-[link_packagist]:       https://packagist.org/packages/andrey-helldar/laravel-lang-publisher
+[link_packagist]:       https://packagist.org/packages/laravel-lang/publisher
 
-[link_source]:          https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:          https://github.com/Laravel-Lang/publisher
 
 [link_spark]:           https://spark.laravel.com
-
-[link_tidelift]:        https://tidelift.com/subscription/pkg/packagist-andrey-helldar-laravel-lang-publisher?utm_source=packagist-andrey-helldar-laravel-lang-publisher&utm_medium=referral&utm_campaign=enterprise&utm_term=repo

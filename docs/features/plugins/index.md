@@ -29,7 +29,7 @@ In order for the manager to successfully process the specified package, its stru
 ```
 source/          - The directory must include files with English localization (original).
 locales/         - The directory includes a list of folders with localization names.
-   <locale>/     - The list of valid names is in the Helldar\LaravelLangPublisher\Constants\Locales.
+   <locale>/     - The list of valid names is in the LaravelLang\Publisher\Constants\Locales.
       // files   - Any number of json and php files in the directory.
                    Condition: the file names must match the names from the `source` folder.
 ```
@@ -41,8 +41,8 @@ If files with the same names exist in different packages, for example, `custom.p
 Also, if these files contain matching keys from other packages, the key will eventually be saved with the package specified at the bottom of the list in the `plugins` key of
 the `config/lang-publisher.php` file.
 
-> For ease of development, use a ready-made [`andrey-helldar/translations-template`](https://github.com/andrey-helldar/translations-template).
+> For ease of development, use a ready-made [Translations Template](https://github.com/Laravel-Lang/translations-template).
 
 It's all. Enjoy! 😊
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

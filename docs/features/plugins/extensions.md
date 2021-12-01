@@ -8,4 +8,4 @@ List of official packages working with the translation manager:
 |:---|:---|
 | [laravel-lang/http-statuses](https://github.com/Laravel-Lang/http-statuses) | List of 77 languages for HTTP statuses |
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

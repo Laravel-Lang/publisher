@@ -22,4 +22,4 @@ php artisan lang:reset --full de
 php artisan lang:reset --full
 ```
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher

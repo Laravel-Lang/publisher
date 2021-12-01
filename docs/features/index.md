@@ -8,4 +8,4 @@
 * [Facades](facades.md)
     * [Locales](facades.md#locales)
 
-[link_source]:  https://github.com/andrey-helldar/laravel-lang-publisher
+[link_source]:  https://github.com/Laravel-Lang/publisher
