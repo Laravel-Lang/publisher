@@ -25,8 +25,8 @@ return [
      * `false` means that default files will be used.
      *
      * The difference between them can be seen here:
-     * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation.php
-     * @see https://github.com/Laravel-Lang/lang/blob/master/script/en/validation-inline.php
+     * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation.php
+     * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation-inline.php
      *
      * By default, `true`.
      */
@@ -71,7 +71,7 @@ return [
     /*
      * Determines from which plugins to synchronize localization files.
      *
-     * @see https://github.com/andrey-helldar/translations-template
+     * @see https://github.com/Laravel-Lang/translations-template
      */
 
     'plugins' => [
