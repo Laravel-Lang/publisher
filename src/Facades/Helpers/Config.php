@@ -28,12 +28,14 @@ use LaravelLang\Publisher\Helpers\Config as Helper;
  * @method static bool hasAlignment()
  * @method static bool hasInline()
  * @method static int case()
+ * @method static string privateKey(string $suffix)
+ * @method static string publicKey(string $suffix)
  * @method static string resources()
  * @method static string vendor()
  */
 class Config extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }
