@@ -22,6 +22,7 @@ namespace Tests;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use Illuminate\Support\Facades\File;
+use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
 use LaravelLang\Publisher\Constants\Config;
@@ -30,7 +31,6 @@ use LaravelLang\Publisher\Constants\Locales as LocalesList;
 use LaravelLang\Publisher\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
-use Tests\Providers\Provider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -74,7 +74,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app): array
     {
-        return [ServiceProvider::class];
+        return [
+            LangServiceProvider::class,
+            ServiceProvider::class,
+        ];
     }
 
     protected function getEnvironmentSetUp($app)
@@ -85,18 +88,14 @@ abstract class TestCase extends BaseTestCase
         $config->set('app.locale', $this->default);
         $config->set('app.fallback_locale', $this->fallback);
 
-        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
-
         $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
+
+        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
         $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],
 
             '{locale}' => ['All rights reserved.', 'Baz'],
-        ]);
-
-        $config->set(Config::PRIVATE_KEY . '.plugins', [
-            Provider::class,
         ]);
     }
 

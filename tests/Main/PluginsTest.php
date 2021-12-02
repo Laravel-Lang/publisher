@@ -19,15 +19,15 @@ declare(strict_types=1);
 
 namespace Tests\Main;
 
-use LaravelLang\Lang\Publisher\Plugins\Breeze;
-use LaravelLang\Lang\Publisher\Plugins\Cashier;
-use LaravelLang\Lang\Publisher\Plugins\Fortify;
-use LaravelLang\Lang\Publisher\Plugins\Jetstream;
-use LaravelLang\Lang\Publisher\Plugins\Laravel;
-use LaravelLang\Lang\Publisher\Plugins\Lumen;
-use LaravelLang\Lang\Publisher\Plugins\Nova;
-use LaravelLang\Lang\Publisher\Plugins\SparkPaddle;
-use LaravelLang\Lang\Publisher\Plugins\SparkStripe;
+use LaravelLang\Lang\Plugins\Breeze;
+use LaravelLang\Lang\Plugins\Cashier;
+use LaravelLang\Lang\Plugins\Fortify;
+use LaravelLang\Lang\Plugins\Jetstream;
+use LaravelLang\Lang\Plugins\Laravel;
+use LaravelLang\Lang\Plugins\Lumen;
+use LaravelLang\Lang\Plugins\Nova;
+use LaravelLang\Lang\Plugins\SparkPaddle;
+use LaravelLang\Lang\Plugins\SparkStripe;
 use Tests\TestCase;
 
 class PluginsTest extends TestCase

@@ -67,14 +67,4 @@ return [
      */
 
     'case' => 0,
-
-    /*
-     * Determines from which plugins to synchronize localization files.
-     *
-     * @see https://github.com/Laravel-Lang/translations-template
-     */
-
-    'plugins' => [
-        // \LaravelLang\HttpStatuses\Provider::class,
-    ],
 ];

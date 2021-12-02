@@ -17,13 +17,7 @@
 
 declare(strict_types=1);
 
-use LaravelLang\Lang\Publisher\Provider as LaravelLang;
-
 return [
-    'plugins' => [
-        LaravelLang::class,
-    ],
-
     'path' => [
         'base' => base_path('vendor'),
 
