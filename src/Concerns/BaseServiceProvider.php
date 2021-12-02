@@ -22,11 +22,10 @@ namespace LaravelLang\Publisher\Concerns;
 use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Support\ServiceProvider;
 use LaravelLang\Publisher\Constants\Config;
-use LaravelLang\Publisher\Exceptions\ProviderNotDefinedException;
 
-class BaseServiceProvider extends ServiceProvider
+abstract class BaseServiceProvider extends ServiceProvider
 {
-    protected $provider;
+    abstract protected function getProvider(): string;
 
     public function register(): void
     {
@@ -40,15 +39,6 @@ class BaseServiceProvider extends ServiceProvider
         $plugins = $this->push($config);
 
         $this->setConfig($plugins);
-    }
-
-    protected function getProvider(): string
-    {
-        if ($this->provider) {
-            return $this->provider;
-        }
-
-        throw new ProviderNotDefinedException();
     }
 
     protected function push(array $plugins): array
