@@ -40,7 +40,7 @@ class Config
 
     public function plugins(): array
     {
-        $public = $this->getPublic('plugins', []);
+        $public = $this->getPrivate('plugins', []);
 
         return Arrayable::of($public)
             ->unique()
@@ -74,11 +74,21 @@ class Config
         return $this->getPublic('case');
     }
 
-    protected function getPrivate(string $key)
+    public function privateKey(string $suffix): string
+    {
+        return ConfigConst::PRIVATE_KEY . '.' . $suffix;
+    }
+
+    public function publicKey(string $suffix): string
+    {
+        return ConfigConst::PUBLIC_KEY . '.' . $suffix;
+    }
+
+    protected function getPrivate(string $key, $default = null)
     {
         $key = $this->privateKey($key);
 
-        return Illuminate::get($key);
+        return Illuminate::get($key, $default);
     }
 
     protected function getPublic(string $key, $default = null)
@@ -86,15 +96,5 @@ class Config
         $key = $this->publicKey($key);
 
         return Illuminate::get($key, $default);
-    }
-
-    protected function privateKey(string $suffix): string
-    {
-        return ConfigConst::PRIVATE_KEY . '.' . $suffix;
-    }
-
-    protected function publicKey(string $suffix): string
-    {
-        return ConfigConst::PUBLIC_KEY . '.' . $suffix;
     }
 }

@@ -21,7 +21,7 @@ namespace LaravelLang\Publisher\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Support\ServiceProvider;
-use LaravelLang\Publisher\Constants\Config;
+use LaravelLang\Publisher\Facades\Helpers\Config;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -51,18 +51,18 @@ abstract class BaseServiceProvider extends ServiceProvider
             ->get();
     }
 
-    protected function plugins(): array
-    {
-        return config($this->getConfigKey(), []);
-    }
-
     protected function setConfig(array $plugins): void
     {
         config()->set($this->getConfigKey(), $plugins);
     }
 
+    protected function plugins(): array
+    {
+        return Config::plugins();
+    }
+
     protected function getConfigKey(): string
     {
-        return Config::PRIVATE_KEY . '.plugins';
+        return Config::privateKey('plugins');
     }
 }
