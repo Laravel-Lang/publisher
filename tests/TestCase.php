@@ -88,9 +88,9 @@ abstract class TestCase extends BaseTestCase
         $config->set('app.locale', $this->default);
         $config->set('app.fallback_locale', $this->fallback);
 
-        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
-
         $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
+
+        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
         $config->set(Config::PUBLIC_KEY . '.excludes', [
             'auth' => ['failed'],

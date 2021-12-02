@@ -40,7 +40,7 @@ class Config
 
     public function plugins(): array
     {
-        $public = $this->getPublic('plugins');
+        $public = $this->getPublic('plugins', []);
 
         return Arrayable::of($public)
             ->unique()
@@ -81,11 +81,11 @@ class Config
         return Illuminate::get($key);
     }
 
-    protected function getPublic(string $key)
+    protected function getPublic(string $key, $default = null)
     {
         $key = $this->publicKey($key);
 
-        return Illuminate::get($key);
+        return Illuminate::get($key, $default);
     }
 
     protected function privateKey(string $suffix): string
