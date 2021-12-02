@@ -40,11 +40,9 @@ class Config
 
     public function plugins(): array
     {
-        $private = $this->getPrivate('plugins');
-        $public  = $this->getPublic('plugins');
+        $public = $this->getPublic('plugins');
 
         return Arrayable::of($public)
-            ->addUnique($private)
             ->unique()
             ->values()
             ->map(static function (string $plugin) {
