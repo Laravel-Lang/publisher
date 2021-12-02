@@ -21,7 +21,7 @@ namespace Tests;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
-use Illuminate\Support\Facades\File;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
 use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
