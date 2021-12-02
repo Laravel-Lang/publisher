@@ -22,9 +22,9 @@ namespace Tests\Main;
 use LaravelLang\Publisher\Constants\Locales as LocalesList;
 use LaravelLang\Publisher\Exceptions\SourceLocaleDoesntExistsException;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
-use Tests\InlineOffTestCase;
+use Tests\TestCase;
 
-class LocalesTest extends InlineOffTestCase
+class LocalesTest extends TestCase
 {
     public function testProtects()
     {

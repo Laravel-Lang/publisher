@@ -37,7 +37,9 @@ abstract class Base extends Command
     {
         $this->resolveProcessor();
 
-        $this->collecting();
+        $this->hasPlugins()
+            ? $this->collecting()
+            : $this->pluginsNotFound();
 
         $this->finish();
     }
@@ -66,6 +68,11 @@ abstract class Base extends Command
         }
     }
 
+    protected function pluginsNotFound(): void
+    {
+        $this->warn('Could not find plugins available for processing.');
+    }
+
     /**
      * @return \DragonCode\Contracts\LangPublisher\Provider[]
      */
@@ -82,6 +89,11 @@ abstract class Base extends Command
     protected function getAllLocales(): array
     {
         return Locales::installed();
+    }
+
+    protected function hasPlugins(): bool
+    {
+        return ! empty($this->plugins());
     }
 
     protected function hasFull(): bool
