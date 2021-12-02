@@ -53,13 +53,16 @@ abstract class BaseServiceProvider extends ServiceProvider
 
     protected function plugins(): array
     {
-        return config(Config::PUBLIC_KEY . '.plugins');
+        return config($this->getConfigKey(), []);
     }
 
     protected function setConfig(array $plugins): void
     {
-        $key = Config::PUBLIC_KEY . '.plugins';
+        config()->set($this->getConfigKey(), $plugins);
+    }
 
-        config()->set($key, $plugins);
+    protected function getConfigKey(): string
+    {
+        return Config::PRIVATE_KEY . '.plugins';
     }
 }
