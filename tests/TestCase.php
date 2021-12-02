@@ -31,7 +31,6 @@ use LaravelLang\Publisher\Constants\Locales as LocalesList;
 use LaravelLang\Publisher\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
-use Tests\Providers\Provider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -76,8 +75,8 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            ServiceProvider::class,
             LangServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
@@ -97,10 +96,6 @@ abstract class TestCase extends BaseTestCase
             'auth' => ['failed'],
 
             '{locale}' => ['All rights reserved.', 'Baz'],
-        ]);
-
-        $config->set(Config::PRIVATE_KEY . '.plugins', [
-            Provider::class,
         ]);
     }
 
