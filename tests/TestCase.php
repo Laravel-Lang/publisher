@@ -22,7 +22,6 @@ namespace Tests;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Filesystem\File;
-use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
 use LaravelLang\Publisher\Constants\Config;
@@ -31,6 +30,7 @@ use LaravelLang\Publisher\Constants\Locales as LocalesList;
 use LaravelLang\Publisher\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
+use Tests\Lang\ServiceProvider as LangServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {

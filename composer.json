@@ -59,7 +59,8 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelLang\\Publisher\\": "src"
+            "LaravelLang\\Publisher\\": "src",
+            "LaravelLang\\Lang\\": "packages/lang"
         }
     },
     "autoload-dev": {

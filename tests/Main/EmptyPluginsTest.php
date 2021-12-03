@@ -41,6 +41,6 @@ class EmptyPluginsTest extends TestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(Config::PUBLIC_KEY . '.plugins', []);
+        $config->set(Config::PRIVATE_KEY . '.plugins', []);
     }
 }
