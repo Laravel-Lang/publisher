@@ -1,9 +1,6 @@
-# Laravel Lang: Publisher
+# Laravel Lang Publisher
 
-<img src="https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel" alt="Laravel Lang Publisher"/>
-
-Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link_jetstream], [Fortify][link_fortify],
-[Cashier][link_cashier], [Spark][link_spark] and [Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
+![laravel lang publisher](https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel)
 
 <p align="center">
     [
@@ -36,20 +33,6 @@ This package is licensed under the [MIT License](LICENSE).
 
 [link_build]:           https://github.com/laravel-lang/publisher/actions
 
-[link_cashier]:         https://laravel.com/docs/8.x/billing
-
-[link_fortify]:         https://github.com/laravel/fortify
-
-[link_jetstream]:       https://jetstream.laravel.com
-
-[link_laravel]:         https://laravel.com
-
 [link_license]:         LICENSE
 
-[link_nova]:            https://nova.laravel.com
-
-[link_spark]:           https://spark.laravel.com
-
 [link_packagist]:       https://packagist.org/packages/laravel-lang/publisher
-
-[link_source]:          https://github.com/Laravel-Lang/lang

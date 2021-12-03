@@ -2,8 +2,7 @@
 
 # Laravel Lang Publisher
 
-Publisher lang files for the [Laravel Framework][link_laravel], [Jetstream][link_jetstream], [Fortify][link_fortify],
-[Cashier][link_cashier], [Spark][link_spark] and [Nova][link_nova] from [Laravel-Lang/lang][link_source] package.
+![laravel lang publisher](https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
