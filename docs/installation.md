@@ -2,8 +2,6 @@
 
 # Installation
 
-> Attention!
->
 > Since version [`11.1`](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.0), the publisher does not include the mandatory installation of the [`laravel-lang/lang`](https://github.com/Laravel-Lang/lang) package. This is done for the convenience of [developing plugins](using/plugins/index.md) for the publisher. For example, [`laravel‑lang/http‑statuses`](https://github.com/Laravel-Lang/http-statuses).
 >
 > You can find a list of available plugins [here](using/plugins/extensions.md).
