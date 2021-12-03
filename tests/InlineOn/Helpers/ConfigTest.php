@@ -102,7 +102,7 @@ class ConfigTest extends InlineOnTestCase
             sprintf('The foo class is not a %s instance', Plugin::class)
         );
 
-        Illuminate::set(Names::PUBLIC_KEY . '.plugins', ['foo']);
+        Illuminate::set(Names::PRIVATE_KEY . '.plugins', ['foo']);
 
         Config::plugins();
     }
