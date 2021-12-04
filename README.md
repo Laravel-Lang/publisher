@@ -2,19 +2,34 @@
 
 ![laravel lang publisher](https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel)
 
-<p align="center">
-    [
-        <a href="https://laravel-lang.github.io/publisher">Documentation</a> |
-        <a href="https://laravel-lang.github.io/lang/status.html">Translation status</a>
-    ]
-</p>
-
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
+## Table of contents
+
+* [Changelog](https://laravel-lang.github.io/publisher/changelog.html)
+* [Installation](https://laravel-lang.github.io/publisher/installation.html)
+    * [Upgrade from `andrey-helldar/laravel-lang-publisher`](https://laravel-lang.github.io/publisher/installation.html#upgrade-from-codeandrey-helldarlaravel-lang-publishercode)
+    * [Laravel Framework](https://laravel-lang.github.io/publisher/installation.html#laravel-framework)
+    * [Lumen Framework](https://laravel-lang.github.io/publisher/installation.html#lumen-framework)
+* [Compatibility](https://laravel-lang.github.io/publisher/compatibility.html)
+* [Using](https://laravel-lang.github.io/publisher/using/index.html)
+    * [General principles](https://laravel-lang.github.io/publisher/using/general-principles.html)
+    * [Add locales](https://laravel-lang.github.io/publisher/using/add.html)
+    * [Update locales](https://laravel-lang.github.io/publisher/using/update.html)
+    * [Reset locales](https://laravel-lang.github.io/publisher/using/reset.html)
+    * [Remove locales](https://laravel-lang.github.io/publisher/using/remove.html)
+    * [Plugins](https://laravel-lang.github.io/publisher/using/plugins/index.html)
+        * [Extensions](https://laravel-lang.github.io/publisher/using/plugins/extensions.html)
+* [Features](https://laravel-lang.github.io/publisher/features/index.html)
+    * [Alignment](https://laravel-lang.github.io/publisher/features/alignment.html)
+    * [Facades](https://laravel-lang.github.io/publisher/features/facades.html)
+        * [Alignment](https://laravel-lang.github.io/publisher/features/alignment.html)
+        * [Facades](https://laravel-lang.github.io/publisher/features/facades.html)
+            * [Locales](https://laravel-lang.github.io/publisher/features/facades.html#locales)
 
 ## License
 
