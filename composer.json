@@ -1,8 +1,8 @@
 {
     "name": "laravel-lang/publisher",
     "description": "Publisher lang files for the Laravel and Lumen Frameworks, Jetstream, Fortify, Cashier, Spark and Nova from Laravel-Lang/lang",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
     "keywords": [
         "breeze",
         "cashier",
@@ -36,20 +36,20 @@
         "source": "https://github.com/Laravel-Lang/publisher"
     },
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "dragon-code/contracts": "^2.0",
         "dragon-code/pretty-array": "^3.0",
         "dragon-code/support": "^5.4",
-        "illuminate/console": "^7.0|^8.0|^9.0",
-        "illuminate/contracts": "^7.0|^8.0|^9.0",
-        "illuminate/support": "^7.0|^8.0|^9.0",
+        "illuminate/console": "^7.0 || ^8.0 || ^9.0",
+        "illuminate/contracts": "^7.0 || ^8.0 || ^9.0",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0",
         "laravel-lang/lang": "^10.1.11"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0|^6.0|^7.0",
+        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
         "phpunit/phpunit": "^9.4",
-        "symfony/var-dumper": "^5.0|^6.0"
+        "symfony/var-dumper": "^5.0 || ^6.0"
     },
     "conflict": {
         "andrey-helldar/laravel-lang-publisher": "*",
@@ -57,6 +57,8 @@
         "dragon-code/pretty-array": "<3.0",
         "dragon-code/support": "<5.0"
     },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "LaravelLang\\Publisher\\": "src",
@@ -72,8 +74,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "extra": {
         "laravel": {
             "providers": [
