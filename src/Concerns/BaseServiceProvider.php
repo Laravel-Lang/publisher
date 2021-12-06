@@ -45,7 +45,6 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         return Arrayable::of($plugins)
             ->push($this->getProvider())
-            ->unique()
             ->sort()
             ->values()
             ->get();
