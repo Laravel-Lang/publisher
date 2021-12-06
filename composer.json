@@ -47,6 +47,7 @@
         "laravel-lang/lang": "^10.1.11"
     },
     "require-dev": {
+        "laravel-lang/http-statuses": "^2.0",
         "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
         "phpunit/phpunit": "^9.4",
         "symfony/var-dumper": "^5.0 || ^6.0"
