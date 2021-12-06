@@ -30,7 +30,8 @@ use LaravelLang\Publisher\Constants\Locales as LocalesList;
 use LaravelLang\Publisher\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Asserts;
-use Tests\Lang\ServiceProvider as LangServiceProvider;
+use Tests\Plugins\HttpStatuses\ServiceProvider as HttpStatusesServiceProvider;
+use Tests\Plugins\Lang\ServiceProvider as LangServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -76,6 +77,7 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             LangServiceProvider::class,
+            HttpStatusesServiceProvider::class,
             ServiceProvider::class,
         ];
     }

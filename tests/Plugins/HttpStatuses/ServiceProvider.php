@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Lang;
+namespace Tests\Plugins\HttpStatuses;
 
 use LaravelLang\Lang\ServiceProvider as BaseServiceProvider;
 

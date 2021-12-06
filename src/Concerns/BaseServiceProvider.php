@@ -45,6 +45,7 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         return Arrayable::of($plugins)
             ->push($this->getProvider())
+            ->unique()
             ->sort()
             ->values()
             ->get();
@@ -57,7 +58,7 @@ abstract class BaseServiceProvider extends ServiceProvider
 
     protected function plugins(): array
     {
-        return Config::plugins();
+        return config($this->getConfigKey(), []);
     }
 
     protected function getConfigKey(): string
