@@ -64,7 +64,10 @@ class Add extends BaseProcessor
         }
 
         $this->setResourceKeys($target, $this->getKeysOnly($content));
-        $this->setResource(Locales::ENGLISH, $target, $content);
+
+        if ($this->hasEnglish()) {
+            $this->setResource(Locales::ENGLISH, $target, $content);
+        }
     }
 
     protected function collectLocales(Provider $provider, string $source, string $target): void
@@ -91,5 +94,10 @@ class Add extends BaseProcessor
             ->renameKeys(static function ($key, $value) {
                 return is_numeric($key) && is_string($value) ? $value : $key;
             })->get();
+    }
+
+    protected function hasEnglish(): bool
+    {
+        return in_array(Locales::ENGLISH, $this->locales);
     }
 }

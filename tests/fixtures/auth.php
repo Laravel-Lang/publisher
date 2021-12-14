@@ -20,4 +20,8 @@ declare(strict_types=1);
 return [
     'failed'   => 'Foo Failed',
     'throttle' => 'Foo Throttle',
+
+    'foo' => 'Foo Auth',
+    'bar' => 'Bar Auth',
+    'baz' => 'Baz Auth',
 ];
