@@ -92,4 +92,45 @@ class AddTest extends InlineOffTestCase
         $this->assertSame('This is Baz', __('All rights reserved.'));
         $this->assertSame('Confirm Password', __('Confirm Password'));
     }
+
+    public function testOverwrite()
+    {
+        $this->copyFixtures();
+
+        $this->assertSame('Foo Failed', __('auth.failed'));
+        $this->assertSame('Foo Throttle', __('auth.throttle'));
+        $this->assertSame('Das eingegebene Passwort ist nicht korrekt.', __('auth.password'));
+
+        $this->assertSame('Foo Auth', __('auth.foo'));
+        $this->assertSame('Bar Auth', __('auth.bar'));
+        $this->assertSame('Baz Auth', __('auth.baz'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('Baz'));
+
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
+
+        $this->artisan('lang:add', [
+            'locales' => $this->locale,
+        ])->run();
+
+        $this->refreshLocales();
+
+        $this->assertSame('Foo Failed', __('auth.failed'));
+        $this->assertSame('Foo Throttle', __('auth.throttle'));
+        $this->assertSame('Das eingegebene Passwort ist nicht korrekt.', __('auth.password'));
+
+        $this->assertSame('Foo Auth', __('auth.foo'));
+        $this->assertSame('Bar Auth', __('auth.bar'));
+        $this->assertSame('Baz Auth', __('auth.baz'));
+
+        $this->assertSame('This is Foo', __('Foo'));
+        $this->assertSame('This is Bar', __('Bar'));
+        $this->assertSame('This is Baz', __('Baz'));
+
+        $this->assertSame('This is Baz', __('All rights reserved.'));
+        $this->assertSame('This is Baq', __('Confirm Password'));
+    }
 }
