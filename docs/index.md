@@ -29,9 +29,8 @@
 * [Features](features/index.md)
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
-        * [Alignment](features/alignment.md)
-        * [Facades](features/facades.md)
-            * [Locales](features/facades.md#locales)
+        * [Locales](features/facades.md#locales)
+
 
 ## License
 
