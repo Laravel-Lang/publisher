@@ -7,7 +7,7 @@ Perhaps the facades will be useful to you:
 ## Locales
 
 ```php
-use LaravelLang\Publisher\Facades\Locales;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 
 // List of available locations.
 Locales::available(): array
