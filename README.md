@@ -27,9 +27,7 @@
 * [Features](https://laravel-lang.github.io/publisher/features/index.html)
     * [Alignment](https://laravel-lang.github.io/publisher/features/alignment.html)
     * [Facades](https://laravel-lang.github.io/publisher/features/facades.html)
-        * [Alignment](https://laravel-lang.github.io/publisher/features/alignment.html)
-        * [Facades](https://laravel-lang.github.io/publisher/features/facades.html)
-            * [Locales](https://laravel-lang.github.io/publisher/features/facades.html#locales)
+        * [Locales](https://laravel-lang.github.io/publisher/features/facades.html#locales)
 
 ## License
 
