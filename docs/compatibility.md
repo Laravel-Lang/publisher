@@ -2,24 +2,20 @@
 
 # Compatibility
 
-| Laravel, Lumen | PHP tested              | Package Version | Comment                                                                   |
-|----------------|-------------------------|-----------------|---------------------------------------------------------------------------|
-| 7.x, 8.x, 9.x  | 7.3, 7.4, 8.0, 8.1      | ^11.2           | ![Supported][badge_supported] [changelog 11.x](changelog.md#11.x)         |
-| 7.x, 8.x       | 7.3, 7.4, 8.0, 8.1      | ^11.0           | ![Supported][badge_supported] [changelog 11.x](changelog.md#11.x)         |
-| 7.x, 8.x       | 7.3, 7.4, 8.0, 8.1      | ^10.0           | ![Not Supported][badge_not_supported] [changelog 10.x](changelog.md#10.x) |
-| 7.x, 8.x       | 7.3, 7.4, 8.0, 8.1      | ^9.0            | ![Not Supported][badge_not_supported] [changelog 9.x](changelog.md#9.x)   |
-| 7.x, 8.x       | 7.2, 7.3, 7.4, 8.0, 8.1 | ^8.0            | ![Not Supported][badge_not_supported]                                     |
-| 7.x, 8.x       | 7.2, 7.3, 7.4, 8.0, 8.1 | ^7.0            | ![Not Supported][badge_not_supported]                                     |
-| 7.x, 8.x       | 7.2, 7.3, 7.4           | ^6.0            | ![Not Supported][badge_not_supported]                                     |
-| 7.x, 8.x       | 7.2, 7.3, 7.4           | ^5.0            | ![Not Supported][badge_not_supported]                                     |
-| 7.x, 8.x       | 7.2, 7.3, 7.4           | ^4.0            | ![Not Supported][badge_not_supported]                                     |
-| 6.x, 7.x       | 7.2, 7.3, 7.4           | ^3.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.8, 6.x, 7.x  | 7.2, 7.3, 7.4           | ^2.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.7, 5.8       | 7.2, 7.3                | ^1.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.6            | 7.2, 7.3                | ^1.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.5            | 7.1, 7.2, 7.3           | ^1.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.4            | 5.6                     | ^1.0            | ![Not Supported][badge_not_supported]                                     |
-| 5.3            | 5.6                     | ^1.0            | ![Not Supported][badge_not_supported]                                     |
+| Laravel, Lumen               | PHP tested              | Package Version | Comment                                                                   |
+|------------------------------|-------------------------|-----------------|---------------------------------------------------------------------------|
+| 7.x, 8.x, 9.x                | 7.3, 7.4, 8.0, 8.1      | ^11.2           | ![Supported][badge_supported] [changelog 11.x](changelog.md#11.x)         |
+| 7.x, 8.x                     | 7.3, 7.4, 8.0, 8.1      | ^11.0           | ![Supported][badge_supported] [changelog 11.x](changelog.md#11.x)         |
+| 7.x, 8.x                     | 7.3, 7.4, 8.0, 8.1      | ^10.0           | ![Not Supported][badge_not_supported] [changelog 10.x](changelog.md#10.x) |
+| 7.x, 8.x                     | 7.3, 7.4, 8.0, 8.1      | ^9.0            | ![Not Supported][badge_not_supported] [changelog 9.x](changelog.md#9.x)   |
+| 7.x, 8.x                     | 7.2, 7.3, 7.4, 8.0, 8.1 | ^8.0            | ![Not Supported][badge_not_supported]                                     |
+| 7.x, 8.x                     | 7.2, 7.3, 7.4, 8.0, 8.1 | ^7.0            | ![Not Supported][badge_not_supported]                                     |
+| 7.x, 8.x                     | 7.2, 7.3, 7.4           | ^6.0            | ![Not Supported][badge_not_supported]                                     |
+| 7.x, 8.x                     | 7.2, 7.3, 7.4           | ^5.0            | ![Not Supported][badge_not_supported]                                     |
+| 7.x, 8.x                     | 7.2, 7.3, 7.4           | ^4.0            | ![Not Supported][badge_not_supported]                                     |
+| 6.x, 7.x                     | 7.2, 7.3, 7.4           | ^3.0            | ![Not Supported][badge_not_supported]                                     |
+| 5.8, 6.x, 7.x                | 7.2, 7.3, 7.4           | ^2.0            | ![Not Supported][badge_not_supported]                                     |
+| 5.3, 5.4, 5.5, 5.6, 5.7, 5.8 | 5.6, 7.1, 7.2, 7.3      | ^1.0            | ![Not Supported][badge_not_supported]                                     |
 
 [badge_not_supported]:          https://img.shields.io/badge/not%20supported-lightgrey?style=flat-square
 
