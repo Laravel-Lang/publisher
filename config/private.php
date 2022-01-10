@@ -21,6 +21,6 @@ return [
     'path' => [
         'base' => base_path('vendor'),
 
-        'resources' => lang_path(),
+        'resources' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
     ],
 ];
