@@ -76,7 +76,7 @@ class ConfigTest extends InlineOffTestCase
     {
         $config = Config::resources();
 
-        $path = resource_path('lang');
+        $path = function_exists('lang_path') ? lang_path() : resource_path('lang');
 
         $this->assertSame($path, $config);
     }

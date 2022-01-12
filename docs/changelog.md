@@ -4,7 +4,7 @@
 
 ## 11.x
 
-* [11.2.0](https://github.com/Laravel-Lang/publisher/releases/tag/v11.2.0)
+* [11.1.12](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.12)
 * [11.1.11](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.11)
 * [11.1.10](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.10)
 * [11.1.9](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.9)
