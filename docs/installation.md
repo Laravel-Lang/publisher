@@ -2,14 +2,14 @@
 
 # Installation
 
-> Since version [`11.1`](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.0), the publisher does not include the mandatory installation of the [`laravel-lang/lang`](https://github.com/Laravel-Lang/lang) package. This is done for the convenience of [developing plugins](using/plugins/index.md) for the publisher. For example, [`laravel‑lang/http‑statuses`](https://github.com/Laravel-Lang/http-statuses).
+> Since version [`11.2`](https://github.com/Laravel-Lang/publisher/releases/tag/v11.2.0), the publisher does not include the mandatory installation of the [`laravel-lang/lang`](https://github.com/Laravel-Lang/lang) package. This is done for the convenience of [developing plugins](using/plugins/index.md) for the publisher. For example, [`laravel‑lang/http‑statuses`](https://github.com/Laravel-Lang/http-statuses).
 >
 > You can find a list of available plugins [here](using/plugins/extensions.md).
 
 To get the latest version of `Laravel Lang Publisher`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require laravel-lang/publisher --dev
+$ composer require laravel-lang/publisher laravel-lang/lang --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -17,6 +17,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
+        "laravel-lang/lang": "^10.2",
         "laravel-lang/publisher": "^11.1"
     }
 }

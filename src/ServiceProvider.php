@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
 use LaravelLang\Publisher\Console\Add;
 use LaravelLang\Publisher\Console\Remove;
 use LaravelLang\Publisher\Console\Reset;
@@ -36,7 +37,8 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register(): void
     {
-        $this->config();
+        $this->registerConfig();
+        $this->registerLaravelLang();
     }
 
     protected function bootCommands(): void
@@ -56,9 +58,16 @@ class ServiceProvider extends BaseServiceProvider
         ], 'config');
     }
 
-    protected function config(): void
+    protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::PUBLIC_KEY);
         $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::PRIVATE_KEY);
+    }
+
+    protected function registerLaravelLang(): void
+    {
+        if (class_exists(LangServiceProvider::class)) {
+            $this->app->register(LangServiceProvider::class);
+        }
     }
 }
