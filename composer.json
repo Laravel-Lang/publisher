@@ -44,7 +44,7 @@
         "illuminate/console": "^7.0 || ^8.0",
         "illuminate/contracts": "^7.0 || ^8.0",
         "illuminate/support": "^7.0 || ^8.0",
-        "laravel-lang/lang": "^10.1.11"
+        "laravel-lang/lang": "10.1.*"
     },
     "require-dev": {
         "laravel-lang/http-statuses": "^2.0",
