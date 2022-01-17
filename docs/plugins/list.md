@@ -1,6 +1,6 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Using](../index.md) / [Plugins](index.md) / Extensions
+[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / [Plugins](index.md) / Available Plugins
 
-# Extensions
+# Available Plugins
 
 | Package                                                                                   | Comment                                                                      |
 |:------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------|
