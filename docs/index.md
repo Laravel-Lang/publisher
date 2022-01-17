@@ -14,7 +14,7 @@
 
 * [Changelog](changelog.md)
 * [Installation](installation.md)
-    * [Upgrade from `andrey-helldar/laravel-lang-publisher`](installation.md#upgrade-from-codeandrey-helldarlaravel-lang-publishercode)
+    * [Upgrades](upgrades/index.md)
     * [Laravel Framework](installation.md#laravel-framework)
     * [Lumen Framework](installation.md#lumen-framework)
 * [Compatibility](compatibility.md)
@@ -30,7 +30,6 @@
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
         * [Locales](features/facades.md#locales)
-
 
 ## License
 
