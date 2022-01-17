@@ -38,17 +38,17 @@
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
-        "dragon-code/contracts": "^2.0",
+        "dragon-code/contracts": "^2.15",
         "dragon-code/pretty-array": "^3.0",
-        "dragon-code/support": "^5.4",
+        "dragon-code/support": "^5.6",
         "illuminate/console": "^7.0 || ^8.0 || ^9.0",
         "illuminate/contracts": "^7.0 || ^8.0 || ^9.0",
-        "illuminate/support": "^7.0 || ^8.0 || ^9.0",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0"
     },
     "require-dev": {
         "laravel-lang/http-statuses": "^2.0",
-        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
         "laravel-lang/lang": "^10.2",
+        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
         "phpunit/phpunit": "^9.4",
         "symfony/var-dumper": "^5.0 || ^6.0"
     },
