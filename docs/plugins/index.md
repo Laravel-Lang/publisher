@@ -1,8 +1,8 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../../index.md) / [Features](../index.md) / Plugins
+[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / Plugins
 
 # Plugins
 
-> [See list](extensions.md) of official packages working with the translation manager.
+> [See list](list.md) of official packages working with the translation manager.
 
 For a manager to work, you need to do two things:
 

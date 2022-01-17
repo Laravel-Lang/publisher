@@ -14,7 +14,5 @@ Any changes you make will be saved in the translation files.
 * [Update locales](update.md)
 * [Reset locales](reset.md)
 * [Remove locales](remove.md)
-* [Plugins](plugins/index.md)
-    * [Extensions](plugins/extensions.md)
 
 [link_source]:  https://github.com/Laravel-Lang/publisher

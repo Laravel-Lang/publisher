@@ -14,7 +14,7 @@
 
 * [Changelog](changelog.md)
 * [Installation](installation.md)
-    * [Upgrade from `andrey-helldar/laravel-lang-publisher`](installation.md#upgrade-from-codeandrey-helldarlaravel-lang-publishercode)
+    * [Upgrades](upgrades/index.md)
     * [Laravel Framework](installation.md#laravel-framework)
     * [Lumen Framework](installation.md#lumen-framework)
 * [Compatibility](compatibility.md)
@@ -24,13 +24,12 @@
     * [Update locales](using/update.md)
     * [Reset locales](using/reset.md)
     * [Remove locales](using/remove.md)
-    * [Plugins](using/plugins/index.md)
-        * [Extensions](using/plugins/extensions.md)
+* [Plugins](plugins/index.md)
+    * [Available plugins](plugins/list.md)
 * [Features](features/index.md)
     * [Alignment](features/alignment.md)
     * [Facades](features/facades.md)
         * [Locales](features/facades.md#locales)
-
 
 ## License
 
