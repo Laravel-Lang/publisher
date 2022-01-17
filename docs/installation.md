@@ -2,7 +2,7 @@
 
 # Installation
 
-> Since version [`11.2`](https://github.com/Laravel-Lang/publisher/releases/tag/v11.2.0), the publisher does not include the mandatory installation of the [`laravel-lang/lang`](https://github.com/Laravel-Lang/lang) package. This is done for the convenience of [developing plugins](using/plugins/index.md) for the publisher. For example, [`laravel‑lang/http‑statuses`](https://github.com/Laravel-Lang/http-statuses).
+> Since version [`12.0`](https://github.com/Laravel-Lang/publisher/releases/tag/v12.0.0), the publisher does not include the mandatory installation of the [`laravel-lang/lang`](https://github.com/Laravel-Lang/lang) package. This is done for the convenience of [developing plugins](using/plugins/index.md) for the publisher. For example, [`laravel‑lang/http‑statuses`](https://github.com/Laravel-Lang/http-statuses).
 >
 > You can find a list of available plugins [here](using/plugins/extensions.md).
 
@@ -18,7 +18,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 {
     "require-dev": {
         "laravel-lang/lang": "^10.2",
-        "laravel-lang/publisher": "^11.1"
+        "laravel-lang/publisher": "^12.0"
     }
 }
 ```
@@ -53,7 +53,7 @@ if ($app->environment() !== 'production') {
 
 ## Upgrade from `andrey-helldar/laravel-lang-publisher`
 
-1. Replace `"andrey-helldar/laravel-lang-publisher": "^10.0"` with `"laravel-lang/publisher": "^11.0"` in the `composer.json` file;
+1. Replace `"andrey-helldar/laravel-lang-publisher": "^10.0"` with `"laravel-lang/publisher": "^12.0"` in the `composer.json` file;
 2. Replace the `Helldar\LaravelLangPublisher` namespace prefix with `LaravelLang\Publisher` in your application;
 3. Remove the `Helldar\PrettyArray\Contracts\Caseable` from `config/lang-publisher.php` file;
 4. Remove the `plugins` array key from `config/lang-publisher.php` file;

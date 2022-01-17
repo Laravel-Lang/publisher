@@ -6,7 +6,7 @@
 
 For a manager to work, you need to do two things:
 
-1. Install the package into your application. For example, `composer require laravel-lang/http-statuses --dev`.
+1. Install the package into your application. For example, `composer require laravel-lang/lang --dev`.
 2. It's all 😊
 
 In order for the manager to successfully process the specified package, its structure must be strictly observed:
