@@ -12,7 +12,7 @@
 
 * [Changelog](https://laravel-lang.github.io/publisher/changelog.html)
 * [Installation](https://laravel-lang.github.io/publisher/installation.html)
-    * [Upgrade from `andrey-helldar/laravel-lang-publisher`](https://laravel-lang.github.io/publisher/installation.html#upgrade-from-codeandrey-helldarlaravel-lang-publishercode)
+    * [Upgrades](https://laravel-lang.github.io/publisher/upgrades)
     * [Laravel Framework](https://laravel-lang.github.io/publisher/installation.html#laravel-framework)
     * [Lumen Framework](https://laravel-lang.github.io/publisher/installation.html#lumen-framework)
 * [Compatibility](https://laravel-lang.github.io/publisher/compatibility.html)
