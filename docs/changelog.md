@@ -7,6 +7,7 @@
 * [Upgrade from 11.x](upgrades/to_12.md)
 
 
+* [12.1.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.1.0)
 * [12.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.0.0)
 
 ## 11.x
