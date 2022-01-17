@@ -2,8 +2,14 @@
 
 # Changelog
 
+## 12.x
+
+* [12.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.0.0)
+
 ## 11.x
 
+* [11.2.1](https://github.com/Laravel-Lang/publisher/releases/tag/v11.2.1)
+* [11.2.0](https://github.com/Laravel-Lang/publisher/releases/tag/v11.2.0)
 * [11.1.12](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.12)
 * [11.1.11](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.11)
 * [11.1.10](https://github.com/Laravel-Lang/publisher/releases/tag/v11.1.10)
