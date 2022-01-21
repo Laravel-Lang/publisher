@@ -23,6 +23,8 @@ module.exports = {
         editLink: true,
 
         navbar: [
+            { text: 'Guide', link: '/using/index.md' },
+
             {
                 text: 'Plugins',
                 children: [
