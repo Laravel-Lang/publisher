@@ -8,26 +8,11 @@
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
-## Table of contents
 
-* [Changelog](https://laravel-lang.github.io/publisher/changelog.html)
-* [Installation](https://laravel-lang.github.io/publisher/installation.html)
-    * [Upgrades](https://laravel-lang.github.io/publisher/upgrades)
-    * [Laravel Framework](https://laravel-lang.github.io/publisher/installation.html#laravel-framework)
-    * [Lumen Framework](https://laravel-lang.github.io/publisher/installation.html#lumen-framework)
-* [Compatibility](https://laravel-lang.github.io/publisher/compatibility.html)
-* [Using](https://laravel-lang.github.io/publisher/using)
-    * [General principles](https://laravel-lang.github.io/publisher/using/general-principles.html)
-    * [Add locales](https://laravel-lang.github.io/publisher/using/add.html)
-    * [Update locales](https://laravel-lang.github.io/publisher/using/update.html)
-    * [Reset locales](https://laravel-lang.github.io/publisher/using/reset.html)
-    * [Remove locales](https://laravel-lang.github.io/publisher/using/remove.html)
-* [Plugins](https://laravel-lang.github.io/publisher/plugins)
-    * [Extensions](https://laravel-lang.github.io/publisher/plugins/list.html)
-* [Features](https://laravel-lang.github.io/publisher/features)
-    * [Alignment](https://laravel-lang.github.io/publisher/features/alignment.html)
-    * [Facades](https://laravel-lang.github.io/publisher/features/facades.html)
-        * [Locales](https://laravel-lang.github.io/publisher/features/facades.html#locales)
+## Documentation
+
+See the [documentation](https://publisher.laravel-lang.com) for detailed installation and usage instructions.
+
 
 ## License
 

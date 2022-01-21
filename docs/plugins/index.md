@@ -1,6 +1,8 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / Plugins
+---
+title: Installation
+---
 
-# Plugins
+# Install Plugins
 
 > [See list](list.md) of official packages working with the translation manager.
 
@@ -27,5 +29,3 @@ If files with the same names exist in different packages, for example, `custom.p
 > For ease of development, use a ready-made [Translations Template](https://github.com/Laravel-Lang/translations-template).
 
 It's all. Enjoy! 😊
-
-[link_source]:  https://github.com/Laravel-Lang/publisher

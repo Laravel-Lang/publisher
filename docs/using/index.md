@@ -1,18 +1,22 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / Using
+# General principles
 
-# Using
+Almost all console commands accept an array of localizations as a parameter.
 
-## Important
+For example:
 
-Any changes you make will be saved in the translation files.
+```bash
+php artisan lang:<command> en de ro
+php artisan lang:<command> de
+php artisan lang:<command>
+```
 
+Where:
 
-## Table of contents
+* `en de ro` - a list of locales separated by a space;
+* `de` - it is also possible to specify a single localization name;
+* if the parameter is not passed during the call, the script will ask two questions:
+    * `Do you want to %s all localizations?`, when `%s` is `install`, `remove` or `reset`;
+    * If `no`, then next question is `Select localizations to add (specify the necessary localizations separated by commas)`.
 
-* [General principles](general-principles.md)
-* [Add locales](add.md)
-* [Update locales](update.md)
-* [Reset locales](reset.md)
-* [Remove locales](remove.md)
-
-[link_source]:  https://github.com/Laravel-Lang/publisher
+> When performing any work with files (`install`, `uninstall`, `reset` and `update`), in addition to php files, work with json files, including translation for [Laravel Framework](https://laravel.com), [Jetstream](https://jetstream.laravel.com)
+, [Fortify](https://github.com/laravel/fortify), [Cashier](https://laravel.com/docs/billing), [Breeze](https://github.com/laravel/breeze), [Nova](https://nova.laravel.com), [Spark](https://spark.laravel.com) and [UI](https://github.com/laravel/ui), will also be automatically performed.

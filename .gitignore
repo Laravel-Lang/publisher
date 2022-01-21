@@ -1,9 +1,15 @@
 .idea/
-vendor/
 build/
+node_modules/
+vendor/
+
+.cache
+.temp
 
 *.bak
 *.cache
 *.clover
 *.orig
 *.lock
+
+package-lock.json

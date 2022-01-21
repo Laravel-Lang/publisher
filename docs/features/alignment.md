@@ -1,5 +1,3 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / [Features](index.md) / Alignment
-
 # Alignment
 
 When updating files, all comments from the final files are automatically deleted. Unfortunately, [var_export](https://www.php.net/manual/en/function.var-export.php) does not know
@@ -128,5 +126,3 @@ return [
     ],
 ];
 ```
-
-[link_source]:  https://github.com/Laravel-Lang/publisher

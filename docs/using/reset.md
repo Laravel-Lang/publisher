@@ -1,5 +1,3 @@
-[Laravel Lang Publisher][link_source] / [Main Page](../index.md) / [Using](index.md) / Reset locales
-
 # Reset locales
 
 You can reset the localization files to the default state.
@@ -21,5 +19,3 @@ php artisan lang:reset --full en de ro zh-CN lv
 php artisan lang:reset --full de
 php artisan lang:reset --full
 ```
-
-[link_source]:  https://github.com/Laravel-Lang/publisher
