@@ -1,11 +1,6 @@
-[Laravel Lang Publisher][link_source] / [Main Page](index.md) / Changelog
-
 # Changelog
 
 ## 12.x
-
-* [Upgrade from 11.x](upgrades/to_12.md)
-
 
 * [12.1.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.1.0)
 * [12.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.0.0)
@@ -48,5 +43,3 @@
 * [9.2.0](https://github.com/Laravel-Lang/publisher/releases/tag/v9.2.0)
 * [9.1.0](https://github.com/Laravel-Lang/publisher/releases/tag/v9.1.0)
 * [9.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v9.0.0)
-
-[link_source]:  https://github.com/Laravel-Lang/publisher
