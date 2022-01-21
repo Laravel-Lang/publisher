@@ -26,7 +26,7 @@ module.exports = {
             {
                 text: 'Plugins',
                 children: [
-                    '/plugins/index.md',
+                    '/plugins/installation.md',
                     '/plugins/local.md',
                     '/plugins/community.md'
                 ]
@@ -93,7 +93,7 @@ module.exports = {
                     {
                         text: 'Plugins',
                         children: [
-                            '/plugins/index.md',
+                            '/plugins/installation.md',
                             '/plugins/local.md',
                             '/plugins/community.md'
                         ]
