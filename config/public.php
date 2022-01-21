@@ -28,10 +28,10 @@ return [
      * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation.php
      * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation-inline.php
      *
-     * By default, `true`.
+     * By default, `false`.
      */
 
-    'inline' => true,
+    'inline' => false,
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
