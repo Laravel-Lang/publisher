@@ -40,7 +40,6 @@ class ValidationPhpTest extends BasePhpTestCase
 
         'alpha_num'         => ['The :attribute must only contain letters and numbers.', 'Поле :attribute может содержать только буквы и цифры.'],
         'array'             => ['The :attribute must be an array.', 'Поле :attribute должно быть массивом.'],
-        'attached'          => ['This :attribute is already attached.', 'Поле :attribute уже прикреплено.'],
         'before'            => ['The :attribute must be a date before :date.', 'В поле :attribute должна быть дата раньше :date.'],
         'before_or_equal'   => ['The :attribute must be a date before or equal to :date.', 'В поле :attribute должна быть дата раньше или равняться :date.'],
         'between.array'     => ['The :attribute must have between :min and :max items.', 'Количество элементов в поле :attribute должно быть между :min и :max.'],
@@ -104,7 +103,6 @@ class ValidationPhpTest extends BasePhpTestCase
         'password'          => ['The password is incorrect.', 'Неверный пароль.'],
         'present'           => ['The :attribute field must be present.', 'Поле :attribute должно присутствовать.'],
         'regex'             => ['The :attribute format is invalid.', 'Поле :attribute имеет ошибочный формат.'],
-        'relatable'         => ['This :attribute may not be associated with this resource.', 'Поле :attribute не может быть связано с этим ресурсом.'],
         'required'          => ['The :attribute field is required.', 'Поле :attribute обязательно для заполнения.'],
         'required_if'       => ['The :attribute field is required when :other is :value.', 'Поле :attribute обязательно для заполнения, когда :other равно :value.'],
         'required_unless'   => ['The :attribute field is required unless :other is in :values.', 'Поле :attribute обязательно для заполнения, когда :other не равно :values.'],
