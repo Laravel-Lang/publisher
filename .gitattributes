@@ -10,5 +10,7 @@ tests/ export-ignore
 .gitignore export-ignore
 .styleci.yml export-ignore
 
+package.json export-ignore
+
 phpunit.php export-ignore
 phpunit.xml export-ignore
