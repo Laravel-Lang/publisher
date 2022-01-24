@@ -5,7 +5,7 @@ Laravel and the main configuration parameters are instead located in `bootstrap/
 
 You can install Laravel Lang Publisher in `app/Providers/AppServiceProvider.php`, and uncommenting this line that registers the `AppServiceProvider` so it can properly load.
 
-```
+```php
 // $app->register(App\Providers\AppServiceProvider::class);
 ```
 
