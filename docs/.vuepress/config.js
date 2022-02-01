@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const hostname = 'publisher.laravel-lang.com';
+
 module.exports = {
     lang: 'en-US',
     title: 'Laravel Lang Publisher',
@@ -12,6 +14,7 @@ module.exports = {
 
     theme: '@vuepress/theme-default',
     themeConfig: {
+        hostname,
         base: '/',
 
         logo: '/images/logo.svg',
