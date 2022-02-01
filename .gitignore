@@ -3,6 +3,7 @@ build/
 node_modules/
 vendor/
 
+.env
 .cache
 .temp
 
