@@ -41,6 +41,11 @@ jobs:
             # run build script
             -   name: Build VuePress site
                 run: npm run build
+                env:
+                    VITE_APP_ALGOLIA_APP_ID: ${{ secrets.VITE_APP_ALGOLIA_APP_ID }}
+                    VITE_APP_ALGOLIA_API_KEY: ${{ secrets.VITE_APP_ALGOLIA_API_KEY }}
+                    VITE_APP_ALGOLIA_INDEX_NAME: ${{ secrets.VITE_APP_ALGOLIA_INDEX_NAME }}
+
 
             # please check out the docs of the workflow for more details
             # @see https://github.com/crazy-max/ghaction-github-pages
