@@ -125,7 +125,8 @@ module.exports = {
             {
                 appId: process.env.VITE_APP_ALGOLIA_APP_ID,
                 apiKey: process.env.VITE_APP_ALGOLIA_API_KEY,
-                indexName: process.env.VITE_APP_ALGOLIA_INDEX_NAME
+                indexName: process.env.VITE_APP_ALGOLIA_INDEX_NAME,
+                schedule: 'every 1 day at 0:00 am'
             }
         ]
     ]
