@@ -29,7 +29,5 @@ class PasswordsPhpTest extends BasePhpTestCase
         'reset'     => ['Your password has been reset!', 'Ваш пароль был сброшен!'],
         'sent'      => ['We have emailed your password reset link!', 'Ссылка на сброс пароля была отправлена!'],
         'throttled' => ['Please wait before retrying.', 'Пожалуйста, подождите перед повторной попыткой.'],
-        'token'     => ['This password reset token is invalid.', 'Ошибочный код сброса пароля.'],
-        'user'      => ['We can\'t find a user with that email address.', 'Не удалось найти пользователя с указанным электронным адресом.'],
     ];
 }
