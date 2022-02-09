@@ -51,6 +51,7 @@ class ServiceProvider extends BaseServiceProvider
         ]);
     }
 
+
     protected function bootPublishes(): void
     {
         $this->publishes([
