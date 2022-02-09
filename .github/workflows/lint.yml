@@ -12,3 +12,5 @@ jobs:
 
             -   name: Checking PHP Syntax
                 uses: TheDragonCode/php-codestyler@latest
+                with:
+                    fix: true
