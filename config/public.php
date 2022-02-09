@@ -41,9 +41,7 @@ return [
 
     'alignment' => true,
 
-    /*
-     * Key exclusion when combining.
-     */
+    // Key exclusion when combining.
 
     'excludes' => [
         // 'auth' => ['throttle'],
