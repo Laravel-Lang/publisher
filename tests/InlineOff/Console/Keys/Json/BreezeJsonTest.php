@@ -24,8 +24,7 @@ use Tests\InlineOff\Console\Keys\BaseJsonTestCase;
 class BreezeJsonTest extends BaseJsonTestCase
 {
     protected $items = [
-        'A new verification link has been sent to the email address you provided during registration.' =>
-            'Новая ссылка для подтверждения была отправлена на Ваш email-адрес, указанный при регистрации.',
+        'A new verification link has been sent to the email address you provided during registration.' => 'Новая ссылка для подтверждения была отправлена на Ваш email-адрес, указанный при регистрации.',
 
         'Already registered?' => 'Уже зарегистрированы?',
         'Confirm'             => 'Подтвердить',
