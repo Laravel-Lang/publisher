@@ -43,6 +43,8 @@ abstract class Base implements Comparator
 
     protected $exclude = ['attributes', 'custom'];
 
+    abstract protected function merge(array $local, array $translated, array $excluded): array;
+
     public function __construct(array $keys, array $translations, bool $full = false)
     {
         $this->keys = $keys;
@@ -51,8 +53,6 @@ abstract class Base implements Comparator
 
         $this->full = $full;
     }
-
-    abstract protected function merge(array $local, array $translated, array $excluded): array;
 
     public function get(): array
     {

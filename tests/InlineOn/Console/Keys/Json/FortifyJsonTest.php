@@ -24,13 +24,10 @@ use Tests\InlineOn\Console\Keys\BaseJsonTestCase;
 class FortifyJsonTest extends BaseJsonTestCase
 {
     protected $items = [
-        'The :attribute must be at least :length characters and contain at least one number.' =>
-            'Значение поля :attribute должно быть не меньше :length символов и содержать как минимум одну цифру.',
+        'The :attribute must be at least :length characters and contain at least one number.' => 'Значение поля :attribute должно быть не меньше :length символов и содержать как минимум одну цифру.',
 
-        'The provided password was incorrect.' =>
-            'Неверный пароль.',
+        'The provided password was incorrect.' => 'Неверный пароль.',
 
-        'The provided two factor authentication code was invalid.' =>
-            'Неверный код двухфакторной аутентификации.',
+        'The provided two factor authentication code was invalid.' => 'Неверный код двухфакторной аутентификации.',
     ];
 }

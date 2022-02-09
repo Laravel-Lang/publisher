@@ -27,21 +27,21 @@ trait TestKeys
 
     protected $items = [];
 
-    protected function trans(string $key, string $locale = null): string
+    protected function trans(string $key, ?string $locale = null): string
     {
         $key = $this->trans_prefix . $key;
 
         return trans($key, [], $locale);
     }
 
-    protected function testSame(string $expected, string $key, string $locale = null): void
+    protected function testSame(string $expected, string $key, ?string $locale = null): void
     {
         $message = $this->getTestMessage($key, $locale);
 
         $this->assertSame($expected, $this->trans($key, $locale), $message);
     }
 
-    protected function getTestMessage(string $key, string $locale = null): string
+    protected function getTestMessage(string $key, ?string $locale = null): string
     {
         $method = $this->getCalledMethod();
 

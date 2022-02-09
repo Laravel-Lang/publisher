@@ -42,7 +42,7 @@ class Manager
     }
 
     /**
-     * @param  array|string  $path
+     * @param array|string $path
      */
     public function delete($path): void
     {
