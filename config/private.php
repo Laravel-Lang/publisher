@@ -17,6 +17,9 @@
 
 declare(strict_types=1);
 
+
+
+
 return [
     'path' => [
         'base' => base_path('vendor'),
@@ -24,3 +27,5 @@ return [
         'resources' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
     ],
 ];
+
+
