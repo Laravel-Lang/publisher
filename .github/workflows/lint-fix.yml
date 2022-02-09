@@ -1,4 +1,4 @@
-name: "Codestyle Fix"
+name: "Code-style Fix"
 
 on:
     push:
