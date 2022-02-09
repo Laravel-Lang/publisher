@@ -1,4 +1,4 @@
-name: "Codestyle Check"
+name: "Code-style Check"
 
 on: [ push, pull_request ]
 
