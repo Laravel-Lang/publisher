@@ -15,7 +15,9 @@
  * @see https://github.com/Laravel-Lang/publisher
  */
 
+
 declare(strict_types=1);
+
 
 return [
     /*
@@ -64,5 +66,5 @@ return [
      * By default, 0
      */
 
-    'case' => 0,
+        'case' => 0,
 ];
