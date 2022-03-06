@@ -33,10 +33,13 @@ class Update extends Base
 
     protected function targetLocales(): array
     {
-        $locales = parent::targetLocales();
+        $locales   = parent::targetLocales();
+        $protected = $this->getProtected();
 
         return Arrayable::of($locales)
-            ->addUnique($this->getProtected())
+            ->push($protected)
+            ->flatten()
+            ->unique()
             ->sort()
             ->values()
             ->get();
