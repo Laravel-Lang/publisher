@@ -36,9 +36,9 @@ class Update extends Base
         $locales   = parent::targetLocales();
         $protected = $this->getProtected();
 
-        $values = array_merge($locales, $protected);
-
-        return Arrayable::of($values)
+        return Arrayable::of($locales)
+            ->push($protected)
+            ->flatten()
             ->unique()
             ->sort()
             ->values()
