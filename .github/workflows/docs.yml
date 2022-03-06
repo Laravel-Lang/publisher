@@ -12,13 +12,13 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v3
                 with:
-                    # fetch all commits to get last updated time or other git log info
                     fetch-depth: 0
+                    token: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Setup Node.js
-                uses: actions/setup-node@v1
+                uses: actions/setup-node@v3.0.0
                 with:
                     # choose node.js version to use
                     node-version: '16'
@@ -57,5 +57,4 @@ jobs:
                     # deploy the default output dir of VuePress
                     build_dir: docs/.vuepress/dist
                 env:
-                    # @see https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
