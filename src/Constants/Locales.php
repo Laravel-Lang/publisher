@@ -72,6 +72,10 @@ class Locales
 
     public const ENGLISH = 'en';
 
+    public const ENGLISH_BRITISH = 'en_GB';
+
+    public const ENGLISH_USA = 'en_US';
+
     public const ESTONIAN = 'et';
 
     public const FINNISH = 'fi';

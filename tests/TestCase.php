@@ -173,6 +173,8 @@ abstract class TestCase extends BaseTestCase
             LocalesList::DANISH,
             LocalesList::DUTCH,
             LocalesList::ENGLISH,
+            LocalesList::ENGLISH_BRITISH,
+            LocalesList::ENGLISH_USA,
             LocalesList::ESTONIAN,
             LocalesList::FINNISH,
             LocalesList::FRENCH,
