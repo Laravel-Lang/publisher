@@ -108,7 +108,7 @@ class Locales
 
         return Arr::of($files)
             ->filter(fn (string $filename) => $this->hasJson($filename))
-            ->map(fn (string $filename) => $this->filename($filename))
+            ->map(fn (string $filename)    => $this->filename($filename))
             ->values()
             ->toArray();
     }
