@@ -21,8 +21,8 @@ namespace LaravelLang\Publisher\Support\Filesystem;
 
 use DragonCode\PrettyArray\Services\File as Pretty;
 use DragonCode\PrettyArray\Services\Formatter;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 use LaravelLang\Publisher\Facades\Helpers\Config;
 
 class Php extends Base
@@ -35,7 +35,7 @@ class Php extends Base
             return [];
         }
 
-        $items = Pretty::make()->load($path);
+        $items = File::load($path);
 
         return $this->correct($items);
     }

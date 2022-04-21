@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Plugins;
 
 use DragonCode\Contracts\LangPublisher\Plugin;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\Directory;
 use LaravelLang\Publisher\Concerns\Paths;
 
 abstract class BasePlugin implements Plugin

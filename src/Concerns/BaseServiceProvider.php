@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Concerns;
 
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Support\ServiceProvider;
 use LaravelLang\Publisher\Facades\Helpers\Config;
 
@@ -43,12 +43,12 @@ abstract class BaseServiceProvider extends ServiceProvider
 
     protected function push(array $plugins): array
     {
-        return Arrayable::of($plugins)
+        return Arr::of($plugins)
             ->push($this->getProvider())
             ->unique()
             ->sort()
             ->values()
-            ->get();
+            ->toArray();
     }
 
     protected function setConfig(array $plugins): void

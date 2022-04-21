@@ -44,7 +44,7 @@ class Manager
     /**
      * @param array|string $path
      */
-    public function delete($path): void
+    public function delete(array|string $path): void
     {
         foreach (Arr::wrap($path) as $name) {
             $this->filesystem($name)->delete($name);

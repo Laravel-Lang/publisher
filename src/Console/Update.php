@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Processors\Add as Processor;
 
@@ -33,16 +33,13 @@ class Update extends Base
 
     protected function targetLocales(): array
     {
-        $locales   = parent::targetLocales();
-        $protected = $this->getProtected();
-
-        return Arrayable::of($locales)
-            ->push($protected)
+        return Arr::of(parent::targetLocales())
+            ->push($this->getProtected())
             ->flatten()
             ->unique()
             ->sort()
             ->values()
-            ->get();
+            ->toArray();
     }
 
     protected function getProtected(): array

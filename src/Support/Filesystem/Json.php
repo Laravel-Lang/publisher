@@ -19,9 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Support\Filesystem;
 
-use DragonCode\PrettyArray\Services\File as Pretty;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\File;
 
 class Json extends Base
 {
@@ -31,16 +29,14 @@ class Json extends Base
             return [];
         }
 
-        $content = Pretty::make()->loadRaw($path);
-
-        $items = json_decode($content, true);
+        $items = File::load($path);
 
         return $this->correct($items);
     }
 
     public function store(string $path, $content): string
     {
-        Arr::storeAsJson($path, $content, false, JSON_UNESCAPED_UNICODE ^ JSON_PRETTY_PRINT);
+        File::store($path, json_encode($content, JSON_UNESCAPED_UNICODE ^ JSON_PRETTY_PRINT));
 
         return $path;
     }

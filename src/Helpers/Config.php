@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Contracts\LangPublisher\Provider;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
-use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Support\Facades\Config as Illuminate;
 use LaravelLang\Publisher\Constants\Config as ConfigConst;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
@@ -42,16 +42,16 @@ class Config
     {
         $public = $this->getPrivate('plugins', []);
 
-        return Arrayable::of($public)
+        return Arr::of($public)
             ->unique()
             ->values()
             ->map(static function (string $plugin) {
                 if (Instance::of($plugin, Provider::class)) {
-                    return new $plugin();
+                    return new $plugin;
                 }
 
                 throw new UnknownPluginInstanceException($plugin);
-            })->get();
+            })->toArray();
     }
 
     public function hasInline(): bool
