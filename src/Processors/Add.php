@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Processors;
 
 use DragonCode\Contracts\LangPublisher\Provider;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Comparators\Add as Comparator;
 use LaravelLang\Publisher\Constants\Locales;
 use LaravelLang\Publisher\Constants\Path;
@@ -90,10 +90,10 @@ class Add extends BaseProcessor
 
     protected function resolveKeys(array $array): array
     {
-        return Arrayable::of($array)
+        return Arr::of($array)
             ->renameKeys(static function ($key, $value) {
                 return is_numeric($key) && is_string($value) ? $value : $key;
-            })->get();
+            })->toArray();
     }
 
     protected function hasEnglish(): bool

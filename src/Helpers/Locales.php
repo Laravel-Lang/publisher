@@ -19,10 +19,10 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Reflection;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Instances\Reflection;
 use Illuminate\Support\Facades\Config as Illuminate;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
@@ -37,34 +37,32 @@ class Locales
 
     public function available(): array
     {
-        $locales = Reflection::getConstants(LocalesList::class);
-
-        return Arrayable::of($locales)
+        return Arr::of(
+            Reflection::getConstants(LocalesList::class)
+        )
             ->unique()
             ->sort()
             ->values()
-            ->get();
+            ->toArray();
     }
 
     public function installed(): array
     {
-        return Arrayable::of($this->findJson())
+        return Arr::of($this->findJson())
             ->addUnique($this->findPhp())
-            ->filter(function (string $locale) {
-                return $this->isAvailable($locale);
-            })
+            ->filter(fn (string $locale) => $this->isAvailable($locale))
             ->unique()
             ->sort()
             ->values()
-            ->get();
+            ->toArray();
     }
 
     public function protects(): array
     {
-        return Arrayable::of([
+        return Arr::of([
             $this->getDefault(),
             $this->getFallback(),
-        ])->unique()->get();
+        ])->unique()->toArray();
     }
 
     public function isAvailable(string $locale): bool
@@ -108,15 +106,11 @@ class Locales
     {
         $files = File::names($this->resources(), null, true);
 
-        return Arrayable::of($files)
-            ->filter(function (string $filename) {
-                return $this->hasJson($filename);
-            })
-            ->map(function (string $filename) {
-                return $this->filename($filename);
-            })
+        return Arr::of($files)
+            ->filter(fn (string $filename) => $this->hasJson($filename))
+            ->map(fn (string $filename) => $this->filename($filename))
             ->values()
-            ->get();
+            ->toArray();
     }
 
     protected function findPhp(): array

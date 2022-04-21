@@ -36,30 +36,24 @@
         "source": "https://github.com/Laravel-Lang/publisher"
     },
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "dragon-code/contracts": "^2.15",
-        "dragon-code/pretty-array": "^3.0",
-        "dragon-code/support": "^5.6",
+        "dragon-code/pretty-array": "^4.0",
+        "dragon-code/support": "^6.1.1",
         "illuminate/console": "^7.0 || ^8.0 || ^9.0",
         "illuminate/contracts": "^7.0 || ^8.0 || ^9.0",
         "illuminate/support": "^7.0 || ^8.0 || ^9.0"
     },
     "require-dev": {
         "laravel-lang/http-statuses": "^2.0",
-        "laravel-lang/lang": "^10.2",
+        "laravel-lang/lang": "^10.7",
         "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
         "phpunit/phpunit": "^9.4",
         "symfony/var-dumper": "^5.0 || ^6.0"
     },
-    "conflict": {
-        "andrey-helldar/laravel-lang-publisher": "*",
-        "dragon-code/contracts": "<2.0.0",
-        "dragon-code/pretty-array": "<3.0.0",
-        "dragon-code/support": "<5.0.0",
-        "laravel-lang/lang": "<10.2.0"
-    },
     "suggest": {
+        "laravel-lang/attributes": "List of 78 languages for form field names",
         "laravel-lang/http-statuses": "List of 78 languages for HTTP statuses",
         "laravel-lang/lang": "List of 78 languages for Laravel Framework, Jetstream, Fortify, Breeze, Cashier, Nova, Spark and UI."
     },

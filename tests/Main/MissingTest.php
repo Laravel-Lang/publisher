@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace Tests\Main;
 
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Paths;
 use LaravelLang\Publisher\Constants\Locales as LocalesConst;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
@@ -63,13 +63,11 @@ class MissingTest extends TestCase
     {
         $vendor = $this->vendorPath('laravel-lang/lang/locales');
 
-        $names = Directory::names($vendor);
-
-        return Arrayable::of($names)
+        return Arr::of(Directory::names($vendor))
             ->addUnique(LocalesConst::ENGLISH)
             ->sort()
             ->values()
-            ->get();
+            ->toArray();
     }
 
     protected function diff(array $first, array $second): string

@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Concerns;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use Illuminate\Support\Collection;
 use LaravelLang\Publisher\Facades\Helpers\Config;
 
 trait Paths
@@ -46,14 +46,12 @@ trait Paths
 
     protected function path(string $base_path, ...$parameters): string
     {
-        $base_path = rtrim($base_path, $this->trim_chars);
-
-        $parameters = Collection::make($parameters)
-            ->map(function (string $parameter) {
-                return trim($parameter, $this->trim_chars);
-            })->implode($this->directory_separator);
-
-        return $base_path . $this->directory_separator . $parameters;
+        return Arr::of($parameters)
+            ->map(fn (string $parameter) => trim($parameter, $this->trim_chars))
+            ->implode($this->directory_separator)
+            ->prepend($this->directory_separator)
+            ->prepend(rtrim($base_path, $this->trim_chars))
+            ->toString();
     }
 
     protected function vendorPath(string ...$parameters): string
@@ -68,6 +66,6 @@ trait Paths
 
     protected function resolvePath(string $path, string $locale): string
     {
-        return Str::replace($path, compact('locale'), '{%s}');
+        return Str::replaceFormat($path, compact('locale'), '{%s}');
     }
 }

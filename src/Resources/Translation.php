@@ -28,9 +28,9 @@ class Translation implements Resource
     use Arrayable;
     use Makeable;
 
-    protected $keys = [];
+    protected array $keys = [];
 
-    protected $translations = [];
+    protected array $translations = [];
 
     public function getKeys(): array
     {

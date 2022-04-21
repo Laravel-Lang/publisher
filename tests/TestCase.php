@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
 use LaravelLang\HttpStatuses\ServiceProvider as HttpStatusesServiceProvider;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Paths;
@@ -38,22 +38,22 @@ abstract class TestCase extends BaseTestCase
     use Has;
     use Paths;
 
-    protected $default = Locales::ENGLISH;
+    protected string $default = Locales::ENGLISH;
 
-    protected $fallback = Locales::GERMAN;
+    protected string $fallback = Locales::GERMAN;
 
-    protected $locale = Locales::RUSSIAN;
+    protected string $locale = Locales::RUSSIAN;
 
-    protected $locales = [
+    protected array $locales = [
         LocalesList::BULGARIAN,
         LocalesList::DANISH,
         LocalesList::GALICIAN,
         LocalesList::ICELANDIC,
     ];
 
-    protected $inline = true;
+    protected bool $inline = true;
 
-    protected $emulate = [
+    protected array $emulate = [
         'laravel/breeze',
         'laravel/fortify',
         'laravel/jetstream',

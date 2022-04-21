@@ -21,5 +21,5 @@ namespace Tests;
 
 abstract class InlineOffTestCase extends TestCase
 {
-    protected $inline = false;
+    protected bool $inline = false;
 }
