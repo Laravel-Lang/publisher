@@ -1,7 +1,12 @@
 # Changelog
 
+## 13.x
+
+* [13.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v13.0.0)
+
 ## 12.x
 
+* [12.2.1](https://github.com/Laravel-Lang/publisher/releases/tag/v12.2.1)
 * [12.2.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.2.0)
 * [12.1.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.1.0)
 * [12.0.0](https://github.com/Laravel-Lang/publisher/releases/tag/v12.0.0)
