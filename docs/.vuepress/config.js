@@ -1,3 +1,5 @@
+const { viteBundler, defaultTheme } = require('vuepress');
+
 require('dotenv').config();
 
 const hostname = 'publisher.laravel-lang.com';
@@ -12,8 +14,9 @@ module.exports = {
         ['meta', { name: 'twitter:image', content: 'https://publisher.laravel-lang.com/images/social-logo.png' }]
     ],
 
-    theme: '@vuepress/theme-default',
-    themeConfig: {
+    bundler: viteBundler(),
+
+    theme: defaultTheme({
         hostname,
         base: '/',
 
@@ -110,7 +113,7 @@ module.exports = {
             },
             { text: 'License', link: '/license.md' }
         ]
-    },
+    }),
 
     plugins: [
         [
