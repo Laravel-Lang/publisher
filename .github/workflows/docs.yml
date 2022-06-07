@@ -18,7 +18,7 @@ jobs:
                     token: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Setup Node.js
-                uses: actions/setup-node@v3.2.0
+                uses: actions/setup-node@v3.3.0
                 with:
                     # choose node.js version to use
                     node-version: '16'
