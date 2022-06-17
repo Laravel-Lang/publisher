@@ -24,9 +24,10 @@ return [
      * `true` means inline files will be used.
      * `false` means that default files will be used.
      *
-     * The difference between them can be seen here:
-     * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation.php
-     * @see https://github.com/Laravel-Lang/lang/blob/master/source/validation-inline.php
+     * For example, the difference between them can be seen here:
+     *
+     * The :attribute must be accepted. // default
+     * This field must be accepted.     // inline
      *
      * By default, `false`.
      */

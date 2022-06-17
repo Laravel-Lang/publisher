@@ -21,6 +21,7 @@ namespace LaravelLang\Publisher;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
+use LaravelLang\Publisher\Constants\Config;
 
 class ServiceProvider extends BaseServiceProvider
 {
