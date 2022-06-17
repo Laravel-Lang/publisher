@@ -40,5 +40,5 @@ return [
      * By default, true
      */
 
-    'alignment' => true,
+    'align' => true,
 ];
