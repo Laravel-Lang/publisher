@@ -21,6 +21,10 @@ namespace LaravelLang\Publisher;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelLang\Lang\ServiceProvider as LangServiceProvider;
+use LaravelLang\Publisher\Console\Add;
+use LaravelLang\Publisher\Console\Remove;
+use LaravelLang\Publisher\Console\Reset;
+use LaravelLang\Publisher\Console\Update;
 use LaravelLang\Publisher\Constants\Config;
 
 class ServiceProvider extends BaseServiceProvider
@@ -39,6 +43,12 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function bootCommands(): void
     {
+        $this->commands([
+            Add::class,
+            Remove::class,
+            Reset::class,
+            Update::class,
+        ]);
     }
 
     protected function bootPublishes(): void
