@@ -51,9 +51,9 @@
         "symfony/var-dumper": "^5.0 || ^6.0"
     },
     "conflict": {
-        "laravel-lang/attributes": ">=2.0.0",
-        "laravel-lang/http-statuses": ">=3.0.0",
-        "laravel-lang/lang": ">=11.0.0"
+        "laravel-lang/attributes": "<2.0",
+        "laravel-lang/http-statuses": "<3.0",
+        "laravel-lang/lang": "<11.0"
     },
     "suggest": {
         "laravel-lang/attributes": "List of 78 languages for form field names",
