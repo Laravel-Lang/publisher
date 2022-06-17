@@ -23,7 +23,7 @@ trait TestKeys
 {
     use Backtrace;
 
-    protected $trans_prefix = null;
+    protected $trans_prefix;
 
     protected $items = [];
 
