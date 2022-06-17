@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Services\Filesystem;
 
 use DragonCode\PrettyArray\Services\File;
-use LaravelLang\Publisher\Constants\Config;
 
 class Php extends Base
 {
@@ -27,10 +26,5 @@ class Php extends Base
         }
 
         return $this->formatter->raw($items);
-    }
-
-    protected function hasAlign(): bool
-    {
-        return (bool) config(Config::PUBLIC_KEY . '.align', true);
     }
 }
