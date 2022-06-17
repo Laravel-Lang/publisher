@@ -23,7 +23,7 @@ trait TestKeys
 {
     use Backtrace;
 
-    protected $trans_prefix;
+    protected $trans_prefix = null;
 
     protected $items = [];
 
@@ -31,7 +31,7 @@ trait TestKeys
     {
         $key = $this->trans_prefix . $key;
 
-        return trans($key, [], $locale);
+        return __($key, [], $locale);
     }
 
     protected function testSame(string $expected, string $key, ?string $locale = null): void

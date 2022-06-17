@@ -67,9 +67,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->reinstallLocales();
-
         $this->emulatePackages();
+        $this->reinstallLocales();
     }
 
     protected function getPackageProviders($app): array
