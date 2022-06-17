@@ -18,5 +18,7 @@ Where:
     * `Do you want to %s all localizations?`, when `%s` is `install`, `remove` or `reset`;
     * If `no`, then next question is `Select localizations to add (specify the necessary localizations separated by commas)`.
 
-> When performing any work with files (`install`, `uninstall`, `reset` and `update`), in addition to php files, work with json files, including translation for [Laravel Framework](https://laravel.com), [Jetstream](https://jetstream.laravel.com)
-, [Fortify](https://github.com/laravel/fortify), [Cashier](https://laravel.com/docs/billing), [Breeze](https://github.com/laravel/breeze), [Nova](https://nova.laravel.com), [Spark](https://spark.laravel.com) and [UI](https://github.com/laravel/ui), will also be automatically performed.
+> When performing any work with files (`install`, `uninstall`, `reset` and `update`), in addition to php files, work with json files, including translation
+> for [Laravel Framework](https://laravel.com), [Jetstream](https://jetstream.laravel.com)
+> , [Fortify](https://github.com/laravel/fortify), [Cashier](https://laravel.com/docs/billing), [Breeze](https://github.com/laravel/breeze), [Nova](https://nova.laravel.com)
+> , [Spark](https://spark.laravel.com) and [UI](https://github.com/laravel/ui), will also be automatically performed.

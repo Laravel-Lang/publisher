@@ -18,10 +18,16 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "laravel-lang/lang": "^10.2",
-        "laravel-lang/publisher": "^13.0"
+        "laravel-lang/lang": "^11.0",
+        "laravel-lang/publisher": "^14.0"
     }
 }
+```
+
+Next, you can also publish the config file to change implementations (ie. interface to specific class):
+
+```
+php artisan vendor:publish --provider="LaravelLang\Publisher\ServiceProvider"
 ```
 
 ## Upgrade

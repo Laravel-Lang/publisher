@@ -24,6 +24,7 @@ module.exports = {
 
         repo: 'https://github.com/Laravel-Lang/publisher',
         repoLabel: 'GitHub',
+
         docsRepo: 'https://github.com/Laravel-Lang/publisher',
         docsBranch: 'main',
         docsDir: 'docs',
@@ -43,7 +44,7 @@ module.exports = {
                 ]
             },
 
-            { text: 'Changelog', link: '/changelog.md' }
+            { text: 'Changelog', link: '/changelog/14.x.md' }
         ],
 
         sidebarDepth: 1,
@@ -53,7 +54,7 @@ module.exports = {
                 text: 'Prologue',
                 collapsible: true,
                 children: [
-                    '/changelog.md',
+                    '/changelog/index.md',
                     '/installation/upgrade/index.md'
                 ]
             },
@@ -71,9 +72,7 @@ module.exports = {
                         text: 'Installation',
                         link: '/installation/',
                         children: [
-                            '/installation/compatibility.md',
-                            '/installation/laravel-framework.md',
-                            '/installation/lumen-framework.md'
+                            '/installation/compatibility.md'
                         ]
                     }
                 ]

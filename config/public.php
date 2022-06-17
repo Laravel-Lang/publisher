@@ -40,29 +40,4 @@ return [
      */
 
     'alignment' => true,
-
-    // Key exclusion when combining.
-
-    'excludes' => [
-        // 'auth' => ['throttle'],
-        // 'pagination' => ['previous'],
-        // 'passwords' => ['reset', 'throttled', 'user'],
-        // '{locale}' => ['Confirm Password'],
-    ],
-
-    /*
-     * Change key case.
-     *
-     * Available values:
-     *
-     *   0 - Case does not change
-     *   1 - camelCase
-     *   2 - snake_case
-     *   3 - kebab-case
-     *   4 - PascalCase
-     *
-     * By default, 0
-     */
-
-    'case' => 0,
 ];
