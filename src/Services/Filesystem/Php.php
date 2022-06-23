@@ -21,7 +21,7 @@ class Php extends Base
 
     protected function format(array $items): string
     {
-        if ($this->hasAlign()) {
+        if ($this->config->hasAlign()) {
             $this->formatter->setEqualsAlign();
         }
 

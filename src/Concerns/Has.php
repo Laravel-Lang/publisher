@@ -22,14 +22,4 @@ trait Has
 
         return Str::of($name)->lower()->contains('validation');
     }
-
-    protected function hasInline(): bool
-    {
-        return $this->config->hasInline();
-    }
-
-    protected function hasAlign(): bool
-    {
-        return $this->config->hasAlign();
-    }
 }

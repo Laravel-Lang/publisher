@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use DragonCode\Contracts\LangPublisher\Plugin;
+use LaravelLang\Publisher\Plugins\Plugin;
 use RuntimeException;
 
 class UnknownPluginInstanceException extends RuntimeException
