@@ -6,7 +6,6 @@ namespace LaravelLang\Publisher\Concerns;
 
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\Publisher\Constants\Config;
 
 trait Has
 {
@@ -26,11 +25,11 @@ trait Has
 
     protected function hasInline(): bool
     {
-        return (bool) config(Config::PUBLIC_KEY . '.inline', true);
+        return $this->config->hasInline();
     }
 
     protected function hasAlign(): bool
     {
-        return (bool) config(Config::PUBLIC_KEY . '.align', false);
+        return $this->config->hasAlign();
     }
 }

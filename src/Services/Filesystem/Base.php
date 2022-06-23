@@ -10,6 +10,7 @@ use DragonCode\PrettyArray\Services\Formatter;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Helpers\Config;
 
 abstract class Base implements Filesystem
 {
@@ -17,7 +18,8 @@ abstract class Base implements Filesystem
 
     public function __construct(
         protected Pretty    $pretty = new Pretty(),
-        protected Formatter $formatter = new Formatter()
+        protected Formatter $formatter = new Formatter(),
+        protected Config    $config = new Config()
     ) {
     }
 
