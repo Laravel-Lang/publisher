@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Helpers\Locales;
 
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\TestCase;
 
@@ -9,22 +10,35 @@ class InstalledTest extends TestCase
 {
     public function testDefault(): void
     {
-        $this->assertSame(['en'], Locales::installed());
+        $this->assertSame([
+            LocaleCode::ENGLISH->value,
+        ], Locales::installed());
     }
 
     public function testCustom(): void
     {
-        $this->preinstall = ['de', 'fr'];
+        $this->preinstall = [
+            LocaleCode::GERMAN,
+            LocaleCode::FRENCH,
+        ];
 
-        $this->assertSame(['de', 'en', 'fr'], Locales::installed());
+        $this->assertSame([
+            LocaleCode::GERMAN->value,
+            LocaleCode::ENGLISH->value,
+            LocaleCode::FRENCH->value,
+        ], Locales::installed());
     }
 
     public function testProtected(): void
     {
-        $this->preinstall = ['de'];
+        $this->preinstall = [LocaleCode::GERMAN];
 
-        config(['app.fallback_locale' => 'fr']);
+        config(['app.fallback_locale' => LocaleCode::FRENCH->value]);
 
-        $this->assertSame(['de', 'en', 'fr'], Locales::installed());
+        $this->assertSame([
+            LocaleCode::GERMAN->value,
+            LocaleCode::ENGLISH->value,
+            LocaleCode::FRENCH->value,
+        ], Locales::installed());
     }
 }

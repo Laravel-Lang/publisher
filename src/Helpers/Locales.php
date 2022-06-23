@@ -43,19 +43,19 @@ class Locales
         ])->unique()->sort()->toArray();
     }
 
-    public function isAvailable(?string $locale): bool
+    public function isAvailable(LocaleCodes|string|null $locale): bool
     {
-        return ! empty($locale) && in_array($locale, $this->available());
+        return $this->inArray($locale, $this->available());
     }
 
-    public function isInstalled(?string $locale): bool
+    public function isInstalled(LocaleCodes|string|null $locale): bool
     {
-        return ! empty($locale) && in_array($locale, $this->installed());
+        return $this->inArray($locale, $this->installed());
     }
 
-    public function isProtected(?string $locale): bool
+    public function isProtected(LocaleCodes|string|null $locale): bool
     {
-        return ! empty($locale) && in_array($locale, $this->protects());
+        return $this->inArray($locale, $this->protects());
     }
 
     public function getDefault(): string
@@ -72,5 +72,17 @@ class Locales
         }
 
         return $this->getDefault();
+    }
+
+    protected function inArray(LocaleCodes|string|null $locale, array $haystack): bool
+    {
+        $locale = $this->toString($locale);
+
+        return ! empty($locale) && in_array($locale, $haystack);
+    }
+
+    protected function toString(LocaleCodes|string|null $locale): ?string
+    {
+        return $locale instanceof LocaleCodes ? $locale->value : $locale;
     }
 }

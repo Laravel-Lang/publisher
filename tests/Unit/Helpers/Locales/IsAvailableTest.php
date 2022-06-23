@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Helpers\Locales;
 
-use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ class IsAvailableTest extends TestCase
 {
     public function testEach(): void
     {
-        foreach (LocaleCodes::values() as $locale) {
+        foreach (LocaleCode::values() as $locale) {
             $this->assertTrue(Locales::isAvailable($locale));
         }
     }
