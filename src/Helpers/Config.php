@@ -8,14 +8,23 @@ class Config
 
     public const PRIVATE_KEY = 'lang-publisher-private';
 
-    public function basePath(): string
+    public function plugins(): array
     {
-        return $this->getPrivate('path.vendor');
+        return $this->getPrivate('plugins', []);
     }
 
-    public function resourcesPath(): string
+    public function vendorPath(?string $path = null): string
     {
-        return $this->getPrivate('path.resources');
+        $dir = $this->getPrivate('path.vendor');
+
+        return $this->path($dir, $path);
+    }
+
+    public function resourcesPath(?string $path = null): string
+    {
+        $dir = $this->getPrivate('path.resources');
+
+        return $this->path($dir, $path);
     }
 
     public function hasInline(): bool
@@ -28,9 +37,14 @@ class Config
         return $this->getPublic('align', true);
     }
 
-    protected function getPrivate(string $key): mixed
+    public function setPrivate(string $key, mixed $value): void
     {
-        return $this->get(self::PRIVATE_KEY, $key);
+        $this->set(self::PRIVATE_KEY, $key, $value);
+    }
+
+    protected function getPrivate(string $key, mixed $default = null): mixed
+    {
+        return $this->get(self::PRIVATE_KEY, $key, $default);
     }
 
     protected function getPublic(string $key, mixed $default = null): mixed
@@ -40,6 +54,16 @@ class Config
 
     protected function get(string $visibility, string $key, mixed $default = null): mixed
     {
-        return config($visibility . '.' . $key, $default);
+        return config()->get($visibility . '.' . $key, $default);
+    }
+
+    protected function set(string $visibility, string $key, mixed $value): void
+    {
+        config()->set($visibility . '.' . $key, $value);
+    }
+
+    protected function path(string $base, ?string $suffix = null): string
+    {
+        return rtrim($base, '\\/') . '/' . $suffix;
     }
 }

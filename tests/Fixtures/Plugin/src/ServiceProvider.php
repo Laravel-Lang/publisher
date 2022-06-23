@@ -10,7 +10,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         if (class_exists(Provider::class)) {
-            $this->app->register(Providers\Provider::class);
+            $this->app->register(Plugin::class);
         }
     }
 }

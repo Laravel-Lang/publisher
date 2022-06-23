@@ -19,8 +19,10 @@ declare(strict_types=1);
 
 return [
     'path' => [
-        'base' => base_path('vendor'),
+        'vendor' => base_path('vendor'),
 
         'resources' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
     ],
+
+    'plugins' => [],
 ];

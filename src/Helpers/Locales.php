@@ -25,9 +25,10 @@ class Locales
         $files       = File::names($this->config->resourcesPath());
 
         return Arr::of([])
-            ->push(...$directories)
-            ->push(...$files)
-            ->push(...$this->protects())
+            ->push($directories)
+            ->push($files)
+            ->push($this->protects())
+            ->flatten()
             ->unique()
             ->filter(static fn (string $locale) => $this->isAvailable($locale))
             ->sort()

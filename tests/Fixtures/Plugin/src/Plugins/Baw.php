@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Fixtures\Plugin\src\Plugins;
 
 use LaravelLang\Publisher\Plugins\Plugin;
 
-class Baq extends Plugin
+class Baw extends Plugin
 {
     public function vendor(): ?string
     {
@@ -13,13 +15,13 @@ class Baq extends Plugin
 
     public function version(): string
     {
-        return '^7.4';
+        return '^4.0 || >999.*';
     }
 
     public function files(): array
     {
         return [
-            'baq.json' => 'vendor/{locale}.json',
+            'baw.json' => '{locale}.json',
         ];
     }
 }
