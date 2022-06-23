@@ -15,11 +15,11 @@ use Tests\Fixtures\Plugin\src\ServiceProvider as PluginServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected Config $config;
+    protected ?Config $config;
 
-    protected Locales $locales;
+    protected ?Locales $locales;
 
-    protected bool $inline;
+    protected bool $inline = false;
 
     /** @var array<string|LocaleCode> */
     protected array $preinstall = [];
