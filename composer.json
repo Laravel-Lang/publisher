@@ -39,7 +39,6 @@
         "php": "^8.1",
         "ext-json": "*",
         "archtechx/enums": "^0.3",
-        "dragon-code/contracts": "^2.15",
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/support": "^6.2",
         "illuminate/console": "^7.0 || ^8.0 || ^9.0",
