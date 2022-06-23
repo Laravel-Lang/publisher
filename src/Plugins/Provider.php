@@ -14,15 +14,17 @@ use RuntimeException;
 
 abstract class Provider extends BaseServiceProvider
 {
+    protected Config $config;
+
     protected string $base_path;
 
     protected array $plugins;
 
-    public function __construct(
-        Application      $app,
-        protected Config $config
-    ) {
+    public function __construct(Application $app)
+    {
         parent::__construct($app);
+
+        $this->config = new Config();
     }
 
     public function register()

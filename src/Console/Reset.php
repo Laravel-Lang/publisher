@@ -11,4 +11,9 @@ class Reset extends Base
                            . ' {--full : Delete custom keys}';
 
     protected $description = 'Resets installed locations.';
+
+    public function handle()
+    {
+        // TODO: Implement handle() method.
+    }
 }

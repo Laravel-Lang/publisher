@@ -8,4 +8,5 @@ use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
+    abstract public function handle();
 }

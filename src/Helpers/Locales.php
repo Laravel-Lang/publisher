@@ -30,7 +30,7 @@ class Locales
             ->push($this->protects())
             ->flatten()
             ->unique()
-            ->filter(static fn (string $locale) => $this->isAvailable($locale))
+            ->filter(fn (string $locale) => $this->isAvailable($locale))
             ->sort()
             ->values()
             ->toArray();
