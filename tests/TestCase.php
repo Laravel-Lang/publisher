@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
 
     protected Locales $locales;
 
-    protected bool $inline = false;
+    protected bool $inline;
 
     /** @var array<string|LocaleCode> */
     protected array $preinstall = [];
