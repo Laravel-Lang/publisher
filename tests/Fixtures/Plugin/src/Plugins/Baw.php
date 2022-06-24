@@ -30,13 +30,13 @@ class Baw extends Plugin
 
     public function version(): string
     {
-        return '^4.0 || >999.*';
+        return '^1.0 || >999.*';
     }
 
     public function files(): array
     {
         return [
-            'baw.json' => '{locale}.json',
+            'baw.json' => 'vendor/custom/{locale}.json',
         ];
     }
 }

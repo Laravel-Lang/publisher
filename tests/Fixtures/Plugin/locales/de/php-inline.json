@@ -1,7 +1,6 @@
 {
-    "accept": "Accept",
-    "between.array": "Array",
-    "between.file": "File",
-    "attributes.aaa": "AAA",
-    "custom.bbb": "BBB"
+    "accepted": "Dieses Feld muss akzeptiert werden.",
+    "between.array": "Dieser Inhalt muss zwischen :min & :max Elemente haben.",
+    "between.file": "Diese Datei muss zwischen :min & :max Kilobytes groß sein.",
+    "custom.first_name.required": "Dieses Feld muss ausgefüllt werden."
 }

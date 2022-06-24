@@ -1,7 +1,7 @@
 {
-    "accept": "Accept",
-    "between.array": "Array",
-    "between.file": "File",
-    "attributes.aaa": "AAA",
-    "custom.bbb": "BBB"
+    "accepted": "Le champ :attribute doit être accepté.",
+    "attributes.first_name": "prénom",
+    "between.array": "Le tableau :attribute doit contenir entre :min et :max éléments.",
+    "between.file": "La taille du fichier de :attribute doit être comprise entre :min et :max kilo-octets.",
+    "custom.first_name.required": "Le champ prénom est obligatoire."
 }

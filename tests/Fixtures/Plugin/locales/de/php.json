@@ -1,7 +1,7 @@
 {
-    "accept": "Accept",
-    "between.array": "Array",
-    "between.file": "File",
-    "attributes.aaa": "AAA",
-    "custom.bbb": "BBB"
+    "accepted": ":Attribute muss akzeptiert werden.",
+    "attributes.first_name": "Vorname",
+    "between.array": ":Attribute muss zwischen :min & :max Elemente haben.",
+    "between.file": ":Attribute muss zwischen :min & :max Kilobytes groß sein.",
+    "custom.first_name.required": "Dieses Vorname muss ausgefüllt werden."
 }

@@ -17,6 +17,9 @@
 
 namespace LaravelLang\Publisher\Helpers;
 
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Constants\Locales;
+
 class Config
 {
     public const PUBLIC_KEY = 'lang-publisher';
@@ -35,9 +38,14 @@ class Config
         return $this->path($dir, $path);
     }
 
-    public function langPath(?string $path = null): string
+    public function langPath(Locales|string|null ...$paths): string
     {
         $dir = $this->getPrivate('path.resources');
+
+        $path = Arr::of($paths)
+            ->filter()
+            ->map(static fn (Locales|string $value) => is_string($value) ? $value : $value->value)
+            ->implode('/');
 
         return $this->path($dir, $path);
     }
@@ -79,6 +87,6 @@ class Config
 
     protected function path(string $base, ?string $suffix = null): string
     {
-        return rtrim($base, '\\/') . '/' . $suffix;
+        return rtrim($base, '\\/') . '/' . ltrim((string) $suffix, '\\/');
     }
 }

@@ -1,7 +1,6 @@
 {
-    "accept": "Accept",
-    "between.array": "Array",
-    "between.file": "File",
-    "attributes.aaa": "AAA",
-    "custom.bbb": "BBB"
+    "accepted": "Ce champ doit être accepté.",
+    "between.array": "Le tableau doit contenir entre :min et :max éléments.",
+    "between.file": "La taille du fichier doit être comprise entre :min et :max kilo-octets.",
+    "custom.first_name.required": "Ce champ est obligatoire."
 }

@@ -37,6 +37,10 @@ abstract class TestCase extends BaseTestCase
     /** @var array<string|LocaleCode> */
     protected array $preinstall = [];
 
+    protected LocaleCode $locale = LocaleCode::ENGLISH;
+
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -66,6 +70,8 @@ abstract class TestCase extends BaseTestCase
         $config->set(Config::PRIVATE_KEY . '.path.vendor', realpath(__DIR__ . '/../vendor'));
 
         $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
+
+        $config->set('app.fallback_locale', $this->fallback_locale->value);
     }
 
     protected function cleanUp(): void
@@ -102,5 +108,12 @@ abstract class TestCase extends BaseTestCase
     protected function copyFixtures(): void
     {
         Directory::copy(__DIR__ . '/Fixtures/lang', $this->config->langPath());
+    }
+
+    protected function trans(string $key, ?LocaleCode $locale = null): string
+    {
+        $locale = $locale ? $locale->value : $this->locale->value;
+
+        return __($key, locale: $locale);
     }
 }

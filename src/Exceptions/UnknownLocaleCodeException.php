@@ -17,11 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console\InlineOn;
+namespace LaravelLang\Publisher\Exceptions;
 
-use Tests\TestCase as BaseTestCase;
+use RuntimeException;
 
-abstract class TestCase extends BaseTestCase
+class UnknownLocaleCodeException extends RuntimeException
 {
-    protected bool $inline = true;
+    public function __construct(string $code)
+    {
+        parent::__construct("Unknown locale code: $code.");
+    }
 }

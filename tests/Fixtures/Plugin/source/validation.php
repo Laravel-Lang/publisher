@@ -16,18 +16,24 @@
  */
 
 return [
-    'accept' => 'Accept',
+    'accepted' => 'The :attribute must be accepted.',
 
     'between' => [
-        'array' => 'Array',
-        'file'  => 'File',
-    ],
-
-    'attributes' => [
-        'aaa',
+        'array' => 'The :attribute must have between :min and :max items.',
+        'file'  => 'The :attribute must be between :min and :max kilobytes.',
     ],
 
     'custom' => [
-        'bbb',
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
+        ],
+
+        'first_name' => [
+            'required' => 'The :attribute field is required.',
+        ],
+    ],
+
+    'attributes' => [
+        'first_name' => 'First Name',
     ],
 ];

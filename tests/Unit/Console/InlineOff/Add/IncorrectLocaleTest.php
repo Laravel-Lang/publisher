@@ -19,8 +19,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Add;
 
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class IncorrectLocaleTest extends TestCase
 {
+    public function testAdd(): void
+    {
+        $this->expectException(UnknownLocaleCodeException::class);
+        $this->expectExceptionMessage('Unknown locale code: foo.');
+
+        $this->artisan('lang:add', ['locales' => 'foo'])->run();
+    }
 }
