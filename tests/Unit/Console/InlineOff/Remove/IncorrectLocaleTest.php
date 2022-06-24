@@ -19,8 +19,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Remove;
 
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class IncorrectLocaleTest extends TestCase
 {
+    public function testRemove(): void
+    {
+        $this->expectException(UnknownLocaleCodeException::class);
+        $this->expectExceptionMessage('Unknown locale code: foo.');
+
+        $this->artisan('lang:rm', ['locales' => 'foo'])->run();
+    }
 }
