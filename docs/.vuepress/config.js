@@ -1,4 +1,4 @@
-/*
+/**
  * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
