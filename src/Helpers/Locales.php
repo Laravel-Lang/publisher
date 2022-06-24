@@ -36,8 +36,8 @@ class Locales
 
     public function installed(): array
     {
-        $directories = Directory::names($this->config->resourcesPath());
-        $files       = File::names($this->config->resourcesPath());
+        $directories = Directory::names($this->config->langPath());
+        $files       = File::names($this->config->langPath());
 
         return Arr::of([])
             ->push($directories)

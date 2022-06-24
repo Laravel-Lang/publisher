@@ -22,8 +22,8 @@ namespace Tests;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Helpers\Config;
-use LaravelLang\Publisher\Helpers\Locales;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Fixtures\Plugin\src\ServiceProvider as PluginServiceProvider;
@@ -31,8 +31,6 @@ use Tests\Fixtures\Plugin\src\ServiceProvider as PluginServiceProvider;
 abstract class TestCase extends BaseTestCase
 {
     protected ?Config $config;
-
-    protected ?Locales $locales;
 
     protected bool $inline = false;
 
@@ -47,6 +45,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->cleanUp();
 
+        $this->copyFixtures();
         $this->installLocales();
         $this->preInstallLocales();
     }
@@ -71,7 +70,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function cleanUp(): void
     {
-        $path = $this->config->resourcesPath();
+        $path = $this->config->langPath();
 
         Directory::ensureDelete($path);
         Directory::ensureDirectory($path);
@@ -80,7 +79,7 @@ abstract class TestCase extends BaseTestCase
     protected function installLocales(): void
     {
         $this->artisan('lang:add', [
-            'locales' => $this->locales->protects(),
+            'locales' => Locales::protects(),
         ])->run();
     }
 
@@ -97,7 +96,11 @@ abstract class TestCase extends BaseTestCase
 
     protected function init(): void
     {
-        $this->config  = new Config();
-        $this->locales = new Locales();
+        $this->config = new Config();
+    }
+
+    protected function copyFixtures(): void
+    {
+        Directory::copy(__DIR__ . '/Fixtures/lang', $this->config->langPath());
     }
 }

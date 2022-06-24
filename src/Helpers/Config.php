@@ -35,7 +35,7 @@ class Config
         return $this->path($dir, $path);
     }
 
-    public function resourcesPath(?string $path = null): string
+    public function langPath(?string $path = null): string
     {
         $dir = $this->getPrivate('path.resources');
 

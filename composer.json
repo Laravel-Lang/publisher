@@ -41,7 +41,7 @@
         "archtechx/enums": "^0.3",
         "composer/semver": "^3.3",
         "dragon-code/pretty-array": "^4.0",
-        "dragon-code/support": "^6.2",
+        "dragon-code/support": "^6.3",
         "illuminate/console": "^7.0 || ^8.0 || ^9.0",
         "illuminate/support": "^7.0 || ^8.0 || ^9.0"
     },
