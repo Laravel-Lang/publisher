@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  - This file is part of the "Laravel-Lang/publisher" project.
+  -
+  - For the full copyright and license information, please view the LICENSE
+  - file that was distributed with this source code.
+  -
+  - @author Andrey Helldar <helldar@dragon-code.pro>
+  -
+  - @copyright 2022 Andrey Helldar
+  -
+  - @license MIT
+  -
+  - @see https://github.com/Laravel-Lang/publisher
+  -->
+
 <!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="laravel_x5F_lang_x5F_logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 x="0px" y="0px" viewBox="0 0 444 453" style="enable-background:new 0 0 444 453;" xml:space="preserve">
+<svg version="1.1" id="laravel_x5F_lang_x5F_logo" xmlns="http://www.w3.org/2000/svg"
+     x="0px" y="0px" viewBox="0 0 444 453" style="enable-background:new 0 0 444 453;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#FF2D20;}
 	.st1{fill:#434144;}
 </style>
-<path id="laravel_x5F_logo" class="st0" d="M357.4,149.4c0-0.1-0.1-0.2-0.1-0.4c-0.1-0.2-0.2-0.5-0.3-0.7c-0.1-0.1-0.2-0.3-0.3-0.4
+    <path id="laravel_x5F_logo" class="st0" d="M357.4,149.4c0-0.1-0.1-0.2-0.1-0.4c-0.1-0.2-0.2-0.5-0.3-0.7c-0.1-0.1-0.2-0.3-0.3-0.4
 	c-0.1-0.2-0.2-0.4-0.4-0.5c-0.1-0.1-0.3-0.2-0.4-0.3c-0.2-0.1-0.3-0.3-0.5-0.4l0,0l0,0l-52.5-30.2c-1.4-0.8-3-0.8-4.4,0l-52.4,30.2
 	l0,0l0,0c-0.2,0.1-0.3,0.2-0.5,0.4c-0.1,0.1-0.3,0.2-0.4,0.3c-0.1,0.1-0.3,0.3-0.4,0.5c-0.1,0.1-0.2,0.2-0.3,0.4
 	c-0.1,0.2-0.2,0.4-0.3,0.7c-0.1,0.1-0.1,0.2-0.1,0.4c-0.1,0.4-0.1,0.8-0.1,1.1v57.4l-43.7,25.2V120.9c0-0.4-0.1-0.8-0.1-1.1
