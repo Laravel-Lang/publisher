@@ -24,17 +24,15 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class SuccessTest extends TestCase
 {
+    protected array $preinstall = [
+        LocaleCode::AFRIKAANS,
+        LocaleCode::ALBANIAN,
+        LocaleCode::NORWEGIAN_BOKMAL,
+    ];
+
     public function testDefault(): void
     {
-        $locales = [
-            LocaleCode::AFRIKAANS,
-            LocaleCode::ALBANIAN,
-            LocaleCode::NORWEGIAN_BOKMAL,
-        ];
-
-        $this->artisan('lang:add', compact('locales'))->run();
-
-        foreach ($locales as $locale) {
+        foreach ($this->preinstall as $locale) {
             $this->assertDirectoryExists($this->config->langPath($locale));
 
             $this->assertFileExists($this->config->langPath($locale . '.json'));
@@ -42,9 +40,9 @@ class SuccessTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        $this->artisan('lang:rm', compact('locales'))->run();
+        $this->artisan('lang:rm', ['locales' => $this->preinstall])->run();
 
-        foreach ($locales as $locale) {
+        foreach ($this->preinstall as $locale) {
             $this->assertDirectoryDoesNotExist($this->config->langPath($locale));
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
