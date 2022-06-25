@@ -88,7 +88,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        foreach (array_diff($available, $protected) as $locale) {
+        foreach (Locales::notInstalled() as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
             $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));

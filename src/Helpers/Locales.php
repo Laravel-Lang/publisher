@@ -53,7 +53,7 @@ class Locales
 
     public function notInstalled(): array
     {
-        return array_diff($this->available(), $this->installed());
+        return array_values(array_diff($this->available(), $this->installed()));
     }
 
     public function protects(): array
