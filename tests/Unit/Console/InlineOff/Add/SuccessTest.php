@@ -44,6 +44,8 @@ class SuccessTest extends TestCase
         $this->assertSame('Baw 2', $this->trans('Baw 2'));
         $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
+        $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
+
         $this->assertSame('The :attribute must be accepted.', $this->trans('validation.accepted'));
         $this->assertSame('The :attribute must have between :min and :max items.', $this->trans('validation.between.array'));
         $this->assertSame('The :attribute must be between :min and :max kilobytes.', $this->trans('validation.between.file'));
@@ -107,6 +109,8 @@ class SuccessTest extends TestCase
         $this->assertSame('French Baw 2', $this->trans('Baw 2'));
         $this->assertSame('French Baw 3', $this->trans('Baw 3'));
 
+        $this->assertSame('Tous droits', $this->trans('All rights reserved.'));
+
         $this->assertSame('Le champ :attribute doit être accepté.', $this->trans('validation.accepted'));
         $this->assertSame('Le tableau :attribute doit contenir entre :min et :max éléments.', $this->trans('validation.between.array'));
         $this->assertSame('La taille du fichier de :attribute doit être comprise entre :min et :max kilo-octets.', $this->trans('validation.between.file'));
@@ -143,6 +147,8 @@ class SuccessTest extends TestCase
         $this->assertSame('French Baw 2', $this->trans('Baw 2'));
         $this->assertSame('French Baw 3', $this->trans('Baw 3'));
 
+        $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
+
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
         $this->assertSame(':Attribute muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
         $this->assertSame(':Attribute muss zwischen :min & :max Kilobytes groß sein.', $this->trans('validation.between.file'));
@@ -152,9 +158,9 @@ class SuccessTest extends TestCase
 
     public function testDefaultWithInstalled(): void
     {
-        $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
+        $this->assertSame('All rights', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
-        $this->assertSame('Go to page :page', $this->trans('Go to page :page'));
+        $this->assertSame('Go to page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
 
         $this->assertSame('These credentials do not match our records.', $this->trans('auth.failed'));
@@ -179,7 +185,7 @@ class SuccessTest extends TestCase
             'locales' => [Locales::GERMAN],
         ])->run();
 
-        $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
+        $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
         $this->assertSame('Go to page :page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
@@ -234,7 +240,7 @@ class SuccessTest extends TestCase
             'locales' => [Locales::GERMAN],
         ])->run();
 
-        $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
+        $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));
         $this->assertSame('Aller à la page :page', $this->trans('Go to page :page'));
         $this->assertSame('Bonjour !', $this->trans('Hello!'));

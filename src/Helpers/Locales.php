@@ -25,13 +25,16 @@ use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
 class Locales
 {
     public function __construct(
-        protected Config $config = new Config()
+        protected Config $config
     ) {
     }
 
     public function available(): array
     {
-        return Arr::sort(LocaleCodes::values());
+        return Arr::of(LocaleCodes::values())
+            ->sort()
+            ->values()
+            ->toArray();
     }
 
     public function installed(): array
@@ -61,7 +64,7 @@ class Locales
         return Arr::of([
             $this->getDefault(),
             $this->getFallback(),
-        ])->unique()->sort()->toArray();
+        ])->unique()->sort()->values()->toArray();
     }
 
     public function isAvailable(LocaleCodes|string|null $locale): bool
@@ -104,6 +107,6 @@ class Locales
 
     protected function toString(LocaleCodes|string|null $locale): ?string
     {
-        return $locale instanceof LocaleCodes ? $locale->value : $locale;
+        return $locale?->value ?? $locale;
     }
 }

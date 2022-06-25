@@ -17,7 +17,7 @@
 
 namespace LaravelLang\Publisher\Facades\Helpers;
 
-use DragonCode\Support\Facades\Facade;
+use Illuminate\Support\Facades\Facade;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Helpers\Locales as Helper;
 

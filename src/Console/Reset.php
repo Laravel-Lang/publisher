@@ -23,7 +23,7 @@ class Reset extends Base
 {
     protected $signature = 'lang:reset';
 
-    protected $description = 'Resets installed locations.';
+    protected $description = 'Resets installed localizations.';
 
     public function handle()
     {

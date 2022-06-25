@@ -17,10 +17,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Console\InlineOff\Reset;
+namespace Tests\Fixtures\Plugin\src\Plugins;
 
-use Tests\Unit\Console\InlineOff\TestCase;
+use LaravelLang\Publisher\Plugins\Plugin;
 
-class SuccessTest extends TestCase
+class Custom extends Plugin
 {
+    public function files(): array
+    {
+        return [
+            'custom.json' => '{locale}.json',
+        ];
+    }
 }

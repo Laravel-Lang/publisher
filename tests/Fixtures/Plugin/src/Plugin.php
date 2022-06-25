@@ -23,6 +23,7 @@ use LaravelLang\Publisher\Plugins\Provider;
 use Tests\Fixtures\Plugin\src\Plugins\Baq;
 use Tests\Fixtures\Plugin\src\Plugins\Bar;
 use Tests\Fixtures\Plugin\src\Plugins\Baw;
+use Tests\Fixtures\Plugin\src\Plugins\Custom;
 use Tests\Fixtures\Plugin\src\Plugins\Foo;
 
 class Plugin extends Provider
@@ -34,5 +35,6 @@ class Plugin extends Provider
         Bar::class,
         Baq::class,
         Baw::class,
+        Custom::class,
     ];
 }
