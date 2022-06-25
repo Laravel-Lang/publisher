@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Add;
 
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\Unit\Console\InlineOff\TestCase;
 
@@ -26,9 +27,8 @@ class WithoutParameterTest extends TestCase
 {
     public function testNo(): void
     {
-        $available = Locales::available();
-        $installed = Locales::installed();
-        $protected = Locales::protects();
+        $installed     = [LocaleCode::ENGLISH, LocaleCode::FRENCH];
+        $not_installed = [LocaleCode::NORWEGIAN_BOKMAL, LocaleCode::AFRIKAANS];
 
         foreach ($installed as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
@@ -36,13 +36,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        foreach ($protected as $locale) {
-            $this->assertFileExists($this->config->langPath($locale . '.json'));
-            $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
-        }
-
-        foreach (array_diff($available, $installed) as $locale) {
+        foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
             $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
@@ -58,13 +52,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        foreach ($protected as $locale) {
-            $this->assertFileExists($this->config->langPath($locale . '.json'));
-            $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
-        }
-
-        foreach (array_diff($available, $installed) as $locale) {
+        foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
             $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
@@ -73,9 +61,8 @@ class WithoutParameterTest extends TestCase
 
     public function testYes(): void
     {
-        $available = Locales::available();
-        $installed = Locales::installed();
-        $protected = Locales::protects();
+        $installed     = [LocaleCode::ENGLISH, LocaleCode::FRENCH];
+        $not_installed = [LocaleCode::NORWEGIAN_BOKMAL, LocaleCode::AFRIKAANS];
 
         foreach ($installed as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
@@ -83,13 +70,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        foreach ($protected as $locale) {
-            $this->assertFileExists($this->config->langPath($locale . '.json'));
-            $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
-        }
-
-        foreach (array_diff($available, $installed) as $locale) {
+        foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
             $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
@@ -99,13 +80,7 @@ class WithoutParameterTest extends TestCase
             ->expectsConfirmation('Do you want to install all localizations?', 'yes')
             ->run();
 
-        foreach ($protected as $locale) {
-            $this->assertFileExists($this->config->langPath($locale . '.json'));
-            $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
-        }
-
-        foreach ($available as $locale) {
+        foreach (Locales::available() as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
