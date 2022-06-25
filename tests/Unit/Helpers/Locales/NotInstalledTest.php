@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
+ * @copyright 2022 Andrey Helldar
+ *
+ * @license MIT
+ *
+ * @see https://github.com/Laravel-Lang/publisher
+ */
+
+declare(strict_types=1);
+
+namespace Tests\Unit\Helpers\Locales;
+
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use Tests\TestCase;
+
+class NotInstalledTest extends TestCase
+{
+    protected LocaleCode $fallback_locale = LocaleCode::FRENCH;
+
+    public function testDefault(): void
+    {
+        $expected = $this->except([
+            LocaleCode::ENGLISH,
+            LocaleCode::FRENCH,
+        ]);
+
+        $this->assertSame($expected, Locales::notInstalled());
+    }
+
+    public function testCustom(): void
+    {
+        $this->preinstall = [
+            LocaleCode::AFRIKAANS,
+            LocaleCode::GERMAN,
+        ];
+
+        $expected = $this->except([
+            LocaleCode::AFRIKAANS,
+            LocaleCode::ENGLISH,
+            LocaleCode::FRENCH,
+            LocaleCode::GERMAN,
+        ]);
+
+        $this->assertSame($expected, Locales::notInstalled());
+    }
+
+    public function testProtected(): void
+    {
+        $this->preinstall = [LocaleCode::GERMAN];
+
+        $expected = $this->except([
+            LocaleCode::ENGLISH,
+            LocaleCode::FRENCH,
+            LocaleCode::GERMAN,
+        ]);
+
+        $this->assertSame($expected, Locales::notInstalled());
+    }
+
+    /**
+     * @param array<LocaleCode> $locales
+     *
+     * @return array
+     */
+    protected function except(array $locales): array
+    {
+        $locales = array_map(static fn (LocaleCode $locale) => $locale->value, $locales);
+
+        return Arr::of(LocaleCode::values())
+            ->filter(static fn (string $locale) => ! in_array($locale, $locales))
+            ->sort()
+            ->values()
+            ->toArray();
+    }
+}

@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Console\InlineOff\Remove;
 
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class SuccessTest extends TestCase
@@ -33,8 +34,12 @@ class SuccessTest extends TestCase
     public function testDefault(): void
     {
         foreach ($this->preinstall as $locale) {
-            $this->assertDirectoryExists($this->config->langPath($locale));
+            $this->assertFileExists($this->config->langPath($locale . '.json'));
+            $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
+            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
+        }
 
+        foreach (Locales::protects() as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
@@ -50,9 +55,7 @@ class SuccessTest extends TestCase
             $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
         }
 
-        foreach ([LocaleCode::ENGLISH, $this->fallback_locale] as $locale) {
-            $this->assertDirectoryExists($this->config->langPath($locale));
-
+        foreach (Locales::protects() as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));

@@ -51,6 +51,11 @@ class Locales
             ->toArray();
     }
 
+    public function notInstalled(): array
+    {
+        return array_diff($this->available(), $this->installed());
+    }
+
     public function protects(): array
     {
         return Arr::of([

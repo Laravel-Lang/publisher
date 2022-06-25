@@ -24,6 +24,7 @@ use LaravelLang\Publisher\Helpers\Locales as Helper;
 /**
  * @method static array available()
  * @method static array installed()
+ * @method static array notInstalled()
  * @method static array protects()
  * @method static bool isAvailable(string|LocaleCode|null $locale)
  * @method static bool isInstalled(string|LocaleCode|null $locale)

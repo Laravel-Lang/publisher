@@ -54,6 +54,7 @@ class ProtectedTest extends TestCase
 
         $this->artisan('lang:rm', [
             'locales' => [
+                Locales::AFRIKAANS,
                 Locales::ENGLISH,
                 Locales::FRENCH,
                 Locales::GERMAN,

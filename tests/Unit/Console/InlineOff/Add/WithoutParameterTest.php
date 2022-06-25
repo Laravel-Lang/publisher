@@ -25,6 +25,8 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class WithoutParameterTest extends TestCase
 {
+    protected LocaleCode $fallback_locale = LocaleCode::FRENCH;
+
     public function testNo(): void
     {
         $installed     = [LocaleCode::ENGLISH, LocaleCode::FRENCH];
