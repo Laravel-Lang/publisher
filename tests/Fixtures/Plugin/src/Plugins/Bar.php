@@ -21,10 +21,7 @@ use LaravelLang\Publisher\Plugins\Plugin;
 
 class Bar extends Plugin
 {
-    public function vendor(): ?string
-    {
-        return 'illuminate/support';
-    }
+    public ?string $vendor = 'illuminate/support';
 
     public function files(): array
     {

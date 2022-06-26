@@ -22,17 +22,11 @@ use Composer\Semver\VersionParser;
 
 abstract class Plugin
 {
+    public ?string $vendor = null;
+
+    public string $version = '*';
+
     abstract public function files(): array;
-
-    public function vendor(): ?string
-    {
-        return null;
-    }
-
-    public function version(): string
-    {
-        return '*';
-    }
 
     public function has(): bool
     {
@@ -41,7 +35,7 @@ abstract class Plugin
 
     private function hasVendor(): bool
     {
-        if ($vendor = $this->vendor()) {
+        if ($vendor = $this->vendor) {
             return InstalledVersions::isInstalled($vendor);
         }
 
@@ -50,8 +44,8 @@ abstract class Plugin
 
     private function hasVersion(): bool
     {
-        if ($vendor = $this->vendor()) {
-            return InstalledVersions::satisfies(new VersionParser(), $vendor, $this->version());
+        if ($vendor = $this->vendor) {
+            return InstalledVersions::satisfies(new VersionParser(), $vendor, $this->version);
         }
 
         return true;
