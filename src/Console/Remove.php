@@ -35,7 +35,7 @@ class Remove extends Base
 
     protected function locales(): array
     {
-        return Arr::of($this->argument('locales'))
+        return Arr::of((array) $this->argument('locales'))
             ->tap(fn (string $locale) => Locales::isInstalled($locale) || throw new UnknownLocaleCodeException($locale))
             ->toArray();
     }

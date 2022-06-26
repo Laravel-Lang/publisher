@@ -25,7 +25,7 @@ class Baw extends Plugin
 {
     protected ?string $vendor = 'orchestra/testbench';
 
-    protected string $version = '^1.0 || >999.*';
+    protected string $version = '999.*';
 
     public function files(): array
     {

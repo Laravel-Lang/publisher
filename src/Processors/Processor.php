@@ -83,7 +83,7 @@ abstract class Processor
     protected function collectKeys(string $directory, array $files): void
     {
         foreach ($files as $source => $target) {
-            $values = $this->filesystem->load($directory . '/' . $source);
+            $values = $this->filesystem->load($directory . '/source/' . $source);
 
             $this->translation->setSource($target, $values);
         }

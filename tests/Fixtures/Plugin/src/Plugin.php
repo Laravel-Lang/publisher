@@ -28,7 +28,7 @@ use Tests\Fixtures\Plugin\src\Plugins\Foo;
 
 class Plugin extends Provider
 {
-    protected string $base_path = __DIR__ . '/../../';
+    protected string $base_path = __DIR__ . '/../';
 
     protected array $plugins = [
         Foo::class,
