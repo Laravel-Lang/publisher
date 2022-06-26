@@ -28,7 +28,7 @@ class Baq extends Plugin
     public function files(): array
     {
         return [
-            'baq.json' => 'vendor/{locale}.json',
+            'baq.json' => 'vendor/baq/{locale}.json',
         ];
     }
 }
