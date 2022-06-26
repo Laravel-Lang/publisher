@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Processors\Add as AddProcessor;
@@ -31,12 +30,24 @@ class Add extends Base
 
     protected $description = 'Install new localizations.';
 
+    protected ?string $question = 'Do you want to install all localizations?';
+
     protected Processor|string $processor = AddProcessor::class;
 
     protected function locales(): array
     {
-        return Arr::of((array) $this->argument('locales'))
-            ->tap(fn (string $locale) => Locales::isAvailable($locale) || throw new UnknownLocaleCodeException($locale))
-            ->toArray();
+        if ($this->confirmAll()) {
+            return Locales::available();
+        }
+
+        $locales = $this->getLocalesArgument();
+
+        foreach ($locales as $locale) {
+            if (! Locales::isAvailable($locale)) {
+                throw new UnknownLocaleCodeException($locale);
+            }
+        }
+
+        return $locales;
     }
 }

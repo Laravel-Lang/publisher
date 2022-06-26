@@ -20,16 +20,18 @@ declare(strict_types=1);
 namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tests\Concerns\Commands;
 use Tests\Fixtures\Plugin\src\ServiceProvider as PluginServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
+    use Commands;
+
     protected ?Config $config;
 
     protected bool $inline = false;
@@ -84,19 +86,13 @@ abstract class TestCase extends BaseTestCase
 
     protected function installLocales(): void
     {
-        $this->artisan('lang:add', [
-            'locales' => Locales::protects(),
-        ])->run();
+        $this->artisanLangAdd(Locales::protects());
     }
 
     protected function preInstallLocales(): void
     {
         if ($locales = $this->preinstall) {
-            $locales = Arr::of($locales)
-                ->map(static fn (string|LocaleCode $locale) => is_string($locale) ? $locale : $locale->value)
-                ->toArray();
-
-            $this->artisan('lang:add', compact('locales'))->run();
+            $this->artisanLangAdd($locales);
         }
     }
 

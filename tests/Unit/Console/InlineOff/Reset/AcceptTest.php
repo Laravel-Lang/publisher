@@ -55,7 +55,7 @@ class AcceptTest extends TestCase
         $this->assertSame('Le champ :attribute est obligatoire.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('Le champ :attribute doit être une chaîne de caractères.', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisan('lang:reset')->run();
+        $this->artisanLangReset();
 
         $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));

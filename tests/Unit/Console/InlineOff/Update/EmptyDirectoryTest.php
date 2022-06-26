@@ -47,7 +47,7 @@ class EmptyDirectoryTest extends TestCase
 
         $this->assertSame([], File::names($this->config->langPath('fr'), recursive: true));
 
-        $this->artisan('lang:update')->run();
+        $this->artisanLangUpdate();
 
         $this->assertFileExists($this->config->langPath('fr.json'));
         $this->assertFileExists($this->config->langPath('fr/validation.php'));
@@ -79,7 +79,7 @@ class EmptyDirectoryTest extends TestCase
         $this->assertSame('validation.custom.first_name.required', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('validation.custom.first_name.string', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisan('lang:update')->run();
+        $this->artisanLangUpdate();
 
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));

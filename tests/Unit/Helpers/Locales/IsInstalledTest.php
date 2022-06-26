@@ -26,17 +26,18 @@ class IsInstalledTest extends TestCase
     public function testDefault(): void
     {
         $this->assertTrue(Locales::isInstalled(LocaleCode::ENGLISH));
+        $this->assertTrue(Locales::isInstalled(LocaleCode::FRENCH));
 
+        $this->assertFalse(Locales::isInstalled(LocaleCode::AFRIKAANS));
         $this->assertFalse(Locales::isInstalled(LocaleCode::GERMAN));
-        $this->assertFalse(Locales::isInstalled(LocaleCode::FRENCH));
     }
 
     public function testCustom(): void
     {
-        $this->preinstall = [
+        $this->artisanLangAdd([
             LocaleCode::GERMAN,
             LocaleCode::FRENCH,
-        ];
+        ]);
 
         $this->assertTrue(Locales::isInstalled(LocaleCode::ENGLISH));
         $this->assertTrue(Locales::isInstalled(LocaleCode::GERMAN));

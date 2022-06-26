@@ -49,7 +49,7 @@ class SuccessTest extends TestCase
         $this->assertSame('First name is required.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('First name must be a string.', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisan('lang:update')->run();
+        $this->artisanLangUpdate();
 
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
@@ -102,7 +102,7 @@ class SuccessTest extends TestCase
         $this->assertSame('Le champ :attribute est obligatoire.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('Le champ :attribute doit être une chaîne de caractères.', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisan('lang:update')->run();
+        $this->artisanLangUpdate();
 
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));

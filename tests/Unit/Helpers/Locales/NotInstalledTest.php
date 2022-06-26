@@ -40,10 +40,10 @@ class NotInstalledTest extends TestCase
 
     public function testCustom(): void
     {
-        $this->preinstall = [
+        $this->artisanLangAdd([
             LocaleCode::AFRIKAANS,
             LocaleCode::GERMAN,
-        ];
+        ]);
 
         $expected = $this->except([
             LocaleCode::AFRIKAANS,
@@ -57,7 +57,9 @@ class NotInstalledTest extends TestCase
 
     public function testProtected(): void
     {
-        $this->preinstall = [LocaleCode::GERMAN];
+        $this->artisanLangAdd([
+            LocaleCode::GERMAN,
+        ]);
 
         $expected = $this->except([
             LocaleCode::ENGLISH,

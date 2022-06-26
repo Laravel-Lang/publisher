@@ -32,9 +32,7 @@ class ProtectedTest extends TestCase
         $this->expectException(ProtectedLocaleException::class);
         $this->expectExceptionMessage('Can\'t delete protected locales: en.');
 
-        $this->artisan('lang:rm', [
-            'locales' => [Locales::ENGLISH],
-        ])->run();
+        $this->artisanLangRemove(Locales::ENGLISH);
     }
 
     public function testFallback(): void
@@ -42,9 +40,7 @@ class ProtectedTest extends TestCase
         $this->expectException(ProtectedLocaleException::class);
         $this->expectExceptionMessage('Can\'t delete protected locales: fr.');
 
-        $this->artisan('lang:rm', [
-            'locales' => [Locales::FRENCH],
-        ])->run();
+        $this->artisanLangRemove(Locales::FRENCH);
     }
 
     public function testMixed(): void
@@ -52,14 +48,12 @@ class ProtectedTest extends TestCase
         $this->expectException(ProtectedLocaleException::class);
         $this->expectExceptionMessage('Can\'t delete protected locales: en, fr.');
 
-        $this->artisan('lang:rm', [
-            'locales' => [
-                Locales::AFRIKAANS,
-                Locales::ENGLISH,
-                Locales::FRENCH,
-                Locales::GERMAN,
-                Locales::NORWEGIAN_BOKMAL,
-            ],
-        ])->run();
+        $this->artisanLangRemove([
+            Locales::AFRIKAANS,
+            Locales::ENGLISH,
+            Locales::FRENCH,
+            Locales::GERMAN,
+            Locales::NORWEGIAN_BOKMAL,
+        ]);
     }
 }

@@ -55,7 +55,7 @@ class DeclineTest extends TestCase
         $this->assertSame('Le champ :attribute est obligatoire.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('Le champ :attribute doit être une chaîne de caractères.', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisan('lang:reset')->run();
+        $this->artisanLangReset();
 
         $this->assertSame('Tous droits', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));

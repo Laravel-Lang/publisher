@@ -19,12 +19,20 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
+use LaravelLang\Publisher\Constants\Locales;
 use RuntimeException;
 
 class UnknownLocaleCodeException extends RuntimeException
 {
-    public function __construct(string $code)
+    public function __construct(Locales|string $code)
     {
+        $code = $this->stringify($code);
+
         parent::__construct("Unknown locale code: $code.");
+    }
+
+    protected function stringify(Locales|string $locale): string
+    {
+        return $locale?->value ?? $locale;
     }
 }

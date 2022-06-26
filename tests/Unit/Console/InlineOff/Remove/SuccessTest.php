@@ -45,7 +45,7 @@ class SuccessTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
         }
 
-        $this->artisan('lang:rm', ['locales' => $this->preinstall])->run();
+        $this->artisanLangRemove($this->preinstall);
 
         foreach ($this->preinstall as $locale) {
             $this->assertDirectoryDoesNotExist($this->config->langPath($locale));

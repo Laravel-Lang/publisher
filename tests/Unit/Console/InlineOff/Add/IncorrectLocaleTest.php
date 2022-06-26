@@ -29,6 +29,6 @@ class IncorrectLocaleTest extends TestCase
         $this->expectException(UnknownLocaleCodeException::class);
         $this->expectExceptionMessage('Unknown locale code: foo.');
 
-        $this->artisan('lang:add', ['locales' => 'foo'])->run();
+        $this->artisanLangAdd('foo');
     }
 }

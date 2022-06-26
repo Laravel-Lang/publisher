@@ -25,6 +25,8 @@ use LaravelLang\Publisher\Processors\Processor;
 
 abstract class Base extends Command
 {
+    protected ?string $question;
+
     protected Processor|string $processor;
 
     public function handle()
@@ -40,5 +42,21 @@ abstract class Base extends Command
     protected function locales(): array
     {
         return Locales::installed();
+    }
+
+    protected function confirmAll(): bool
+    {
+        if (empty($this->argument('locales')) && $question = $this->question) {
+            return $this->confirm($question);
+        }
+
+        return false;
+    }
+
+    protected function getLocalesArgument(): array
+    {
+        $locales = $this->argument('locales');
+
+        return is_array($locales) ? $locales : [$locales];
     }
 }

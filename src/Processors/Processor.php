@@ -93,6 +93,8 @@ abstract class Processor
     {
         foreach ($files as $file) {
             foreach ($this->locales as $locale) {
+                $locale = $locale?->value ?? $locale;
+
                 $main_path   = $this->localeFilename($locale, $directory . '/' . $file);
                 $inline_path = $this->localeFilename($locale, $directory . '/' . $file, true);
 
