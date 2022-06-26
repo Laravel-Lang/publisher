@@ -17,6 +17,8 @@
 
 namespace Tests\Unit\Helpers\Locales;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\TestCase;
@@ -53,6 +55,28 @@ class InstalledTest extends TestCase
         ]);
 
         config(['app.fallback_locale' => LocaleCode::FRENCH->value]);
+
+        $this->assertSame([
+            LocaleCode::GERMAN->value,
+            LocaleCode::ENGLISH->value,
+            LocaleCode::FRENCH->value,
+        ], Locales::installed());
+    }
+
+    public function testFileTraces(): void
+    {
+        File::store($this->config->langPath('vendor/traces/de.json'), '[]');
+
+        $this->assertSame([
+            LocaleCode::GERMAN->value,
+            LocaleCode::ENGLISH->value,
+            LocaleCode::FRENCH->value,
+        ], Locales::installed());
+    }
+
+    public function testDirectoryTraces(): void
+    {
+        Directory::ensureDirectory($this->config->langPath('de'));
 
         $this->assertSame([
             LocaleCode::GERMAN->value,

@@ -19,6 +19,7 @@ namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
 
@@ -40,13 +41,14 @@ class Locales
     public function installed(): array
     {
         $directories = Directory::names($this->config->langPath());
-        $files       = File::names($this->config->langPath());
+        $files       = File::names($this->config->langPath(), recursive: true);
 
         return Arr::of([])
             ->push($directories)
             ->push($files)
             ->push($this->protects())
             ->flatten()
+            ->map(static fn (string $name) => Path::filename($name))
             ->unique()
             ->filter(fn (string $locale) => $this->isAvailable($locale))
             ->sort()
