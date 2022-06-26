@@ -21,9 +21,9 @@ use LaravelLang\Publisher\Plugins\Plugin;
 
 class Baq extends Plugin
 {
-    public ?string $vendor = 'orchestra/testbench';
+    protected ?string $vendor = 'orchestra/testbench';
 
-    public string $version = '^7.4';
+    protected string $version = '^7.4';
 
     public function files(): array
     {

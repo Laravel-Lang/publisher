@@ -20,8 +20,23 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
+use LaravelLang\Publisher\Processors\Processor;
 
 abstract class Base extends Command
 {
-    abstract public function handle();
+    protected Processor|string $processor;
+
+    protected bool $reset = false;
+
+    abstract protected function locales(): array;
+
+    public function handle()
+    {
+        $this->resolveProcessor()->collect()->store();
+    }
+
+    protected function resolveProcessor(): Processor
+    {
+        return new $this->processor($this->output, $this->locales(), $this->reset);
+    }
 }

@@ -49,7 +49,7 @@ abstract class Provider extends BaseServiceProvider
 
     protected function plugins(): array
     {
-        return Arr::of()
+        return Arr::of($this->plugins)
             ->tap(static fn (string $plugin) => Instance::of($plugin, Plugin::class) ? true : throw new UnknownPluginInstanceException($plugin))
             ->unique()
             ->sort()

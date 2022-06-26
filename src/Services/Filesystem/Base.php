@@ -22,7 +22,6 @@ namespace LaravelLang\Publisher\Services\Filesystem;
 use DragonCode\Contracts\Support\Filesystem;
 use DragonCode\PrettyArray\Services\File as Pretty;
 use DragonCode\PrettyArray\Services\Formatter;
-use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Helpers\Config;
@@ -40,7 +39,7 @@ abstract class Base implements Filesystem
 
     public function load(string $path): array
     {
-        return File::load($path);
+        return $this->pretty->load($path);
     }
 
     protected function sort(array $items): array

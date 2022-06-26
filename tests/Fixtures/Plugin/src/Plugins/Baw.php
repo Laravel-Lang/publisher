@@ -23,9 +23,9 @@ use LaravelLang\Publisher\Plugins\Plugin;
 
 class Baw extends Plugin
 {
-    public ?string $vendor = 'orchestra/testbench';
+    protected ?string $vendor = 'orchestra/testbench';
 
-    public string $version = '^1.0 || >999.*';
+    protected string $version = '^1.0 || >999.*';
 
     public function files(): array
     {

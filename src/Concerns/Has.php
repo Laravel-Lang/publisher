@@ -24,9 +24,9 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 trait Has
 {
-    protected function hasJson(string $path): bool
+    protected function hasJson(string $path, bool $extension = false): bool
     {
-        $name = Path::filename($path);
+        $name = $extension ? Path::extension($path) : Path::filename($path);
 
         return Str::of($name)->lower()->contains('json');
     }

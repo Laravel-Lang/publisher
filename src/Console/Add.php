@@ -19,14 +19,20 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+
 class Add extends Base
 {
     protected $signature = 'lang:add {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Install new localizations.';
 
-    public function handle()
+    protected function locales(): array
     {
-
+        return Arr::of($this->argument('locales'))
+            ->tap(fn (string $locale) => Locales::isAvailable($locale) || throw new UnknownLocaleCodeException($locale))
+            ->toArray();
     }
 }
