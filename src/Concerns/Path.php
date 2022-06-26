@@ -25,7 +25,7 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 trait Path
 {
-    protected function localeFilename(string $locale, string $path): string
+    protected function localeFilename(string $locale, string $path, bool $has_inline = false): string
     {
         $path = Str::replaceFormat($path, compact('locale'), '{%s}');
 
@@ -36,6 +36,6 @@ trait Path
         $main   = "$directory/$filename.$extension";
         $inline = "$directory/$filename-inline.$extension";
 
-        return $this->config->hasInline() && File::exists($inline) ? $inline : $main;
+        return $has_inline && File::exists($inline) ? $inline : $main;
     }
 }

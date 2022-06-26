@@ -25,6 +25,7 @@ use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Path;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
+use LaravelLang\Publisher\Resources\Translation;
 use LaravelLang\Publisher\Services\Filesystem\Manager;
 
 abstract class Processor
@@ -37,7 +38,8 @@ abstract class Processor
         readonly protected array       $locales,
         readonly protected bool        $reset,
         readonly protected Config      $config = new Config(),
-        readonly protected Manager     $filesystem = new Manager()
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation()
     ) {
     }
 
@@ -50,8 +52,8 @@ abstract class Processor
             foreach ($plugins as $plugin) {
                 $this->output->info("\t" . get_class($plugin) . '...');
 
-                $this->collectKeys($directory, array_keys($plugin->files()));
-                $this->collectLocalizations($directory, array_values($plugin->files()));
+                $this->collectKeys($directory, $plugin->files());
+                $this->collectLocalizations($directory, $plugin->files());
             }
         }
 
@@ -61,13 +63,20 @@ abstract class Processor
     public function store(): void
     {
         $this->output->info('Storing changes...');
+
+        foreach ($this->translation->toArray() as $filename => $values) {
+            $path = $this->config->langPath($filename);
+
+            $this->filesystem->store($path, $values);
+        }
     }
 
     protected function collectKeys(string $directory, array $files): void
     {
-        foreach ($files as $file) {
-            $values = $this->filesystem->load($directory . '/' . $file);
-            // TODO: set source keys
+        foreach ($files as $source => $target) {
+            $values = $this->filesystem->load($directory . '/' . $source);
+
+            $this->translation->setSource($target, $values);
         }
     }
 
@@ -75,10 +84,16 @@ abstract class Processor
     {
         foreach ($files as $file) {
             foreach ($this->locales as $locale) {
-                $path = $this->localeFilename($locale, $directory . '/' . $file);
+                $main_path   = $this->localeFilename($locale, $directory . '/' . $file);
+                $inline_path = $this->localeFilename($locale, $directory . '/' . $file, true);
 
-                $values = $this->filesystem->load($path);
-                // TODO: set localization keys
+                $values = $this->filesystem->load($main_path);
+
+                if ($this->config->hasInline()) {
+                    $values = array_merge($values, $this->filesystem->load($inline_path));
+                }
+
+                $this->translation->setTranslations($locale, $values);
             }
         }
     }
