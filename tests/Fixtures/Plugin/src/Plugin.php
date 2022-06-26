@@ -37,4 +37,11 @@ class Plugin extends Provider
         Baw::class,
         Custom::class,
     ];
+
+    public function boot(): void
+    {
+        $path = function_exists('lang_path') ? lang_path('vendor/baq') : resource_path('lang/vendor/baq');
+
+        $this->loadJsonTranslationsFrom($path);
+    }
 }

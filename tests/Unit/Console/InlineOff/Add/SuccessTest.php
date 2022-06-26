@@ -60,7 +60,7 @@ class SuccessTest extends TestCase
 
         $this->assertFileExists($this->config->langPath('de.json'));
         $this->assertFileExists($this->config->langPath(Locales::GERMAN, 'validation.php'));
-        $this->assertFileExists($this->config->langPath('vendor/de.json'));
+        $this->assertFileExists($this->config->langPath('vendor/baq/de.json'));
 
         $this->assertFileDoesNotExist($this->config->langPath('vendor/custom/de.json'));
 
@@ -76,9 +76,9 @@ class SuccessTest extends TestCase
         $this->assertSame('German Baq 2', $this->trans('Baq 2'));
         $this->assertSame('German Baq 3', $this->trans('Baq 3'));
 
-        $this->assertSame('French Baw 1', $this->trans('Baw 1'));
-        $this->assertSame('French Baw 2', $this->trans('Baw 2'));
-        $this->assertSame('French Baw 3', $this->trans('Baw 3'));
+        $this->assertSame('Baw 1', $this->trans('Baw 1'));
+        $this->assertSame('Baw 2', $this->trans('Baw 2'));
+        $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
         $this->assertSame(':Attribute muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
@@ -103,9 +103,9 @@ class SuccessTest extends TestCase
         $this->assertSame('French Baq 2', $this->trans('Baq 2'));
         $this->assertSame('French Baq 3', $this->trans('Baq 3'));
 
-        $this->assertSame('French Baw 1', $this->trans('Baw 1'));
-        $this->assertSame('French Baw 2', $this->trans('Baw 2'));
-        $this->assertSame('French Baw 3', $this->trans('Baw 3'));
+        $this->assertSame('Baw 1', $this->trans('Baw 1'));
+        $this->assertSame('Baw 2', $this->trans('Baw 2'));
+        $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
         $this->assertSame('Tous droits', $this->trans('All rights reserved.'));
 
@@ -123,7 +123,7 @@ class SuccessTest extends TestCase
 
         $this->assertFileExists($this->config->langPath('de.json'));
         $this->assertFileExists($this->config->langPath(Locales::GERMAN, 'validation.php'));
-        $this->assertFileExists($this->config->langPath('vendor/de.json'));
+        $this->assertFileExists($this->config->langPath('vendor/baq/de.json'));
 
         $this->assertFileDoesNotExist($this->config->langPath('vendor/custom/de.json'));
 
@@ -139,9 +139,9 @@ class SuccessTest extends TestCase
         $this->assertSame('German Baq 2', $this->trans('Baq 2'));
         $this->assertSame('German Baq 3', $this->trans('Baq 3'));
 
-        $this->assertSame('French Baw 1', $this->trans('Baw 1'));
-        $this->assertSame('French Baw 2', $this->trans('Baw 2'));
-        $this->assertSame('French Baw 3', $this->trans('Baw 3'));
+        $this->assertSame('Baw 1', $this->trans('Baw 1'));
+        $this->assertSame('Baw 2', $this->trans('Baw 2'));
+        $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
         $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
 

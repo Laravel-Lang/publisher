@@ -34,6 +34,6 @@ return [
     ],
 
     'attributes' => [
-        'first_name' => 'First Name',
+        'first_name' => 'first name',
     ],
 ];

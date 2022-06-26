@@ -22,6 +22,7 @@ namespace LaravelLang\Publisher\Services\Filesystem;
 use DragonCode\PrettyArray\Services\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Helpers\Ables\Arrayable;
+use Illuminate\Support\Arr as IlluminateArr;
 
 class Php extends Base
 {
@@ -56,9 +57,7 @@ class Php extends Base
         $result = [];
 
         foreach ($values as $key => $value) {
-            $keys = explode('.', $key);
-
-            $result = Arr::set($result, $keys, $value);
+            IlluminateArr::set($result, $key, $value);
         }
 
         return $result;

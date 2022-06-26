@@ -31,6 +31,8 @@ abstract class Base implements Filesystem
 {
     use Has;
 
+    protected array $except_keys = ['custom.attribute-name.rule-name'];
+
     public function __construct(
         protected Pretty    $pretty = new Pretty(),
         protected Formatter $formatter = new Formatter(),
@@ -41,7 +43,11 @@ abstract class Base implements Filesystem
     public function load(string $path): array
     {
         if (File::exists($path)) {
-            return $this->pretty->load($path);
+            return Arr::ofFile($path)
+                ->flattenKeys()
+                ->except($this->except_keys)
+                ->filter()
+                ->toArray();
         }
 
         return [];

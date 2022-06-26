@@ -36,6 +36,8 @@ abstract class Processor
 
     protected bool $reset = false;
 
+    protected array $file_types = ['json', 'php'];
+
     public function __construct(
         readonly protected OutputStyle $output,
         readonly protected array       $locales,
@@ -60,8 +62,9 @@ abstract class Processor
                 $this->output->info("\t" . get_class($plugin) . '...');
 
                 $this->collectKeys($directory, $plugin->files());
-                $this->collectLocalizations($directory, $plugin->files());
             }
+
+            $this->collectLocalizations($directory);
         }
 
         return $this;
@@ -89,18 +92,18 @@ abstract class Processor
         }
     }
 
-    protected function collectLocalizations(string $directory, array $files): void
+    protected function collectLocalizations(string $directory): void
     {
-        foreach ($files as $file) {
-            foreach ($this->locales as $locale) {
-                $locale = $locale?->value ?? $locale;
+        foreach ($this->locales as $locale) {
+            $locale = $locale?->value ?? $locale;
 
-                $main_path   = $this->localeFilename($locale, $directory . '/' . $file);
-                $inline_path = $this->localeFilename($locale, $directory . '/' . $file, true);
+            foreach ($this->file_types as $type) {
+                $main_path   = $this->localeFilename($locale, "$directory/locales/$locale/$type.json");
+                $inline_path = $this->localeFilename($locale, "$directory/locales/$locale/$type.json", true);
 
                 $values = $this->filesystem->load($main_path);
 
-                if ($this->config->hasInline()) {
+                if ($main_path !== $inline_path && $this->config->hasInline()) {
                     $values = array_merge($values, $this->filesystem->load($inline_path));
                 }
 

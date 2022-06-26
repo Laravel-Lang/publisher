@@ -30,8 +30,8 @@ trait Path
         $path = Str::replaceFormat($path, compact('locale'), '{%s}');
 
         $directory = PathHelper::dirname($path);
-        $extension = PathHelper::extension($path);
         $filename  = PathHelper::filename($path);
+        $extension = PathHelper::extension($path);
 
         $main   = "$directory/$filename.$extension";
         $inline = "$directory/$filename-inline.$extension";

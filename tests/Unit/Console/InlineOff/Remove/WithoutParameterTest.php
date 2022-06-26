@@ -35,13 +35,13 @@ class WithoutParameterTest extends TestCase
         foreach ($installed as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileDoesNotExist($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         $this->artisan('lang:rm')
@@ -51,13 +51,13 @@ class WithoutParameterTest extends TestCase
         foreach ($installed as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileDoesNotExist($this->config->langPath("vendor/baq/$locale.json"));
         }
     }
 
@@ -69,13 +69,13 @@ class WithoutParameterTest extends TestCase
         foreach ($installed as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         foreach ($not_installed as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileDoesNotExist($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         $this->artisan('lang:rm')
@@ -85,13 +85,13 @@ class WithoutParameterTest extends TestCase
         foreach (Locales::protects() as $locale) {
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileExists($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
         foreach (Locales::notInstalled() as $locale) {
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
             $this->assertFileDoesNotExist($this->config->langPath($locale, 'validation.php'));
-            $this->assertFileDoesNotExist($this->config->langPath("vendor/$locale.json"));
+            $this->assertFileDoesNotExist($this->config->langPath("vendor/baq/$locale.json"));
         }
     }
 }
