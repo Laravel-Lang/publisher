@@ -22,12 +22,16 @@ namespace LaravelLang\Publisher\Console;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Processors\Add as AddProcessor;
+use LaravelLang\Publisher\Processors\Processor;
 
 class Add extends Base
 {
     protected $signature = 'lang:add {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Install new localizations.';
+
+    protected Processor|string $processor = AddProcessor::class;
 
     protected function locales(): array
     {

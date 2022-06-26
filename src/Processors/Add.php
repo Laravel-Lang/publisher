@@ -17,16 +17,18 @@
 
 declare(strict_types=1);
 
-namespace LaravelLang\Publisher\Console;
+namespace LaravelLang\Publisher\Processors;
 
-use LaravelLang\Publisher\Processors\Processor;
-use LaravelLang\Publisher\Processors\Update as UpdateProcessor;
+use DragonCode\Support\Facades\Filesystem\Directory;
 
-class Update extends Base
+class Add extends Processor
 {
-    protected $signature = 'lang:update';
+    public function prepare(): Processor
+    {
+        foreach ($this->locales as $locale) {
+            Directory::ensureDirectory($this->config->langPath($locale));
+        }
 
-    protected $description = 'Updating installed localizations.';
-
-    protected Processor|string $processor = UpdateProcessor::class;
+        return $this;
+    }
 }

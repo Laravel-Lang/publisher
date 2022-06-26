@@ -19,14 +19,24 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Processors\Processor;
+use LaravelLang\Publisher\Processors\Remove as RemoveProcessor;
+
 class Remove extends Base
 {
     protected $signature = 'lang:rm {locales?* : Space-separated list of, eg: de tk it}';
 
     protected $description = 'Remove localizations.';
 
-    public function handle()
+    protected Processor|string $processor = RemoveProcessor::class;
+
+    protected function locales(): array
     {
-        // TODO: Implement handle() method.
+        return Arr::of($this->argument('locales'))
+            ->tap(fn (string $locale) => Locales::isInstalled($locale) || throw new UnknownLocaleCodeException($locale))
+            ->toArray();
     }
 }

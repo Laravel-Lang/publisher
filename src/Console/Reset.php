@@ -19,14 +19,14 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Publisher\Processors\Processor;
+use LaravelLang\Publisher\Processors\Reset as ResetProcessor;
+
 class Reset extends Base
 {
     protected $signature = 'lang:reset';
 
     protected $description = 'Resets installed localizations.';
 
-    public function handle()
-    {
-        // TODO: Implement handle() method.
-    }
+    protected Processor|string $processor = ResetProcessor::class;
 }

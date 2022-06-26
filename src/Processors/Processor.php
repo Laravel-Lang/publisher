@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
+use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Has;
@@ -33,14 +34,20 @@ abstract class Processor
     use Has;
     use Path;
 
+    protected bool $reset = false;
+
     public function __construct(
         readonly protected OutputStyle $output,
         readonly protected array       $locales,
-        readonly protected bool        $reset,
         readonly protected Config      $config = new Config(),
         readonly protected Manager     $filesystem = new Manager(),
         protected Translation          $translation = new Translation()
     ) {
+    }
+
+    public function prepare(): self
+    {
+        return $this;
     }
 
     public function collect(): self
@@ -66,6 +73,8 @@ abstract class Processor
 
         foreach ($this->translation->toArray() as $filename => $values) {
             $path = $this->config->langPath($filename);
+
+            $values = $this->reset || ! File::exists($path) ? $values : array_merge($this->filesystem->load($path), $values);
 
             $this->filesystem->store($path, $values);
         }
