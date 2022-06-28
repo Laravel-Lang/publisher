@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
+use Illuminate\Support\Facades\App;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Helpers\Config;
@@ -41,7 +42,7 @@ abstract class TestCase extends BaseTestCase
 
     protected LocaleCode $locale = LocaleCode::ENGLISH;
 
-    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+    protected LocaleCode $fallback_locale = LocaleCode::FRENCH;
 
     protected function setUp(): void
     {
@@ -73,6 +74,7 @@ abstract class TestCase extends BaseTestCase
 
         $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
+        $config->set('app.locale', $this->locale->value);
         $config->set('app.fallback_locale', $this->fallback_locale->value);
     }
 
@@ -96,6 +98,13 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
+    protected function setAppLocale(LocaleCode $locale): void
+    {
+        App::setLocale($locale->value);
+
+        $this->reloadLocales();
+    }
+
     protected function init(): void
     {
         $this->config = new Config();
@@ -106,10 +115,8 @@ abstract class TestCase extends BaseTestCase
         Directory::copy(__DIR__ . '/Fixtures/lang', $this->config->langPath());
     }
 
-    protected function trans(string $key, ?LocaleCode $locale = null): string
+    protected function trans(string $key): string
     {
-        $locale = $locale ? $locale->value : $this->locale->value;
-
-        return __($key, locale: $locale);
+        return __($key);
     }
 }

@@ -44,7 +44,7 @@ class Config
 
         $path = Arr::of($paths)
             ->filter()
-            ->map(static fn (Locales|string $value) => is_string($value) ? $value : $value->value)
+            ->map(static fn (Locales|string $value) => $value?->value ?? $value)
             ->implode('/');
 
         return $this->path($dir, $path);

@@ -23,13 +23,15 @@ use LaravelLang\Publisher\Constants\Locales;
 
 trait Commands
 {
-    protected function artisanLangAdd(Locales|array|string|null $locales = null): void
+    protected function artisanLangAdd(Locales|array|string|null $locales = null, bool $set = false): void
     {
         is_null($locales)
             ? $this->artisan('lang:add')->run()
             : $this->artisan('lang:add', compact('locales'))->run();
 
-        $this->reloadLocales();
+        $set
+            ? $this->setAppLocale(Locales::GERMAN)
+            : $this->reloadLocales();
     }
 
     protected function artisanLangRemove(Locales|array|string|null $locales = null): void

@@ -77,7 +77,7 @@ class SuccessTest extends TestCase
 
     public function testFallbackWithInstalled(): void
     {
-        $this->fallback_locale = Locales::FRENCH;
+        $this->setFallbackLocale(Locales::FRENCH);
 
         $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));
