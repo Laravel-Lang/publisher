@@ -19,14 +19,19 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales;
+use RuntimeException;
 
-class UnknownLocaleCodeException extends BaseException
+class BaseException extends RuntimeException
 {
-    public function __construct(array|string|Locales $locale)
+    protected function stringify(array|string|Locales $locales): string
     {
-        $locale = $this->stringify($locale);
+        $locales = is_array($locales) ? $locales : [$locales];
 
-        parent::__construct("Unknown locale code: $locale.");
+        return Arr::of($locales)
+            ->map(static fn (string|Locales $locale) => $locale?->value ?? $locale)
+            ->implode(', ')
+            ->toString();
     }
 }

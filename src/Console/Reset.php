@@ -28,5 +28,14 @@ class Reset extends Base
 
     protected $description = 'Resets installed localizations.';
 
+    protected ?string $question = 'Are you sure you want to reset localization files?';
+
     protected Processor|string $processor = ResetProcessor::class;
+
+    public function handle()
+    {
+        if ($this->confirm($this->question)) {
+            parent::handle();
+        }
+    }
 }

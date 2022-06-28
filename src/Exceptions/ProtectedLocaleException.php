@@ -19,13 +19,13 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use RuntimeException;
+use LaravelLang\Publisher\Constants\Locales;
 
-class ProtectedLocaleException extends RuntimeException
+class ProtectedLocaleException extends BaseException
 {
-    public function __construct(array|string $locales)
+    public function __construct(array|string|Locales $locales)
     {
-        $locales = is_string($locales) ? $locales : implode(', ', $locales);
+        $locales = $this->stringify($locales);
 
         parent::__construct("Can't delete protected locales: $locales.");
     }

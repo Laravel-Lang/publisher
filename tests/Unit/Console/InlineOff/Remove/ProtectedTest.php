@@ -25,8 +25,6 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class ProtectedTest extends TestCase
 {
-    protected Locales $fallback_locale = Locales::FRENCH;
-
     public function testDefault(): void
     {
         $this->expectException(ProtectedLocaleException::class);
@@ -46,7 +44,7 @@ class ProtectedTest extends TestCase
     public function testMixed(): void
     {
         $this->expectException(ProtectedLocaleException::class);
-        $this->expectExceptionMessage('Can\'t delete protected locales: en, fr.');
+        $this->expectExceptionMessage('Can\'t delete protected locales: en.');
 
         $this->artisanLangRemove([
             Locales::AFRIKAANS,

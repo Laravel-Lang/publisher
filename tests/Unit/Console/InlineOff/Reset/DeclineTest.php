@@ -19,19 +19,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Reset;
 
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Publisher\Constants\Locales;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class DeclineTest extends TestCase
 {
-    protected LocaleCode $locale = LocaleCode::FRENCH;
-
-    protected array $preinstall = [
-        LocaleCode::FRENCH,
-    ];
+    protected Locales $fallback_locale = Locales::ENGLISH;
 
     public function testNo(): void
     {
+        $this->setAppLocale(Locales::FRENCH);
+
         $this->assertSame('Tous droits', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));
         $this->assertSame('Aller à la page', $this->trans('Go to page :page'));
@@ -55,7 +53,11 @@ class DeclineTest extends TestCase
         $this->assertSame('Le champ :attribute est obligatoire.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('Le champ :attribute doit être une chaîne de caractères.', $this->trans('validation.custom.first_name.string'));
 
-        $this->artisanLangReset();
+        $this->artisan('lang:reset')
+            ->expectsConfirmation('Are you sure you want to reset localization files?')
+            ->run();
+
+        $this->reloadLocales();
 
         $this->assertSame('Tous droits', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));

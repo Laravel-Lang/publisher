@@ -23,6 +23,8 @@ use Tests\TestCase;
 
 class IsProtectedTest extends TestCase
 {
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     public function testDefault(): void
     {
         $this->assertTrue(Locales::isProtected(LocaleCode::ENGLISH));

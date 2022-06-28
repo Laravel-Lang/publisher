@@ -20,9 +20,8 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Exceptions;
 
 use LaravelLang\Publisher\Plugins\Plugin;
-use RuntimeException;
 
-class UnknownPluginInstanceException extends RuntimeException
+class UnknownPluginInstanceException extends BaseException
 {
     public function __construct(string $plugin)
     {

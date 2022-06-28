@@ -17,11 +17,14 @@
 
 namespace Tests\Unit\Helpers\Locales;
 
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use Tests\TestCase;
 
 class ProtectsTest extends TestCase
 {
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     public function testDefault(): void
     {
         $this->assertSame(['en'], Locales::protects());

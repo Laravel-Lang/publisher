@@ -34,18 +34,11 @@ trait Commands
             : $this->reloadLocales();
     }
 
-    protected function artisanLangRemove(Locales|array|string|null $locales = null): void
+    protected function artisanLangRemove(Locales|array|string|null $locales = null, bool $force = false): void
     {
         is_null($locales)
-            ? $this->artisan('lang:rm')->run()
-            : $this->artisan('lang:rm', compact('locales'))->run();
-
-        $this->reloadLocales();
-    }
-
-    protected function artisanLangReset(): void
-    {
-        $this->artisan('lang:reset')->run();
+            ? $this->artisan('lang:rm', ['--force' => $force])->run()
+            : $this->artisan('lang:rm', array_merge(['--force' => $force], compact('locales')))->run();
 
         $this->reloadLocales();
     }

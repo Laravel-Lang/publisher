@@ -23,6 +23,10 @@ use Tests\TestCase;
 
 class GetFallbackTest extends TestCase
 {
+    protected LocaleCode $locale = LocaleCode::ENGLISH;
+
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     public function testDefault(): void
     {
         $this->assertSame(LocaleCode::ENGLISH->value, Locales::getFallback());

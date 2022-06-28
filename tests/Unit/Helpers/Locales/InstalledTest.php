@@ -25,6 +25,8 @@ use Tests\TestCase;
 
 class InstalledTest extends TestCase
 {
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     public function testDefault(): void
     {
         $this->artisanLangRemove(LocaleCode::FRENCH);

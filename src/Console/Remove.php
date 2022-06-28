@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Processors\Processor;
@@ -26,7 +27,7 @@ use LaravelLang\Publisher\Processors\Remove as RemoveProcessor;
 
 class Remove extends Base
 {
-    protected $signature = 'lang:rm {locales?* : Space-separated list of, eg: de tk it}';
+    protected $signature = 'lang:rm {locales?* : Space-separated list of, eg: de tk it} {--force : Forced deletion of localization}';
 
     protected $description = 'Remove localizations.';
 
@@ -45,6 +46,10 @@ class Remove extends Base
         foreach ($locales as $locale) {
             if (! Locales::isAvailable($locale)) {
                 throw new UnknownLocaleCodeException($locale);
+            }
+
+            if (Locales::isProtected($locale) && ! $this->option('force')) {
+                throw new ProtectedLocaleException($locale);
             }
         }
 

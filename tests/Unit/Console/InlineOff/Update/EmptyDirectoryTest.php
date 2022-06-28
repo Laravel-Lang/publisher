@@ -19,7 +19,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Update;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use LaravelLang\Publisher\Constants\Locales;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use Tests\Unit\Console\InlineOff\TestCase;
 
@@ -27,21 +29,19 @@ class EmptyDirectoryTest extends TestCase
 {
     protected LocaleCode $locale = LocaleCode::GERMAN;
 
+    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+
     public function testFiles(): void
     {
-        File::ensureDelete([
-            $this->config->langPath('fr.json'),
-            $this->config->langPath('fr/auth.php'),
-            $this->config->langPath('fr/pagination.php'),
-            $this->config->langPath('fr/validation.php'),
-            $this->config->langPath('vendor/baq/fr.json'),
-        ]);
+        $this->forceDeleteLocale(Locales::FRENCH);
 
         $this->assertFileDoesNotExist($this->config->langPath('fr.json'));
         $this->assertFileDoesNotExist($this->config->langPath('fr/auth.php'));
         $this->assertFileDoesNotExist($this->config->langPath('fr/pagination.php'));
         $this->assertFileDoesNotExist($this->config->langPath('fr/validation.php'));
         $this->assertFileDoesNotExist($this->config->langPath('vendor/baq/fr.json'));
+
+        Directory::ensureDirectory($this->config->langPath('fr'));
 
         $this->assertDirectoryExists($this->config->langPath('fr'));
 
@@ -56,6 +56,12 @@ class EmptyDirectoryTest extends TestCase
 
     public function testTranslations(): void
     {
+        $this->forceDeleteLocale(Locales::ENGLISH);
+        $this->forceDeleteLocale(Locales::FRENCH);
+        $this->forceDeleteLocale(Locales::GERMAN);
+
+        Directory::ensureDirectory($this->config->langPath(Locales::GERMAN));
+
         $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
         $this->assertSame('Go to page :page', $this->trans('Go to page :page'));

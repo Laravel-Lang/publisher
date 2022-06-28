@@ -40,12 +40,12 @@ class Config
 
     public function langPath(Locales|string|null ...$paths): string
     {
-        $dir = $this->getPrivate('path.resources');
-
         $path = Arr::of($paths)
             ->filter()
             ->map(static fn (Locales|string $value) => $value?->value ?? $value)
             ->implode('/');
+
+        $dir = $this->getPrivate('path.resources');
 
         return $this->path($dir, $path);
     }
