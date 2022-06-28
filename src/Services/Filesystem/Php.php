@@ -26,6 +26,17 @@ use Illuminate\Support\Arr as IlluminateArr;
 
 class Php extends Base
 {
+    protected array $except_keys = ['custom.attribute-name.rule-name'];
+
+    public function load(string $path): array
+    {
+        return Arr::of(parent::load($path))
+            ->flattenKeys()
+            ->except($this->except_keys)
+            ->filter()
+            ->toArray();
+    }
+
     public function store(string $path, $content): string
     {
         $content = $this->sort($content);
@@ -33,7 +44,7 @@ class Php extends Base
         $content = $this->expand($content);
 
         if ($this->hasValidation($path)) {
-            $content = $this->sortValidation($content);
+            $content = $this->validationSort($content);
         }
 
         $content = $this->format($content);
@@ -63,7 +74,7 @@ class Php extends Base
         return $result;
     }
 
-    protected function sortValidation(array $items): array
+    protected function validationSort(array $items): array
     {
         $attributes = Arr::get($items, 'attributes');
         $custom     = Arr::get($items, 'custom');
