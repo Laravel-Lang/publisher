@@ -2,5 +2,5 @@
     "accepted": "Ce champ doit être accepté.",
     "between.array": "Le tableau doit contenir entre :min et :max éléments.",
     "between.file": "La taille du fichier doit être comprise entre :min et :max kilo-octets.",
-    "custom.first_name.required": "Ce champ est obligatoire."
+    "custom.first_name.required": "Le champ prénom est obligatoire."
 }

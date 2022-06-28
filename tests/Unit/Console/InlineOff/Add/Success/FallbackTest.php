@@ -58,7 +58,7 @@ class FallbackTest extends TestCase
         $this->assertSame('Le champ :attribute doit être accepté.', $this->trans('validation.accepted'));
         $this->assertSame('Le tableau :attribute doit contenir entre :min et :max éléments.', $this->trans('validation.between.array'));
         $this->assertSame('La taille du fichier de :attribute doit être comprise entre :min et :max kilo-octets.', $this->trans('validation.between.file'));
-        $this->assertSame('Le champ prénom est obligatoire.', $this->trans('validation.custom.first_name.required'));
+        $this->assertSame('Le champ :attribute est obligatoire.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('prénom', $this->trans('validation.attributes.first_name'));
 
         $this->assertDirectoryDoesNotExist($this->config->langPath(Locales::GERMAN));

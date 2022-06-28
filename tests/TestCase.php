@@ -119,4 +119,11 @@ abstract class TestCase extends BaseTestCase
     {
         return __($key);
     }
+
+    protected function forceDeleteLocale(LocaleCode $locale): void
+    {
+        $this->artisanLangRemove($locale);
+
+        $this->reloadLocales();
+    }
 }
