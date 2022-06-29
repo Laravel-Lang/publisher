@@ -55,7 +55,7 @@ class DefaultWithInstalledTest extends TestCase
 
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
-        $this->assertSame('Go to page :page', $this->trans('Go to page :page'));
+        $this->assertSame('Go to page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
 
         $this->assertSame('These credentials do not match our records.', $this->trans('auth.failed'));

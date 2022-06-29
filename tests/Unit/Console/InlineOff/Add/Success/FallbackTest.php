@@ -37,23 +37,23 @@ class FallbackTest extends TestCase
     {
         $this->setAppLocale(Locales::GERMAN);
 
-        $this->assertSame('Foo 1', $this->trans('Foo 1'));
-        $this->assertSame('Foo 2', $this->trans('Foo 2'));
-        $this->assertSame('Foo 3', $this->trans('Foo 3'));
+        $this->assertSame('French Foo 1', $this->trans('Foo 1'));
+        $this->assertSame('French Foo 2', $this->trans('Foo 2'));
+        $this->assertSame('French Foo 3', $this->trans('Foo 3'));
 
-        $this->assertSame('Bar 1', $this->trans('Bar 1'));
-        $this->assertSame('Bar 2', $this->trans('Bar 2'));
-        $this->assertSame('Bar 3', $this->trans('Bar 3'));
+        $this->assertSame('French Bar 1', $this->trans('Bar 1'));
+        $this->assertSame('French Bar 2', $this->trans('Bar 2'));
+        $this->assertSame('French Bar 3', $this->trans('Bar 3'));
 
-        $this->assertSame('Baq 1', $this->trans('Baq 1'));
-        $this->assertSame('Baq 2', $this->trans('Baq 2'));
-        $this->assertSame('Baq 3', $this->trans('Baq 3'));
+        $this->assertSame('French Baq 1', $this->trans('Baq 1'));
+        $this->assertSame('French Baq 2', $this->trans('Baq 2'));
+        $this->assertSame('French Baq 3', $this->trans('Baq 3'));
 
         $this->assertSame('Baw 1', $this->trans('Baw 1'));
         $this->assertSame('Baw 2', $this->trans('Baw 2'));
         $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
-        $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
+        $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
 
         $this->assertSame('Le champ :attribute doit être accepté.', $this->trans('validation.accepted'));
         $this->assertSame('Le tableau :attribute doit contenir entre :min et :max éléments.', $this->trans('validation.between.array'));

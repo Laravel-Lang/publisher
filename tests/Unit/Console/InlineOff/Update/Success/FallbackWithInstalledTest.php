@@ -41,10 +41,10 @@ class FallbackWithInstalledTest extends TestCase
 
         Directory::ensureDirectory($this->config->langPath(Locales::GERMAN));
 
-        $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
-        $this->assertSame('Forbidden', $this->trans('Forbidden'));
-        $this->assertSame('Go to page :page', $this->trans('Go to page :page'));
-        $this->assertSame('Hello!', $this->trans('Hello!'));
+        $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
+        $this->assertSame('Interdit', $this->trans('Forbidden'));
+        $this->assertSame('Aller à la page', $this->trans('Go to page :page'));
+        $this->assertSame('Bonjour !', $this->trans('Hello!'));
 
         $this->assertSame('Ces identifiants ne correspondent pas à nos enregistrements.', $this->trans('auth.failed'));
         $this->assertSame('Le mot de passe fourni est incorrect.', $this->trans('auth.password'));
@@ -67,9 +67,9 @@ class FallbackWithInstalledTest extends TestCase
         $this->artisanLangUpdate();
 
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
-        $this->assertSame('Forbidden', $this->trans('Forbidden'));
-        $this->assertSame('Go to page :page', $this->trans('Go to page :page'));
-        $this->assertSame('Hello!', $this->trans('Hello!'));
+        $this->assertSame('Interdit', $this->trans('Forbidden'));
+        $this->assertSame('Aller à la page', $this->trans('Go to page :page'));
+        $this->assertSame('Bonjour !', $this->trans('Hello!'));
 
         $this->assertSame('Ces identifiants ne correspondent pas à nos enregistrements.', $this->trans('auth.failed'));
         $this->assertSame('Le mot de passe fourni est incorrect.', $this->trans('auth.password'));

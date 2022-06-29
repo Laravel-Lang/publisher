@@ -21,6 +21,8 @@ namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
+use Illuminate\Translation\TranslationServiceProvider;
+use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Helpers\Config;
@@ -62,6 +64,13 @@ abstract class TestCase extends BaseTestCase
         return [
             PublisherServiceProvider::class,
             PluginServiceProvider::class,
+        ];
+    }
+
+    protected function overrideApplicationProviders($app): array
+    {
+        return [
+            TranslationServiceProvider::class => FixedTranslationServiceProvider::class,
         ];
     }
 
