@@ -1,5 +1,9 @@
 # General principles
 
+> Json fallbacks [doesn't work](https://github.com/laravel/framework/issues/41565#issuecomment-1073572954) in the Laravel Framework.
+>
+> To solve this problem, install the [Laravel Lang: JSON Fallback Hotfix](https://github.com/Laravel-Lang/json-fallback-hotfix) package.
+
 Almost all console commands accept an array of localizations as a parameter.
 
 For example:
