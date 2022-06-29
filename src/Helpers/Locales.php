@@ -1,46 +1,38 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
  */
 
-declare(strict_types=1);
-
 namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Instances\Reflection;
-use Illuminate\Support\Facades\Config as Illuminate;
-use LaravelLang\Publisher\Concerns\Has;
-use LaravelLang\Publisher\Concerns\Paths;
-use LaravelLang\Publisher\Constants\Locales as LocalesList;
-use LaravelLang\Publisher\Exceptions\SourceLocaleDoesntExistsException;
-use LaravelLang\Publisher\Facades\Helpers\Config as ConfigHelper;
+use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
 
 class Locales
 {
-    use Has;
-    use Paths;
+    public function __construct(
+        protected Config $config
+    ) {
+    }
 
     public function available(): array
     {
-        return Arr::of(
-            Reflection::getConstants(LocalesList::class)
-        )
-            ->unique()
+        return Arr::of(LocaleCodes::values())
             ->sort()
             ->values()
             ->toArray();
@@ -48,13 +40,30 @@ class Locales
 
     public function installed(): array
     {
-        return Arr::of($this->findJson())
-            ->addUnique($this->findPhp())
-            ->filter(fn (string $locale) => $this->isAvailable($locale))
+        $directories = Directory::names($this->config->langPath());
+        $files       = File::names($this->config->langPath(), recursive: true);
+
+        return Arr::of([])
+            ->push($directories)
+            ->push($files)
+            ->push($this->protects())
+            ->flatten()
+            ->map(static fn (string $name) => Path::filename($name))
             ->unique()
+            ->filter(fn (string $locale) => $this->isAvailable($locale))
             ->sort()
             ->values()
             ->toArray();
+    }
+
+    public function installedWithoutProtects(): array
+    {
+        return array_values(array_diff($this->installed(), $this->protects()));
+    }
+
+    public function notInstalled(): array
+    {
+        return array_values(array_diff($this->available(), $this->installed()));
     }
 
     public function protects(): array
@@ -62,64 +71,49 @@ class Locales
         return Arr::of([
             $this->getDefault(),
             $this->getFallback(),
-        ])->unique()->toArray();
+        ])->unique()->sort()->values()->toArray();
     }
 
-    public function isAvailable(string $locale): bool
+    public function isAvailable(LocaleCodes|string|null $locale): bool
     {
-        return $this->in($locale, $this->available());
+        return $this->inArray($locale, $this->available());
     }
 
-    public function isProtected(string $locale): bool
+    public function isInstalled(LocaleCodes|string|null $locale): bool
     {
-        return $this->in($locale, $this->protects());
+        return $this->inArray($locale, $this->installed());
     }
 
-    public function isInstalled(string $locale): bool
+    public function isProtected(LocaleCodes|string|null $locale): bool
     {
-        return $this->in($locale, $this->installed());
+        return $this->inArray($locale, $this->protects());
     }
 
     public function getDefault(): string
     {
-        return Illuminate::get('app.locale') ?: $this->getFallback();
+        $locale = config('app.locale');
+
+        return $this->isAvailable($locale) ? $locale : LocaleCodes::ENGLISH->value;
     }
 
     public function getFallback(): string
     {
-        return Illuminate::get('app.fallback_locale', LocalesList::ENGLISH);
-    }
-
-    public function validate(string $locale): void
-    {
-        if (! $this->isAvailable($locale)) {
-            throw new SourceLocaleDoesntExistsException($locale);
+        if ($locale = config('app.fallback_locale')) {
+            return $this->isAvailable($locale) ? $locale : $this->getDefault();
         }
+
+        return $this->getDefault();
     }
 
-    protected function in(string $locale, array $locales): bool
+    protected function inArray(LocaleCodes|string|null $locale, array $haystack): bool
     {
-        return in_array($locale, $locales, true);
+        $locale = $this->toString($locale);
+
+        return ! empty($locale) && in_array($locale, $haystack);
     }
 
-    protected function findJson(): array
+    protected function toString(LocaleCodes|string|null $locale): ?string
     {
-        $files = File::names($this->resources(), null, true);
-
-        return Arr::of($files)
-            ->filter(fn (string $filename) => $this->hasJson($filename))
-            ->map(fn (string $filename)    => $this->filename($filename))
-            ->values()
-            ->toArray();
-    }
-
-    protected function findPhp(): array
-    {
-        return Directory::names($this->resources());
-    }
-
-    protected function resources(): string
-    {
-        return ConfigHelper::resources();
+        return $locale?->value ?? $locale;
     }
 }

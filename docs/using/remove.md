@@ -15,3 +15,13 @@ If you do not specify arguments when passing parameters, then an interactive que
 ```bash
 php artisan lang:rm
 ```
+
+By default, the command will return an error message when trying to remove a protected locale.
+
+Protected locales are the set codes in the `locale` and `fallback_locale` parameters of the `config/app.php` file.
+
+To force the deletion of a protected localization, use the `force` option:
+
+```bash
+php artisan lang:rm en --force
+```

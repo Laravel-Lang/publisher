@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -20,85 +20,43 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
-use LaravelLang\Publisher\Concerns\Ask;
-use LaravelLang\Publisher\Concerns\Paths;
-use LaravelLang\Publisher\Facades\Helpers\Config;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Processors\Processor;
 
 abstract class Base extends Command
 {
-    use Ask;
-    use Paths;
+    protected ?string $question;
 
-    /** @var \DragonCode\Contracts\LangPublisher\Processor */
-    protected $processor;
+    protected Processor|string $processor;
 
     public function handle()
     {
-        $this->resolveProcessor();
-
-        $this->hasPlugins()
-            ? $this->collecting()
-            : $this->pluginsNotFound();
-
-        $this->finish();
+        $this->resolveProcessor()->prepare()->collect()->store();
     }
 
-    protected function finish(): void
+    protected function resolveProcessor(): Processor
     {
-        $this->info('Saving changes...');
-
-        $this->processor->finish();
+        return new $this->processor($this->output, $this->locales());
     }
 
-    protected function resolveProcessor(): void
+    protected function locales(): array
     {
-        $locales = $this->targetLocales();
-        $full    = $this->hasFull();
-
-        $this->processor = new $this->processor($locales, $full);
+        return Locales::installed();
     }
 
-    protected function collecting(): void
+    protected function confirmAll(): bool
     {
-        foreach ($this->plugins() as $provider) {
-            $this->info('Processing ' . get_class($provider) . '...');
-
-            $this->processor->handle($provider);
+        if (empty($this->argument('locales')) && $question = $this->question) {
+            return $this->confirm($question);
         }
+
+        return false;
     }
 
-    protected function pluginsNotFound(): void
+    protected function getLocalesArgument(): array
     {
-        $this->warn('Could not find plugins available for processing.');
-    }
+        $locales = $this->argument('locales');
 
-    /**
-     * @return \DragonCode\Contracts\LangPublisher\Provider[]
-     */
-    protected function plugins(): array
-    {
-        return Config::plugins();
-    }
-
-    protected function targetLocales(): array
-    {
-        return Locales::installed();
-    }
-
-    protected function getAllLocales(): array
-    {
-        return Locales::installed();
-    }
-
-    protected function hasPlugins(): bool
-    {
-        return ! empty($this->plugins());
-    }
-
-    protected function hasFull(): bool
-    {
-        return $this->hasOption('full')
-            && $this->option('full');
+        return is_array($locales) ? $locales : [$locales];
     }
 }

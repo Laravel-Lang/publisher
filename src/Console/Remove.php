@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,21 +19,40 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use LaravelLang\Publisher\Processors\Remove as Processor;
+use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Processors\Processor;
+use LaravelLang\Publisher\Processors\Remove as RemoveProcessor;
 
 class Remove extends Base
 {
-    protected $signature = 'lang:rm'
-    . ' {locales?* : Space-separated list of, eg: de tk it}';
+    protected $signature = 'lang:rm {locales?* : Space-separated list of, eg: de tk it} {--force : Forced deletion of localization}';
 
     protected $description = 'Remove localizations.';
 
-    protected $processor = Processor::class;
+    protected ?string $question = 'Do you want to remove all localizations?';
 
-    protected function targetLocales(): array
+    protected Processor|string $processor = RemoveProcessor::class;
+
+    protected function locales(): array
     {
-        $locales = $this->getLocales();
+        if ($this->confirmAll()) {
+            return Locales::installedWithoutProtects();
+        }
 
-        return array_intersect($locales, parent::targetLocales());
+        $locales = $this->getLocalesArgument();
+
+        foreach ($locales as $locale) {
+            if (! Locales::isAvailable($locale)) {
+                throw new UnknownLocaleCodeException($locale);
+            }
+
+            if (Locales::isProtected($locale) && ! $this->option('force')) {
+                throw new ProtectedLocaleException($locale);
+            }
+        }
+
+        return $locales;
     }
 }

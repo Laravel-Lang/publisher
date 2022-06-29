@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,8 +19,10 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Constants;
 
+use ArchTech\Enums\Values;
+
 /**
- * Based on ISO 15897.
+ * Based on ISO 15897
  *
  * @see https://laravel.com/docs/localization#introduction
  *
@@ -30,163 +32,165 @@ namespace LaravelLang\Publisher\Constants;
  * ISO-639-1 standard
  * @see https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
-class Locales
+enum Locales: string
 {
-    public const AFRIKAANS = 'af';
+    use Values;
 
-    public const ALBANIAN = 'sq';
+    case AFRIKAANS = 'af';
 
-    public const ARABIC = 'ar';
+    case ALBANIAN = 'sq';
 
-    public const ARMENIAN = 'hy';
+    case ARABIC = 'ar';
 
-    public const AZERBAIJANI = 'az';
+    case ARMENIAN = 'hy';
 
-    public const BASQUE = 'eu';
+    case AZERBAIJANI = 'az';
 
-    public const BELARUSIAN = 'be';
+    case BASQUE = 'eu';
 
-    public const BENGALI = 'bn';
+    case BELARUSIAN = 'be';
 
-    public const BOSNIAN = 'bs';
+    case BENGALI = 'bn';
 
-    public const BULGARIAN = 'bg';
+    case BOSNIAN = 'bs';
 
-    public const CATALAN = 'ca';
+    case BULGARIAN = 'bg';
 
-    public const CENTRAL_KHMER = 'km';
+    case CATALAN = 'ca';
 
-    public const CHINESE = 'zh_CN';
+    case CENTRAL_KHMER = 'km';
 
-    public const CHINESE_HONG_KONG = 'zh_HK';
+    case CHINESE = 'zh_CN';
 
-    public const CHINESE_T = 'zh_TW';
+    case CHINESE_HONG_KONG = 'zh_HK';
 
-    public const CROATIAN = 'hr';
+    case CHINESE_T = 'zh_TW';
 
-    public const CZECH = 'cs';
+    case CROATIAN = 'hr';
 
-    public const DANISH = 'da';
+    case CZECH = 'cs';
 
-    public const DUTCH = 'nl';
+    case DANISH = 'da';
 
-    public const ENGLISH = 'en';
+    case DUTCH = 'nl';
 
-    public const ESTONIAN = 'et';
+    case ENGLISH = 'en';
 
-    public const FINNISH = 'fi';
+    case ESTONIAN = 'et';
 
-    public const FRENCH = 'fr';
+    case FINNISH = 'fi';
 
-    public const GALICIAN = 'gl';
+    case FRENCH = 'fr';
 
-    public const GEORGIAN = 'ka';
+    case GALICIAN = 'gl';
 
-    public const GERMAN = 'de';
+    case GEORGIAN = 'ka';
 
-    public const GERMAN_SWITZERLAND = 'de_CH';
+    case GERMAN = 'de';
 
-    public const GREEK = 'el';
+    case GERMAN_SWITZERLAND = 'de_CH';
 
-    public const GUJARATI = 'gu';
+    case GREEK = 'el';
 
-    public const HEBREW = 'he';
+    case GUJARATI = 'gu';
 
-    public const HINDI = 'hi';
+    case HEBREW = 'he';
 
-    public const HUNGARIAN = 'hu';
+    case HINDI = 'hi';
 
-    public const ICELANDIC = 'is';
+    case HUNGARIAN = 'hu';
 
-    public const INDONESIAN = 'id';
+    case ICELANDIC = 'is';
 
-    public const ITALIAN = 'it';
+    case INDONESIAN = 'id';
 
-    public const JAPANESE = 'ja';
+    case ITALIAN = 'it';
 
-    public const KANNADA = 'kn';
+    case JAPANESE = 'ja';
 
-    public const KAZAKH = 'kk';
+    case KANNADA = 'kn';
 
-    public const KOREAN = 'ko';
+    case KAZAKH = 'kk';
 
-    public const LATVIAN = 'lv';
+    case KOREAN = 'ko';
 
-    public const LITHUANIAN = 'lt';
+    case LATVIAN = 'lv';
 
-    public const MACEDONIAN = 'mk';
+    case LITHUANIAN = 'lt';
 
-    public const MALAY = 'ms';
+    case MACEDONIAN = 'mk';
 
-    public const MARATHI = 'mr';
+    case MALAY = 'ms';
 
-    public const MONGOLIAN = 'mn';
+    case MARATHI = 'mr';
 
-    public const NEPALI = 'ne';
+    case MONGOLIAN = 'mn';
 
-    public const NORWEGIAN_BOKMAL = 'nb';
+    case NEPALI = 'ne';
 
-    public const NORWEGIAN_NYNORSK = 'nn';
+    case NORWEGIAN_BOKMAL = 'nb';
 
-    public const OCCITAN = 'oc';
+    case NORWEGIAN_NYNORSK = 'nn';
 
-    public const PASHTO = 'ps';
+    case OCCITAN = 'oc';
 
-    public const PERSIAN = 'fa';
+    case PASHTO = 'ps';
 
-    public const PILIPINO = 'fil';
+    case PERSIAN = 'fa';
 
-    public const POLISH = 'pl';
+    case PILIPINO = 'fil';
 
-    public const PORTUGUESE = 'pt';
+    case POLISH = 'pl';
 
-    public const PORTUGUESE_BRAZIL = 'pt_BR';
+    case PORTUGUESE = 'pt';
 
-    public const ROMANIAN = 'ro';
+    case PORTUGUESE_BRAZIL = 'pt_BR';
 
-    public const RUSSIAN = 'ru';
+    case ROMANIAN = 'ro';
 
-    public const SARDINIAN = 'sc';
+    case RUSSIAN = 'ru';
 
-    public const SERBIAN_CYRILLIC = 'sr_Cyrl';
+    case SARDINIAN = 'sc';
 
-    public const SERBIAN_LATIN = 'sr_Latn';
+    case SERBIAN_CYRILLIC = 'sr_Cyrl';
 
-    public const SERBIAN_MONTENEGRIN = 'sr_Latn_ME';
+    case SERBIAN_LATIN = 'sr_Latn';
 
-    public const SINHALA = 'si';
+    case SERBIAN_MONTENEGRIN = 'sr_Latn_ME';
 
-    public const SLOVAK = 'sk';
+    case SINHALA = 'si';
 
-    public const SLOVENIAN = 'sl';
+    case SLOVAK = 'sk';
 
-    public const SPANISH = 'es';
+    case SLOVENIAN = 'sl';
 
-    public const SWAHILI = 'sw';
+    case SPANISH = 'es';
 
-    public const SWEDISH = 'sv';
+    case SWAHILI = 'sw';
 
-    public const TAGALOG = 'tl';
+    case SWEDISH = 'sv';
 
-    public const TAJIK = 'tg';
+    case TAGALOG = 'tl';
 
-    public const THAI = 'th';
+    case TAJIK = 'tg';
 
-    public const TURKISH = 'tr';
+    case THAI = 'th';
 
-    public const TURKMEN = 'tk';
+    case TURKISH = 'tr';
 
-    public const UIGHUR = 'ug';
+    case TURKMEN = 'tk';
 
-    public const UKRAINIAN = 'uk';
+    case UIGHUR = 'ug';
 
-    public const URDU = 'ur';
+    case UKRAINIAN = 'uk';
 
-    public const UZBEK_CYRILLIC = 'uz_Cyrl';
+    case URDU = 'ur';
 
-    public const UZBEK_LATIN = 'uz_Latn';
+    case UZBEK_CYRILLIC = 'uz_Cyrl';
 
-    public const VIETNAMESE = 'vi';
+    case UZBEK_LATIN = 'uz_Latn';
 
-    public const WELSH = 'cy';
+    case VIETNAMESE = 'vi';
+
+    case WELSH = 'cy';
 }

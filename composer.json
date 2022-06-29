@@ -36,26 +36,25 @@
         "source": "https://github.com/Laravel-Lang/publisher"
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*",
-        "dragon-code/contracts": "^2.15",
+        "archtechx/enums": "^0.3",
+        "composer/semver": "^3.3",
         "dragon-code/pretty-array": "^4.0",
-        "dragon-code/support": "^6.1.1",
-        "illuminate/console": "^7.0 || ^8.0 || ^9.0",
-        "illuminate/contracts": "^7.0 || ^8.0 || ^9.0",
-        "illuminate/support": "^7.0 || ^8.0 || ^9.0"
+        "dragon-code/support": "^6.3",
+        "illuminate/console": "^8.83 || ^9.18",
+        "illuminate/support": "^8.83 || ^9.18"
     },
     "require-dev": {
-        "laravel-lang/http-statuses": "^2.0",
-        "laravel-lang/lang": "^10.7",
-        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
+        "laravel-lang/json-fallback-hotfix": "^1.0",
+        "orchestra/testbench": "^6.0 || ^7.0",
         "phpunit/phpunit": "^9.4",
         "symfony/var-dumper": "^5.0 || ^6.0"
     },
     "conflict": {
-        "laravel-lang/attributes": ">=2.0.0",
-        "laravel-lang/http-statuses": ">=3.0.0",
-        "laravel-lang/lang": ">=11.0.0"
+        "laravel-lang/attributes": "<2.0",
+        "laravel-lang/http-statuses": "<3.0",
+        "laravel-lang/lang": "<11.0"
     },
     "suggest": {
         "laravel-lang/attributes": "List of 78 languages for form field names",

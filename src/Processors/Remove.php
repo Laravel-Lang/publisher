@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,40 +19,60 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
-use DragonCode\Contracts\LangPublisher\Provider;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
-use LaravelLang\Publisher\Facades\Support\Filesystem;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Path;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 
-class Remove extends BaseProcessor
+class Remove extends Processor
 {
-    protected $paths = [];
+    public function collect(): Processor
+    {
+        return $this;
+    }
 
-    public function handle(Provider $provider): void
+    public function store(): void
     {
         foreach ($this->locales as $locale) {
-            $json = $this->resourcesPath($locale . '.json');
-            $php  = $this->resourcesPath($locale);
-
-            $this->push($json, $php);
+            $this->directories($locale);
+            $this->files($locale);
         }
     }
 
-    public function finish(): void
+    protected function directories(LocaleCode|string $locale): void
     {
-        Filesystem::delete($this->paths);
+        Directory::ensureDelete($this->findDirectories($locale));
     }
 
-    protected function prepareLocales(array $locales): array
+    protected function files(LocaleCode|string $locale): void
     {
-        $except = Locales::protects();
-
-        return array_diff($locales, $except);
+        File::ensureDelete($this->findFiles($locale));
     }
 
-    protected function push(string ...$paths): void
+    protected function findDirectories(LocaleCode|string $locale): array
     {
-        foreach ($paths as $path) {
-            array_push($this->paths, $path);
-        }
+        $names = Directory::names($this->config->langPath(), $this->find($locale), true);
+
+        return Arr::of($names)
+            ->map(fn (string $name) => Str::prepend($name, $this->config->langPath() . '/'))
+            ->toArray();
+    }
+
+    protected function findFiles(LocaleCode|string $locale): array
+    {
+        $names = File::names($this->config->langPath(), $this->find($locale), true);
+
+        return Arr::of($names)
+            ->map(fn (string $name) => Str::prepend($name, $this->config->langPath() . '/'))
+            ->toArray();
+    }
+
+    protected function find(LocaleCode|string $locale): callable
+    {
+        $locale = $locale?->value ?? $locale;
+
+        return static fn (string $path) => Path::filename($path) === $locale;
     }
 }

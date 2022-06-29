@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -19,44 +19,46 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Resources;
 
-use DragonCode\Contracts\LangPublisher\Translation as Resource;
-use DragonCode\Support\Concerns\Makeable;
-use LaravelLang\Publisher\Concerns\Arrayable;
+use DragonCode\Contracts\Support\Arrayable;
+use DragonCode\Support\Facades\Helpers\Str;
 
-class Translation implements Resource
+class Translation implements Arrayable
 {
-    use Arrayable;
-    use Makeable;
-
-    protected array $keys = [];
+    protected array $source = [];
 
     protected array $translations = [];
 
-    public function getKeys(): array
+    public function setSource(string $filename, array $values): self
     {
-        return $this->keys;
-    }
-
-    public function keys(string $target, array $keys): Resource
-    {
-        $values = $this->keys[$target] ?? [];
-
-        $this->keys[$target] = $this->combine($values, $keys);
+        $this->source[$filename] = array_merge($this->source[$filename] ?? [], $values);
 
         return $this;
     }
 
-    public function translation(string $locale, string $target, array $translations): Resource
+    public function setTranslations(string $locale, array $values): self
     {
-        $values = $this->translations[$target][$locale] ?? [];
-
-        $this->translations[$target][$locale] = $this->mergeArray($values, $translations);
+        $this->translations[$locale] = array_merge($this->translations[$locale] ?? [], $values);
 
         return $this;
     }
 
-    public function getTranslations(): array
+    public function toArray(): array
     {
-        return $this->translations;
+        $result = [];
+
+        foreach ($this->source as $filename => $keys) {
+            foreach ($this->translations as $locale => $values) {
+                $name = $this->resolveFilename($filename, $locale);
+
+                $result[$name] = array_merge($keys, array_intersect_key($values, $keys));
+            }
+        }
+
+        return $result;
+    }
+
+    protected function resolveFilename(string $path, string $locale): string
+    {
+        return Str::replaceFormat($path, compact('locale'), '{%s}');
     }
 }

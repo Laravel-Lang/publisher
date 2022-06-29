@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
@@ -20,62 +20,57 @@ declare(strict_types=1);
 namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\HttpStatuses\ServiceProvider as HttpStatusesServiceProvider;
-use LaravelLang\Publisher\Concerns\Has;
-use LaravelLang\Publisher\Concerns\Paths;
-use LaravelLang\Publisher\Constants\Config;
-use LaravelLang\Publisher\Constants\Locales;
-use LaravelLang\Publisher\Constants\Locales as LocalesList;
-use LaravelLang\Publisher\ServiceProvider;
+use Illuminate\Support\Facades\App;
+use Illuminate\Translation\TranslationServiceProvider;
+use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
+use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Helpers\Config;
+use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Tests\Concerns\Asserts;
+use Tests\Concerns\Commands;
+use Tests\Fixtures\Plugin\src\ServiceProvider as PluginServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
-    use Asserts;
-    use Has;
-    use Paths;
+    use Commands;
 
-    protected string $default = Locales::ENGLISH;
+    protected ?Config $config;
 
-    protected string $fallback = Locales::GERMAN;
+    protected bool $inline = false;
 
-    protected string $locale = Locales::RUSSIAN;
+    /** @var array<string|LocaleCode> */
+    protected array $preinstall = [];
 
-    protected array $locales = [
-        LocalesList::BULGARIAN,
-        LocalesList::DANISH,
-        LocalesList::GALICIAN,
-        LocalesList::ICELANDIC,
-    ];
+    protected LocaleCode $locale = LocaleCode::ENGLISH;
 
-    protected bool $inline = true;
-
-    protected array $emulate = [
-        'laravel/breeze',
-        'laravel/fortify',
-        'laravel/jetstream',
-        'laravel/cashier',
-        'laravel/nova',
-        'laravel/spark-paddle',
-        'laravel/spark-stripe',
-    ];
+    protected LocaleCode $fallback_locale = LocaleCode::FRENCH;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->emulatePackages();
-        $this->reinstallLocales();
+        $this->init();
+
+        $this->cleanUp();
+
+        $this->copyFixtures();
+        $this->installLocales();
+        $this->preInstallLocales();
     }
 
     protected function getPackageProviders($app): array
     {
         return [
-            HttpStatusesServiceProvider::class,
-            ServiceProvider::class,
+            PublisherServiceProvider::class,
+            PluginServiceProvider::class,
+        ];
+    }
+
+    protected function overrideApplicationProviders($app): array
+    {
+        return [
+            TranslationServiceProvider::class => FixedTranslationServiceProvider::class,
         ];
     }
 
@@ -84,153 +79,60 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set('app.locale', $this->default);
-        $config->set('app.fallback_locale', $this->fallback);
-
-        $config->set(Config::PRIVATE_KEY . '.path.base', realpath(__DIR__ . '/../vendor'));
+        $config->set(Config::PRIVATE_KEY . '.path.vendor', realpath(__DIR__ . '/../vendor'));
 
         $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
-        $config->set(Config::PUBLIC_KEY . '.excludes', [
-            'auth' => ['failed'],
-
-            '{locale}' => ['All rights reserved.', 'Baz'],
-        ]);
+        $config->set('app.locale', $this->locale->value);
+        $config->set('app.fallback_locale', $this->fallback_locale->value);
     }
 
-    protected function copyFixtures(): void
+    protected function cleanUp(): void
     {
-        $files = [
-            'en.json',
-            'auth.php',
-            'validation.php',
-        ];
-
-        foreach ($files as $filename) {
-            $from = realpath(__DIR__ . '/fixtures/' . $filename);
-
-            $this->hasJson($filename)
-                ? File::copy($from, $this->resourcesPath($filename))
-                : File::copy($from, $this->resourcesPath($this->default . '/' . $filename));
-        }
-    }
-
-    protected function refreshLocales(): void
-    {
-        app('translator')->setLoaded([]);
-    }
-
-    protected function reinstallLocales(): void
-    {
-        $this->deleteLocales();
-        $this->installLocales();
-    }
-
-    protected function deleteLocales(): void
-    {
-        $path = $this->resourcesPath();
+        $path = $this->config->langPath();
 
         Directory::ensureDelete($path);
+        Directory::ensureDirectory($path);
     }
 
     protected function installLocales(): void
     {
-        $this->artisan('lang:add', [
-            'locales' => [$this->default, $this->fallback],
-        ])->run();
+        $this->artisanLangAdd(Locales::protects());
     }
 
-    protected function emulatePackages(): void
+    protected function preInstallLocales(): void
     {
-        foreach ($this->emulate as $package) {
-            $path = $this->vendorPath($package);
-
-            Directory::ensureDirectory($path);
+        if ($locales = $this->preinstall) {
+            $this->artisanLangAdd($locales);
         }
     }
 
-    protected function getAllLocales(): array
+    protected function setAppLocale(LocaleCode $locale): void
     {
-        return Arr::sort([
-            LocalesList::AFRIKAANS,
-            LocalesList::ALBANIAN,
-            LocalesList::ARABIC,
-            LocalesList::ARMENIAN,
-            LocalesList::AZERBAIJANI,
-            LocalesList::BASQUE,
-            LocalesList::BELARUSIAN,
-            LocalesList::BENGALI,
-            LocalesList::BOSNIAN,
-            LocalesList::BULGARIAN,
-            LocalesList::CATALAN,
-            LocalesList::CENTRAL_KHMER,
-            LocalesList::CHINESE,
-            LocalesList::CHINESE_HONG_KONG,
-            LocalesList::CHINESE_T,
-            LocalesList::CROATIAN,
-            LocalesList::CZECH,
-            LocalesList::DANISH,
-            LocalesList::DUTCH,
-            LocalesList::ENGLISH,
-            LocalesList::ESTONIAN,
-            LocalesList::FINNISH,
-            LocalesList::FRENCH,
-            LocalesList::GALICIAN,
-            LocalesList::GEORGIAN,
-            LocalesList::GERMAN,
-            LocalesList::GERMAN_SWITZERLAND,
-            LocalesList::GREEK,
-            LocalesList::GUJARATI,
-            LocalesList::HEBREW,
-            LocalesList::HINDI,
-            LocalesList::HUNGARIAN,
-            LocalesList::ICELANDIC,
-            LocalesList::INDONESIAN,
-            LocalesList::ITALIAN,
-            LocalesList::JAPANESE,
-            LocalesList::KANNADA,
-            LocalesList::KAZAKH,
-            LocalesList::KOREAN,
-            LocalesList::LATVIAN,
-            LocalesList::LITHUANIAN,
-            LocalesList::MACEDONIAN,
-            LocalesList::MALAY,
-            LocalesList::MARATHI,
-            LocalesList::MONGOLIAN,
-            LocalesList::NEPALI,
-            LocalesList::NORWEGIAN_BOKMAL,
-            LocalesList::NORWEGIAN_NYNORSK,
-            LocalesList::OCCITAN,
-            LocalesList::PASHTO,
-            LocalesList::PERSIAN,
-            LocalesList::PILIPINO,
-            LocalesList::POLISH,
-            LocalesList::PORTUGUESE,
-            LocalesList::PORTUGUESE_BRAZIL,
-            LocalesList::ROMANIAN,
-            LocalesList::RUSSIAN,
-            LocalesList::SARDINIAN,
-            LocalesList::SERBIAN_CYRILLIC,
-            LocalesList::SERBIAN_LATIN,
-            LocalesList::SERBIAN_MONTENEGRIN,
-            LocalesList::SINHALA,
-            LocalesList::SLOVAK,
-            LocalesList::SLOVENIAN,
-            LocalesList::SPANISH,
-            LocalesList::SWAHILI,
-            LocalesList::SWEDISH,
-            LocalesList::TAGALOG,
-            LocalesList::TAJIK,
-            LocalesList::THAI,
-            LocalesList::TURKISH,
-            LocalesList::TURKMEN,
-            LocalesList::UIGHUR,
-            LocalesList::UKRAINIAN,
-            LocalesList::URDU,
-            LocalesList::UZBEK_CYRILLIC,
-            LocalesList::UZBEK_LATIN,
-            LocalesList::VIETNAMESE,
-            LocalesList::WELSH,
-        ]);
+        App::setLocale($locale->value);
+
+        $this->reloadLocales();
+    }
+
+    protected function init(): void
+    {
+        $this->config = new Config();
+    }
+
+    protected function copyFixtures(): void
+    {
+        Directory::copy(__DIR__ . '/Fixtures/lang', $this->config->langPath());
+    }
+
+    protected function trans(string $key): string
+    {
+        return __($key);
+    }
+
+    protected function forceDeleteLocale(LocaleCode $locale): void
+    {
+        $this->artisanLangRemove($locale, true);
+
+        $this->reloadLocales();
     }
 }

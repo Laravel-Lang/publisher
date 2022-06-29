@@ -1,100 +1,92 @@
 <?php
 
-/*
- * This file is part of the "laravel-lang/publisher" project.
+/**
+ * This file is part of the "Laravel-Lang/publisher" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
+ * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2021 Andrey Helldar
+ * @copyright 2022 Andrey Helldar
  *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
  */
 
-declare(strict_types=1);
-
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Contracts\LangPublisher\Provider;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Instances\Instance;
-use Illuminate\Support\Facades\Config as Illuminate;
-use LaravelLang\Publisher\Constants\Config as ConfigConst;
-use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
+use LaravelLang\Publisher\Constants\Locales;
 
 class Config
 {
-    public function vendor(): string
-    {
-        return $this->getPrivate('path.base');
-    }
+    public const PUBLIC_KEY = 'lang-publisher';
 
-    public function resources(): string
-    {
-        return $this->getPrivate('path.resources');
-    }
+    public const PRIVATE_KEY = 'lang-publisher-private';
 
     public function plugins(): array
     {
-        $public = $this->getPrivate('plugins', []);
+        return $this->getPrivate('plugins', []);
+    }
 
-        return Arr::of($public)
-            ->unique()
-            ->values()
-            ->map(static function (string $plugin) {
-                if (Instance::of($plugin, Provider::class)) {
-                    return new $plugin();
-                }
+    public function vendorPath(?string $path = null): string
+    {
+        $dir = $this->getPrivate('path.vendor');
 
-                throw new UnknownPluginInstanceException($plugin);
-            })->toArray();
+        return $this->path($dir, $path);
+    }
+
+    public function langPath(Locales|string|null ...$paths): string
+    {
+        $path = Arr::of($paths)
+            ->filter()
+            ->map(static fn (Locales|string $value) => $value?->value ?? $value)
+            ->implode('/');
+
+        $dir = $this->getPrivate('path.resources');
+
+        return $this->path($dir, $path);
     }
 
     public function hasInline(): bool
     {
-        return $this->getPublic('inline');
+        return $this->getPublic('inline', false);
     }
 
-    public function hasAlignment(): bool
+    public function hasAlign(): bool
     {
-        return $this->getPublic('alignment');
+        return $this->getPublic('align', true);
     }
 
-    public function excludes(): array
+    public function setPrivate(string $key, mixed $value): void
     {
-        return $this->getPublic('excludes');
+        $this->set(self::PRIVATE_KEY, $key, $value);
     }
 
-    public function case(): int
+    protected function getPrivate(string $key, mixed $default = null): mixed
     {
-        return $this->getPublic('case');
+        return $this->get(self::PRIVATE_KEY, $key, $default);
     }
 
-    public function privateKey(string $suffix): string
+    protected function getPublic(string $key, mixed $default = null): mixed
     {
-        return ConfigConst::PRIVATE_KEY . '.' . $suffix;
+        return $this->get(self::PUBLIC_KEY, $key, $default);
     }
 
-    public function publicKey(string $suffix): string
+    protected function get(string $visibility, string $key, mixed $default = null): mixed
     {
-        return ConfigConst::PUBLIC_KEY . '.' . $suffix;
+        return config()->get($visibility . '.' . $key, $default);
     }
 
-    protected function getPrivate(string $key, $default = null)
+    protected function set(string $visibility, string $key, mixed $value): void
     {
-        $key = $this->privateKey($key);
-
-        return Illuminate::get($key, $default);
+        config()->set($visibility . '.' . $key, $value);
     }
 
-    protected function getPublic(string $key, $default = null)
+    protected function path(string $base, ?string $suffix = null): string
     {
-        $key = $this->publicKey($key);
-
-        return Illuminate::get($key, $default);
+        return rtrim($base, '\\/') . '/' . ltrim((string) $suffix, '\\/');
     }
 }
