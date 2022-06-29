@@ -23,7 +23,7 @@ class Baq extends Plugin
 {
     protected ?string $vendor = 'orchestra/testbench';
 
-    protected string $version = '^7.4';
+    protected string $version = '^5.0 || ^6.0 || ^7.0';
 
     public function files(): array
     {

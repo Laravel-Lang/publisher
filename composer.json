@@ -43,7 +43,8 @@
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/support": "^6.3",
         "illuminate/console": "^7.30 || ^8.83 || ^9.18",
-        "illuminate/support": "^7.30 || ^8.83 || ^9.18"
+        "illuminate/support": "^7.30 || ^8.83 || ^9.18",
+        "laravel/framework": "^8.0"
     },
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.0",
