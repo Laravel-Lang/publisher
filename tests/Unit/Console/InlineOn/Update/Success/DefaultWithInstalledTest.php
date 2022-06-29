@@ -75,15 +75,15 @@ class DefaultWithInstalledTest extends TestCase
         $this->assertSame('Next &raquo;', $this->trans('pagination.next'));
         $this->assertSame('&laquo; Previous', $this->trans('pagination.previous'));
 
-        $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
+        $this->assertSame('Dieses Feld muss akzeptiert werden.', $this->trans('validation.accepted'));
         $this->assertSame('The :attribute must be accepted when :other is :value.', $this->trans('validation.accepted_if'));
         $this->assertSame('The :attribute is not a valid URL.', $this->trans('validation.active_url'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Kilobytes groß sein.', $this->trans('validation.between.file'));
+        $this->assertSame('Dieser Inhalt muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
+        $this->assertSame('Diese Datei muss zwischen :min & :max Kilobytes groß sein.', $this->trans('validation.between.file'));
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
         $this->assertSame('last name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('age', $this->trans('validation.attributes.age'));
-        $this->assertSame('Dieses Vorname muss ausgefüllt werden.', $this->trans('validation.custom.first_name.required'));
+        $this->assertSame('Dieses Feld muss ausgefüllt werden.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('First name must be a string.', $this->trans('validation.custom.first_name.string'));
     }
 }
