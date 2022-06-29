@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -22,7 +20,7 @@ namespace LaravelLang\Publisher\Constants;
 use ArchTech\Enums\Values;
 
 /**
- * Based on ISO 15897
+ * Based on ISO 15897.
  *
  * @see https://laravel.com/docs/localization#introduction
  *
