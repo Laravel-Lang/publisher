@@ -57,12 +57,12 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-    'accepted'             => 'The :attribute must be accepted.',
-    'active_url'           => 'The :attribute is not a valid URL.',
-    
+    'accepted'         => 'The :attribute must be accepted.',
+    'active_url'       => 'The :attribute is not a valid URL.',
+
     // many rules
-    
-    'uuid'                 => 'The :attribute must be a valid UUID.',
+
+    'uuid'             => 'The :attribute must be a valid UUID.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -105,9 +105,9 @@ Updated:
 return [
     'accepted'   => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
-    
+
     // many rules
-    
+
     'uuid'       => 'The :attribute must be a valid UUID.',
     'custom'     => [
         'name' => [
