@@ -24,9 +24,18 @@ class Config
 
     public const PRIVATE_KEY = 'lang-publisher-private';
 
-    public function plugins(): array
+    public function getPlugins(): array
     {
         return $this->getPrivate('plugins', []);
+    }
+
+    public function setPlugins(string $path, array $plugins): void
+    {
+        $items = array_merge($this->getPlugins(), [
+            $path => $plugins,
+        ]);
+
+        $this->setPrivate('plugins', $items);
     }
 
     public function langPath(Locales|string|null ...$paths): string
