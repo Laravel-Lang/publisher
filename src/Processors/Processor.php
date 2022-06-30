@@ -23,6 +23,7 @@ use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
+use LaravelLang\Publisher\Facades\Helpers\ArrayMerge;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Resources\Translation;
@@ -40,10 +41,10 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation()
+        readonly protected array       $locales,
+        readonly protected Config      $config = new Config(),
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation()
     ) {
     }
 
@@ -77,7 +78,7 @@ abstract class Processor
         foreach ($this->translation->toArray() as $filename => $values) {
             $path = $this->config->langPath($filename);
 
-            $values = $this->reset || ! File::exists($path) ? $values : array_merge($this->filesystem->load($path), $values);
+            $values = $this->reset || ! File::exists($path) ? $values : ArrayMerge::merge($this->filesystem->load($path), $values);
 
             $this->filesystem->store($path, $values);
         }
@@ -104,7 +105,7 @@ abstract class Processor
                 $values = $this->filesystem->load($main_path);
 
                 if ($main_path !== $inline_path && $this->config->hasInline()) {
-                    $values = array_merge($values, $this->filesystem->load($inline_path));
+                    $values = ArrayMerge::merge($values, $this->filesystem->load($inline_path));
                 }
 
                 $this->translation->setTranslations($locale, $values);
@@ -120,7 +121,7 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
