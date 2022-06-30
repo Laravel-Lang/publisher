@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,6 +21,7 @@ namespace LaravelLang\Publisher\Resources;
 
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Helpers\Str;
+use LaravelLang\Publisher\Facades\Helpers\ArrayMerge;
 
 class Translation implements Arrayable
 {
@@ -28,14 +31,14 @@ class Translation implements Arrayable
 
     public function setSource(string $filename, array $values): self
     {
-        $this->source[$filename] = array_merge($this->source[$filename] ?? [], $values);
+        $this->source[$filename] = $this->merge($this->source[$filename] ?? [], $values);
 
         return $this;
     }
 
     public function setTranslations(string $locale, array $values): self
     {
-        $this->translations[$locale] = array_merge($this->translations[$locale] ?? [], $values);
+        $this->translations[$locale] = $this->merge($this->translations[$locale] ?? [], $values);
 
         return $this;
     }
@@ -48,7 +51,7 @@ class Translation implements Arrayable
             foreach ($this->translations as $locale => $values) {
                 $name = $this->resolveFilename($filename, $locale);
 
-                $result[$name] = array_merge($keys, array_intersect_key($values, $keys));
+                $result[$name] = $this->merge($keys, $values, true);
             }
         }
 
@@ -58,5 +61,10 @@ class Translation implements Arrayable
     protected function resolveFilename(string $path, string $locale): string
     {
         return Str::replaceFormat($path, compact('locale'), '{%s}');
+    }
+
+    protected function merge(array $source, array $target, bool $filter_keys = false): array
+    {
+        return ArrayMerge::merge($source, $target, $filter_keys);
     }
 }
