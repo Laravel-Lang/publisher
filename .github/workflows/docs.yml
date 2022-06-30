@@ -1,10 +1,8 @@
 name: docs
 
 on:
-    # trigger deployment on every push to main branch
     push:
         branches: [ main ]
-    # trigger deployment manually
     workflow_dispatch:
 
 permissions: write-all
@@ -22,10 +20,8 @@ jobs:
             -   name: Setup Node.js
                 uses: actions/setup-node@v3.3.0
                 with:
-                    # choose node.js version to use
                     node-version: '16'
 
-            # cache node_modules
             -   name: Cache dependencies
                 uses: actions/cache@v3
                 id: npm-cache
@@ -36,11 +32,9 @@ jobs:
                     restore-keys: |
                         ${{ runner.os }}-npm-
 
-            # install dependencies if the cache did not hit
             -   name: Install dependencies
                 run: npm i
 
-            # run build script
             -   name: Build VuePress site
                 run: npm run build
                 env:
@@ -49,14 +43,10 @@ jobs:
                     VITE_APP_ALGOLIA_INDEX_NAME: ${{ secrets.VITE_APP_ALGOLIA_INDEX_NAME }}
 
 
-            # please check out the docs of the workflow for more details
-            # @see https://github.com/crazy-max/ghaction-github-pages
             -   name: Deploy to GitHub Pages
                 uses: crazy-max/ghaction-github-pages@v3
                 with:
-                    # deploy to gh-pages branch
                     target_branch: gh-pages
-                    # deploy the default output dir of VuePress
                     build_dir: docs/.vuepress/dist
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 name: "Laravel 8"
 
-on: [ push ]
+on: [ push, pull_request ]
 
 permissions: read-all
 
