@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -27,7 +29,7 @@ use Tests\Fixtures\Incorrect\ExceptionProvider;
 use Tests\Fixtures\Incorrect\Plugin as IncorrectPlugin;
 use Tests\TestCase;
 
-class ProviderTest extends TestCase
+class ExceptionsTest extends TestCase
 {
     public function testExtends(): void
     {
