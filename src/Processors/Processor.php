@@ -23,6 +23,7 @@ use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
@@ -32,6 +33,7 @@ use LaravelLang\Publisher\Services\Filesystem\Manager;
 abstract class Processor
 {
     use Has;
+    use Output;
     use Path;
 
     protected bool $reset = false;
@@ -54,12 +56,12 @@ abstract class Processor
 
     public function collect(): self
     {
-        $this->output->info('Collecting localizations...');
+        $this->info('Collecting localizations...');
 
         foreach ($this->plugins() as $directory => $plugins) {
             /** @var Plugin $plugin */
             foreach ($plugins as $plugin) {
-                $this->output->info("\t" . get_class($plugin) . '...');
+                $this->line(get_class($plugin) . '...');
 
                 $this->collectKeys($directory, $plugin->files());
             }
@@ -72,7 +74,7 @@ abstract class Processor
 
     public function store(): void
     {
-        $this->output->info('Storing changes...');
+        $this->info('Storing changes...');
 
         foreach ($this->translation->toArray() as $filename => $values) {
             $path = $this->config->langPath($filename);
