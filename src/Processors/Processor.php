@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -122,7 +120,7 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin) => new $plugin())
+                    ->map(static fn (string $plugin)    => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
