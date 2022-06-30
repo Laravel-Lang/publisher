@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -54,10 +56,6 @@ class Php extends Base
 
     protected function format(array $items): string
     {
-        if ($this->config->hasAlign()) {
-            $this->formatter->setEqualsAlign();
-        }
-
         return $this->formatter->raw($items);
     }
 

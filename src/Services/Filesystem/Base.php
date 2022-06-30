@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -30,10 +32,15 @@ abstract class Base implements Filesystem
     use Has;
 
     public function __construct(
-        protected Pretty $pretty = new Pretty(),
+        protected Pretty    $pretty = new Pretty(),
         protected Formatter $formatter = new Formatter(),
-        protected Config $config = new Config()
+        protected Config    $config = new Config()
     ) {
+        $this->formatter->setKeyAsString();
+
+        if ($this->config->hasAlign()) {
+            $this->formatter->setEqualsAlign();
+        }
     }
 
     public function load(string $path): array
