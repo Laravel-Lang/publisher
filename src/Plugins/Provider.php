@@ -44,7 +44,10 @@ abstract class Provider extends BaseServiceProvider
 
     public function register()
     {
-        $this->set($this->basePath(), $this->plugins());
+        $this->config->setPlugins(
+            $this->basePath(),
+            $this->plugins()
+        );
     }
 
     protected function plugins(): array
@@ -55,11 +58,6 @@ abstract class Provider extends BaseServiceProvider
             ->sort()
             ->values()
             ->toArray();
-    }
-
-    protected function set(string $path, array $plugins): void
-    {
-        $this->config->setPlugins($path, $plugins);
     }
 
     protected function basePath(): string

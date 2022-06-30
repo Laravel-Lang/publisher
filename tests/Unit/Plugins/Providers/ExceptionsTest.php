@@ -22,13 +22,14 @@ namespace Tests\Unit\Plugins\Providers;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Plugins\Provider;
+use RuntimeException;
 use Tests\Fixtures\Incorrect\BasePathDoesntExistProvider;
 use Tests\Fixtures\Incorrect\BasePathProvider;
 use Tests\Fixtures\Incorrect\ExceptionProvider;
 use Tests\Fixtures\Incorrect\Plugin as IncorrectPlugin;
 use Tests\TestCase;
 
-class ProviderTest extends TestCase
+class ExceptionsTest extends TestCase
 {
     public function testExtends(): void
     {
@@ -48,7 +49,7 @@ class ProviderTest extends TestCase
 
     public function testDoesntExistBasePath(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(sprintf('The %s class must contain the definition of the $base_path property. The path must be existing.',
             BasePathDoesntExistProvider::class));
 
