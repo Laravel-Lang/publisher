@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -57,7 +59,7 @@ abstract class Provider extends BaseServiceProvider
 
     protected function set(string $path, array $plugins): void
     {
-        $this->config->setPrivate('plugins.' . $path, $plugins);
+        $this->config->setPrivate('plugins', [$path => $plugins]);
     }
 
     protected function basePath(): string
