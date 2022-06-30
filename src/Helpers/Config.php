@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -27,13 +29,6 @@ class Config
     public function plugins(): array
     {
         return $this->getPrivate('plugins', []);
-    }
-
-    public function vendorPath(?string $path = null): string
-    {
-        $dir = $this->getPrivate('path.vendor');
-
-        return $this->path($dir, $path);
     }
 
     public function langPath(Locales|string|null ...$paths): string
