@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -22,6 +20,7 @@ namespace Tests\Unit\Plugins\Providers;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Plugins\Provider;
+use RuntimeException;
 use Tests\Fixtures\Incorrect\BasePathDoesntExistProvider;
 use Tests\Fixtures\Incorrect\BasePathProvider;
 use Tests\Fixtures\Incorrect\ExceptionProvider;
@@ -48,9 +47,11 @@ class ProviderTest extends TestCase
 
     public function testDoesntExistBasePath(): void
     {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage(sprintf('The %s class must contain the definition of the $base_path property. The path must be existing.',
-            BasePathDoesntExistProvider::class));
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage(sprintf(
+            'The %s class must contain the definition of the $base_path property. The path must be existing.',
+            BasePathDoesntExistProvider::class
+        ));
 
         $this->app->register(BasePathDoesntExistProvider::class);
     }
