@@ -59,7 +59,7 @@ abstract class Provider extends BaseServiceProvider
 
     protected function set(string $path, array $plugins): void
     {
-        $this->config->setPrivate('plugins', [$path => $plugins]);
+        $this->config->setPlugins($path, $plugins);
     }
 
     protected function basePath(): string
