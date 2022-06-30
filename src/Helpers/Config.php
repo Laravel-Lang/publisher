@@ -38,7 +38,7 @@ class Config
             ->map(static fn (Locales|string $value) => $value?->value ?? $value)
             ->implode('/');
 
-        $dir = $this->getPrivate('path.resources');
+        $dir = $this->getPrivate('path');
 
         return $this->path($dir, $path);
     }
