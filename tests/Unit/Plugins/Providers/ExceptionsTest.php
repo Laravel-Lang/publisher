@@ -50,8 +50,10 @@ class ExceptionsTest extends TestCase
     public function testDoesntExistBasePath(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(sprintf('The %s class must contain the definition of the $base_path property. The path must be existing.',
-            BasePathDoesntExistProvider::class));
+        $this->expectExceptionMessage(sprintf(
+            'The %s class must contain the definition of the $base_path property. The path must be existing.',
+            BasePathDoesntExistProvider::class
+        ));
 
         $this->app->register(BasePathDoesntExistProvider::class);
     }
