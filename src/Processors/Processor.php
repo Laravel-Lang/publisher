@@ -41,10 +41,10 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array       $locales,
-        readonly protected Config      $config = new Config(),
-        readonly protected Manager     $filesystem = new Manager(),
-        protected Translation          $translation = new Translation()
+        readonly protected array $locales,
+        readonly protected Config $config = new Config(),
+        readonly protected Manager $filesystem = new Manager(),
+        protected Translation $translation = new Translation()
     ) {
     }
 
@@ -121,7 +121,7 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin) => new $plugin())
+                    ->map(static fn (string $plugin)    => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
