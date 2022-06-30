@@ -17,8 +17,15 @@
 
 declare(strict_types=1);
 
-return [
-    'path' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
+namespace Tests\Fixtures\Incorrect;
 
-    'plugins' => [],
-];
+use LaravelLang\Publisher\Plugins\Provider as BasePlugin;
+
+class ExceptionProvider extends BasePlugin
+{
+    protected string $base_path = __DIR__;
+
+    protected array $plugins = [
+        Plugin::class,
+    ];
+}

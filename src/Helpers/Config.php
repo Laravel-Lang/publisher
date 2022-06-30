@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -29,13 +31,6 @@ class Config
         return $this->getPrivate('plugins', []);
     }
 
-    public function vendorPath(?string $path = null): string
-    {
-        $dir = $this->getPrivate('path.vendor');
-
-        return $this->path($dir, $path);
-    }
-
     public function langPath(Locales|string|null ...$paths): string
     {
         $path = Arr::of($paths)
@@ -43,7 +38,7 @@ class Config
             ->map(static fn (Locales|string $value) => $value?->value ?? $value)
             ->implode('/');
 
-        $dir = $this->getPrivate('path.resources');
+        $dir = $this->getPrivate('path');
 
         return $this->path($dir, $path);
     }

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -56,6 +58,13 @@ class GetFallbackTest extends TestCase
     {
         config(['app.locale' => 'foo']);
         config(['app.fallback_locale' => 'foo']);
+
+        $this->assertSame(LocaleCode::ENGLISH->value, Locales::getFallback());
+    }
+
+    public function testEmptyFallbackValue(): void
+    {
+        config(['app.fallback_locale' => null]);
 
         $this->assertSame(LocaleCode::ENGLISH->value, Locales::getFallback());
     }

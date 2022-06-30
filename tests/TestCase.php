@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -76,8 +78,6 @@ abstract class TestCase extends BaseTestCase
     {
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
-
-        $config->set(Config::PRIVATE_KEY . '.path.vendor', realpath(__DIR__ . '/../vendor'));
 
         $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
 
