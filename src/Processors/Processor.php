@@ -57,7 +57,7 @@ abstract class Processor
         foreach ($this->plugins() as $directory => $plugins) {
             /** @var Plugin $plugin */
             foreach ($plugins as $plugin) {
-                $this->output->info("\t" . get_class($plugin) . '...');
+                $this->output->info(get_class($plugin) . '...');
 
                 $this->collectKeys($directory, $plugin->files());
             }
