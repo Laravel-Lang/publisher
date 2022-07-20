@@ -38,6 +38,22 @@ class Config
         $this->setPrivate('plugins', $items);
     }
 
+    public function getPackages(): array
+    {
+        return $this->getPrivate('packages', []);
+    }
+
+    public function setPackage(string $package_name): void
+    {
+        $items = Arr::of($this->getPackages())
+            ->push($package_name)
+            ->unique()
+            ->values()
+            ->toArray();
+
+        $this->setPrivate('packages', $items);
+    }
+
     public function langPath(Locales|string|null ...$paths): string
     {
         $path = Arr::of($paths)

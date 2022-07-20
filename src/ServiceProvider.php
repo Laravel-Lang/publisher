@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelLang\Publisher\Concerns\About;
 use LaravelLang\Publisher\Console\Add;
 use LaravelLang\Publisher\Console\Remove;
 use LaravelLang\Publisher\Console\Reset;
@@ -26,6 +27,8 @@ use LaravelLang\Publisher\Helpers\Config;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    use About;
+
     public function boot(): void
     {
         $this->bootPublishes();
@@ -35,6 +38,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->registerConfig();
+        $this->registerAbout();
     }
 
     protected function bootCommands(): void

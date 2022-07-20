@@ -23,6 +23,8 @@ use Tests\Fixtures\MorePlugins\Second\Src\Plugins\Foo;
 
 class Plugin extends Provider
 {
+    protected ?string $package_name = 'some/many-second';
+
     protected string $base_path = __DIR__ . '/../';
 
     protected array $plugins = [

@@ -26,6 +26,8 @@ use Tests\Fixtures\Plugin\src\Plugins\Foo;
 
 class Plugin extends Provider
 {
+    protected ?string $package_name = 'some/name';
+
     protected string $base_path = __DIR__ . '/../';
 
     protected array $plugins = [

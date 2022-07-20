@@ -15,10 +15,18 @@
 
 declare(strict_types=1);
 
-return [
-    'path' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
+namespace Tests\Unit\Helpers\Config;
 
-    'plugins' => [],
-
-    'packages' => [],
-];
+class GetPackagesTest extends BaseTest
+{
+    public function testGetPackages(): void
+    {
+        $this->assertSame(
+            [
+                'some/name',
+                'some/many-second',
+            ],
+            $this->config->getPackages()
+        );
+    }
+}
