@@ -67,7 +67,7 @@ abstract class Provider extends BaseServiceProvider
             return;
         }
 
-        if ($name = Str::of($this->basePath())->after((string) realpath(base_path('vendor')))->ltrim('\\/')->toString()) {
+        if ($name = Str::of($this->basePath())->after((string) realpath(base_path('vendor')))->ltrim('\\/')->replace('\\', '/')->toString()) {
             $this->config->setPackage($name);
         }
     }
