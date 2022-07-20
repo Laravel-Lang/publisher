@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -60,13 +62,13 @@ abstract class Provider extends BaseServiceProvider
     protected function registerPackageName(): void
     {
         if ($name = $this->package_name) {
-            $this->config->setPackage($name);
+            $this->config->setPackage($this->basePath(), static::class, $name);
 
             return;
         }
 
         if ($name = Str::of($this->basePath())->after((string) realpath(base_path('vendor')))->ltrim('\\/')->replace('\\', '/')->toString()) {
-            $this->config->setPackage($name);
+            $this->config->setPackage($this->basePath(), static::class, $name);
         }
     }
 
