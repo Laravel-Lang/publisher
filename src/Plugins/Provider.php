@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -29,6 +31,8 @@ abstract class Provider extends BaseServiceProvider
 {
     protected Config $config;
 
+    protected ?string $package_name = null;
+
     protected string $base_path;
 
     protected array $plugins;
@@ -42,10 +46,23 @@ abstract class Provider extends BaseServiceProvider
 
     public function register()
     {
+        $this->registerPlugins();
+        $this->registerPackageName();
+    }
+
+    protected function registerPlugins(): void
+    {
         $this->config->setPlugins(
             $this->basePath(),
             $this->plugins()
         );
+    }
+
+    protected function registerPackageName(): void
+    {
+        if ($name = $this->package_name) {
+            $this->config->setPackage($name);
+        }
     }
 
     protected function plugins(): array

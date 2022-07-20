@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -36,6 +38,22 @@ class Config
         ]);
 
         $this->setPrivate('plugins', $items);
+    }
+
+    public function getPackages(): array
+    {
+        return $this->getPrivate('packages', []);
+    }
+
+    public function setPackage(string $package_name): void
+    {
+        $items = Arr::of($this->getPackages())
+            ->push($package_name)
+            ->unique()
+            ->values()
+            ->toArray();
+
+        $this->setPrivate('packages', $items);
     }
 
     public function langPath(Locales|string|null ...$paths): string

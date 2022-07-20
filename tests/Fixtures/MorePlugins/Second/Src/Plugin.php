@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -23,6 +25,8 @@ use Tests\Fixtures\MorePlugins\Second\Src\Plugins\Foo;
 
 class Plugin extends Provider
 {
+    protected ?string $package_name = 'some/many-second';
+
     protected string $base_path = __DIR__ . '/../';
 
     protected array $plugins = [
