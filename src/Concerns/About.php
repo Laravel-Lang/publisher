@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -33,12 +31,14 @@ trait About
             return;
         }
 
-        AboutCommand::add('Laravel Lang: Publisher',
+        AboutCommand::add(
+            'Laravel Lang: Publisher',
             array_merge([
                 'Version' => $this->getPackageVersion('laravel-lang/publisher'),
 
                 'Locales' => implode(', ', Locales::installed()),
-            ], $this->getPackages()));
+            ], $this->getPackages())
+        );
     }
 
     protected function getPackages(): array

@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -23,10 +21,11 @@ class GetPackagesTest extends BaseTest
 {
     public function testGetPackages(): void
     {
-        $this->assertSame([
-            'some/name',
-            'some/many-second',
-        ],
+        $this->assertSame(
+            [
+                'some/name',
+                'some/many-second',
+            ],
             $this->config->getPackages()
         );
     }
