@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,6 +21,7 @@ namespace LaravelLang\Publisher\Processors;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
@@ -41,10 +44,10 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation()
+        readonly protected array       $locales,
+        readonly protected Config      $config = new Config(),
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation()
     ) {
     }
 
@@ -55,15 +58,17 @@ abstract class Processor
 
     public function collect(): self
     {
-        $this->info('Collecting localizations...');
-
         foreach ($this->plugins() as $directory => $plugins) {
-            /** @var Plugin $plugin */
-            foreach ($plugins as $plugin) {
-                $this->line(get_class($plugin) . '...');
+            $this->info(
+                Str::of(realpath($directory))->after($this->vendorPath())->ltrim('\\/')->toString()
+            );
 
-                $this->collectKeys($directory, $plugin->files());
-            }
+            $this->task('Collect keys', function () use ($directory, $plugins) {
+                /** @var Plugin $plugin */
+                foreach ($plugins as $plugin) {
+                    $this->collectKeys($directory, $plugin->files());
+                }
+            });
 
             $this->collectLocalizations($directory);
         }
@@ -76,11 +81,13 @@ abstract class Processor
         $this->info('Storing changes...');
 
         foreach ($this->translation->toArray() as $filename => $values) {
-            $path = $this->config->langPath($filename);
+            $this->task($filename, function () use ($filename, $values) {
+                $path = $this->config->langPath($filename);
 
-            $values = $this->reset || ! File::exists($path) ? $values : ArrayMerge::merge($this->filesystem->load($path), $values);
+                $values = $this->reset || ! File::exists($path) ? $values : ArrayMerge::merge($this->filesystem->load($path), $values);
 
-            $this->filesystem->store($path, $values);
+                $this->filesystem->store($path, $values);
+            });
         }
     }
 
@@ -98,18 +105,20 @@ abstract class Processor
         foreach ($this->locales as $locale) {
             $locale = $locale?->value ?? $locale;
 
-            foreach ($this->file_types as $type) {
-                $main_path   = $this->localeFilename($locale, "$directory/locales/$locale/$type.json");
-                $inline_path = $this->localeFilename($locale, "$directory/locales/$locale/$type.json", true);
+            $this->task('Collecting ' . $locale, function () use ($locale, $directory) {
+                foreach ($this->file_types as $type) {
+                    $main_path   = $this->localeFilename($locale, "$directory/locales/$locale/$type.json");
+                    $inline_path = $this->localeFilename($locale, "$directory/locales/$locale/$type.json", true);
 
-                $values = $this->filesystem->load($main_path);
+                    $values = $this->filesystem->load($main_path);
 
-                if ($main_path !== $inline_path && $this->config->hasInline()) {
-                    $values = ArrayMerge::merge($values, $this->filesystem->load($inline_path));
+                    if ($main_path !== $inline_path && $this->config->hasInline()) {
+                        $values = ArrayMerge::merge($values, $this->filesystem->load($inline_path));
+                    }
+
+                    $this->translation->setTranslations($locale, $values);
                 }
-
-                $this->translation->setTranslations($locale, $values);
-            }
+            });
         }
     }
 
@@ -121,11 +130,20 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
             ->filter()
             ->toArray();
+    }
+
+    protected function vendorPath(): string
+    {
+        if ($path = realpath(base_path('vendor'))) {
+            return $path;
+        }
+
+        return '';
     }
 }
