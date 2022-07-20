@@ -60,10 +60,10 @@ abstract class Processor
     {
         foreach ($this->plugins() as $directory => $plugins) {
             $this->info(
-                Str::of(realpath($directory))->after($this->vendorPath())->ltrim('\\/')->toString()
+                Str::of(realpath($directory))->after((string) $this->vendorPath())->ltrim('\\/')->toString()
             );
 
-            $this->task('Collect keys', function () use ($directory, $plugins) {
+            $this->task('Collect source keys', function () use ($directory, $plugins) {
                 /** @var Plugin $plugin */
                 foreach ($plugins as $plugin) {
                     $this->collectKeys($directory, $plugin->files());
@@ -138,12 +138,12 @@ abstract class Processor
             ->toArray();
     }
 
-    protected function vendorPath(): string
+    protected function vendorPath(): ?string
     {
         if ($path = realpath(base_path('vendor'))) {
             return $path;
         }
 
-        return '';
+        return null;
     }
 }
