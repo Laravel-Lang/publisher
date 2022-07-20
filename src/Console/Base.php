@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -30,6 +32,8 @@ abstract class Base extends Command
     public function handle()
     {
         $this->resolveProcessor()->prepare()->collect()->store();
+
+        $this->output->newLine();
     }
 
     protected function resolveProcessor(): Processor

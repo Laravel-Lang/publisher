@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -17,6 +19,7 @@ namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Publisher\Constants\Types;
 
 class Config
 {
@@ -38,18 +41,29 @@ class Config
         $this->setPrivate('plugins', $items);
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getPackages(): array
     {
         return $this->getPrivate('packages', []);
     }
 
-    public function setPackage(string $package_name): void
+    public function getPackageNameByPath(string $path, Types $type = Types::TYPE_NAME): string
     {
-        $items = Arr::of($this->getPackages())
-            ->push($package_name)
-            ->unique()
-            ->values()
-            ->toArray();
+        $path = realpath($path);
+
+        return $this->getPackages()[$path][$type->value] ?? $path;
+    }
+
+    public function setPackage(string $base_path, string $plugin_class, string $package_name): void
+    {
+        $items = $this->getPackages();
+
+        $items[$base_path] = [
+            'class' => $plugin_class,
+            'name'  => $package_name,
+        ];
 
         $this->setPrivate('packages', $items);
     }

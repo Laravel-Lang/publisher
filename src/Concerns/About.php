@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -32,9 +34,9 @@ trait About
         }
 
         AboutCommand::add(
-            'Laravel Lang: Publisher',
+            'Laravel Lang',
             array_merge([
-                'Version' => $this->getPackageVersion('laravel-lang/publisher'),
+                'Publisher Version' => $this->getPackageVersion('laravel-lang/publisher'),
 
                 'Locales' => implode(', ', Locales::installed()),
             ], $this->getPackages())
@@ -44,8 +46,8 @@ trait About
     protected function getPackages(): array
     {
         return Arr::of(config(Config::PRIVATE_KEY . '.packages'))
-            ->renameKeys(static fn (mixed $key, string $value) => "Plugin: $value")
-            ->map(fn (string $package) => $this->getPackageVersion($package))
+            ->renameKeys(static fn (mixed $key, array $values) => 'Plugin: ' . $values['class'])
+            ->map(fn (array $values) => $this->getPackageVersion($values['name']))
             ->toArray();
     }
 

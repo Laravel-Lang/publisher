@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,11 +21,11 @@ namespace LaravelLang\Publisher\Processors;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
+use LaravelLang\Publisher\Constants\Types;
 use LaravelLang\Publisher\Facades\Helpers\ArrayMerge;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
@@ -42,10 +44,10 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation()
+        readonly protected array       $locales,
+        readonly protected Config      $config = new Config(),
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation()
     ) {
     }
 
@@ -57,11 +59,9 @@ abstract class Processor
     public function collect(): self
     {
         foreach ($this->plugins() as $directory => $plugins) {
-            $this->info(
-                Str::of(realpath($directory))->after((string) $this->vendorPath())->ltrim('\\/')->toString()
-            );
+            $this->info($this->config->getPackageNameByPath($directory, Types::TYPE_CLASS));
 
-            $this->task('Collect source keys', function () use ($directory, $plugins) {
+            $this->task('Collect source', function () use ($directory, $plugins) {
                 /** @var Plugin $plugin */
                 foreach ($plugins as $plugin) {
                     $this->collectKeys($directory, $plugin->files());
@@ -128,7 +128,7 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })

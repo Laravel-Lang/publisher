@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -27,7 +29,7 @@ trait Output
     protected function info(string $message, string $style = 'fg=green'): void
     {
         if ($this->hasComponentFactory()) {
-            $this->output->newLine();
+            $this->emptyLine();
 
             $this->componentFactory()->info($message);
 
@@ -54,6 +56,11 @@ trait Output
         $this->outputLine(Str::end($message, '...'));
 
         Call::callback($callback);
+    }
+
+    protected function emptyLine(): void
+    {
+        $this->output->newLine();
     }
 
     protected function outputLine(string $message, ?string $style = null): void
