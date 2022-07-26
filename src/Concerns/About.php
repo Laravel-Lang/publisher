@@ -34,9 +34,9 @@ trait About
         AboutCommand::add(
             'Laravel Lang',
             array_merge([
-                'Publisher Version' => $this->getPackageVersion('laravel-lang/publisher'),
+                'Publisher Version' => fn () => $this->getPackageVersion('laravel-lang/publisher'),
 
-                'Locales' => implode(', ', Locales::installed()),
+                'Locales' => fn () => implode(', ', Locales::installed()),
             ], $this->getPackages())
         );
     }
