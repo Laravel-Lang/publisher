@@ -31,20 +31,25 @@ trait About
             return;
         }
 
-        AboutCommand::add(
-            'Laravel Lang',
-            array_merge([
-                'Publisher Version' => fn () => $this->getPackageVersion('laravel-lang/publisher'),
+        $this->pushInformation(fn () => [
+            'Installed'         => implode(', ', Locales::installed()),
+            'Protected Locales' => implode(', ', Locales::protects()),
 
-                'Locales' => fn () => implode(', ', Locales::installed()),
-            ], $this->getPackages())
-        );
+            'Publisher Version' => $this->getPackageVersion('laravel-lang/publisher'),
+        ]);
+
+        $this->pushInformation(fn () => $this->getPackages());
+    }
+
+    protected function pushInformation(callable $data): void
+    {
+        AboutCommand::add('Localization', $data);
     }
 
     protected function getPackages(): array
     {
         return Arr::of(config(Config::PRIVATE_KEY . '.packages'))
-            ->renameKeys(static fn (mixed $key, array $values) => 'Plugin: ' . $values['class'])
+            ->renameKeys(static fn (mixed $key, array $values) => $values['class'])
             ->map(fn (array $values) => $this->getPackageVersion($values['name']))
             ->toArray();
     }
