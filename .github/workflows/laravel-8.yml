@@ -13,8 +13,9 @@ jobs:
             matrix:
                 php: [ "8.1" ]
                 laravel: [ "8.0" ]
+                prefer: [ "stable", "lowest" ]
 
-        name: PHP ${{ matrix.php }}
+        name: PHP ${{ matrix.php }} ${{ matrix.prefer }}
 
         steps:
             -   name: Checkout code
@@ -30,7 +31,7 @@ jobs:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             -   name: Install dependencies
-                run: composer require laravel/framework:^${{ matrix.laravel }}
+                run: composer require laravel/framework:^${{ matrix.laravel }} --prefer-${{ matrix.prefer }}
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
