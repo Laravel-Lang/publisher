@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -17,6 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Plugins\Providers;
 
+use Error;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Plugins\Provider;
@@ -39,7 +42,7 @@ class ExceptionsTest extends TestCase
 
     public function testBasePathProperty(): void
     {
-        $this->expectError();
+        $this->expectException(Error::class);
         $this->expectErrorMessage(sprintf('Typed property %s::$base_path must not be accessed before initialization', Provider::class));
 
         $this->app->register(BasePathProvider::class);
