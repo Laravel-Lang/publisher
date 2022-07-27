@@ -34,8 +34,8 @@ trait About
         }
 
         $this->pushInformation(fn () => [
-            'Installed'         => implode(', ', Locales::installed()),
-            'Protected Locales' => implode(', ', Locales::protects()),
+            'Installed'         => $this->implodeLocales(Locales::installed()),
+            'Protected Locales' => $this->implodeLocales(Locales::protects()),
 
             'Publisher Version' => $this->getPackageVersion('laravel-lang/publisher'),
         ]);
@@ -63,5 +63,10 @@ trait About
         }
 
         return '<fg=yellow;options=bold>INCORRECT</>';
+    }
+
+    protected function implodeLocales(array $locales): string
+    {
+        return Arr::of($locales)->sort()->implode(', ')->toString();
     }
 }
