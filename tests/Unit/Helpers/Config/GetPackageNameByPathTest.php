@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -37,7 +39,10 @@ class GetPackageNameByPathTest extends BaseTest
 
     public function testUnknownPackage(): void
     {
-        $this->assertSame(realpath(__DIR__ . '/../../../Fixtures/MorePlugins/First'), $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/First'));
+        $this->assertSame(
+            realpath(__DIR__ . '/../../../Fixtures/MorePlugins/First'),
+            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/First')
+        );
 
         $this->assertSame(
             realpath(__DIR__ . '/../../../Fixtures/MorePlugins/First'),
