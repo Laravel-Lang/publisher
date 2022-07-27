@@ -42,8 +42,8 @@
         "composer/semver": "^3.3",
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/support": "^6.3",
-        "illuminate/console": "^8.79 || ^9.18",
-        "illuminate/support": "^8.79 || ^9.18"
+        "illuminate/console": "^8.83 || ^9.18",
+        "illuminate/support": "^8.83 || ^9.18"
     },
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.0",
