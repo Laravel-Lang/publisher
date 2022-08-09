@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -16,8 +18,6 @@
 declare(strict_types=1);
 
 return [
-    'path' => function_exists('lang_path') ? lang_path() : resource_path('lang'),
-
     'plugins' => [],
 
     'packages' => [],
