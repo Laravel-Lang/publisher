@@ -72,12 +72,10 @@ class Config
     {
         $path = Arr::of($paths)
             ->filter()
-            ->map(static fn (Locales|string $value) => $value?->value ?? $value)
+            ->map(static fn (Locales|string $value) => $value->value ?? $value)
             ->implode('/');
 
-        $dir = $this->getPrivate('path');
-
-        return $this->path($dir, $path);
+        return $this->path(lang_path(), $path);
     }
 
     public function hasInline(): bool
