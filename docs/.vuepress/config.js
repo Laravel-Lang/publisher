@@ -104,7 +104,8 @@ module.exports = {
                             '/using/add.md',
                             '/using/update.md',
                             '/using/reset.md',
-                            '/using/remove.md'
+                            '/using/remove.md',
+                            '/using/aliases.md'
                         ]
                     },
 
