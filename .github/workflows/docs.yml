@@ -1,9 +1,10 @@
 name: docs
 
 on:
-    push:
-        branches: [ main ]
     workflow_dispatch:
+    repository_dispatch:
+        types:
+            - generate-docs
 
 permissions: write-all
 
