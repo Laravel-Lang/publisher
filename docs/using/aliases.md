@@ -22,7 +22,7 @@ return [
 ```
 
 ```bash
-php artisan lang:add de de-CH
+php artisan lang:add de de_CH
 ```
 
 ```
