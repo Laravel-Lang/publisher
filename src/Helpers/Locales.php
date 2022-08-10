@@ -87,7 +87,11 @@ class Locales
 
     public function isInstalled(LocaleCodes|string|null $locale): bool
     {
-        return $this->inArray($locale, $this->installed());
+        $locales = $this->installed();
+
+        return $this->inArray($locale, $locales)
+            || $this->inArray($this->fromAlias($locale, $this->config), $locales)
+            || $this->inArray($this->toAlias($locale, $this->config), $locales);
     }
 
     public function isProtected(LocaleCodes|string|null $locale): bool
