@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -17,6 +19,7 @@ namespace Tests\Unit\Helpers\Locales;
 
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Helpers\Config;
 use Tests\TestCase;
 
 class IsInstalledTest extends TestCase
@@ -40,5 +43,19 @@ class IsInstalledTest extends TestCase
         $this->assertTrue(Locales::isInstalled(LocaleCode::ENGLISH));
         $this->assertTrue(Locales::isInstalled(LocaleCode::GERMAN));
         $this->assertTrue(Locales::isInstalled(LocaleCode::FRENCH));
+    }
+
+    public function testAlias(): void
+    {
+        $this->app['config']->set(Config::PUBLIC_KEY . '.aliases', [
+            LocaleCode::GERMAN->value => 'de-DE',
+        ]);
+
+        $this->artisanLangAdd([
+            LocaleCode::GERMAN,
+        ]);
+
+        $this->assertTrue(Locales::isInstalled('de'));
+        $this->assertTrue(Locales::isInstalled('de-DE'));
     }
 }

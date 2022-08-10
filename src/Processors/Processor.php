@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -20,6 +22,7 @@ namespace LaravelLang\Publisher\Processors;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\OutputStyle;
+use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
@@ -32,6 +35,7 @@ use LaravelLang\Publisher\Services\Filesystem\Manager;
 
 abstract class Processor
 {
+    use Aliases;
     use Has;
     use Output;
     use Path;
@@ -42,10 +46,10 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation()
+        readonly protected array       $locales,
+        readonly protected Config      $config = new Config(),
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation()
     ) {
     }
 
@@ -101,10 +105,12 @@ abstract class Processor
         foreach ($this->locales as $locale) {
             $locale = $locale?->value ?? $locale;
 
-            $this->task('Collecting ' . $locale, function () use ($locale, $directory) {
+            $locale_alias = $this->toAlias($locale, $this->config);
+
+            $this->task('Collecting ' . $locale, function () use ($locale, $locale_alias, $directory) {
                 foreach ($this->file_types as $type) {
-                    $main_path   = $this->localeFilename($locale, "$directory/locales/$locale/$type.json");
-                    $inline_path = $this->localeFilename($locale, "$directory/locales/$locale/$type.json", true);
+                    $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
+                    $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
 
                     $values = $this->filesystem->load($main_path);
 
@@ -112,7 +118,7 @@ abstract class Processor
                         $values = ArrayMerge::merge($values, $this->filesystem->load($inline_path));
                     }
 
-                    $this->translation->setTranslations($locale, $values);
+                    $this->translation->setTranslations($locale_alias, $values);
                 }
             });
         }
@@ -126,7 +132,7 @@ abstract class Processor
         return Arr::of($this->config->getPlugins())
             ->map(static function (array $plugins): array {
                 return Arr::of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
