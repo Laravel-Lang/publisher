@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,10 +21,13 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
 
 class Locales
 {
+    use Aliases;
+
     public function __construct(
         protected Config $config
     ) {
@@ -74,7 +79,10 @@ class Locales
 
     public function isAvailable(LocaleCodes|string|null $locale): bool
     {
-        return $this->inArray($locale, $this->available());
+        $locales = $this->available();
+
+        return $this->inArray($locale, $locales)
+            || $this->inArray($this->fromAlias($locale, $this->config), $locales);
     }
 
     public function isInstalled(LocaleCodes|string|null $locale): bool

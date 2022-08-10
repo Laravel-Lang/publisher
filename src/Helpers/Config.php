@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -16,11 +18,14 @@
 namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Locales;
 use LaravelLang\Publisher\Constants\Types;
 
 class Config
 {
+    use Aliases;
+
     public const PUBLIC_KEY = 'lang-publisher';
 
     public const PRIVATE_KEY = 'lang-publisher-private';
@@ -70,7 +75,7 @@ class Config
     {
         $path = Arr::of($paths)
             ->filter()
-            ->map(static fn (Locales|string $value) => $value->value ?? $value)
+            ->map(fn (Locales|string $value) => $this->toAlias($value, $this))
             ->implode('/');
 
         return $this->path(lang_path(), $path);
@@ -84,6 +89,11 @@ class Config
     public function hasAlign(): bool
     {
         return $this->getPublic('align', true);
+    }
+
+    public function getAliases(): array
+    {
+        return $this->getPublic('aliases', []);
     }
 
     public function setPrivate(string $key, mixed $value): void

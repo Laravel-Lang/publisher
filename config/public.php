@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -39,4 +41,17 @@ return [
      */
 
     'align' => true,
+
+    /*
+     * The language codes chosen for the files in this repository may not
+     * match the preferences for your project.
+     *
+     * Specify here mappings of localizations with your project.
+     */
+
+    'aliases' => [
+        //\LaravelLang\Publisher\Constants\Locales::GERMAN->value => 'de-DE',
+        //
+        //\LaravelLang\Publisher\Constants\Locales::GERMAN_SWITZERLAND->value => 'de-CH',
+    ],
 ];
