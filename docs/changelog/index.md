@@ -1,3 +1,7 @@
+---
+editLink: false
+---
+
 # Changelog
 
 ## 14.x
