@@ -74,8 +74,14 @@ class Php extends Base
         $custom     = Arr::get($items, 'custom');
 
         return Arr::of($items)
-            ->when(! empty($attributes), static fn (Arrayable $array) => $array->except('attributes')->set('attributes', $attributes))
-            ->when(! empty($custom), static fn (Arrayable $array) => $array->except('custom')->set('custom', $custom))
+            ->except(['attributes', 'custom'])
+            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $this->correctNestedAttributes($attributes)))
+            ->when(! empty($custom), static fn (Arrayable $array) => $array->set('custom', $custom))
             ->toArray();
+    }
+
+    protected function correctNestedAttributes(array $attributes): array
+    {
+        return Arr::flattenKeys($attributes);
     }
 }

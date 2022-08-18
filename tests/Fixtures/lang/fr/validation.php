@@ -29,6 +29,11 @@ return [
         'first_name' => 'prénom',
         'last_name'  => 'nom',
         'age'        => 'âge',
+
+        'timeplan.monday.0.0' => 'Lundi (de)',
+        'timeplan.monday.0.1' => 'Lundi (à)',
+        'timeplan.monday.1.0' => 'Lundi (de)',
+        'timeplan.monday.1.1' => 'Lundi (à)',
     ],
 
     'custom' => [
