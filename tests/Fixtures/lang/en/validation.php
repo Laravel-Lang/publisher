@@ -29,6 +29,11 @@ return [
         'first_name' => 'first name',
         'last_name'  => 'last name',
         'age'        => 'age',
+
+        'timeplan.monday.0.0' => 'Monday (from)',
+        'timeplan.monday.0.1' => 'Monday (to)',
+        'timeplan.monday.1.0' => 'Monday (from)',
+        'timeplan.monday.1.1' => 'Monday (to)',
     ],
 
     'custom' => [
