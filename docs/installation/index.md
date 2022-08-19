@@ -10,7 +10,7 @@
 To get the latest version of `Laravel Lang Publisher`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-composer require laravel-lang/publisher laravel-lang/lang --dev
+composer require laravel-lang/publisher laravel-lang/lang laravel-lang/attributes --dev
 ```
 
 Or manually update `require-dev` block of `composer.json` and run `composer update`.
@@ -18,6 +18,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
+        "laravel-lang/attributes": "^2.0",
         "laravel-lang/lang": "^11.0",
         "laravel-lang/publisher": "^14.0"
     }
