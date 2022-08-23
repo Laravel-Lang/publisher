@@ -13,10 +13,11 @@
  * @see https://github.com/Laravel-Lang/publisher
  */
 
-const { viteBundler, defaultTheme } = require('vuepress');
-const { docsearchPlugin } = require('@vuepress/plugin-docsearch')
+import { defaultTheme, viteBundler } from 'vuepress'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch'
+import dotenv from 'dotenv'
 
-require('dotenv').config();
+dotenv.config()
 
 const hostname = 'publisher.laravel-lang.com';
 
