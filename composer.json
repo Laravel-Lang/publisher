@@ -29,6 +29,10 @@
         {
             "name": "Andrey Helldar",
             "email": "helldar@dragon-code.pro"
+        },
+        {
+            "name": "Laravel-Lang Team",
+            "homepage": "https://github.com/Laravel-Lang"
         }
     ],
     "support": {
