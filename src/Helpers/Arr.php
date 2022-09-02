@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -17,10 +19,22 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr as DragonArr;
+use DragonCode\Support\Helpers\Ables\Arrayable;
+use Illuminate\Support\Arr as IlluminateArr;
 
-class ArrayMerge
+class Arr
 {
+    public function of(mixed $array): Arrayable
+    {
+        return DragonArr::of($array);
+    }
+
+    public function get(array $array, string|int $key, mixed $default = null): mixed
+    {
+        return IlluminateArr::get($array, $key, $default);
+    }
+
     public function merge(array $source, array $target, bool $filter_keys = false): array
     {
         foreach ($this->filter($source, $target, $filter_keys) as $key => $value) {
@@ -34,6 +48,6 @@ class ArrayMerge
 
     protected function filter(array $source, array $target, bool $filter_keys = false): array
     {
-        return $filter_keys ? Arr::only($target, Arr::keys($source)) : $target;
+        return $filter_keys ? DragonArr::only($target, DragonArr::keys($source)) : $target;
     }
 }

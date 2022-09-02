@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -15,7 +17,6 @@
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Locales;
 use LaravelLang\Publisher\Constants\Types;
@@ -27,6 +28,11 @@ class Config
     public const PUBLIC_KEY = 'lang-publisher';
 
     public const PRIVATE_KEY = 'lang-publisher-private';
+
+    public function __construct(
+        protected Arr $arr = new Arr()
+    ) {
+    }
 
     public function getPlugins(): array
     {
@@ -71,7 +77,7 @@ class Config
 
     public function langPath(Locales|string|null ...$paths): string
     {
-        $path = Arr::of($paths)
+        $path = $this->arr->of($paths)
             ->filter()
             ->map(fn (Locales|string $value) => $this->toAlias($value, $this))
             ->implode('/');
