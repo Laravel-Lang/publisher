@@ -7,14 +7,11 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
  */
-
 if (! function_exists('af')) {
     function af()
     {

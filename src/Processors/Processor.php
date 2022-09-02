@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -45,11 +43,11 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array       $locales,
-        readonly protected Config      $config = new Config(),
-        readonly protected Manager     $filesystem = new Manager(),
-        protected Translation          $translation = new Translation(),
-        protected ArrHelper            $arr = new ArrHelper()
+        readonly protected array $locales,
+        readonly protected Config $config = new Config(),
+        readonly protected Manager $filesystem = new Manager(),
+        protected Translation $translation = new Translation(),
+        protected ArrHelper $arr = new ArrHelper()
     ) {
     }
 
@@ -132,7 +130,7 @@ abstract class Processor
         return $this->arr->of($this->config->getPlugins())
             ->map(function (array $plugins): array {
                 return $this->arr->of($plugins)
-                    ->map(static fn (string $plugin) => new $plugin())
+                    ->map(static fn (string $plugin)    => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
