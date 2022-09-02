@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -18,14 +20,13 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Processors;
 
 use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
 use LaravelLang\Publisher\Constants\Types;
-use LaravelLang\Publisher\Facades\Helpers\ArrayMerge;
+use LaravelLang\Publisher\Helpers\Arr as ArrHelper;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Resources\Translation;
@@ -44,10 +45,11 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation()
+        readonly protected array       $locales,
+        readonly protected Config      $config = new Config(),
+        readonly protected Manager     $filesystem = new Manager(),
+        protected Translation          $translation = new Translation(),
+        protected ArrHelper            $arr = new ArrHelper()
     ) {
     }
 
@@ -82,7 +84,7 @@ abstract class Processor
             $this->task($filename, function () use ($filename, $values) {
                 $path = $this->config->langPath($filename);
 
-                $values = $this->reset || ! File::exists($path) ? $values : ArrayMerge::merge($this->filesystem->load($path), $values);
+                $values = $this->reset || ! File::exists($path) ? $values : $this->arr->merge($this->filesystem->load($path), $values);
 
                 $this->filesystem->store($path, $values);
             });
@@ -113,7 +115,7 @@ abstract class Processor
                     $values = $this->filesystem->load($main_path);
 
                     if ($main_path !== $inline_path && $this->config->hasInline()) {
-                        $values = ArrayMerge::merge($values, $this->filesystem->load($inline_path));
+                        $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
                     }
 
                     $this->translation->setTranslations($locale_alias, $values);
@@ -127,10 +129,10 @@ abstract class Processor
      */
     protected function plugins(): array
     {
-        return Arr::of($this->config->getPlugins())
-            ->map(static function (array $plugins): array {
-                return Arr::of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+        return $this->arr->of($this->config->getPlugins())
+            ->map(function (array $plugins): array {
+                return $this->arr->of($plugins)
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })

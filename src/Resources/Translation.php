@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,13 +21,18 @@ namespace LaravelLang\Publisher\Resources;
 
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\Publisher\Facades\Helpers\ArrayMerge;
+use LaravelLang\Publisher\Helpers\Arr;
 
 class Translation implements Arrayable
 {
     protected array $source = [];
 
     protected array $translations = [];
+
+    public function __construct(
+        protected Arr $arr = new Arr()
+    ) {
+    }
 
     public function setSource(string $filename, array $values): self
     {
@@ -65,6 +72,6 @@ class Translation implements Arrayable
 
     protected function merge(array $source, array $target, bool $filter_keys = false): array
     {
-        return ArrayMerge::merge($source, $target, $filter_keys);
+        return $this->arr->merge($source, $target, $filter_keys);
     }
 }

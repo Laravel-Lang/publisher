@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -18,7 +20,6 @@ namespace LaravelLang\Publisher\Helpers;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Locales as LocaleCodes;
 
@@ -27,13 +28,14 @@ class Locales
     use Aliases;
 
     public function __construct(
-        protected Config $config
+        protected Config $config,
+        protected Arr    $arr = new Arr()
     ) {
     }
 
     public function available(): array
     {
-        return Arr::of(LocaleCodes::values())
+        return $this->arr->of(LocaleCodes::values())
             ->sort()
             ->values()
             ->toArray();
@@ -44,7 +46,7 @@ class Locales
         $directories = Directory::names($this->config->langPath());
         $files       = File::names($this->config->langPath(), recursive: true);
 
-        return Arr::of([])
+        return $this->arr->of([])
             ->push($directories)
             ->push($files)
             ->push($this->protects())
@@ -69,7 +71,7 @@ class Locales
 
     public function protects(): array
     {
-        return Arr::of([
+        return $this->arr->of([
             $this->getDefault(),
             $this->getFallback(),
         ])->unique()->sort()->values()->toArray();

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -17,7 +19,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Concerns;
 
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Helpers\Config;
 
@@ -33,7 +34,7 @@ trait Aliases
             return $hashed;
         }
 
-        return $this->aliases[$locale] = Arr::of($config->getAliases())->flip()->get($locale);
+        return $this->aliases[$locale] = $this->arr->of($config->getAliases())->flip()->get($locale);
     }
 
     protected function toAlias(LocaleCode|string|null $locale, Config $config): ?string
@@ -44,6 +45,6 @@ trait Aliases
             return $hashed;
         }
 
-        return $this->aliases[$locale] = Arr::get($config->getAliases(), $locale, $locale);
+        return $this->aliases[$locale] = $this->arr->get($config->getAliases(), $locale, $locale);
     }
 }
