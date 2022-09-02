@@ -137,13 +137,4 @@ abstract class Processor
             ->filter()
             ->toArray();
     }
-
-    protected function vendorPath(): ?string
-    {
-        if ($path = realpath(base_path('vendor'))) {
-            return $path;
-        }
-
-        return null;
-    }
 }
