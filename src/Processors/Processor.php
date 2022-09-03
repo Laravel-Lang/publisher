@@ -130,7 +130,7 @@ abstract class Processor
         return $this->arr->of($this->config->getPlugins())
             ->map(function (array $plugins): array {
                 return $this->arr->of($plugins)
-                    ->map(static fn (string $plugin)    => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin())
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->toArray();
             })
