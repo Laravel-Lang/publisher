@@ -1,0 +1,29 @@
+name: static analysis
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    src:
+        runs-on: ubuntu-latest
+        
+        strategy:
+            fail-fast: true
+            matrix:
+                directory: [ src ]
+        
+        name: ${{ matrix.directory == 'src' && 'Source Code' || 'Types' }}
+        
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+
+            -   name: Install dependencies
+                run: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+            -   name: Execute type checking
+                run: vendor/bin/phpstan --configuration="phpstan.${{ matrix.directory }}.neon.dist"
