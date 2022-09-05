@@ -5,14 +5,6 @@ labels:
     - '💪 feature request'
 
 body:
-    -   type: markdown
-        attributes:
-            value: |
-                Thanks for taking the time to fill out this bug report!
-
-                ⚠️Review existing issues to see whether someone else has already reported your issue.
-                📖 Please also read [CONTRIBUTING.md](https://laravel-lang.com/contributing.html).
-
     -   type: textarea
         id: description
         attributes:
