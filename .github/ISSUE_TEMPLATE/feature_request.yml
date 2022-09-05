@@ -24,21 +24,6 @@ body:
         validations:
             required: true
 
-    -   type: textarea
-        id: environment
-        attributes:
-            label: Environment
-            description: |
-                Tip: Use the `composer info laravel-lang/publisher` command to get information for Laravel Lang.
-                Tip: Use the `composer info laravel/framework` command to get information for Laravel Framework.
-                Tip: Use the `php -v` command to get information for PHP.
-            value: |
-                - Laravel-Lang Publisher Version:
-                - Laravel Version:
-                - PHP Version:
-        validations:
-            required: true
-
     -   type: markdown
         attributes:
             value: |
