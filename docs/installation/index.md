@@ -19,7 +19,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 {
     "require-dev": {
         "laravel-lang/attributes": "^2.0",
-        "laravel-lang/lang": "^11.0",
+        "laravel-lang/lang": "^12.0",
         "laravel-lang/publisher": "^14.0"
     }
 }
