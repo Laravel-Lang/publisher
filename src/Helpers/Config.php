@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
+use DragonCode\Contracts\Support\Stringable;
 use LaravelLang\Publisher\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Locales;
 use LaravelLang\Publisher\Constants\Types;
@@ -127,7 +128,7 @@ class Config
         config()->set($visibility . '.' . $key, $value);
     }
 
-    protected function path(string $base, ?string $suffix = null): string
+    protected function path(string $base, Stringable|string|null $suffix = null): string
     {
         return rtrim($base, '\\/') . '/' . ltrim((string) $suffix, '\\/');
     }
