@@ -29,7 +29,7 @@ class Locales
 
     public function __construct(
         protected Config $config,
-        protected Arr $arr = new Arr()
+        readonly protected Arr $arr = new Arr()
     ) {
     }
 

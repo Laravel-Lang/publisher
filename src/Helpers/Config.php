@@ -31,7 +31,7 @@ class Config
     public const PRIVATE_KEY = 'lang-publisher-private';
 
     public function __construct(
-        protected Arr $arr = new Arr()
+        readonly protected Arr $arr = new Arr()
     ) {
     }
 

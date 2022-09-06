@@ -44,10 +44,10 @@ abstract class Processor
     public function __construct(
         readonly protected OutputStyle $output,
         readonly protected array $locales,
-        readonly protected Config $config = new Config(),
-        readonly protected Manager $filesystem = new Manager(),
-        protected Translation $translation = new Translation(),
-        protected ArrHelper $arr = new ArrHelper()
+        protected Config $config = new Config(),
+        protected Manager $filesystem = new Manager(),
+        protected ArrHelper $arr = new ArrHelper(),
+        protected Translation $translation = new Translation()
     ) {
     }
 
