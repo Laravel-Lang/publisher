@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -31,7 +33,7 @@ class Config
     public const PRIVATE_KEY = 'lang-publisher-private';
 
     public function __construct(
-        protected Arr $arr = new Arr()
+        readonly protected Arr $arr = new Arr()
     ) {
     }
 

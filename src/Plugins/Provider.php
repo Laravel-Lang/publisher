@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -20,7 +22,6 @@ namespace LaravelLang\Publisher\Plugins;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Instance;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 use LaravelLang\Publisher\Helpers\Config;
@@ -36,17 +37,17 @@ abstract class Provider extends BaseServiceProvider
 
     protected array $plugins;
 
-    public function __construct(Application $app)
-    {
-        parent::__construct($app);
-
-        $this->config = new Config();
-    }
-
     public function register()
     {
+        $this->loadConfig();
+
         $this->registerPlugins();
         $this->registerPackageName();
+    }
+
+    protected function loadConfig(): void
+    {
+        $this->config = new Config();
     }
 
     protected function registerPlugins(): void
