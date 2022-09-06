@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2022 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -45,11 +43,11 @@ abstract class Processor
 
     public function __construct(
         readonly protected OutputStyle $output,
-        readonly protected array       $locales,
-        protected Config               $config = new Config(),
-        protected Manager              $filesystem = new Manager(),
-        protected ArrHelper            $arr = new ArrHelper(),
-        protected Translation          $translation = new Translation()
+        readonly protected array $locales,
+        protected Config $config = new Config(),
+        protected Manager $filesystem = new Manager(),
+        protected ArrHelper $arr = new ArrHelper(),
+        protected Translation $translation = new Translation()
     ) {
     }
 
