@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2022 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -26,23 +28,27 @@ trait Aliases
 
     protected function fromAlias(LocaleCode|string|null $locale, Config $config): ?string
     {
-        $locale = $locale?->value ?? $locale;
+        if ($locale = $locale?->value ?? $locale) {
+            if ($hashed = $this->aliases[$locale] ?? false) {
+                return $hashed;
+            }
 
-        if ($hashed = $this->aliases[$locale] ?? false) {
-            return $hashed;
+            return $this->aliases[$locale] = $this->arr->of($config->getAliases())->flip()->get($locale);
         }
 
-        return $this->aliases[$locale] = $this->arr->of($config->getAliases())->flip()->get($locale);
+        return null;
     }
 
     protected function toAlias(LocaleCode|string|null $locale, Config $config): ?string
     {
-        $locale = $locale?->value ?? $locale;
+        if ($locale = $locale?->value ?? $locale) {
+            if ($hashed = $this->aliases[$locale] ?? false) {
+                return $hashed;
+            }
 
-        if ($hashed = $this->aliases[$locale] ?? false) {
-            return $hashed;
+            return $this->aliases[$locale] = $this->arr->get($config->getAliases(), $locale, $locale);
         }
 
-        return $this->aliases[$locale] = $this->arr->get($config->getAliases(), $locale, $locale);
+        return null;
     }
 }
