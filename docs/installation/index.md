@@ -27,7 +27,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 
 Next, you can also publish the config file to change implementations (ie. interface to specific class):
 
-```
+```bash
 php artisan vendor:publish --provider="LaravelLang\Publisher\ServiceProvider"
 ```
 
