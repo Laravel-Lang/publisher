@@ -83,7 +83,7 @@ class Config
             ->map(fn (Locales|string $value) => $this->toAlias($value, $this))
             ->implode('/');
 
-        return $this->path(lang_path(), $path);
+        return $this->path(function_exists('lang_path') ? lang_path() : base_path('lang'), $path);
     }
 
     public function hasInline(): bool
