@@ -71,7 +71,10 @@
     "autoload": {
         "psr-4": {
             "LaravelLang\\Publisher\\": "src"
-        }
+        },
+        "files": [
+            "helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
