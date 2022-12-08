@@ -15,7 +15,7 @@ jobs:
                 laravel: [ "8.0", "9.0" ]
                 prefer: [ "stable", "lowest" ]
 
-        name: PHP ${{ matrix.php }} ${{ matrix.prefer }}
+        name: ${{ matrix.laravel }} ${{ matrix.prefer }}, PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
