@@ -19,7 +19,7 @@ See the [documentation](https://publisher.laravel-lang.com) for detailed install
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/workflow/status/laravel-lang/publisher/phpunit?style=flat-square
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/laravel-lang/publisher/phpunit.yml?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/laravel-lang/publisher.svg?style=flat-square
 
