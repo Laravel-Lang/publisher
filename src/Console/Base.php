@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -19,7 +21,11 @@ namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Processors\Processor;
+use LaravelLang\Publisher\Services\Converters\Text\CommonDecorator;
+use LaravelLang\Publisher\Services\Converters\Text\SmartPunctuationDecorator;
+use LaravelLang\Publisher\TextDecorator;
 
 abstract class Base extends Command
 {
@@ -36,12 +42,24 @@ abstract class Base extends Command
 
     protected function resolveProcessor(): Processor
     {
-        return new $this->processor($this->output, $this->locales());
+        $config = $this->config();
+
+        return new $this->processor($this->output, $this->locales(), $this->decorator($config), $config);
     }
 
     protected function locales(): array
     {
         return Locales::installed();
+    }
+
+    protected function decorator(Config $config): TextDecorator
+    {
+        return $config->hasSmartPunctuation() ? new SmartPunctuationDecorator($config) : new CommonDecorator($config);
+    }
+
+    protected function config(): Config
+    {
+        return new Config();
     }
 
     protected function confirmAll(): bool

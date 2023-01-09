@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -20,6 +22,7 @@ namespace LaravelLang\Publisher\Resources;
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\Publisher\Helpers\Arr;
+use LaravelLang\Publisher\TextDecorator;
 
 class Translation implements Arrayable
 {
@@ -28,7 +31,8 @@ class Translation implements Arrayable
     protected array $translations = [];
 
     public function __construct(
-        readonly protected Arr $arr = new Arr()
+        readonly protected TextDecorator $decorator,
+        readonly protected Arr           $arr = new Arr()
     ) {
     }
 
@@ -54,7 +58,7 @@ class Translation implements Arrayable
             foreach ($this->translations as $locale => $values) {
                 $name = $this->resolveFilename($filename, $locale);
 
-                $result[$name] = $this->merge($keys, $values, true);
+                $result[$name] = $this->decorate($locale, $this->merge($keys, $values, true));
             }
         }
 
@@ -71,5 +75,28 @@ class Translation implements Arrayable
     protected function merge(array $source, array $target, bool $filter_keys = false): array
     {
         return $this->arr->merge($source, $target, $filter_keys);
+    }
+
+    protected function decorate(string $locale, array $values): array
+    {
+        foreach ($values as &$value) {
+            if (is_array($value)) {
+                $value = $this->decorate($locale, $values);
+
+                continue;
+            }
+
+            //if ($value === '"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"') {
+            //if (Str::contains($value, 'extensions')) {
+            //    dump(
+            //        $value,
+            //        $this->decorator->convert($locale, $value)
+            //    );
+            //}
+
+            $value = $this->decorator->convert($locale, $value);
+        }
+
+        return $values;
     }
 }

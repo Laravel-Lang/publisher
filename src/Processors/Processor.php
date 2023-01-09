@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -29,6 +31,7 @@ use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Resources\Translation;
 use LaravelLang\Publisher\Services\Filesystem\Manager;
+use LaravelLang\Publisher\TextDecorator;
 
 abstract class Processor
 {
@@ -37,18 +40,21 @@ abstract class Processor
     use Output;
     use Path;
 
+    protected Translation $translation;
+
     protected bool $reset = false;
 
     protected array $file_types = ['json', 'php'];
 
     public function __construct(
-        readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        protected Config $config = new Config(),
-        protected Manager $filesystem = new Manager(),
-        protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation()
+        readonly protected OutputStyle   $output,
+        readonly protected array         $locales,
+        readonly protected TextDecorator $decorator,
+        readonly protected Config        $config,
+        protected Manager                $filesystem = new Manager(),
+        protected ArrHelper              $arr = new ArrHelper(),
     ) {
+        $this->translation = new Translation($this->decorator);
     }
 
     public function prepare(): self
