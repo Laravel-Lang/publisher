@@ -22,13 +22,13 @@ namespace Tests\Unit\Console\Decorated;
 use LaravelLang\Publisher\Constants\Locales;
 use Tests\Unit\Console\InlineOff\TestCase;
 
-class EnabledDecorateTest extends TestCase
+class DisabledDecorateTest extends TestCase
 {
     protected Locales $fallback_locale = Locales::ENGLISH;
 
-    protected bool $smart_punctuation = true;
+    protected bool $smart_punctuation = false;
 
-    public function testDecorator(): void
+    public function testEnglish(): void
     {
         $this->forceDeleteLocale(Locales::ENGLISH);
 
@@ -48,7 +48,7 @@ class EnabledDecorateTest extends TestCase
         $this->assertSame('Go to page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
 
-        $this->assertSame('“It’s super-configurable… you can even use additional extensions to expand its capabilities – just like this one!”', $this->trans('Printed'));
+        $this->assertSame('"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"', $this->trans('Printed'));
     }
 
     public function testRussian(): void
@@ -65,7 +65,7 @@ class EnabledDecorateTest extends TestCase
         $this->artisanLangUpdate();
 
         $this->assertSame(
-            "«Вишь ты, – сказал один другому, – вон какое колесо!\nчто ты думаешь, доедет то колесо, если б случилось, в Москву или не\nдоедет?»",
+            "\"Вишь ты, -- сказал один другому, -- вон какое колесо!\nчто ты думаешь, доедет то колесо, если б случилось, в Москву или не\nдоедет?\"",
             $this->trans('Text')
         );
     }

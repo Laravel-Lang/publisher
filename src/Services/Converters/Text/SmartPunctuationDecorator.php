@@ -19,10 +19,12 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Converters\Text;
 
+use LaravelLang\Publisher\Services\Converters\Extensions\SmartPunctExtension;
 use League\CommonMark\ConverterInterface;
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\SmartPunct\SmartPunctExtension;
 use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Util\HtmlFilter;
+use Nette\Schema\Expect;
 
 class SmartPunctuationDecorator extends BaseDecorator
 {
@@ -30,14 +32,7 @@ class SmartPunctuationDecorator extends BaseDecorator
 
     public function convert(string $locale, string $value): string
     {
-        $value = strip_tags($this->decorate($locale, $value));
-
-        return rtrim($value, PHP_EOL);
-    }
-
-    protected function decorate(string $locale, string $value): string
-    {
-        return $this->decorator($locale)->convert($value)->getContent();
+        return $this->decorator($locale)->convert($value)->getDocument()->firstChild()->firstChild()->getLiteral();
     }
 
     protected function decorator(string $locale)
@@ -62,7 +57,12 @@ class SmartPunctuationDecorator extends BaseDecorator
     {
         return new Environment([
             'smartpunct' => $smartpunct,
-            'html_input' => 'escape',
+            'html_input' => HtmlFilter::STRIP,
+            'renderer'   => [
+                'block_separator' => Expect::string(""),
+                'inner_separator' => Expect::string(""),
+                'soft_break'      => Expect::string(""),
+            ],
         ]);
     }
 }

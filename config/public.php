@@ -17,6 +17,8 @@
 
 declare(strict_types=1);
 
+use LaravelLang\Publisher\Constants\Locales;
+
 return [
     /*
      * Determines what type of files to use when updating language files.
@@ -66,12 +68,33 @@ return [
         ],
 
         'locales' => [
-            //\LaravelLang\Publisher\Constants\Locales::FRENCH->value => [
+            //Locales::FRENCH->value => [
             //    'double_quote_opener' => '“',
             //    'double_quote_closer' => '”',
             //    'single_quote_opener' => '‘',
             //    'single_quote_closer' => '’',
             //],
+
+            Locales::RUSSIAN->value => [
+                'double_quote_opener' => '«',
+                'double_quote_closer' => '»',
+                'single_quote_opener' => '‘',
+                'single_quote_closer' => '’',
+            ],
+
+            Locales::UKRAINIAN->value => [
+                'double_quote_opener' => '«',
+                'double_quote_closer' => '»',
+                'single_quote_opener' => '‘',
+                'single_quote_closer' => '’',
+            ],
+
+            Locales::BELARUSIAN->value => [
+                'double_quote_opener' => '«',
+                'double_quote_closer' => '»',
+                'single_quote_opener' => '‘',
+                'single_quote_closer' => '’',
+            ],
         ],
     ],
 

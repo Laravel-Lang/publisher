@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -31,6 +33,7 @@ class InstalledTest extends TestCase
 
         $this->assertSame([
             LocaleCode::ENGLISH->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installed());
     }
 
@@ -45,6 +48,7 @@ class InstalledTest extends TestCase
             LocaleCode::GERMAN->value,
             LocaleCode::ENGLISH->value,
             LocaleCode::FRENCH->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installed());
     }
 
@@ -60,6 +64,7 @@ class InstalledTest extends TestCase
             LocaleCode::GERMAN->value,
             LocaleCode::ENGLISH->value,
             LocaleCode::FRENCH->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installed());
     }
 
@@ -71,6 +76,7 @@ class InstalledTest extends TestCase
             LocaleCode::GERMAN->value,
             LocaleCode::ENGLISH->value,
             LocaleCode::FRENCH->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installed());
     }
 
@@ -82,6 +88,7 @@ class InstalledTest extends TestCase
             LocaleCode::GERMAN->value,
             LocaleCode::ENGLISH->value,
             LocaleCode::FRENCH->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installed());
     }
 }
