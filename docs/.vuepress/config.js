@@ -6,7 +6,7 @@
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
  *
- * @copyright 2022 Andrey Helldar
+ * @copyright 2023 Andrey Helldar
  *
  * @license MIT
  *
@@ -114,7 +114,8 @@ module.exports = {
                         text: 'Features',
                         children: [
                             '/features/alignment.md',
-                            '/features/facades.md'
+                            '/features/facades.md',
+                            '/features/smart-punctuation.md'
                         ]
                     },
 
