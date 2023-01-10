@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -28,7 +30,9 @@ class InstalledWithoutProtectsTest extends TestCase
 
     public function testDefault(): void
     {
-        $this->assertSame([], Locales::installedWithoutProtects());
+        $this->assertSame([
+            LocaleCode::RUSSIAN->value,
+        ], Locales::installedWithoutProtects());
     }
 
     public function testCustom(): void
@@ -41,6 +45,7 @@ class InstalledWithoutProtectsTest extends TestCase
         $this->assertSame([
             LocaleCode::AFRIKAANS->value,
             LocaleCode::GERMAN->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installedWithoutProtects());
     }
 
@@ -52,6 +57,7 @@ class InstalledWithoutProtectsTest extends TestCase
 
         $this->assertSame([
             LocaleCode::GERMAN->value,
+            LocaleCode::RUSSIAN->value,
         ], Locales::installedWithoutProtects());
     }
 

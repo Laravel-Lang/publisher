@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -31,6 +33,7 @@ class NotInstalledTest extends TestCase
         $expected = $this->except([
             LocaleCode::ENGLISH,
             LocaleCode::FRENCH,
+            LocaleCode::RUSSIAN,
         ]);
 
         $this->assertSame($expected, Locales::notInstalled());
@@ -48,6 +51,7 @@ class NotInstalledTest extends TestCase
             LocaleCode::ENGLISH,
             LocaleCode::FRENCH,
             LocaleCode::GERMAN,
+            LocaleCode::RUSSIAN,
         ]);
 
         $this->assertSame($expected, Locales::notInstalled());
@@ -63,6 +67,7 @@ class NotInstalledTest extends TestCase
             LocaleCode::ENGLISH,
             LocaleCode::FRENCH,
             LocaleCode::GERMAN,
+            LocaleCode::RUSSIAN,
         ]);
 
         $this->assertSame($expected, Locales::notInstalled());

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -20,6 +22,7 @@ namespace LaravelLang\Publisher\Processors;
 use DragonCode\Support\Facades\Filesystem\File;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Publisher\Concerns\Aliases;
+use LaravelLang\Publisher\Concerns\Decorator;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
 use LaravelLang\Publisher\Concerns\Path;
@@ -29,10 +32,12 @@ use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Resources\Translation;
 use LaravelLang\Publisher\Services\Filesystem\Manager;
+use LaravelLang\Publisher\TextDecorator;
 
 abstract class Processor
 {
     use Aliases;
+    use Decorator;
     use Has;
     use Output;
     use Path;
@@ -42,12 +47,13 @@ abstract class Processor
     protected array $file_types = ['json', 'php'];
 
     public function __construct(
-        readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        protected Config $config = new Config(),
-        protected Manager $filesystem = new Manager(),
-        protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation()
+        readonly protected OutputStyle   $output,
+        readonly protected array         $locales,
+        readonly protected TextDecorator $decorator,
+        readonly protected Config        $config,
+        protected Manager                $filesystem = new Manager(),
+        protected ArrHelper              $arr = new ArrHelper(),
+        protected Translation            $translation = new Translation()
     ) {
     }
 
@@ -78,14 +84,16 @@ abstract class Processor
     {
         $this->info('Storing changes...');
 
-        foreach ($this->translation->toArray() as $filename => $values) {
-            $this->task($filename, function () use ($filename, $values) {
-                $path = $this->config->langPath($filename);
+        foreach ($this->translation->toArray() as $locale => $items) {
+            foreach ($items as $filename => $values) {
+                $this->task($filename, function () use ($filename, $values, $locale) {
+                    $path = $this->config->langPath($filename);
 
-                $values = $this->reset || ! File::exists($path) ? $values : $this->arr->merge($this->filesystem->load($path), $values);
+                    $values = $this->reset || ! File::exists($path) ? $values : $this->arr->merge($this->filesystem->load($path), $values);
 
-                $this->filesystem->store($path, $values);
-            });
+                    $this->filesystem->store($path, $this->decorate($locale, $values));
+                });
+            }
         }
     }
 

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -36,6 +38,8 @@ abstract class TestCase extends BaseTestCase
     protected ?Config $config;
 
     protected bool $inline = false;
+
+    protected bool $smart_punctuation = false;
 
     /** @var array<string|LocaleCode> */
     protected array $preinstall = [];
@@ -78,6 +82,7 @@ abstract class TestCase extends BaseTestCase
         $config = $app['config'];
 
         $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
+        $config->set(Config::PUBLIC_KEY . '.smart_punctuation.enable', $this->smart_punctuation);
 
         $config->set('app.locale', $this->locale->value);
         $config->set('app.fallback_locale', $this->fallback_locale->value);

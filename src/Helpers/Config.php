@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -26,9 +28,9 @@ class Config
 {
     use Aliases;
 
-    public const PUBLIC_KEY = 'lang-publisher';
-
     public const PRIVATE_KEY = 'lang-publisher-private';
+
+    public const PUBLIC_KEY = 'lang-publisher';
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
@@ -94,6 +96,18 @@ class Config
     public function hasAlign(): bool
     {
         return $this->getPublic('align', true);
+    }
+
+    public function hasSmartPunctuation(): bool
+    {
+        return $this->getPublic('smart_punctuation.enable', false);
+    }
+
+    public function smartPunctuationConfig(string $locale): array
+    {
+        $default = $this->getPublic('smart_punctuation.common', []);
+
+        return $this->getPublic('smart_punctuation.locales.' . $locale, $default);
     }
 
     public function getAliases(): array

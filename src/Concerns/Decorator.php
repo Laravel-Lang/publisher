@@ -17,13 +17,22 @@
 
 declare(strict_types=1);
 
-if (! function_exists('lang_path')) {
-    function lang_path(string $path = ''): string
-    {
-        $directory = is_dir(base_path('resources/lang'))
-            ? base_path('resources/lang')
-            : base_path('lang');
+namespace LaravelLang\Publisher\Concerns;
 
-        return $directory . (! empty($path) ? DIRECTORY_SEPARATOR . $path : '');
+trait Decorator
+{
+    protected function decorate(string $locale, array $values): array
+    {
+        foreach ($values as &$value) {
+            if (is_array($value)) {
+                $value = $this->decorate($locale, $values);
+
+                continue;
+            }
+
+            $value = $this->decorator->convert($locale, $value);
+        }
+
+        return $values;
     }
 }

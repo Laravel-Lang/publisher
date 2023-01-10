@@ -17,13 +17,9 @@
 
 declare(strict_types=1);
 
-if (! function_exists('lang_path')) {
-    function lang_path(string $path = ''): string
-    {
-        $directory = is_dir(base_path('resources/lang'))
-            ? base_path('resources/lang')
-            : base_path('lang');
+namespace LaravelLang\Publisher;
 
-        return $directory . (! empty($path) ? DIRECTORY_SEPARATOR . $path : '');
-    }
+interface TextDecorator
+{
+    public function convert(string $locale, string $value): string;
 }

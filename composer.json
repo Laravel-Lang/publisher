@@ -47,7 +47,9 @@
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/support": "^6.3",
         "illuminate/console": "^8.79 || ^9.18",
-        "illuminate/support": "^8.79 || ^9.18"
+        "illuminate/support": "^8.79 || ^9.18",
+        "league/commonmark": "^2.3",
+        "league/config": "^1.2"
     },
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.0",

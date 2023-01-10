@@ -17,13 +17,15 @@
 
 declare(strict_types=1);
 
-if (! function_exists('lang_path')) {
-    function lang_path(string $path = ''): string
-    {
-        $directory = is_dir(base_path('resources/lang'))
-            ? base_path('resources/lang')
-            : base_path('lang');
+namespace LaravelLang\Publisher\Services\Converters\Text;
 
-        return $directory . (! empty($path) ? DIRECTORY_SEPARATOR . $path : '');
+use LaravelLang\Publisher\Helpers\Config;
+use LaravelLang\Publisher\TextDecorator;
+
+abstract class BaseDecorator implements TextDecorator
+{
+    public function __construct(
+        protected Config $config
+    ) {
     }
 }
