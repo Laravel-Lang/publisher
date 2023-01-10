@@ -47,13 +47,13 @@ abstract class Processor
     protected array $file_types = ['json', 'php'];
 
     public function __construct(
-        readonly protected OutputStyle $output,
-        readonly protected array       $locales,
+        readonly protected OutputStyle   $output,
+        readonly protected array         $locales,
         readonly protected TextDecorator $decorator,
         readonly protected Config        $config,
         protected Manager                $filesystem = new Manager(),
         protected ArrHelper              $arr = new ArrHelper(),
-        protected Translation          $translation = new Translation()
+        protected Translation            $translation = new Translation()
     ) {
     }
 

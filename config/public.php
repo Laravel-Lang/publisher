@@ -47,13 +47,13 @@ return [
     /*
      * This option determines the mechanism for converting translation
      * keys into a typographic version.
-     * 
+     *
      * For example:
      *   for `false`:
      *     "It's super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"
      *   for `true`:
      *     “It’s super-configurable… you can even use additional extensions to expand its capabilities – just like this one!”
-     * 
+     *
      * By default, false
      */
 

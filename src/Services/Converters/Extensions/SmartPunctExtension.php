@@ -41,13 +41,15 @@ class SmartPunctExtension implements ConfigurableExtensionInterface
 {
     public function configureSchema(ConfigurationBuilderInterface $builder): void
     {
-        $builder->addSchema('smartpunct',
+        $builder->addSchema(
+            'smartpunct',
             Expect::structure([
                 'double_quote_opener' => Expect::string(Quote::DOUBLE_QUOTE_OPENER),
                 'double_quote_closer' => Expect::string(Quote::DOUBLE_QUOTE_CLOSER),
                 'single_quote_opener' => Expect::string(Quote::SINGLE_QUOTE_OPENER),
                 'single_quote_closer' => Expect::string(Quote::SINGLE_QUOTE_CLOSER),
-            ]));
+            ])
+        );
     }
 
     public function register(EnvironmentBuilderInterface $environment): void
