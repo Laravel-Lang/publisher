@@ -59,9 +59,9 @@ class SmartPunctuationDecorator extends BaseDecorator
             'smartpunct' => $smartpunct,
             'html_input' => HtmlFilter::STRIP,
             'renderer'   => [
-                'block_separator' => Expect::string(""),
-                'inner_separator' => Expect::string(""),
-                'soft_break'      => Expect::string(""),
+                'block_separator' => Expect::string(),
+                'inner_separator' => Expect::string(),
+                'soft_break'      => Expect::string(),
             ],
         ]);
     }
