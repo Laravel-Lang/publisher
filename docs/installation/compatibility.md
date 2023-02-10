@@ -2,7 +2,7 @@
 
 | Laravel, Lumen               | PHP                     | Package Version | Comment                                                                       |
 |------------------------------|-------------------------|-----------------|-------------------------------------------------------------------------------|
-| 8.x, 9.x                     | 8.1                     | ^14.0           | ![Supported][badge_supported] [changelog 14.x](../changelog/14.x.md)          |
+| 8.x, 9.x, 10.x               | 8.1, 8.2                | ^14.0           | ![Supported][badge_supported] [changelog 14.x](../changelog/14.x.md)          |
 | 7.x, 8.x, 9.x                | 8.0, 8.1                | ^13.0           | ![Not Supported][badge_not_supported] [changelog 13.x](../changelog/index.md) |
 | 7.x, 8.x, 9.x                | 7.3, 7.4, 8.0, 8.1      | ^12.0           | ![Not Supported][badge_not_supported] [changelog 12.x](../changelog/index.md) |
 | 7.x, 8.x, 9.x                | 7.3, 7.4, 8.0, 8.1      | ^11.2           | ![Not Supported][badge_not_supported] [changelog 11.x](../changelog/index.md) |
