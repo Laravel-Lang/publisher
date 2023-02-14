@@ -54,7 +54,6 @@
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.0",
         "orchestra/testbench": "^6.25 || ^7.22 || ^8.0",
-        "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.6",
         "symfony/var-dumper": "^5.0 || ^6.0"
     },

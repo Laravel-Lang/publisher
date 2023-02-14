@@ -17,6 +17,3 @@ package.json export-ignore
 
 phpunit.php export-ignore
 phpunit.xml export-ignore
-
-phpstan.src.neon.dist export-ignore
-phpstan.types.neon.dist export-ignore

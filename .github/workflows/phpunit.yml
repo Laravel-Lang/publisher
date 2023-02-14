@@ -18,7 +18,7 @@ jobs:
                     -   laravel: "8.0"
                         php: "8.2"
 
-        name: Laravel ${{ matrix.laravel }} ${{ matrix.prefer }}, PHP ${{ matrix.php }}
+        name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }} ${{ matrix.prefer }}
 
         steps:
             -   name: Checkout code
