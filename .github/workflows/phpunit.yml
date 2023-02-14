@@ -1,4 +1,4 @@
-name: "Laravel"
+name: phpunit
 
 on: [ push, pull_request ]
 
