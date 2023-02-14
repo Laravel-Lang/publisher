@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -51,26 +53,48 @@ class Remove extends Processor
 
     protected function findDirectories(LocaleCode|string $locale): array
     {
-        $names = Directory::names($this->config->langPath(), $this->find($locale), true);
-
-        return Arr::of($names)
-            ->map(fn (string $name) => Str::prepend($name, $this->config->langPath() . '/'))
-            ->toArray();
+        return $this->finder(Directory::class, $locale);
     }
 
     protected function findFiles(LocaleCode|string $locale): array
     {
-        $names = File::names($this->config->langPath(), $this->find($locale), true);
-
-        return Arr::of($names)
-            ->map(fn (string $name) => Str::prepend($name, $this->config->langPath() . '/'))
-            ->toArray();
+        return $this->finder(File::class, $locale);
     }
 
-    protected function find(LocaleCode|string $locale): callable
+    protected function finder(Directory|File|string $filesystem, LocaleCode|string $locale): array
     {
-        $locale = $locale?->value ?? $locale;
+        $callback = $this->findCallback($locale);
+
+        $names = [];
+
+        foreach ($this->paths() as $path) {
+            $items = $filesystem::names($path, $callback, true);
+
+            $names[] = Arr::map($items, static fn (string $name) => Str::prepend($name, $path . '/'));
+        }
+
+        return Arr::of($names)->flatten()->unique()->toArray();
+    }
+
+    protected function findCallback(LocaleCode|string $locale): callable
+    {
+        $locale = $locale->value ?? $locale;
 
         return static fn (string $path) => $locale === Path::filename($path);
+    }
+
+    protected function paths(): array
+    {
+        return Arr::of([
+            $this->config->langPath(),
+            base_path('vendor/laravel/framework/src/Illuminate/Translation/lang'),
+            base_path('vendor/illuminate/translation/src/Illuminate/Translation/lang'),
+            __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Translation/lang',
+            __DIR__ . '/../../vendor/illuminate/translation/src/Illuminate/Translation/lang',
+        ])
+            ->flatten()
+            ->filter(static fn (string $path) => is_dir($path) && file_exists($path))
+            ->unique()
+            ->toArray();
     }
 }

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -21,7 +23,7 @@ class Baq extends Plugin
 {
     protected ?string $vendor = 'orchestra/testbench';
 
-    protected string $version = '^5.0 || ^6.0 || ^7.0';
+    protected string $version = '>=5.0';
 
     public function files(): array
     {
