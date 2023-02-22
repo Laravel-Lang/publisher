@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- *
  * @copyright 2023 Andrey Helldar
- *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -30,7 +28,7 @@ class Locales
     use Aliases;
 
     public function __construct(
-        protected Config       $config,
+        protected Config $config,
         readonly protected Arr $arr = new Arr()
     ) {
     }
