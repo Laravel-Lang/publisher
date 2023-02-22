@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -21,7 +23,7 @@ use Tests\Fixtures\MorePlugins\First\Src\Plugin as FirstProvider;
 use Tests\Fixtures\MorePlugins\Second\Src\Plugin as SecondProvider;
 use Tests\TestCase;
 
-abstract class BaseTest extends TestCase
+abstract class Base extends TestCase
 {
     protected function getPackageProviders($app): array
     {
