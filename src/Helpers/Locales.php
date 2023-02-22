@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -28,7 +30,7 @@ class Locales
     use Aliases;
 
     public function __construct(
-        protected Config $config,
+        protected Config       $config,
         readonly protected Arr $arr = new Arr()
     ) {
     }
@@ -43,12 +45,11 @@ class Locales
 
     public function installed(): array
     {
-        $directories = Directory::names($this->config->langPath());
-        $files       = File::names($this->config->langPath(), recursive: true);
+        $this->ensureLangPath();
 
         return $this->arr->of([])
-            ->push($directories)
-            ->push($files)
+            ->push($this->getDirectories())
+            ->push($this->getFiles())
             ->push($this->protects())
             ->flatten()
             ->map(static fn (string $name) => Path::filename($name))
@@ -125,5 +126,20 @@ class Locales
     protected function toString(LocaleCodes|string|null $locale): ?string
     {
         return $locale?->value ?? $locale;
+    }
+
+    protected function getDirectories(): array
+    {
+        return Directory::names($this->config->langPath());
+    }
+
+    protected function getFiles(): array
+    {
+        return File::names($this->config->langPath(), recursive: true);
+    }
+
+    protected function ensureLangPath(): void
+    {
+        Directory::ensureDirectory($this->config->langPath());
     }
 }
