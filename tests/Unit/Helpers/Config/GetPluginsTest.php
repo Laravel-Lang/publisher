@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -27,7 +29,7 @@ use Tests\Fixtures\Plugin\src\Plugins\Baw;
 use Tests\Fixtures\Plugin\src\Plugins\Custom;
 use Tests\Fixtures\Plugin\src\Plugins\Foo;
 
-class GetPluginsTest extends BaseTest
+class GetPluginsTest extends Base
 {
     public function testGetPlugins(): void
     {

@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
+ *
  * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -21,7 +23,7 @@ use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Helpers\Config;
 
-class GetAliasesTest extends BaseTest
+class GetAliasesTest extends Base
 {
     protected array $preinstall = [
         LocaleCode::GERMAN,

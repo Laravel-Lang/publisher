@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2022 Andrey Helldar
+ *
+ * @copyright 2023 Andrey Helldar
+ *
  * @license MIT
  *
  * @see https://github.com/Laravel-Lang/publisher
@@ -21,7 +23,7 @@ use LaravelLang\Publisher\Constants\Types;
 use Tests\Fixtures\MorePlugins\Second\Src\Plugin as SecondPlugin;
 use Tests\Fixtures\Plugin\src\Plugin;
 
-class GetPackageNameByPathTest extends BaseTest
+class GetPackageNameByPathTest extends Base
 {
     public function testName(): void
     {
