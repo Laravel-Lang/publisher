@@ -8,15 +8,17 @@
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
-
 ## Documentation
 
-See the [documentation](https://laravel-lang.com) for detailed installation and usage instructions.
+See the [documentation](https://laravel-lang.com) for detailed installation and [usage](https://laravel-lang.com/usage/general-principles.html) instructions.
 
+## Contributing
+
+Please see [CONTRIBUTING](https://laravel-lang.com/contributing.html) for details.
 
 ## License
 
-This package is licensed under the [MIT License](LICENSE).
+This package is licensed under the [MIT License][link_license].
 
 
 [badge_build]:          https://img.shields.io/github/actions/workflow/status/laravel-lang/publisher/phpunit.yml?style=flat-square
