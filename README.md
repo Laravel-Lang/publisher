@@ -11,7 +11,7 @@
 
 ## Documentation
 
-See the [documentation](https://publisher.laravel-lang.com) for detailed installation and usage instructions.
+See the [documentation](https://laravel-lang.com) for detailed installation and usage instructions.
 
 
 ## License
