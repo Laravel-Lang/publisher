@@ -55,7 +55,7 @@ class SmartPunctuationDecorator extends BaseDecorator
     {
         return new Environment([
             'smartpunct' => $smartpunct,
-            'html_input' => HtmlFilter::STRIP,
+            'html_input' => HtmlFilter::ALLOW,
             'renderer'   => [
                 'block_separator' => Expect::string(),
                 'inner_separator' => Expect::string(),
