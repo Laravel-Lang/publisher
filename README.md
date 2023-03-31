@@ -1,6 +1,6 @@
 # Laravel Lang Publisher
 
-![laravel lang publisher](https://preview.dragon-code.pro/laravel-lang/publisher.svg?brand=laravel&mode=dark)
+![laravel-lang locale publisher](https://preview.dragon-code.pro/laravel-lang/locale-publisher.svg?brand=laravel&mode=dark)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
