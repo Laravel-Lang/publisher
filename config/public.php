@@ -66,12 +66,12 @@ return [
         ],
 
         'locales' => [
-            //Locales::FRENCH->value => [
-            //    'double_quote_opener' => '“',
-            //    'double_quote_closer' => '”',
-            //    'single_quote_opener' => '‘',
-            //    'single_quote_closer' => '’',
-            //],
+            Locales::FRENCH->value => [
+               'double_quote_opener' => '« ', // followed by an UTF-8 non breack space
+               'double_quote_closer' => ' »', // preceded by an UTF-8 non breack space
+               'single_quote_opener' => '’',
+               'single_quote_closer' => '’',
+            ],
 
             Locales::RUSSIAN->value => [
                 'double_quote_opener' => '«',
