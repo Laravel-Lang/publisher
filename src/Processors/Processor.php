@@ -35,9 +35,13 @@ use LaravelLang\Publisher\TextDecorator;
 abstract class Processor
 {
     use Aliases;
+
     use Decorator;
+
     use Has;
+
     use Output;
+
     use Path;
 
     protected bool $reset = false;
