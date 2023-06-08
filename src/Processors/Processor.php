@@ -35,13 +35,9 @@ use LaravelLang\Publisher\TextDecorator;
 abstract class Processor
 {
     use Aliases;
-
     use Decorator;
-
     use Has;
-
     use Output;
-
     use Path;
 
     protected bool $reset = false;
@@ -55,9 +51,9 @@ abstract class Processor
         readonly protected Config $config,
         protected Manager $filesystem = new Manager(),
         protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation()
-    ) {
-    }
+        protected Translation $translation = new Translation(
+        )
+    ) {}
 
     public function prepare(): self
     {

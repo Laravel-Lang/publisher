@@ -30,8 +30,7 @@ class Locales
     public function __construct(
         protected Config $config,
         readonly protected Arr $arr = new Arr()
-    ) {
-    }
+    ) {}
 
     public function available(): array
     {

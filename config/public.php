@@ -104,8 +104,8 @@ return [
      */
 
     'aliases' => [
-        //\LaravelLang\Publisher\Constants\Locales::GERMAN->value => 'de-DE',
+        // \LaravelLang\Publisher\Constants\Locales::GERMAN->value => 'de-DE',
         //
-        //\LaravelLang\Publisher\Constants\Locales::GERMAN_SWITZERLAND->value => 'de-CH',
+        // \LaravelLang\Publisher\Constants\Locales::GERMAN_SWITZERLAND->value => 'de-CH',
     ],
 ];

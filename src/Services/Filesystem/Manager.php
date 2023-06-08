@@ -24,7 +24,6 @@ use LaravelLang\Publisher\Concerns\Has;
 class Manager implements Filesystem
 {
     use Has;
-
     use Resolvable;
 
     public function load(string $path): array

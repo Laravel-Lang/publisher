@@ -30,8 +30,6 @@ class FallbackWithInstalledTest extends TestCase
      * Json fallbacks doesn't work in the Laravel Framework.
      *
      * @see https://github.com/laravel/framework/issues/41565
-     *
-     * @return void
      */
     public function testFallbackWithInstalled(): void
     {

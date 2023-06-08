@@ -28,7 +28,7 @@ class Arr
         return DragonArr::of($array);
     }
 
-    public function get(array $array, string|int $key, mixed $default = null): mixed
+    public function get(array $array, int|string $key, mixed $default = null): mixed
     {
         return IlluminateArr::get($array, $key, $default);
     }

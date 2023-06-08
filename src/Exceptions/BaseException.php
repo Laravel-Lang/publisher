@@ -23,12 +23,12 @@ use RuntimeException;
 
 class BaseException extends RuntimeException
 {
-    protected function stringify(array|string|Locales $locales): string
+    protected function stringify(array|Locales|string $locales): string
     {
         $locales = is_array($locales) ? $locales : [$locales];
 
         return Arr::of($locales)
-            ->map(static fn (string|Locales $locale) => $locale?->value ?? $locale)
+            ->map(static fn (Locales|string $locale) => $locale?->value ?? $locale)
             ->implode(', ')
             ->toString();
     }

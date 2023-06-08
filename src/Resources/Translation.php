@@ -29,8 +29,7 @@ class Translation implements Arrayable
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {
-    }
+    ) {}
 
     public function setSource(string $filename, array $values): self
     {

@@ -27,13 +27,11 @@ class Config
     use Aliases;
 
     public const PRIVATE_KEY = 'lang-publisher-private';
-
-    public const PUBLIC_KEY = 'lang-publisher';
+    public const PUBLIC_KEY  = 'lang-publisher';
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {
-    }
+    ) {}
 
     public function getPlugins(): array
     {
@@ -138,7 +136,7 @@ class Config
         config()->set($visibility . '.' . $key, $value);
     }
 
-    protected function path(string $base, Stringable|string|null $suffix = null): string
+    protected function path(string $base, string|Stringable|null $suffix = null): string
     {
         return rtrim($base, '\\/') . '/' . ltrim((string) $suffix, '\\/');
     }

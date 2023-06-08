@@ -21,7 +21,7 @@ use LaravelLang\Publisher\Constants\Locales;
 
 class UnknownLocaleCodeException extends BaseException
 {
-    public function __construct(array|string|Locales $locale)
+    public function __construct(array|Locales|string $locale)
     {
         $locale = $this->stringify($locale);
 

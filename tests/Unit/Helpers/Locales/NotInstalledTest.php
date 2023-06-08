@@ -72,9 +72,7 @@ class NotInstalledTest extends TestCase
     }
 
     /**
-     * @param array<LocaleCode> $locales
-     *
-     * @return array
+     * @param  array<LocaleCode>  $locales
      */
     protected function except(array $locales): array
     {

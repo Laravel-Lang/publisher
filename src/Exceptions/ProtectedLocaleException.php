@@ -21,7 +21,7 @@ use LaravelLang\Publisher\Constants\Locales;
 
 class ProtectedLocaleException extends BaseException
 {
-    public function __construct(array|string|Locales $locales)
+    public function __construct(array|Locales|string $locales)
     {
         $locales = $this->stringify($locales);
 

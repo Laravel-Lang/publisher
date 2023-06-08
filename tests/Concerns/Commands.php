@@ -21,7 +21,7 @@ use LaravelLang\Publisher\Constants\Locales;
 
 trait Commands
 {
-    protected function artisanLangAdd(Locales|array|string|null $locales = null, bool $set = false): void
+    protected function artisanLangAdd(array|Locales|string|null $locales = null, bool $set = false): void
     {
         is_null($locales)
             ? $this->artisan('lang:add')->run()
@@ -32,7 +32,7 @@ trait Commands
             : $this->reloadLocales();
     }
 
-    protected function artisanLangRemove(Locales|array|string|null $locales = null, bool $force = false): void
+    protected function artisanLangRemove(array|Locales|string|null $locales = null, bool $force = false): void
     {
         is_null($locales)
             ? $this->artisan('lang:rm', ['--force' => $force])->run()
