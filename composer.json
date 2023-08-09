@@ -46,15 +46,15 @@
         "composer/semver": "^3.3",
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/support": "^6.3",
-        "illuminate/console": "^8.79 || ^9.18 || ^10.0",
-        "illuminate/support": "^8.79 || ^9.18 || ^10.0",
+        "illuminate/console": "^8.79 || ^9.18 || ^10.0 || ^11.0",
+        "illuminate/support": "^8.79 || ^9.18 || ^10.0 || ^11.0",
         "league/commonmark": "^2.3",
         "league/config": "^1.2"
     },
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.0",
-        "orchestra/testbench": "^6.25 || ^7.22 || ^8.0",
-        "phpunit/phpunit": "^9.6",
+        "orchestra/testbench": "^6.25 || ^7.22 || ^8.0 || ^9.0",
+        "phpunit/phpunit": "^9.6 || ^10.0",
         "symfony/var-dumper": "^5.0 || ^6.0"
     },
     "conflict": {
