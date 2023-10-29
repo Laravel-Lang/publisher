@@ -31,8 +31,14 @@ class GetPackageNameByPathTest extends Base
 
     public function testClass(): void
     {
-        $this->assertSame(Plugin::class, $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/Plugin', Types::TYPE_CLASS));
-        $this->assertSame(SecondPlugin::class, $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/Second', Types::TYPE_CLASS));
+        $this->assertSame(
+            Plugin::class,
+            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/Plugin', Types::TypeClass)
+        );
+        $this->assertSame(
+            SecondPlugin::class,
+            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/Second', Types::TypeClass)
+        );
     }
 
     public function testUnknownPackage(): void
@@ -44,7 +50,7 @@ class GetPackageNameByPathTest extends Base
 
         $this->assertSame(
             realpath(__DIR__ . '/../../../Fixtures/MorePlugins/First'),
-            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/First', Types::TYPE_CLASS)
+            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/First', Types::TypeClass)
         );
     }
 }

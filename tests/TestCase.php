@@ -21,8 +21,9 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
 use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Locales\Enums\Config as ConfigEnum;
+use LaravelLang\Locales\Enums\Locale as LocaleCode;
+use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -42,9 +43,9 @@ abstract class TestCase extends BaseTestCase
     /** @var array<string|LocaleCode> */
     protected array $preinstall = [];
 
-    protected LocaleCode $locale = LocaleCode::ENGLISH;
+    protected LocaleCode $locale = LocaleCode::English;
 
-    protected LocaleCode $fallback_locale = LocaleCode::FRENCH;
+    protected LocaleCode $fallback_locale = LocaleCode::French;
 
     protected function setUp(): void
     {
@@ -74,13 +75,13 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(Config::PUBLIC_KEY . '.inline', $this->inline);
-        $config->set(Config::PUBLIC_KEY . '.smart_punctuation.enable', $this->smart_punctuation);
+        $config->set(ConfigEnum::PublicKey() . '.inline', $this->inline);
+        $config->set(ConfigEnum::PublicKey() . '.smart_punctuation.enable', $this->smart_punctuation);
 
         $config->set('app.locale', $this->locale->value);
         $config->set('app.fallback_locale', $this->fallback_locale->value);
@@ -96,7 +97,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function installLocales(): void
     {
-        $this->artisanLangAdd(Locales::protects());
+        $this->artisanLangAdd(Locales::raw()->protects());
     }
 
     protected function preInstallLocales(): void

@@ -21,8 +21,7 @@ use Illuminate\Console\View\Components\Factory;
 
 trait Output
 {
-    /** @var Factory */
-    protected mixed $components = null;
+    protected ?Factory $components = null;
 
     protected function info(string $message): void
     {

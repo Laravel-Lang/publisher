@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 
 class ProtectedLocaleException extends BaseException
 {
-    public function __construct(array|Locales|string $locales)
+    public function __construct(array|Locale|string $locales)
     {
         $locales = $this->stringify($locales);
 

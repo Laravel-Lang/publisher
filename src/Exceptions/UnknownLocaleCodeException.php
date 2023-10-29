@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 
 class UnknownLocaleCodeException extends BaseException
 {
-    public function __construct(array|Locales|string $locale)
+    public function __construct(array|Locale|string $locale)
     {
         $locale = $this->stringify($locale);
 

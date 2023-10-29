@@ -17,18 +17,18 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\Decorated;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class DisabledDecorateTest extends TestCase
 {
-    protected Locales $fallback_locale = Locales::ENGLISH;
+    protected Locale $fallback_locale = Locale::English;
 
     protected bool $smart_punctuation = false;
 
     public function testEnglish(): void
     {
-        $this->forceDeleteLocale(Locales::ENGLISH);
+        $this->forceDeleteLocale(Locale::English);
 
         $this->copyFixtures();
 
@@ -37,7 +37,10 @@ class DisabledDecorateTest extends TestCase
         $this->assertSame('Go to page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
 
-        $this->assertSame('"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"', $this->trans('Printed'));
+        $this->assertSame(
+            '"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"',
+            $this->trans('Printed')
+        );
 
         $this->artisanLangUpdate();
 
@@ -46,12 +49,15 @@ class DisabledDecorateTest extends TestCase
         $this->assertSame('Go to page', $this->trans('Go to page :page'));
         $this->assertSame('Hello!', $this->trans('Hello!'));
 
-        $this->assertSame('"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"', $this->trans('Printed'));
+        $this->assertSame(
+            '"It\'s super-configurable... you can even use additional extensions to expand its capabilities -- just like this one!"',
+            $this->trans('Printed')
+        );
     }
 
     public function testRussian(): void
     {
-        $this->setAppLocale(Locales::RUSSIAN);
+        $this->setAppLocale(Locale::Russian);
 
         $this->copyFixtures();
 

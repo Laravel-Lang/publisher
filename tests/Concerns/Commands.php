@@ -17,22 +17,22 @@ declare(strict_types=1);
 
 namespace Tests\Concerns;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 
 trait Commands
 {
-    protected function artisanLangAdd(array|Locales|string|null $locales = null, bool $set = false): void
+    protected function artisanLangAdd(array|Locale|string|null $locales = null, bool $set = false): void
     {
         is_null($locales)
             ? $this->artisan('lang:add')->run()
             : $this->artisan('lang:add', compact('locales'))->run();
 
         $set
-            ? $this->setAppLocale(Locales::GERMAN)
+            ? $this->setAppLocale(Locale::German)
             : $this->reloadLocales();
     }
 
-    protected function artisanLangRemove(array|Locales|string|null $locales = null, bool $force = false): void
+    protected function artisanLangRemove(array|Locale|string|null $locales = null, bool $force = false): void
     {
         is_null($locales)
             ? $this->artisan('lang:rm', ['--force' => $force])->run()

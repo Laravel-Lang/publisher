@@ -22,7 +22,7 @@ use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Locales\Enums\Locale;
 
 class Remove extends Processor
 {
@@ -39,27 +39,27 @@ class Remove extends Processor
         }
     }
 
-    protected function directories(LocaleCode|string $locale): void
+    protected function directories(Locale|string $locale): void
     {
         Directory::ensureDelete($this->findDirectories($locale));
     }
 
-    protected function files(LocaleCode|string $locale): void
+    protected function files(Locale|string $locale): void
     {
         File::ensureDelete($this->findFiles($locale));
     }
 
-    protected function findDirectories(LocaleCode|string $locale): array
+    protected function findDirectories(Locale|string $locale): array
     {
         return $this->finder(Directory::class, $locale);
     }
 
-    protected function findFiles(LocaleCode|string $locale): array
+    protected function findFiles(Locale|string $locale): array
     {
         return $this->finder(File::class, $locale);
     }
 
-    protected function finder(Directory|File|string $filesystem, LocaleCode|string $locale): array
+    protected function finder(Directory|File|string $filesystem, Locale|string $locale): array
     {
         $callback = $this->findCallback($locale);
 
@@ -74,7 +74,7 @@ class Remove extends Processor
         return Arr::of($names)->flatten()->unique()->toArray();
     }
 
-    protected function findCallback(LocaleCode|string $locale): callable
+    protected function findCallback(Locale|string $locale): callable
     {
         $locale = $locale->value ?? $locale;
 

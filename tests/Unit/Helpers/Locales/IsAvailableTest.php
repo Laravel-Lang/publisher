@@ -15,9 +15,9 @@
 
 namespace Tests\Unit\Helpers\Locales;
 
+use LaravelLang\Locales\Enums\Config;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
-use LaravelLang\Publisher\Helpers\Config;
 use Tests\TestCase;
 
 class IsAvailableTest extends TestCase
@@ -43,7 +43,7 @@ class IsAvailableTest extends TestCase
 
     public function testAlias(): void
     {
-        $this->app['config']->set(Config::PUBLIC_KEY . '.aliases', [
+        $this->app['config']->set(Config::PublicKey() . '.aliases', [
             LocaleCode::GERMAN->value => 'de-DE',
         ]);
 

@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LaravelLang\Locales\Enums\Config;
 use LaravelLang\Publisher\Concerns\About;
 use LaravelLang\Publisher\Console\Add;
 use LaravelLang\Publisher\Console\Remove;
 use LaravelLang\Publisher\Console\Reset;
 use LaravelLang\Publisher\Console\Update;
-use LaravelLang\Publisher\Helpers\Config;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -53,14 +53,13 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function bootPublishes(): void
     {
-        $this->publishes([
-            __DIR__ . '/../config/public.php' => $this->app->configPath(Config::PUBLIC_KEY . '.php'),
-        ], 'config');
+        $this->publishes([__DIR__ . '/../config/public.php' => $this->app->configPath(Config::PublicKey() . '.php'),],
+            'config');
     }
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::PUBLIC_KEY);
-        $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::PRIVATE_KEY);
+        $this->mergeConfigFrom(__DIR__ . '/../config/public.php', Config::PublicKey());
+        $this->mergeConfigFrom(__DIR__ . '/../config/private.php', Config::PrivateKey());
     }
 }

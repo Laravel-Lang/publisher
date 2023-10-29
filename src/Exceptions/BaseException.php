@@ -17,19 +17,15 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use RuntimeException;
 
 class BaseException extends RuntimeException
 {
-    protected function stringify(array|Locales|string $locales): string
+    protected function stringify(array|Locale|string $locales): string
     {
-        $locales = is_array($locales) ? $locales : [$locales];
-
-        return Arr::of($locales)
-            ->map(static fn (Locales|string $locale) => $locale?->value ?? $locale)
-            ->implode(', ')
-            ->toString();
+        return collect($locales)
+            ->map(static fn (Locale|string $locale) => $locale->value ?? $locale)
+            ->implode(', ');
     }
 }

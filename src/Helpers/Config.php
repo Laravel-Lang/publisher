@@ -18,16 +18,14 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Contracts\Support\Stringable;
-use LaravelLang\Publisher\Concerns\Aliases;
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Concerns\Aliases;
+use LaravelLang\Locales\Enums\Config as ConfigEnum;
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Publisher\Constants\Types;
 
 class Config
 {
     use Aliases;
-
-    public const PRIVATE_KEY = 'lang-publisher-private';
-    public const PUBLIC_KEY  = 'lang-publisher';
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
@@ -47,15 +45,12 @@ class Config
         $this->setPrivate('plugins', $items);
     }
 
-    /**
-     * @return array<string, string>
-     */
     public function getPackages(): array
     {
         return $this->getPrivate('packages', []);
     }
 
-    public function getPackageNameByPath(string $path, Types $type = Types::TYPE_NAME): string
+    public function getPackageNameByPath(string $path, Types $type = Types::TypeName): string
     {
         $path = realpath($path);
 
@@ -74,11 +69,11 @@ class Config
         $this->setPrivate('packages', $items);
     }
 
-    public function langPath(Locales|string|null ...$paths): string
+    public function langPath(Locale|string|null ...$paths): string
     {
         $path = $this->arr->of($paths)
             ->filter()
-            ->map(fn (Locales|string $value) => $this->toAlias($value, $this))
+            ->map(fn (Locale|string $value) => $this->toAlias($value))
             ->implode('/');
 
         return $this->path(lang_path(), $path);
@@ -106,24 +101,19 @@ class Config
         return $this->getPublic('smart_punctuation.locales.' . $locale, $default);
     }
 
-    public function getAliases(): array
-    {
-        return $this->getPublic('aliases', []);
-    }
-
     public function setPrivate(string $key, mixed $value): void
     {
-        $this->set(self::PRIVATE_KEY, $key, $value);
+        $this->set(ConfigEnum::PrivateKey(), $key, $value);
     }
 
     protected function getPrivate(string $key, mixed $default = null): mixed
     {
-        return $this->get(self::PRIVATE_KEY, $key, $default);
+        return $this->get(ConfigEnum::PrivateKey(), $key, $default);
     }
 
     protected function getPublic(string $key, mixed $default = null): mixed
     {
-        return $this->get(self::PUBLIC_KEY, $key, $default);
+        return $this->get(ConfigEnum::PublicKey(), $key, $default);
     }
 
     protected function get(string $visibility, string $key, mixed $default = null): mixed

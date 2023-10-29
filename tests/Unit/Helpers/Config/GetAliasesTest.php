@@ -17,9 +17,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Helpers\Config;
 
+use LaravelLang\Locales\Enums\Config;
 use LaravelLang\Publisher\Constants\Locales as LocaleCode;
 use LaravelLang\Publisher\Facades\Helpers\Locales;
-use LaravelLang\Publisher\Helpers\Config;
 
 class GetAliasesTest extends Base
 {
@@ -27,15 +27,6 @@ class GetAliasesTest extends Base
         LocaleCode::GERMAN,
         LocaleCode::GERMAN_SWITZERLAND,
     ];
-
-    public function testGetAliases(): void
-    {
-        $this->assertSame([
-            LocaleCode::GERMAN->value => 'de-DE',
-
-            LocaleCode::GERMAN_SWITZERLAND->value => 'de-CH',
-        ], $this->config->getAliases());
-    }
 
     public function testInstalled(): void
     {
@@ -55,7 +46,7 @@ class GetAliasesTest extends Base
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(Config::PUBLIC_KEY . '.aliases', [
+        $config->set(Config::PublicKey() . '.aliases', [
             LocaleCode::GERMAN->value => 'de-DE',
 
             LocaleCode::GERMAN_SWITZERLAND->value => 'de-CH',

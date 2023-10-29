@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace LaravelLang\Publisher;
+namespace LaravelLang\Publisher\Contracts;
 
 interface TextDecorator
 {
