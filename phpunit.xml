@@ -13,8 +13,6 @@
   -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         backupGlobals="false"
-         backupStaticProperties="false"
          bootstrap="vendor/autoload.php"
          cacheDirectory=".phpunit.cache"
          cacheResult="false"
