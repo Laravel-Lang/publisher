@@ -45,6 +45,7 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
+        "archtechx/enums": "^0.3.2",
         "composer/semver": "^3.4",
         "dragon-code/pretty-array": "^4.1",
         "dragon-code/support": "^6.11.3",
