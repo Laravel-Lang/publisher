@@ -4,24 +4,27 @@
     "license": "MIT",
     "type": "library",
     "keywords": [
+        "laravel-lang",
         "breeze",
         "cashier",
         "fortify",
+        "framework",
         "i18n",
         "jetstream",
-        "framework",
         "lang",
         "languages",
         "laravel",
         "locale",
         "locales",
         "localization",
+        "localizations",
         "lpm",
         "lumen",
         "nova",
         "publisher",
         "spark",
         "trans",
+        "translation",
         "translations",
         "validations"
     ],
@@ -32,7 +35,7 @@
         },
         {
             "name": "Laravel-Lang Team",
-            "homepage": "https://github.com/Laravel-Lang"
+            "homepage": "https://laravel-lang.com"
         }
     ],
     "support": {
@@ -49,13 +52,19 @@
         "illuminate/console": "^8.79 || ^9.18 || ^10.0 || ^11.0",
         "illuminate/support": "^8.79 || ^9.18 || ^10.0 || ^11.0",
         "league/commonmark": "^2.3",
+        "composer/semver": "^3.4",
+        "dragon-code/pretty-array": "^4.1",
+        "dragon-code/support": "^6.11.3",
+        "illuminate/console": "^10.0",
+        "illuminate/support": "^10.0",
+        "league/commonmark": "^2.4.1",
         "league/config": "^1.2"
     },
     "require-dev": {
-        "laravel-lang/json-fallback-hotfix": "^1.0",
-        "orchestra/testbench": "^6.25 || ^7.22 || ^8.0 || ^9.0",
-        "phpunit/phpunit": "^9.6 || ^10.0",
-        "symfony/var-dumper": "^5.0 || ^6.0"
+        "laravel-lang/json-fallback-hotfix": "^1.1",
+        "orchestra/testbench": "^8.14",
+        "phpunit/phpunit": "^10.4.2",
+        "symfony/var-dumper": "^6.3.6"
     },
     "conflict": {
         "laravel-lang/attributes": "<2.0",
@@ -71,15 +80,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "LaravelLang\\Publisher\\": "src"
-        },
-        "files": [
-            "helper.php"
-        ]
+            "LaravelLang\\Publisher\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests"
+            "Tests\\": "tests/"
         },
         "files": [
             "tests/Fixtures/collision_functions.php"

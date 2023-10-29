@@ -27,10 +27,6 @@ trait About
 {
     protected function registerAbout(): void
     {
-        if (! class_exists(AboutCommand::class)) {
-            return;
-        }
-
         $this->pushInformation(fn () => [
             'Installed'         => $this->implodeLocales(Locales::installed()),
             'Protected Locales' => $this->implodeLocales(Locales::protects()),
