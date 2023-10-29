@@ -31,7 +31,7 @@ abstract class Base extends Command
 
     protected Processor|string $processor;
 
-    public function handle()
+    public function handle(): void
     {
         $this->resolveProcessor()->prepare()->collect()->store();
 

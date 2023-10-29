@@ -30,7 +30,7 @@ class Reset extends Base
 
     protected Processor|string $processor = ResetProcessor::class;
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->confirm($this->question)) {
             parent::handle();
