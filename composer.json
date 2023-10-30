@@ -52,7 +52,8 @@
         "illuminate/console": "^10.0",
         "illuminate/support": "^10.0",
         "laravel-lang/locales": "^1.5.0",
-        "league/commonmark": "^2.4.1"
+        "league/commonmark": "^2.4.1",
+        "league/config": "^1.2"
     },
     "require-dev": {
         "laravel-lang/json-fallback-hotfix": "^1.1",
