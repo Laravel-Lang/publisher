@@ -35,7 +35,7 @@ abstract class Provider extends BaseServiceProvider
 
     protected array $plugins;
 
-    public function register()
+    public function register(): void
     {
         $this->loadConfig();
 
@@ -58,7 +58,11 @@ abstract class Provider extends BaseServiceProvider
 
     protected function registerPackageName(): void
     {
-        $vendor = Str::of($this->basePath())->after((string) realpath(base_path('vendor')))->ltrim('\\/')->replace('\\', '/')->toString();
+        $vendor = Str::of($this->basePath())
+            ->after((string) realpath(base_path('vendor')))
+            ->ltrim('\\/')
+            ->replace('\\', '/')
+            ->toString();
 
         if ($name = $this->package_name ?: $vendor) {
             if (! is_dir($name) && ! is_dir(realpath('/' . $name) ?: '')) {
@@ -70,7 +74,13 @@ abstract class Provider extends BaseServiceProvider
     protected function plugins(): array
     {
         return Arr::of($this->plugins)
-            ->tap(static fn (string $plugin) => Instance::of($plugin, Plugin::class) ? true : throw new UnknownPluginInstanceException($plugin))
+            ->tap(static function (string $plugin) {
+                if (Instance::of($plugin, Plugin::class)) {
+                    return true;
+                }
+
+                throw new UnknownPluginInstanceException($plugin);
+            })
             ->unique()
             ->sort()
             ->values()
@@ -83,6 +93,11 @@ abstract class Provider extends BaseServiceProvider
             return $path;
         }
 
-        throw new RuntimeException(sprintf('The %s class must contain the definition of the $base_path property. The path must be existing.', static::class));
+        throw new RuntimeException(
+            sprintf(
+                'The %s class must contain the definition of the $base_path property. The path must be existing.',
+                static::class
+            )
+        );
     }
 }

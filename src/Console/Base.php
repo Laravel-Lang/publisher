@@ -18,12 +18,13 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
+use Illuminate\Support\Arr;
+use LaravelLang\Locales\Facades\Locales;
+use LaravelLang\Publisher\Contracts\TextDecorator;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Processors\Processor;
 use LaravelLang\Publisher\Services\Converters\Text\CommonDecorator;
 use LaravelLang\Publisher\Services\Converters\Text\SmartPunctuationDecorator;
-use LaravelLang\Publisher\TextDecorator;
 
 abstract class Base extends Command
 {
@@ -47,7 +48,7 @@ abstract class Base extends Command
 
     protected function locales(): array
     {
-        return Locales::installed();
+        return Locales::raw()->installed();
     }
 
     protected function decorator(Config $config): TextDecorator
@@ -71,8 +72,6 @@ abstract class Base extends Command
 
     protected function getLocalesArgument(): array
     {
-        $locales = $this->argument('locales');
-
-        return is_array($locales) ? $locales : [$locales];
+        return Arr::wrap($this->argument('locales'));
     }
 }

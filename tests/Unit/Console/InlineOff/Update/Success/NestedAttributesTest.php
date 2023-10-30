@@ -16,21 +16,21 @@
 namespace Tests\Unit\Console\InlineOff\Update\Success;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class NestedAttributesTest extends TestCase
 {
-    protected Locales $fallback_locale = Locales::ENGLISH;
+    protected Locale $fallbackLocale = Locale::English;
 
     public function testNested(): void
     {
-        $this->forceDeleteLocale(Locales::ENGLISH);
-        $this->forceDeleteLocale(Locales::FRENCH);
+        $this->forceDeleteLocale(Locale::English);
+        $this->forceDeleteLocale(Locale::French);
 
         $this->copyFixtures();
 
-        Directory::ensureDirectory($this->config->langPath(Locales::FRENCH));
+        Directory::ensureDirectory($this->config->langPath(Locale::French));
 
         $this->artisanLangUpdate();
 

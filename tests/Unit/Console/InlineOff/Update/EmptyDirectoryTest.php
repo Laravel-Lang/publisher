@@ -19,19 +19,18 @@ namespace Tests\Unit\Console\InlineOff\Update;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use LaravelLang\Publisher\Constants\Locales;
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Locales\Enums\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class EmptyDirectoryTest extends TestCase
 {
-    protected LocaleCode $locale = LocaleCode::GERMAN;
+    protected Locale $locale = Locale::German;
 
-    protected LocaleCode $fallback_locale = LocaleCode::ENGLISH;
+    protected Locale $fallbackLocale = Locale::English;
 
     public function testFiles(): void
     {
-        $this->forceDeleteLocale(Locales::FRENCH);
+        $this->forceDeleteLocale(Locale::French);
 
         $this->assertFileDoesNotExist($this->config->langPath('fr.json'));
         $this->assertFileDoesNotExist($this->config->langPath('fr/auth.php'));
@@ -54,11 +53,11 @@ class EmptyDirectoryTest extends TestCase
 
     public function testTranslations(): void
     {
-        $this->forceDeleteLocale(Locales::ENGLISH);
-        $this->forceDeleteLocale(Locales::FRENCH);
-        $this->forceDeleteLocale(Locales::GERMAN);
+        $this->forceDeleteLocale(Locale::English);
+        $this->forceDeleteLocale(Locale::French);
+        $this->forceDeleteLocale(Locale::German);
 
-        Directory::ensureDirectory($this->config->langPath(Locales::GERMAN));
+        Directory::ensureDirectory($this->config->langPath(Locale::German));
 
         $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));
@@ -80,7 +79,12 @@ class EmptyDirectoryTest extends TestCase
         $this->assertSame('validation.attributes.first_name', $this->trans('validation.attributes.first_name'));
         $this->assertSame('validation.attributes.last_name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('validation.attributes.age', $this->trans('validation.attributes.age'));
-        $this->assertSame('validation.custom.first_name.required', $this->trans('validation.custom.first_name.required'));
+
+        $this->assertSame(
+            'validation.custom.first_name.required',
+            $this->trans('validation.custom.first_name.required')
+        );
+
         $this->assertSame('validation.custom.first_name.string', $this->trans('validation.custom.first_name.string'));
 
         $this->artisanLangUpdate();
@@ -100,12 +104,26 @@ class EmptyDirectoryTest extends TestCase
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
         $this->assertSame('validation.accepted_if', $this->trans('validation.accepted_if'));
         $this->assertSame('validation.active_url', $this->trans('validation.active_url'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Kilobytes groß sein.', $this->trans('validation.between.file'));
+
+        $this->assertSame(
+            ':Attribute muss zwischen :min & :max Elemente haben.',
+            $this->trans('validation.between.array')
+        );
+
+        $this->assertSame(
+            ':Attribute muss zwischen :min & :max Kilobytes groß sein.',
+            $this->trans('validation.between.file')
+        );
+
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
         $this->assertSame('validation.attributes.last_name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('validation.attributes.age', $this->trans('validation.attributes.age'));
-        $this->assertSame('Dieses Vorname muss ausgefüllt werden.', $this->trans('validation.custom.first_name.required'));
+
+        $this->assertSame(
+            'Dieses Vorname muss ausgefüllt werden.',
+            $this->trans('validation.custom.first_name.required')
+        );
+
         $this->assertSame('validation.custom.first_name.string', $this->trans('validation.custom.first_name.string'));
     }
 }

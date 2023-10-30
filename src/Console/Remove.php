@@ -17,9 +17,9 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Processors\Processor;
 use LaravelLang\Publisher\Processors\Remove as RemoveProcessor;
 
@@ -36,7 +36,7 @@ class Remove extends Base
     protected function locales(): array
     {
         if ($this->confirmAll()) {
-            return Locales::installedWithoutProtects();
+            return Locales::raw()->installed(false);
         }
 
         $locales = $this->getLocalesArgument();

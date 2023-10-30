@@ -28,13 +28,13 @@ class GetPackagesTest extends Base
         $this->assertSame(
             [
                 realpath(__DIR__ . '/../../../Fixtures/Plugin') => [
-                    Types::TYPE_CLASS->value => Plugin::class,
-                    Types::TYPE_NAME->value  => 'some/name',
+                    Types::TypeClass->value => Plugin::class,
+                    Types::TypeName->value  => 'some/name',
                 ],
 
                 realpath(__DIR__ . '/../../../Fixtures/MorePlugins/Second') => [
-                    Types::TYPE_CLASS->value => SecondPlugin::class,
-                    Types::TYPE_NAME->value  => 'some/many-second',
+                    Types::TypeClass->value => SecondPlugin::class,
+                    Types::TypeName->value  => 'some/many-second',
                 ],
             ],
             $this->config->getPackages()

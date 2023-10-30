@@ -20,17 +20,13 @@ namespace LaravelLang\Publisher\Concerns;
 use Composer\InstalledVersions;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Foundation\Console\AboutCommand;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
-use LaravelLang\Publisher\Helpers\Config;
+use LaravelLang\Locales\Enums\Config;
 
 trait About
 {
     protected function registerAbout(): void
     {
         $this->pushInformation(fn () => [
-            'Installed'         => $this->implodeLocales(Locales::installed()),
-            'Protected Locales' => $this->implodeLocales(Locales::protects()),
-
             'Publisher Version' => $this->getPackageVersion('laravel-lang/publisher'),
         ]);
 
@@ -39,12 +35,12 @@ trait About
 
     protected function pushInformation(callable $data): void
     {
-        AboutCommand::add('Localization', $data);
+        AboutCommand::add('Locales', $data);
     }
 
     protected function getPackages(): array
     {
-        return Arr::of(config(Config::PRIVATE_KEY . '.packages'))
+        return Arr::of(config(Config::PrivateKey() . '.packages'))
             ->renameKeys(static fn (mixed $key, array $values) => $values['class'])
             ->map(fn (array $values) => $this->getPackageVersion($values['name']))
             ->toArray();

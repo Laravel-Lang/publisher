@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Concerns;
 
 use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Str;
+use Illuminate\Support\Str;
 
 trait Has
 {
@@ -26,13 +26,13 @@ trait Has
     {
         $name = $extension ? Path::extension($path) : Path::filename($path);
 
-        return Str::of($name)->lower()->contains('json');
+        return Str::contains($name, 'json', true);
     }
 
     protected function hasValidation(string $path): bool
     {
         $name = Path::filename($path);
 
-        return Str::of($name)->lower()->contains('validation');
+        return Str::contains($name, 'validation', true);
     }
 }

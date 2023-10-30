@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 
 return [
     /*
@@ -66,46 +66,33 @@ return [
         ],
 
         'locales' => [
-            Locales::FRENCH->value => [
+            Locale::French->value => [
                 'double_quote_opener' => '«&nbsp;',
                 'double_quote_closer' => '&nbsp;»',
                 'single_quote_opener' => '‘',
                 'single_quote_closer' => '’',
             ],
 
-            Locales::RUSSIAN->value => [
+            Locale::Russian->value => [
                 'double_quote_opener' => '«',
                 'double_quote_closer' => '»',
                 'single_quote_opener' => '‘',
                 'single_quote_closer' => '’',
             ],
 
-            Locales::UKRAINIAN->value => [
+            Locale::Ukrainian->value => [
                 'double_quote_opener' => '«',
                 'double_quote_closer' => '»',
                 'single_quote_opener' => '‘',
                 'single_quote_closer' => '’',
             ],
 
-            Locales::BELARUSIAN->value => [
+            Locale::Belarusian->value => [
                 'double_quote_opener' => '«',
                 'double_quote_closer' => '»',
                 'single_quote_opener' => '‘',
                 'single_quote_closer' => '’',
             ],
         ],
-    ],
-
-    /*
-     * The language codes chosen for the files in this repository may not
-     * match the preferences for your project.
-     *
-     * Specify here mappings of localizations with your project.
-     */
-
-    'aliases' => [
-        // \LaravelLang\Publisher\Constants\Locales::GERMAN->value => 'de-DE',
-        //
-        // \LaravelLang\Publisher\Constants\Locales::GERMAN_SWITZERLAND->value => 'de-CH',
     ],
 ];

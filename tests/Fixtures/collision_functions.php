@@ -16,475 +16,317 @@
 declare(strict_types=1);
 
 if (! function_exists('af')) {
-    function af()
-    {
-    }
+    function af() {}
 }
 
 if (! function_exists('sq')) {
-    function sq()
-    {
-    }
+    function sq() {}
 }
 
 if (! function_exists('ar')) {
-    function ar()
-    {
-    }
+    function ar() {}
 }
 
 if (! function_exists('hy')) {
-    function hy()
-    {
-    }
+    function hy() {}
 }
 
 if (! function_exists('az')) {
-    function az()
-    {
-    }
+    function az() {}
 }
 
 if (! function_exists('eu')) {
-    function eu()
-    {
-    }
+    function eu() {}
 }
 
 if (! function_exists('be')) {
-    function be()
-    {
-    }
+    function be() {}
 }
 
 if (! function_exists('bn')) {
-    function bn()
-    {
-    }
+    function bn() {}
 }
 
 if (! function_exists('bs')) {
-    function bs()
-    {
-    }
+    function bs() {}
 }
 
 if (! function_exists('bg')) {
-    function bg()
-    {
-    }
+    function bg() {}
 }
 
 if (! function_exists('ca')) {
-    function ca()
-    {
-    }
+    function ca() {}
 }
 
 if (! function_exists('km')) {
-    function km()
-    {
-    }
+    function km() {}
 }
 
 if (! function_exists('zh_CN')) {
-    function zh_CN()
-    {
-    }
+    function zh_CN() {}
 }
 
 if (! function_exists('zh_HK')) {
-    function zh_HK()
-    {
-    }
+    function zh_HK() {}
 }
 
 if (! function_exists('zh_TW')) {
-    function zh_TW()
-    {
-    }
+    function zh_TW() {}
 }
 
 if (! function_exists('hr')) {
-    function hr()
-    {
-    }
+    function hr() {}
 }
 
 if (! function_exists('cs')) {
-    function cs()
-    {
-    }
+    function cs() {}
 }
 
 if (! function_exists('da')) {
-    function da()
-    {
-    }
+    function da() {}
 }
 
 if (! function_exists('nl')) {
-    function nl()
-    {
-    }
+    function nl() {}
 }
 
 if (! function_exists('en')) {
-    function en()
-    {
-    }
+    function en() {}
 }
 
 if (! function_exists('et')) {
-    function et()
-    {
-    }
+    function et() {}
 }
 
 if (! function_exists('fi')) {
-    function fi()
-    {
-    }
+    function fi() {}
 }
 
 if (! function_exists('fr')) {
-    function fr()
-    {
-    }
+    function fr() {}
 }
 
 if (! function_exists('gl')) {
-    function gl()
-    {
-    }
+    function gl() {}
 }
 
 if (! function_exists('ka')) {
-    function ka()
-    {
-    }
+    function ka() {}
 }
 
 if (! function_exists('de')) {
-    function de()
-    {
-    }
+    function de() {}
 }
 
 if (! function_exists('de_CH')) {
-    function de_CH()
-    {
-    }
+    function de_CH() {}
 }
 
 if (! function_exists('el')) {
-    function el()
-    {
-    }
+    function el() {}
 }
 
 if (! function_exists('gu')) {
-    function gu()
-    {
-    }
+    function gu() {}
 }
 
 if (! function_exists('he')) {
-    function he()
-    {
-    }
+    function he() {}
 }
 
 if (! function_exists('hi')) {
-    function hi()
-    {
-    }
+    function hi() {}
 }
 
 if (! function_exists('hu')) {
-    function hu()
-    {
-    }
+    function hu() {}
 }
 
 if (! function_exists('is')) {
-    function is()
-    {
-    }
+    function is() {}
 }
 
 if (! function_exists('id')) {
-    function id()
-    {
-    }
+    function id() {}
 }
 
 if (! function_exists('it')) {
-    function it()
-    {
-    }
+    function it() {}
 }
 
 if (! function_exists('ja')) {
-    function ja()
-    {
-    }
+    function ja() {}
 }
 
 if (! function_exists('kn')) {
-    function kn()
-    {
-    }
+    function kn() {}
 }
 
 if (! function_exists('kk')) {
-    function kk()
-    {
-    }
+    function kk() {}
 }
 
 if (! function_exists('ko')) {
-    function ko()
-    {
-    }
+    function ko() {}
 }
 
 if (! function_exists('lv')) {
-    function lv()
-    {
-    }
+    function lv() {}
 }
 
 if (! function_exists('lt')) {
-    function lt()
-    {
-    }
+    function lt() {}
 }
 
 if (! function_exists('mk')) {
-    function mk()
-    {
-    }
+    function mk() {}
 }
 
 if (! function_exists('ms')) {
-    function ms()
-    {
-    }
+    function ms() {}
 }
 
 if (! function_exists('mr')) {
-    function mr()
-    {
-    }
+    function mr() {}
 }
 
 if (! function_exists('mn')) {
-    function mn()
-    {
-    }
+    function mn() {}
 }
 
 if (! function_exists('ne')) {
-    function ne()
-    {
-    }
+    function ne() {}
 }
 
 if (! function_exists('nb')) {
-    function nb()
-    {
-    }
+    function nb() {}
 }
 
 if (! function_exists('nn')) {
-    function nn()
-    {
-    }
+    function nn() {}
 }
 
 if (! function_exists('oc')) {
-    function oc()
-    {
-    }
+    function oc() {}
 }
 
 if (! function_exists('ps')) {
-    function ps()
-    {
-    }
+    function ps() {}
 }
 
 if (! function_exists('fa')) {
-    function fa()
-    {
-    }
+    function fa() {}
 }
 
 if (! function_exists('fil')) {
-    function fil()
-    {
-    }
+    function fil() {}
 }
 
 if (! function_exists('pl')) {
-    function pl()
-    {
-    }
+    function pl() {}
 }
 
 if (! function_exists('pt')) {
-    function pt()
-    {
-    }
+    function pt() {}
 }
 
 if (! function_exists('pt_BR')) {
-    function pt_BR()
-    {
-    }
+    function pt_BR() {}
 }
 
 if (! function_exists('ro')) {
-    function ro()
-    {
-    }
+    function ro() {}
 }
 
 if (! function_exists('ru')) {
-    function ru()
-    {
-    }
+    function ru() {}
 }
 
 if (! function_exists('sc')) {
-    function sc()
-    {
-    }
+    function sc() {}
 }
 
 if (! function_exists('sr_Cyrl')) {
-    function sr_Cyrl()
-    {
-    }
+    function sr_Cyrl() {}
 }
 
 if (! function_exists('sr_Latn')) {
-    function sr_Latn()
-    {
-    }
+    function sr_Latn() {}
 }
 
 if (! function_exists('sr_Latn_ME')) {
-    function sr_Latn_ME()
-    {
-    }
+    function sr_Latn_ME() {}
 }
 
 if (! function_exists('si')) {
-    function si()
-    {
-    }
+    function si() {}
 }
 
 if (! function_exists('sk')) {
-    function sk()
-    {
-    }
+    function sk() {}
 }
 
 if (! function_exists('sl')) {
-    function sl()
-    {
-    }
+    function sl() {}
 }
 
 if (! function_exists('es')) {
-    function es()
-    {
-    }
+    function es() {}
 }
 
 if (! function_exists('sw')) {
-    function sw()
-    {
-    }
+    function sw() {}
 }
 
 if (! function_exists('sv')) {
-    function sv()
-    {
-    }
+    function sv() {}
 }
 
 if (! function_exists('tl')) {
-    function tl()
-    {
-    }
+    function tl() {}
 }
 
 if (! function_exists('tg')) {
-    function tg()
-    {
-    }
+    function tg() {}
 }
 
 if (! function_exists('th')) {
-    function th()
-    {
-    }
+    function th() {}
 }
 
 if (! function_exists('tr')) {
-    function tr()
-    {
-    }
+    function tr() {}
 }
 
 if (! function_exists('tk')) {
-    function tk()
-    {
-    }
+    function tk() {}
 }
 
 if (! function_exists('ug')) {
-    function ug()
-    {
-    }
+    function ug() {}
 }
 
 if (! function_exists('uk')) {
-    function uk()
-    {
-    }
+    function uk() {}
 }
 
 if (! function_exists('ur')) {
-    function ur()
-    {
-    }
+    function ur() {}
 }
 
 if (! function_exists('uz_Cyrl')) {
-    function uz_Cyrl()
-    {
-    }
+    function uz_Cyrl() {}
 }
 
 if (! function_exists('uz_Latn')) {
-    function uz_Latn()
-    {
-    }
+    function uz_Latn() {}
 }
 
 if (! function_exists('vi')) {
-    function vi()
-    {
-    }
+    function vi() {}
 }
 
 if (! function_exists('cy')) {
-    function cy()
-    {
-    }
+    function cy() {}
 }

@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Add\Success;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class DefaultTest extends TestCase
@@ -43,19 +43,28 @@ class DefaultTest extends TestCase
         $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
 
         $this->assertSame('The :attribute must be accepted.', $this->trans('validation.accepted'));
-        $this->assertSame('The :attribute must have between :min and :max items.', $this->trans('validation.between.array'));
-        $this->assertSame('The :attribute must be between :min and :max kilobytes.', $this->trans('validation.between.file'));
+
+        $this->assertSame(
+            'The :attribute must have between :min and :max items.',
+            $this->trans('validation.between.array')
+        );
+
+        $this->assertSame(
+            'The :attribute must be between :min and :max kilobytes.',
+            $this->trans('validation.between.file')
+        );
+
         $this->assertSame('The :attribute field is required.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('first name', $this->trans('validation.attributes.first_name'));
 
-        $this->assertDirectoryDoesNotExist($this->config->langPath(Locales::GERMAN));
+        $this->assertDirectoryDoesNotExist($this->config->langPath(Locale::German));
 
-        $this->artisanLangAdd(Locales::GERMAN, true);
+        $this->artisanLangAdd(Locale::German, true);
 
-        $this->assertDirectoryExists($this->config->langPath(Locales::GERMAN));
+        $this->assertDirectoryExists($this->config->langPath(Locale::German));
 
         $this->assertFileExists($this->config->langPath('de.json'));
-        $this->assertFileExists($this->config->langPath(Locales::GERMAN, 'validation.php'));
+        $this->assertFileExists($this->config->langPath(Locale::German, 'validation.php'));
         $this->assertFileExists($this->config->langPath('vendor/baq/de.json'));
 
         $this->assertFileDoesNotExist($this->config->langPath('vendor/custom/de.json'));
@@ -77,9 +86,22 @@ class DefaultTest extends TestCase
         $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Elemente haben.', $this->trans('validation.between.array'));
-        $this->assertSame(':Attribute muss zwischen :min & :max Kilobytes groß sein.', $this->trans('validation.between.file'));
-        $this->assertSame('Dieses Vorname muss ausgefüllt werden.', $this->trans('validation.custom.first_name.required'));
+
+        $this->assertSame(
+            ':Attribute muss zwischen :min & :max Elemente haben.',
+            $this->trans('validation.between.array')
+        );
+
+        $this->assertSame(
+            ':Attribute muss zwischen :min & :max Kilobytes groß sein.',
+            $this->trans('validation.between.file')
+        );
+
+        $this->assertSame(
+            'Dieses Vorname muss ausgefüllt werden.',
+            $this->trans('validation.custom.first_name.required')
+        );
+
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
     }
 }

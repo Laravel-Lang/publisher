@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
 use LaravelLang\Publisher\Processors\Add as AddProcessor;
 use LaravelLang\Publisher\Processors\Processor;
 
@@ -35,7 +35,7 @@ class Add extends Base
     protected function locales(): array
     {
         if ($this->confirmAll()) {
-            return Locales::available();
+            return Locales::raw()->available();
         }
 
         $locales = $this->getLocalesArgument();

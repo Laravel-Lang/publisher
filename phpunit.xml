@@ -14,7 +14,6 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         cacheDirectory=".phpunit.cache"
          cacheResult="false"
          colors="true"
 >
@@ -37,9 +36,5 @@
         <include>
             <directory>./src</directory>
         </include>
-        <exclude>
-            <file>src/ServiceProvider.php</file>
-            <directory>src/Facades</directory>
-        </exclude>
     </source>
 </phpunit>
