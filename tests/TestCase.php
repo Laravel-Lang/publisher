@@ -21,9 +21,9 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
 use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
-use LaravelLang\Locales\Enums\Config as ConfigEnum;
-use LaravelLang\Locales\Enums\Locale as LocaleCode;
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Locales\Facades\Locales;
+use LaravelLang\Locales\ServiceProvider as LocalesServiceProvider;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -38,14 +38,14 @@ abstract class TestCase extends BaseTestCase
 
     protected bool $inline = false;
 
-    protected bool $smart_punctuation = false;
+    protected bool $smartPunctuation = false;
 
-    /** @var array<string|LocaleCode> */
+    /** @var array<string|Locale> */
     protected array $preinstall = [];
 
-    protected LocaleCode $locale = LocaleCode::English;
+    protected Locale $locale = Locale::English;
 
-    protected LocaleCode $fallback_locale = LocaleCode::French;
+    protected Locale $fallbackLocale = Locale::French;
 
     protected function setUp(): void
     {
@@ -63,6 +63,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
+            LocalesServiceProvider::class,
             PublisherServiceProvider::class,
             PluginServiceProvider::class,
         ];
@@ -80,11 +81,14 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(ConfigEnum::PublicKey() . '.inline', $this->inline);
-        $config->set(ConfigEnum::PublicKey() . '.smart_punctuation.enable', $this->smart_punctuation);
+        $config->set(\LaravelLang\Locales\Enums\Config::PublicKey() . '.inline', $this->inline);
+        $config->set(
+            \LaravelLang\Locales\Enums\Config::PublicKey() . '.smart_punctuation.enable',
+            $this->smartPunctuation
+        );
 
         $config->set('app.locale', $this->locale->value);
-        $config->set('app.fallback_locale', $this->fallback_locale->value);
+        $config->set('app.fallback_locale', $this->fallbackLocale->value);
     }
 
     protected function cleanUp(): void
@@ -107,7 +111,7 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function setAppLocale(LocaleCode $locale): void
+    protected function setAppLocale(Locale $locale): void
     {
         App::setLocale($locale->value);
 
@@ -129,7 +133,7 @@ abstract class TestCase extends BaseTestCase
         return __($key);
     }
 
-    protected function forceDeleteLocale(LocaleCode $locale): void
+    protected function forceDeleteLocale(Locale $locale): void
     {
         $this->artisanLangRemove($locale, true);
 

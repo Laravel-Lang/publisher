@@ -36,9 +36,7 @@ class Remove extends Base
     protected function locales(): array
     {
         if ($this->confirmAll()) {
-            return collect(Locales::raw()->installed())
-                ->filter(static fn (string $locale) => ! Locales::isProtected($locale) || $this->option('force'))
-                ->all();
+            return Locales::raw()->installed(false);
         }
 
         $locales = $this->getLocalesArgument();

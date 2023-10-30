@@ -25,8 +25,8 @@ class WithoutParameterTest extends TestCase
 {
     public function testNo(): void
     {
-        $installed     = [Locale::English, Locale::French];
-        $not_installed = [Locale::NorwegianBokmal, Locale::Afrikaans];
+        $installed    = [Locale::English, Locale::French];
+        $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
             $locale = $locale?->value ?? $locale;
@@ -36,7 +36,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
@@ -56,7 +56,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
@@ -67,8 +67,8 @@ class WithoutParameterTest extends TestCase
 
     public function testYes(): void
     {
-        $installed     = [Locale::English, Locale::French];
-        $not_installed = [Locale::NorwegianBokmal, Locale::Afrikaans];
+        $installed    = [Locale::English, Locale::French];
+        $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
             $locale = $locale?->value ?? $locale;
@@ -78,7 +78,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));

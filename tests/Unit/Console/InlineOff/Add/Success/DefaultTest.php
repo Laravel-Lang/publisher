@@ -43,14 +43,17 @@ class DefaultTest extends TestCase
         $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
 
         $this->assertSame('The :attribute must be accepted.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             'The :attribute must have between :min and :max items.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             'The :attribute must be between :min and :max kilobytes.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame('The :attribute field is required.', $this->trans('validation.custom.first_name.required'));
         $this->assertSame('first name', $this->trans('validation.attributes.first_name'));
 
@@ -83,18 +86,22 @@ class DefaultTest extends TestCase
         $this->assertSame('Baw 3', $this->trans('Baw 3'));
 
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Elemente haben.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Kilobytes groß sein.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame(
             'Dieses Vorname muss ausgefüllt werden.',
             $this->trans('validation.custom.first_name.required')
         );
+
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
     }
 }

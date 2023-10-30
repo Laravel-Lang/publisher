@@ -22,7 +22,7 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class DefaultWithInstalledTest extends TestCase
 {
-    protected Locale $fallback_locale = Locale::English;
+    protected Locale $fallbackLocale = Locale::English;
 
     public function testDefaultWithInstalled(): void
     {
@@ -33,6 +33,7 @@ class DefaultWithInstalledTest extends TestCase
 
         $this->assertSame('These credentials do not match our records.', $this->trans('auth.failed'));
         $this->assertSame('The provided password is incorrect.', $this->trans('auth.password'));
+
         $this->assertSame(
             'Too many login attempts. Please try again in :seconds seconds.',
             $this->trans('auth.throttle')
@@ -42,19 +43,24 @@ class DefaultWithInstalledTest extends TestCase
         $this->assertSame('&laquo; Previous', $this->trans('pagination.previous'));
 
         $this->assertSame('The :attribute must be accepted.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             'The :attribute must be accepted when :other is :value.',
             $this->trans('validation.accepted_if')
         );
+
         $this->assertSame('The :attribute is not a valid URL.', $this->trans('validation.active_url'));
+
         $this->assertSame(
             'The :attribute must have between :min and :max items.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             'The :attribute must be between :min and :max kilobytes.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame('first name', $this->trans('validation.attributes.first_name'));
         $this->assertSame('last name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('age', $this->trans('validation.attributes.age'));
@@ -70,6 +76,7 @@ class DefaultWithInstalledTest extends TestCase
 
         $this->assertSame('These credentials do not match our records.', $this->trans('auth.failed'));
         $this->assertSame('The provided password is incorrect.', $this->trans('auth.password'));
+
         $this->assertSame(
             'Too many login attempts. Please try again in :seconds seconds.',
             $this->trans('auth.throttle')
@@ -79,26 +86,33 @@ class DefaultWithInstalledTest extends TestCase
         $this->assertSame('&laquo; Previous', $this->trans('pagination.previous'));
 
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             'The :attribute must be accepted when :other is :value.',
             $this->trans('validation.accepted_if')
         );
+
         $this->assertSame('The :attribute is not a valid URL.', $this->trans('validation.active_url'));
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Elemente haben.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Kilobytes groß sein.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
         $this->assertSame('last name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('age', $this->trans('validation.attributes.age'));
+
         $this->assertSame(
             'Dieses Vorname muss ausgefüllt werden.',
             $this->trans('validation.custom.first_name.required')
         );
+
         $this->assertSame('First name must be a string.', $this->trans('validation.custom.first_name.string'));
     }
 }

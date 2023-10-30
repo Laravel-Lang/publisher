@@ -22,9 +22,9 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class EnabledDecorateTest extends TestCase
 {
-    protected Locale $fallback_locale = Locale::English;
+    protected Locale $fallbackLocale = Locale::English;
 
-    protected bool $smart_punctuation = true;
+    protected bool $smartPunctuation = true;
 
     public function testDecorator(): void
     {

@@ -17,15 +17,15 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOn\Reset;
 
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
+use LaravelLang\Locales\Enums\Locale;
 use Tests\Unit\Console\InlineOn\TestCase;
 
 class AcceptTest extends TestCase
 {
-    protected LocaleCode $locale = LocaleCode::FRENCH;
+    protected Locale $locale = Locale::French;
 
     protected array $preinstall = [
-        LocaleCode::FRENCH,
+        Locale::French,
     ];
 
     public function testYes(): void
@@ -37,21 +37,43 @@ class AcceptTest extends TestCase
 
         $this->assertSame('Ces identifiants ne correspondent pas à nos enregistrements.', $this->trans('auth.failed'));
         $this->assertSame('Le mot de passe fourni est incorrect.', $this->trans('auth.password'));
-        $this->assertSame('Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.', $this->trans('auth.throttle'));
+
+        $this->assertSame(
+            'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
+            $this->trans('auth.throttle')
+        );
 
         $this->assertSame('Suivant &raquo;', $this->trans('pagination.next'));
         $this->assertSame('&laquo; Précédent', $this->trans('pagination.previous'));
 
         $this->assertSame('Ce champ doit être accepté.', $this->trans('validation.accepted'));
-        $this->assertSame('Le champ :attribute doit être accepté quand :other a la valeur :value.', $this->trans('validation.accepted_if'));
+
+        $this->assertSame(
+            'Le champ :attribute doit être accepté quand :other a la valeur :value.',
+            $this->trans('validation.accepted_if')
+        );
+
         $this->assertSame('Le champ :attribute n\'est pas une URL valide.', $this->trans('validation.active_url'));
-        $this->assertSame('Le tableau doit contenir entre :min et :max éléments.', $this->trans('validation.between.array'));
-        $this->assertSame('La taille du fichier doit être comprise entre :min et :max kilo-octets.', $this->trans('validation.between.file'));
+
+        $this->assertSame(
+            'Le tableau doit contenir entre :min et :max éléments.',
+            $this->trans('validation.between.array')
+        );
+
+        $this->assertSame(
+            'La taille du fichier doit être comprise entre :min et :max kilo-octets.',
+            $this->trans('validation.between.file')
+        );
+
         $this->assertSame('prénom', $this->trans('validation.attributes.first_name'));
         $this->assertSame('nom', $this->trans('validation.attributes.last_name'));
         $this->assertSame('âge', $this->trans('validation.attributes.age'));
         $this->assertSame('Le champ prénom est obligatoire.', $this->trans('validation.custom.first_name.required'));
-        $this->assertSame('Le champ :attribute doit être une chaîne de caractères.', $this->trans('validation.custom.first_name.string'));
+
+        $this->assertSame(
+            'Le champ :attribute doit être une chaîne de caractères.',
+            $this->trans('validation.custom.first_name.string')
+        );
 
         $this->artisan('lang:reset')
             ->expectsConfirmation('Are you sure you want to reset localization files?', 'yes')
@@ -66,7 +88,11 @@ class AcceptTest extends TestCase
 
         $this->assertSame('Ces identifiants ne correspondent pas à nos enregistrements.', $this->trans('auth.failed'));
         $this->assertSame('Le mot de passe fourni est incorrect.', $this->trans('auth.password'));
-        $this->assertSame('Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.', $this->trans('auth.throttle'));
+
+        $this->assertSame(
+            'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
+            $this->trans('auth.throttle')
+        );
 
         $this->assertSame('Suivant &raquo;', $this->trans('pagination.next'));
         $this->assertSame('&laquo; Précédent', $this->trans('pagination.previous'));
@@ -74,8 +100,17 @@ class AcceptTest extends TestCase
         $this->assertSame('Ce champ doit être accepté.', $this->trans('validation.accepted'));
         $this->assertSame('validation.accepted_if', $this->trans('validation.accepted_if'));
         $this->assertSame('validation.active_url', $this->trans('validation.active_url'));
-        $this->assertSame('Le tableau doit contenir entre :min et :max éléments.', $this->trans('validation.between.array'));
-        $this->assertSame('La taille du fichier doit être comprise entre :min et :max kilo-octets.', $this->trans('validation.between.file'));
+
+        $this->assertSame(
+            'Le tableau doit contenir entre :min et :max éléments.',
+            $this->trans('validation.between.array')
+        );
+
+        $this->assertSame(
+            'La taille du fichier doit être comprise entre :min et :max kilo-octets.',
+            $this->trans('validation.between.file')
+        );
+
         $this->assertSame('prénom', $this->trans('validation.attributes.first_name'));
         $this->assertSame('validation.attributes.last_name', $this->trans('validation.attributes.last_name'));
         $this->assertSame('validation.attributes.age', $this->trans('validation.attributes.age'));

@@ -26,7 +26,10 @@ class GetPackageNameByPathTest extends Base
     public function testName(): void
     {
         $this->assertSame('some/name', $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/Plugin'));
-        $this->assertSame('some/many-second', $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/Second'));
+        $this->assertSame(
+            'some/many-second',
+            $this->config->getPackageNameByPath(__DIR__ . '/../../../Fixtures/MorePlugins/Second')
+        );
     }
 
     public function testClass(): void

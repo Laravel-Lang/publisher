@@ -71,7 +71,7 @@ class Config
 
     public function langPath(Locale|string|null ...$paths): string
     {
-        $path = $this->arr->of($paths)
+        $path = collect($paths)
             ->filter()
             ->map(fn (Locale|string $value) => $this->toAlias($value))
             ->implode('/');

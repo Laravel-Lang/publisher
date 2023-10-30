@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Remove;
 
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
 use Tests\Unit\Console\InlineOff\TestCase;
 
@@ -28,7 +28,7 @@ class ProtectedTest extends TestCase
         $this->expectException(ProtectedLocaleException::class);
         $this->expectExceptionMessage('Can\'t delete protected locales: en.');
 
-        $this->artisanLangRemove(Locales::ENGLISH);
+        $this->artisanLangRemove(Locale::English);
     }
 
     public function testFallback(): void
@@ -36,7 +36,7 @@ class ProtectedTest extends TestCase
         $this->expectException(ProtectedLocaleException::class);
         $this->expectExceptionMessage('Can\'t delete protected locales: fr.');
 
-        $this->artisanLangRemove(Locales::FRENCH);
+        $this->artisanLangRemove(Locale::French);
     }
 
     public function testMixed(): void
@@ -45,11 +45,11 @@ class ProtectedTest extends TestCase
         $this->expectExceptionMessage('Can\'t delete protected locales: en.');
 
         $this->artisanLangRemove([
-            Locales::AFRIKAANS,
-            Locales::ENGLISH,
-            Locales::FRENCH,
-            Locales::GERMAN,
-            Locales::NORWEGIAN_BOKMAL,
+            Locale::Afrikaans,
+            Locale::English,
+            Locale::French,
+            Locale::German,
+            Locale::NorwegianBokmal,
         ]);
     }
 }

@@ -17,16 +17,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOn\Add;
 
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\Locales\Facades\Locales;
 use Tests\Unit\Console\InlineOn\TestCase;
 
 class WithoutParameterTest extends TestCase
 {
     public function testNo(): void
     {
-        $installed     = [LocaleCode::ENGLISH, LocaleCode::FRENCH];
-        $not_installed = [LocaleCode::NORWEGIAN_BOKMAL, LocaleCode::AFRIKAANS];
+        $installed    = [Locale::English, Locale::French];
+        $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
             $locale = $locale?->value ?? $locale;
@@ -36,7 +36,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
@@ -56,7 +56,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
@@ -67,8 +67,8 @@ class WithoutParameterTest extends TestCase
 
     public function testYes(): void
     {
-        $installed     = [LocaleCode::ENGLISH, LocaleCode::FRENCH];
-        $not_installed = [LocaleCode::NORWEGIAN_BOKMAL, LocaleCode::AFRIKAANS];
+        $installed    = [Locale::English, Locale::French];
+        $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
             $locale = $locale?->value ?? $locale;
@@ -78,7 +78,7 @@ class WithoutParameterTest extends TestCase
             $this->assertFileExists($this->config->langPath("vendor/baq/$locale.json"));
         }
 
-        foreach ($not_installed as $locale) {
+        foreach ($notInstalled as $locale) {
             $locale = $locale?->value ?? $locale;
 
             $this->assertFileDoesNotExist($this->config->langPath($locale . '.json'));
@@ -91,7 +91,7 @@ class WithoutParameterTest extends TestCase
             ->run();
 
         foreach (Locales::available() as $locale) {
-            $locale = $locale?->value ?? $locale;
+            $locale = $locale->code;
 
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));

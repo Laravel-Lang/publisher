@@ -86,10 +86,10 @@ abstract class Processor
                 $this->task($filename, function () use ($filename, $values, $locale) {
                     $path = $this->config->langPath($filename);
 
-                    $values =
-                        $this->reset || ! File::exists($path)
-                            ? $values
-                            : $this->arr->merge(
+                    $values
+                        = $this->reset || ! File::exists($path)
+                        ? $values
+                        : $this->arr->merge(
                             $this->filesystem->load($path),
                             $values
                         );
@@ -138,14 +138,13 @@ abstract class Processor
      */
     protected function plugins(): array
     {
-        return $this->arr->of($this->config->getPlugins())
-            ->map(function (array $plugins): array {
-                return $this->arr->of($plugins)
-                    ->map(static fn (string $plugin) => new $plugin())
-                    ->filter(static fn (Plugin $plugin) => $plugin->has())
-                    ->toArray();
-            })
+        return collect($this->config->getPlugins())
+            ->map(fn (array $plugins) => collect($plugins)
+                ->map(static fn (string $plugin) => new $plugin())
+                ->filter(static fn (Plugin $plugin) => $plugin->has())
+                ->all()
+            )
             ->filter()
-            ->toArray();
+            ->all();
     }
 }

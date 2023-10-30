@@ -33,7 +33,9 @@ class ExceptionsTest extends TestCase
     public function testExtends(): void
     {
         $this->expectException(UnknownPluginInstanceException::class);
-        $this->expectExceptionMessage(sprintf('The %s class is not a %s instance.', IncorrectPlugin::class, Plugin::class));
+        $this->expectExceptionMessage(
+            sprintf('The %s class is not a %s instance.', IncorrectPlugin::class, Plugin::class)
+        );
 
         $this->app->register(ExceptionProvider::class);
     }
@@ -41,7 +43,9 @@ class ExceptionsTest extends TestCase
     public function testBasePathProperty(): void
     {
         $this->expectException(Error::class);
-        $this->expectErrorMessage(sprintf('Typed property %s::$base_path must not be accessed before initialization', Provider::class));
+        $this->expectExceptionMessage(
+            sprintf('Typed property %s::$base_path must not be accessed before initialization', Provider::class)
+        );
 
         $this->app->register(BasePathProvider::class);
     }
@@ -49,10 +53,12 @@ class ExceptionsTest extends TestCase
     public function testDoesntExistBasePath(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(sprintf(
-            'The %s class must contain the definition of the $base_path property. The path must be existing.',
-            BasePathDoesntExistProvider::class
-        ));
+        $this->expectExceptionMessage(
+            sprintf(
+                'The %s class must contain the definition of the $base_path property. The path must be existing.',
+                BasePathDoesntExistProvider::class
+            )
+        );
 
         $this->app->register(BasePathDoesntExistProvider::class);
     }

@@ -17,16 +17,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Remove;
 
-use LaravelLang\Publisher\Constants\Locales as LocaleCode;
-use LaravelLang\Publisher\Facades\Helpers\Locales;
+use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\Locales\Facades\Locales;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class SuccessTest extends TestCase
 {
     protected array $preinstall = [
-        LocaleCode::AFRIKAANS,
-        LocaleCode::ALBANIAN,
-        LocaleCode::NORWEGIAN_BOKMAL,
+        Locale::Afrikaans,
+        Locale::Albanian,
+        Locale::NorwegianBokmal,
     ];
 
     public function testDefault(): void
@@ -40,7 +40,7 @@ class SuccessTest extends TestCase
         }
 
         foreach (Locales::protects() as $locale) {
-            $locale = $locale?->value ?? $locale;
+            $locale = $locale->code;
 
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));
@@ -60,7 +60,7 @@ class SuccessTest extends TestCase
         }
 
         foreach (Locales::protects() as $locale) {
-            $locale = $locale?->value ?? $locale;
+            $locale = $locale->code;
 
             $this->assertFileExists($this->config->langPath($locale . '.json'));
             $this->assertFileExists($this->config->langPath($locale, 'validation.php'));

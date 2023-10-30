@@ -22,7 +22,7 @@ use Tests\Unit\Console\InlineOff\TestCase;
 
 class FallbackTest extends TestCase
 {
-    protected Locale $fallback_locale = Locale::French;
+    protected Locale $fallbackLocale = Locale::French;
 
     /**
      * Json fallbacks doesn't work in the Laravel Framework.
@@ -52,18 +52,22 @@ class FallbackTest extends TestCase
         $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
 
         $this->assertSame('Le champ :attribute doit être accepté.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             'Le tableau :attribute doit contenir entre :min et :max éléments.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             'La taille du fichier de :attribute doit être comprise entre :min et :max kilo-octets.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame(
             'Le champ :attribute est obligatoire.',
             $this->trans('validation.custom.first_name.required')
         );
+
         $this->assertSame('prénom', $this->trans('validation.attributes.first_name'));
 
         $this->assertDirectoryDoesNotExist($this->config->langPath(Locale::German));
@@ -97,18 +101,22 @@ class FallbackTest extends TestCase
         $this->assertSame('Alle Rechte vorbehalten.', $this->trans('All rights reserved.'));
 
         $this->assertSame(':Attribute muss akzeptiert werden.', $this->trans('validation.accepted'));
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Elemente haben.',
             $this->trans('validation.between.array')
         );
+
         $this->assertSame(
             ':Attribute muss zwischen :min & :max Kilobytes groß sein.',
             $this->trans('validation.between.file')
         );
+
         $this->assertSame(
             'Dieses Vorname muss ausgefüllt werden.',
             $this->trans('validation.custom.first_name.required')
         );
+
         $this->assertSame('Vorname', $this->trans('validation.attributes.first_name'));
     }
 }

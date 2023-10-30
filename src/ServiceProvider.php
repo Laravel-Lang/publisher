@@ -53,8 +53,10 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function bootPublishes(): void
     {
-        $this->publishes([__DIR__ . '/../config/public.php' => $this->app->configPath(Config::PublicKey() . '.php'),],
-            'config');
+        $this->publishes(
+            [__DIR__ . '/../config/public.php' => $this->app->configPath(Config::PublicKey() . '.php')],
+            ['config', Config::PublicKey()]
+        );
     }
 
     protected function registerConfig(): void
