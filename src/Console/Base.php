@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Contracts\TextDecorator;
 use LaravelLang\Publisher\Helpers\Config;
@@ -70,8 +70,8 @@ abstract class Base extends Command
         return false;
     }
 
-    protected function getLocalesArgument(): array
+    protected function getLocalesArgument(): Collection
     {
-        return Arr::wrap($this->argument('locales'));
+        return collect($this->argument('locales'));
     }
 }
