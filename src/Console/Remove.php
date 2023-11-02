@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
@@ -36,21 +37,21 @@ class Remove extends Base
     protected function locales(): array
     {
         if ($this->confirmAll()) {
-            return Locales::raw()->installed(false);
+            return Locales::raw()->installed(
+                $this->option('force')
+            );
         }
 
-        $locales = $this->getLocalesArgument();
+        return $this->getLocalesArgument()
+            ->each(function (Locale|string $locale) {
+                if (! Locales::isAvailable($locale)) {
+                    throw new UnknownLocaleCodeException($locale);
+                }
 
-        foreach ($locales as $locale) {
-            if (! Locales::isAvailable($locale)) {
-                throw new UnknownLocaleCodeException($locale);
-            }
-
-            if (Locales::isProtected($locale) && ! $this->option('force')) {
-                throw new ProtectedLocaleException($locale);
-            }
-        }
-
-        return $locales;
+                if (Locales::isProtected($locale) && ! $this->option('force')) {
+                    throw new ProtectedLocaleException($locale);
+                }
+            })
+            ->all();
     }
 }

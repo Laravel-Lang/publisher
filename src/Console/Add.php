@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use LaravelLang\Publisher\Processors\Add as AddProcessor;
@@ -38,14 +39,12 @@ class Add extends Base
             return Locales::raw()->available();
         }
 
-        $locales = $this->getLocalesArgument();
-
-        foreach ($locales as $locale) {
-            if (! Locales::isAvailable($locale)) {
-                throw new UnknownLocaleCodeException($locale);
-            }
-        }
-
-        return $locales;
+        return $this->getLocalesArgument()
+            ->each(function (Locale|string $locale) {
+                if (! Locales::isAvailable($locale)) {
+                    throw new UnknownLocaleCodeException($locale);
+                }
+            })
+            ->all();
     }
 }
