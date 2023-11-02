@@ -51,7 +51,8 @@ abstract class Processor
         readonly protected Config $config,
         protected Manager $filesystem = new Manager(),
         protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation()
+        protected Translation $translation = new Translation(
+        )
     ) {}
 
     public function prepare(): self
@@ -118,7 +119,7 @@ abstract class Processor
 
             $this->task('Collecting ' . $locale, function () use ($locale, $locale_alias, $directory) {
                 foreach ($this->file_types as $type) {
-                    $main_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
+                    $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
                     $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
 
                     $values = $this->filesystem->load($main_path);

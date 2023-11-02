@@ -93,11 +93,6 @@ abstract class Provider extends BaseServiceProvider
             return $path;
         }
 
-        throw new RuntimeException(
-            sprintf(
-                'The %s class must contain the definition of the $base_path property. The path must be existing.',
-                static::class
-            )
-        );
+        throw new RuntimeException(sprintf('The %s class must contain the definition of the $base_path property. The path must be existing.', static::class));
     }
 }
