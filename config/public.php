@@ -32,7 +32,7 @@ return [
      * By default, `false`.
      */
 
-    'inline' => env('LANG_PUBLISHER_INLINE', false),
+    'inline' => (bool) env('LANG_PUBLISHER_INLINE', false),
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
