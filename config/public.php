@@ -32,7 +32,7 @@ return [
      * By default, `false`.
      */
 
-    'inline' => false,
+    'inline' => (bool) env('LANG_PUBLISHER_INLINE', false),
 
     /*
      * Do arrays need to be aligned by keys before processing arrays?
@@ -40,7 +40,7 @@ return [
      * By default, true
      */
 
-    'align' => true,
+    'align' => (bool) env('LANG_PUBLISHER_ALIGN', true),
 
     /*
      * This option determines the mechanism for converting translation
