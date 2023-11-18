@@ -40,7 +40,7 @@ return [
      * By default, true
      */
 
-    'align' => env('LANG_PUBLISHER_ALIGN', true),
+    'align' => (bool) env('LANG_PUBLISHER_ALIGN', true),
 
     /*
      * This option determines the mechanism for converting translation
