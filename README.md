@@ -10,7 +10,7 @@
 
 ## Documentation
 
-See the [documentation](https://laravel-lang.com) for detailed installation and [usage](https://laravel-lang.com/usage/general-principles.html) instructions.
+See the [documentation](https://laravel-lang.com) for detailed installation.
 
 ## Contributing
 
