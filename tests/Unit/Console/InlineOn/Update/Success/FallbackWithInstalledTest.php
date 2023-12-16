@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Console\InlineOn\Update\Success;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Tests\Unit\Console\InlineOn\TestCase;
 
 class FallbackWithInstalledTest extends TestCase

@@ -51,7 +51,7 @@
         "illuminate/collections": "^10.0",
         "illuminate/console": "^10.0",
         "illuminate/support": "^10.0",
-        "laravel-lang/locales": "^1.5.0",
+        "laravel-lang/locales": "^2.3",
         "league/commonmark": "^2.4.1",
         "league/config": "^1.2"
     },
@@ -59,7 +59,7 @@
         "laravel-lang/json-fallback-hotfix": "^1.1",
         "orchestra/testbench": "^8.14",
         "phpunit/phpunit": "^10.4.2",
-        "symfony/var-dumper": "^6.3.6"
+        "symfony/var-dumper": "^6.3.6 || ^7.0"
     },
     "conflict": {
         "laravel-lang/attributes": "<2.0",

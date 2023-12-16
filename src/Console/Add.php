@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 use LaravelLang\Publisher\Processors\Add as AddProcessor;

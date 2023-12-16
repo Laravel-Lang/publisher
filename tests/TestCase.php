@@ -21,7 +21,7 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
 use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Locales\ServiceProvider as LocalesServiceProvider;
 use LaravelLang\Publisher\Helpers\Config;

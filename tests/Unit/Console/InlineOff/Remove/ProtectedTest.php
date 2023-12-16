@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Remove;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\Publisher\Exceptions\ProtectedLocaleException;
 use Tests\Unit\Console\InlineOff\TestCase;
 
