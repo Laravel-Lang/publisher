@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 
 return [
     /*

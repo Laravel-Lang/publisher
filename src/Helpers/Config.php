@@ -18,9 +18,9 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Helpers;
 
 use DragonCode\Contracts\Support\Stringable;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Concerns\Aliases;
 use LaravelLang\Locales\Enums\Config as ConfigEnum;
-use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\Publisher\Constants\Types;
 
 class Config

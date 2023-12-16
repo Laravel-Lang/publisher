@@ -22,7 +22,7 @@ use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 
 class Remove extends Processor
 {

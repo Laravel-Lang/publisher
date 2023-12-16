@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Exceptions;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 
 class UnknownLocaleCodeException extends BaseException
 {

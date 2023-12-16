@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOn\Remove;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use Tests\Unit\Console\InlineOn\TestCase;
 

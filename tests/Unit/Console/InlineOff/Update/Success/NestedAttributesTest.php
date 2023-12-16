@@ -16,7 +16,7 @@
 namespace Tests\Unit\Console\InlineOff\Update\Success;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class NestedAttributesTest extends TestCase

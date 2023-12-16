@@ -19,7 +19,7 @@ namespace Tests\Unit\Console\InlineOff\Update;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class EmptyDirectoryTest extends TestCase

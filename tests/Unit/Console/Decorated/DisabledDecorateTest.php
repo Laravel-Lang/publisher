@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\Decorated;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class DisabledDecorateTest extends TestCase

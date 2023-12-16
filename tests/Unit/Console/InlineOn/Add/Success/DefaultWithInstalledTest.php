@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOn\Add\Success;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Tests\Unit\Console\InlineOn\TestCase;
 
 class DefaultWithInstalledTest extends TestCase
