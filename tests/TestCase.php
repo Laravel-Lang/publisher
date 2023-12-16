@@ -20,7 +20,7 @@ namespace Tests;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
-use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as FixedTranslationServiceProvider;
+use LaravelLang\JsonFallback\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Locales\ServiceProvider as LocalesServiceProvider;
