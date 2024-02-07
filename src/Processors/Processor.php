@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2023 Laravel Lang Team
+ * @copyright 2024 Laravel Lang Team
  * @license MIT
  *
  * @see https://laravel-lang.com
@@ -113,7 +113,7 @@ abstract class Processor
     protected function collectLocalizations(string $directory): void
     {
         foreach ($this->locales as $locale) {
-            $locale = $locale?->value ?? $locale;
+            $locale = $this->fromAlias($locale?->value ?? $locale);
 
             $locale_alias = $this->toAlias($locale);
 
