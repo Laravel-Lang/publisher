@@ -29,8 +29,7 @@ class Translation implements Arrayable
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {
-    }
+    ) {}
 
     public function setSource(string $namespace, string $filename, array $values): self
     {
@@ -54,12 +53,12 @@ class Translation implements Arrayable
         $result = [];
 
         foreach (array_keys($this->source) as $namespace) {
-            if (!isset($this->source[$namespace])) {
+            if (! isset($this->source[$namespace])) {
                 continue;
             }
 
             foreach ($this->source[$namespace] as $filename => $keys) {
-                if (!isset($this->translations[$namespace])) {
+                if (! isset($this->translations[$namespace])) {
                     continue;
                 }
 
