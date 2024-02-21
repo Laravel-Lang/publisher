@@ -71,9 +71,8 @@ abstract class Processor
                     /** @var Plugin $plugin */
                     foreach ($plugins as $plugin) {
                         $this->collectKeys($directory, $plugin->files());
+                        $this->collectLocalizations($directory, $plugin->files());
                     }
-
-                    $this->collectLocalizations($directory);
                 }
             );
         }
@@ -109,28 +108,34 @@ abstract class Processor
         foreach ($files as $source => $target) {
             $values = $this->filesystem->load($directory . '/source/' . $source);
 
-            $this->translation->setSource($directory, $target, $values);
+            $this->translation->setSource($target, $values);
         }
     }
 
-    protected function collectLocalizations(string $directory): void
+    protected function collectLocalizations(string $directory, array $files): void
     {
-        foreach ($this->locales as $locale) {
-            $locale = $this->fromAlias($locale?->value ?? $locale);
+        foreach ($files as $filename) {
+            $keys = array_keys($this->translation->getSource($filename));
 
-            $locale_alias = $this->toAlias($locale);
+            foreach ($this->locales as $locale) {
+                $locale = $this->fromAlias($locale?->value ?? $locale);
 
-            foreach ($this->file_types as $type) {
-                $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
-                $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
+                $locale_alias = $this->toAlias($locale);
 
-                $values = $this->filesystem->load($main_path);
+                foreach ($this->file_types as $type) {
+                    $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
+                    $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
 
-                if ($main_path !== $inline_path && $this->config->hasInline()) {
-                    $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
+                    $values = $this->filesystem->load($main_path);
+
+                    if ($main_path !== $inline_path && $this->config->hasInline()) {
+                        $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
+                    }
+
+                    $values = collect($values)->only($keys)->toArray();
+
+                    $this->translation->setTranslations($filename, $locale_alias, $values);
                 }
-
-                $this->translation->setTranslations($directory, $locale_alias, $values);
             }
         }
     }

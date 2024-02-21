@@ -31,9 +31,14 @@ class Translation implements Arrayable
         readonly protected Arr $arr = new Arr()
     ) {}
 
-    public function setSource(string $namespace, string $filename, array $values): self
+    public function getSource(string $filename): array
     {
-        $this->source[$namespace][$filename] = $this->merge($this->source[$namespace][$filename] ?? [], $values);
+        return $this->source[$filename] ?? [];
+    }
+
+    public function setSource(string $filename, array $values): self
+    {
+        $this->source[$filename] = $this->merge($this->source[$filename] ?? [], $values);
 
         return $this;
     }
@@ -52,27 +57,15 @@ class Translation implements Arrayable
     {
         $result = [];
 
-        foreach (array_keys($this->source) as $namespace) {
-            if (! isset($this->source[$namespace])) {
-                continue;
-            }
+        foreach ($this->source as $filename => $keys) {
+            foreach ($this->translations[$filename] ?? [] as $locale => $values) {
+                $name = $this->resolveFilename($filename, $locale);
 
-            foreach ($this->source[$namespace] as $filename => $keys) {
-                if (! isset($this->translations[$namespace])) {
-                    continue;
-                }
-
-                foreach ($this->translations[$namespace] as $locale => $values) {
-                    $name = $this->resolveFilename($filename, $locale);
-
-                    $result[$locale][$name] = $this->merge($keys, $values, true);
-                }
+                $result[$locale][$name] = $this->merge($keys, $values, true);
             }
         }
 
-        ksort($result);
-
-        return $result;
+        return $this->arr->ksort($result);
     }
 
     protected function resolveFilename(string $path, string $locale): string

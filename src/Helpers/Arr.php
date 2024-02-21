@@ -36,4 +36,17 @@ class Arr
     {
         return $filter_keys ? DragonArr::only($target, DragonArr::keys($source)) : $target;
     }
+
+    public function ksort(array $source): array
+    {
+        ksort($source);
+
+        foreach ($source as $key => &$value) {
+            if (is_array($value)) {
+                $value = $this->ksort($value);
+            }
+        }
+
+        return $source;
+    }
 }
