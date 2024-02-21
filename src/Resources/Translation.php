@@ -29,18 +29,22 @@ class Translation implements Arrayable
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {}
+    ) {
+    }
 
-    public function setSource(string $filename, array $values): self
+    public function setSource(string $namespace, string $filename, array $values): self
     {
-        $this->source[$filename] = $this->merge($this->source[$filename] ?? [], $values);
+        $this->source[$namespace][$filename] = $this->merge($this->source[$namespace][$filename] ?? [], $values);
 
         return $this;
     }
 
-    public function setTranslations(string $locale, array $values): self
+    public function setTranslations(string $namespace, string $locale, array $values): self
     {
-        $this->translations[$locale] = $this->merge($this->translations[$locale] ?? [], $values);
+        $this->translations[$namespace][$locale] = $this->merge(
+            $this->translations[$namespace][$locale] ?? [],
+            $values
+        );
 
         return $this;
     }
@@ -49,11 +53,21 @@ class Translation implements Arrayable
     {
         $result = [];
 
-        foreach ($this->source as $filename => $keys) {
-            foreach ($this->translations as $locale => $values) {
-                $name = $this->resolveFilename($filename, $locale);
+        foreach (array_keys($this->source) as $namespace) {
+            if (!isset($this->source[$namespace])) {
+                continue;
+            }
 
-                $result[$locale][$name] = $this->merge($keys, $values, true);
+            foreach ($this->source[$namespace] as $filename => $keys) {
+                if (!isset($this->translations[$namespace])) {
+                    continue;
+                }
+
+                foreach ($this->translations[$namespace] as $locale => $values) {
+                    $name = $this->resolveFilename($filename, $locale);
+
+                    $result[$locale][$name] = $this->merge($keys, $values, true);
+                }
             }
         }
 

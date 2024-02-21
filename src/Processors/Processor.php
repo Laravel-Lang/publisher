@@ -51,9 +51,9 @@ abstract class Processor
         readonly protected Config $config,
         protected Manager $filesystem = new Manager(),
         protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation(
-        )
-    ) {}
+        protected Translation $translation = new Translation()
+    ) {
+    }
 
     public function prepare(): self
     {
@@ -62,17 +62,20 @@ abstract class Processor
 
     public function collect(): self
     {
+        $this->info('Collecting translations...');
+
         foreach ($this->plugins() as $directory => $plugins) {
-            $this->info($this->config->getPackageNameByPath($directory, Types::TypeClass));
+            $this->task(
+                $this->config->getPackageNameByPath($directory, Types::TypeClass),
+                function () use ($directory, $plugins) {
+                    /** @var Plugin $plugin */
+                    foreach ($plugins as $plugin) {
+                        $this->collectKeys($directory, $plugin->files());
+                    }
 
-            $this->task('Collect source', function () use ($directory, $plugins) {
-                /** @var Plugin $plugin */
-                foreach ($plugins as $plugin) {
-                    $this->collectKeys($directory, $plugin->files());
+                    $this->collectLocalizations($directory);
                 }
-            });
-
-            $this->collectLocalizations($directory);
+            );
         }
 
         return $this;
@@ -88,7 +91,7 @@ abstract class Processor
                     $path = $this->config->langPath($filename);
 
                     $values
-                        = $this->reset || ! File::exists($path)
+                        = $this->reset || !File::exists($path)
                         ? $values
                         : $this->arr->merge(
                             $this->filesystem->load($path),
@@ -106,7 +109,7 @@ abstract class Processor
         foreach ($files as $source => $target) {
             $values = $this->filesystem->load($directory . '/source/' . $source);
 
-            $this->translation->setSource($target, $values);
+            $this->translation->setSource($directory, $target, $values);
         }
     }
 
@@ -117,20 +120,18 @@ abstract class Processor
 
             $locale_alias = $this->toAlias($locale);
 
-            $this->task('Collecting ' . $locale, function () use ($locale, $locale_alias, $directory) {
-                foreach ($this->file_types as $type) {
-                    $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
-                    $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
+            foreach ($this->file_types as $type) {
+                $main_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
+                $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
 
-                    $values = $this->filesystem->load($main_path);
+                $values = $this->filesystem->load($main_path);
 
-                    if ($main_path !== $inline_path && $this->config->hasInline()) {
-                        $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
-                    }
-
-                    $this->translation->setTranslations($locale_alias, $values);
+                if ($main_path !== $inline_path && $this->config->hasInline()) {
+                    $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
                 }
-            });
+
+                $this->translation->setTranslations($directory, $locale_alias, $values);
+            }
         }
     }
 
