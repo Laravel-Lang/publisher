@@ -6,7 +6,7 @@ permissions: read-all
 
 jobs:
     laravel:
-        runs-on: ${{ secrets.RUNNER_NAME }}
+        runs-on: ubuntu-latest
 
         strategy:
             fail-fast: true
