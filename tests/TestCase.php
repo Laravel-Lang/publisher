@@ -20,6 +20,7 @@ namespace Tests;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
+use LaravelLang\Config\Enums\Name;
 use LaravelLang\Config\ServiceProvider as ConfigServiceProvider;
 use LaravelLang\JsonFallback\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\LocaleList\Locale;
@@ -83,11 +84,8 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(\LaravelLang\Locales\Enums\Config::PublicKey() . '.inline', $this->inline);
-        $config->set(
-            \LaravelLang\Locales\Enums\Config::PublicKey() . '.smart_punctuation.enable',
-            $this->smartPunctuation
-        );
+        $config->set(Name::Shared() . '.inline', $this->inline);
+        $config->set(Name::Shared() . '.smart_punctuation.enable', $this->smartPunctuation);
 
         $config->set('app.locale', $this->locale->value);
         $config->set('app.fallback_locale', $this->fallbackLocale->value);
