@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Contracts\Support\Stringable;
+use LaravelLang\Config\Facades\Config as BaseConfig;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Concerns\Aliases;
-use LaravelLang\Locales\Enums\Config as ConfigEnum;
 use LaravelLang\Publisher\Constants\Types;
+use Stringable;
 
 class Config
 {
@@ -33,21 +33,17 @@ class Config
 
     public function getPlugins(): array
     {
-        return $this->getPrivate('plugins', []);
+        return BaseConfig::hidden()->plugins->all();
     }
 
     public function setPlugins(string $path, array $plugins): void
     {
-        $items = array_merge($this->getPlugins(), [
-            $path => $plugins,
-        ]);
-
-        $this->setPrivate('plugins', $items);
+        BaseConfig::hidden()->plugins->set($path, $plugins);
     }
 
     public function getPackages(): array
     {
-        return $this->getPrivate('packages', []);
+        return BaseConfig::hidden()->packages->all();
     }
 
     public function getPackageNameByPath(string $path, Types $type = Types::TypeName): string
@@ -59,14 +55,10 @@ class Config
 
     public function setPackage(string $base_path, string $plugin_class, string $package_name): void
     {
-        $items = $this->getPackages();
-
-        $items[$base_path] = [
+        BaseConfig::hidden()->packages->set($base_path, [
             'class' => $plugin_class,
             'name'  => $package_name,
-        ];
-
-        $this->setPrivate('packages', $items);
+        ]);
     }
 
     public function langPath(Locale|string|null ...$paths): string
@@ -81,49 +73,22 @@ class Config
 
     public function hasInline(): bool
     {
-        return $this->getPublic('inline', false);
+        return BaseConfig::shared()->inline;
     }
 
     public function hasAlign(): bool
     {
-        return $this->getPublic('align', true);
+        return BaseConfig::shared()->align;
     }
 
     public function hasSmartPunctuation(): bool
     {
-        return $this->getPublic('smart_punctuation.enable', false);
+        return BaseConfig::shared()->punctuation->enabled;
     }
 
     public function smartPunctuationConfig(string $locale): array
     {
-        $default = $this->getPublic('smart_punctuation.common', []);
-
-        return $this->getPublic('smart_punctuation.locales.' . $locale, $default);
-    }
-
-    public function setPrivate(string $key, mixed $value): void
-    {
-        $this->set(ConfigEnum::PrivateKey(), $key, $value);
-    }
-
-    protected function getPrivate(string $key, mixed $default = null): mixed
-    {
-        return $this->get(ConfigEnum::PrivateKey(), $key, $default);
-    }
-
-    protected function getPublic(string $key, mixed $default = null): mixed
-    {
-        return $this->get(ConfigEnum::PublicKey(), $key, $default);
-    }
-
-    protected function get(string $visibility, string $key, mixed $default = null): mixed
-    {
-        return config()->get($visibility . '.' . $key, $default);
-    }
-
-    protected function set(string $visibility, string $key, mixed $value): void
-    {
-        config()->set($visibility . '.' . $key, $value);
+        return BaseConfig::shared()->punctuation->locales->get($locale);
     }
 
     protected function path(string $base, string|Stringable|null $suffix = null): string

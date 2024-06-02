@@ -20,6 +20,7 @@ namespace Tests;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
+use LaravelLang\Config\ServiceProvider as ConfigServiceProvider;
 use LaravelLang\JsonFallback\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
@@ -66,6 +67,7 @@ abstract class TestCase extends BaseTestCase
             LocalesServiceProvider::class,
             PublisherServiceProvider::class,
             PluginServiceProvider::class,
+            ConfigServiceProvider::class,
         ];
     }
 
