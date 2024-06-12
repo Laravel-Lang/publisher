@@ -65,10 +65,10 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
+            ConfigServiceProvider::class,
             LocalesServiceProvider::class,
             PublisherServiceProvider::class,
             PluginServiceProvider::class,
-            ConfigServiceProvider::class,
         ];
     }
 
