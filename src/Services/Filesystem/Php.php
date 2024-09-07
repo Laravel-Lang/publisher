@@ -71,7 +71,7 @@ class Php extends Base
     protected function validationSort(array $items): array
     {
         $attributes = Arr::get($items, 'attributes');
-        $custom     = Arr::get($items, 'custom');
+        $custom = Arr::get($items, 'custom');
 
         return Arr::of($items)
             ->except(['attributes', 'custom'])

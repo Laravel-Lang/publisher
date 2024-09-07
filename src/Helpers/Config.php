@@ -29,7 +29,8 @@ class Config
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {}
+    ) {
+    }
 
     public function getPlugins(): array
     {
