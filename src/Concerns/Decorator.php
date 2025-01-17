@@ -23,7 +23,7 @@ trait Decorator
     {
         foreach ($values as &$value) {
             if (is_array($value)) {
-                $value = $this->decorate($locale, $values);
+                $value = $this->decorate($locale, $value);
 
                 continue;
             }
