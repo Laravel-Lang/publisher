@@ -1,6 +1,6 @@
 {
     "name": "laravel-lang/publisher",
-    "description": "Publisher lang files for the Laravel and Lumen Frameworks, Jetstream, Fortify, Cashier, Spark and Nova from Laravel-Lang/lang",
+    "description": "Localization publisher for your Laravel application",
     "license": "MIT",
     "type": "library",
     "keywords": [
