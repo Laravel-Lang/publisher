@@ -51,13 +51,13 @@
         "illuminate/collections": "^10.0 || ^11.0 || ^12.0",
         "illuminate/console": "^10.0 || ^11.0 || ^12.0",
         "illuminate/support": "^10.0 || ^11.0 || ^12.0",
-        "laravel-lang/config": "^1.0",
-        "laravel-lang/locales": "^2.3",
+        "laravel-lang/config": "^1.12",
+        "laravel-lang/locales": "^2.10",
         "league/commonmark": "^2.4.1",
         "league/config": "^1.2"
     },
     "require-dev": {
-        "laravel-lang/json-fallback": "^2.0",
+        "laravel-lang/json-fallback": "^2.2",
         "orchestra/testbench": "^8.14 || ^9.0 || ^10.0",
         "phpunit/phpunit": "^10.4.2 || ^11.0 || ^12.0",
         "symfony/var-dumper": "^6.3.6 || ^7.0"
