@@ -68,6 +68,6 @@ abstract class Plugin
             return false;
         }
 
-        return $this->vendor === InstalledVersions::getRootPackage()['name'];
+        return $this->vendor === (InstalledVersions::getRootPackage()['name'] ?? false);
     }
 }
