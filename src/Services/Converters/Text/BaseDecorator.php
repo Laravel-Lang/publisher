@@ -24,6 +24,5 @@ abstract class BaseDecorator implements TextDecorator
 {
     public function __construct(
         protected Config $config
-    ) {
-    }
+    ) {}
 }

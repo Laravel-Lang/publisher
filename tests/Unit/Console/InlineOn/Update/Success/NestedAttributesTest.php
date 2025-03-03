@@ -13,6 +13,8 @@
  * @see https://laravel-lang.com
  */
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Console\InlineOn\Update\Success;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
