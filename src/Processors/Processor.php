@@ -53,8 +53,7 @@ abstract class Processor
         protected ArrHelper $arr = new ArrHelper(),
         protected Translation $translation = new Translation(
         )
-    ) {
-    }
+    ) {}
 
     public function prepare(): self
     {
@@ -142,15 +141,16 @@ abstract class Processor
     }
 
     /**
-     * @return array<\LaravelLang\Publisher\Plugins\Plugin>
+     * @return array<Plugin>
      */
     protected function plugins(): array
     {
         return collect($this->config->getPlugins())
-            ->map(fn (array $plugins) => collect($plugins)
-                ->map(static fn (string $plugin) => new $plugin())
-                ->filter(static fn (Plugin $plugin) => $plugin->has())
-                ->all()
+            ->map(
+                fn (array $plugins) => collect($plugins)
+                    ->map(static fn (string $plugin) => new $plugin())
+                    ->filter(static fn (Plugin $plugin) => $plugin->has())
+                    ->all()
             )
             ->filter()
             ->all();
