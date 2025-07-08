@@ -40,36 +40,40 @@ class Php extends Base
     {
         $content = $this->sort($content);
 
-        // Gathering attribute keys to prevent loss of translations after expand/flatten process.
-        $flatAttributes = [];
-        foreach ($content as $key => $value) {
-            if (Str::startsWith($key, "attributes.")) {
-                $flatAttributes[preg_replace("/^attributes\./", "", $key)] = $value;
+        $hasValidation = $this->hasValidation($path);
+
+        if ($hasValidation) {
+            // Gathering attribute keys to prevent loss of translations after expand/flatten process.
+            $flatAttributes = [];
+            foreach ($content as $key => $value) {
+                if (Str::startsWith($key, "attributes.")) {
+                    $flatAttributes[preg_replace("/^attributes\./", "", $key)] = $value;
+                }
             }
         }
 
         $content = $this->expand($content);
 
-        if ($this->hasValidation($path)) {
+        if ($hasValidation) {
             $content = $this->validationSort($content);
-        }
 
-        if (! empty($flatAttributes)) {
-            foreach ($flatAttributes as $key => $value) {
-                // Keys can be removed during the expand/flatten process if a key has a translation and subkeys.
-                //
-                // eg. ['attributes.vehicle' => 'vehicle translated', 'attributes.vehicle.make' => 'make translated']
-                // after expand: ['attributes' => ['vehicle' => ['make' => 'make translated']]]
-                // ... and the vehicle translation is dropped.
-                //
-                // Checking here if the flat attribute keys we gathered before the expand still exist in the result.
-                // If not we add them back into the attribute array.
-                if (! isset($content['attributes'][$key])) {
-                    $content['attributes'][$key] = $value;
+            if (! empty($flatAttributes)) {
+                foreach ($flatAttributes as $key => $value) {
+                    // Keys can be removed during the expand/flatten process if a key has a translation and subkeys.
+                    //
+                    // eg. ['attributes.vehicle' => 'vehicle translated', 'attributes.vehicle.make' => 'make translated']
+                    // after expand: ['attributes' => ['vehicle' => ['make' => 'make translated']]]
+                    // ... and the vehicle translation is dropped.
+                    //
+                    // Checking here if the flat attribute keys we gathered before the expand still exist in the result.
+                    // If not we add them back into the attribute array.
+                    if (! isset($content['attributes'][$key])) {
+                        $content['attributes'][$key] = $value;
+                    }
                 }
-            }
 
-            $content['attributes'] = $this->sort($content['attributes']);
+                $content['attributes'] = $this->sort($content['attributes']);
+            }
         }
 
         $content = $this->format($content);
