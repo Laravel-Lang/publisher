@@ -51,6 +51,11 @@ class NestedAttributesTest extends TestCase
                 'first_name' => 'first name',
                 'last_name'  => 'last name',
 
+                'list.jobs'     => 'List of jobs',
+                'list.vehicles' => 'List of vehicles',
+
+                'timeplan'            => 'Timeplan',
+                'timeplan.monday'     => 'Monday',
                 'timeplan.monday.0.0' => 'Monday (from)',
                 'timeplan.monday.0.1' => 'Monday (to)',
                 'timeplan.monday.1.0' => 'Monday (from)',
@@ -80,6 +85,11 @@ class NestedAttributesTest extends TestCase
                 'first_name' => 'prénom',
                 'last_name'  => 'nom',
 
+                'list.jobs'     => 'Liste des dossiers',
+                'list.vehicles' => 'Liste des véhicules',
+
+                'timeplan'            => 'Horaire',
+                'timeplan.monday'     => 'Lundi',
                 'timeplan.monday.0.0' => 'Lundi (de)',
                 'timeplan.monday.0.1' => 'Lundi (à)',
                 'timeplan.monday.1.0' => 'Lundi (de)',

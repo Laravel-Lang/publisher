@@ -30,10 +30,18 @@ return [
         'last_name'  => 'last name',
         'age'        => 'age',
 
+        'timeplan'            => 'Timeplan',
+        'timeplan.monday'     => 'Monday',
         'timeplan.monday.0.0' => 'Monday (from)',
         'timeplan.monday.0.1' => 'Monday (to)',
         'timeplan.monday.1.0' => 'Monday (from)',
         'timeplan.monday.1.1' => 'Monday (to)',
+
+        // manually adding arrays works, but will be flattened in update process
+        'list' => [
+            'jobs'      => 'List of jobs',
+            'vehicles'  => 'List of vehicles',
+        ]
     ],
 
     'custom' => [

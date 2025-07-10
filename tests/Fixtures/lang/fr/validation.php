@@ -30,10 +30,18 @@ return [
         'last_name'  => 'nom',
         'age'        => 'âge',
 
+        'timeplan'            => 'Horaire',
+        'timeplan.monday'     => 'Lundi',
         'timeplan.monday.0.0' => 'Lundi (de)',
         'timeplan.monday.0.1' => 'Lundi (à)',
         'timeplan.monday.1.0' => 'Lundi (de)',
         'timeplan.monday.1.1' => 'Lundi (à)',
+
+        // manually adding arrays works, but will be flattened in update process
+        'list' => [
+            'jobs'      => 'Liste des dossiers',
+            'vehicles'  => 'Liste des véhicules',
+        ]
     ],
 
     'custom' => [
