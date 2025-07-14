@@ -40,11 +40,9 @@ class Php extends Base
     {
         $content = $this->sort($content);
 
-        if ($this->hasValidation($path)) {
-            $content = $this->expandValidation($content);
-        } else {
-            $content = $this->expand($content);
-        }
+        $content = $this->hasValidation($path)
+            ? $this->expandValidation($content)
+            : $this->expand($content);
 
         $content = $this->format($content);
 
@@ -71,21 +69,20 @@ class Php extends Base
 
     protected function expandValidation(array $values): array
     {
-        // attributes array is stored with flattened keys
-        // other items are fully expanded
         $attributes = [];
         $items      = [];
+
         foreach ($values as $key => $value) {
             if (Str::startsWith($key, "attributes.")) {
                 $attributeKey = explode('.', $key, 2)[1];
                 $attributes[$attributeKey] = $value;
+
                 continue;
             }
 
             IlluminateArr::set($items, $key, $value);
         }
 
-        // capture custom values -> if empty this key will be removed from the result
         $custom = Arr::get($items, 'custom');
 
         return Arr::of($items)
