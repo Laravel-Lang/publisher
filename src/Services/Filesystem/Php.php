@@ -40,40 +40,10 @@ class Php extends Base
     {
         $content = $this->sort($content);
 
-        $hasValidation = $this->hasValidation($path);
-
-        if ($hasValidation) {
-            // Gathering attribute keys to prevent loss of translations after expand/flatten process.
-            $flatAttributes = [];
-            foreach ($content as $key => $value) {
-                if (Str::startsWith($key, "attributes.")) {
-                    $flatAttributes[preg_replace("/^attributes\./", "", $key)] = $value;
-                }
-            }
-        }
-
-        $content = $this->expand($content);
-
-        if ($hasValidation) {
-            $content = $this->validationSort($content);
-
-            if (! empty($flatAttributes)) {
-                foreach ($flatAttributes as $key => $value) {
-                    // Keys can be removed during the expand/flatten process if a key has a translation and subkeys.
-                    //
-                    // eg. ['attributes.vehicle' => 'vehicle translated', 'attributes.vehicle.make' => 'make translated']
-                    // after expand: ['attributes' => ['vehicle' => ['make' => 'make translated']]]
-                    // ... and the vehicle translation is dropped.
-                    //
-                    // Checking here if the flat attribute keys we gathered before the expand still exist in the result.
-                    // If not we add them back into the attribute array.
-                    if (! isset($content['attributes'][$key])) {
-                        $content['attributes'][$key] = $value;
-                    }
-                }
-
-                $content['attributes'] = $this->sort($content['attributes']);
-            }
+        if ($this->hasValidation($path)) {
+            $content = $this->expandValidation($content);
+        } else {
+            $content = $this->expand($content);
         }
 
         $content = $this->format($content);
@@ -99,20 +69,29 @@ class Php extends Base
         return $result;
     }
 
-    protected function validationSort(array $items): array
+    protected function expandValidation(array $values): array
     {
-        $attributes = Arr::get($items, 'attributes');
+        // attributes array is stored with flattened keys
+        // other items are fully expanded
+        $attributes = [];
+        $items      = [];
+        foreach ($values as $key => $value) {
+            if (Str::startsWith($key, "attributes.")) {
+                $attributeKey = explode('.', $key, 2)[1];
+                $attributes[$attributeKey] = $value;
+                continue;
+            }
+
+            IlluminateArr::set($items, $key, $value);
+        }
+
+        // capture custom values -> if empty this key will be removed from the result
         $custom = Arr::get($items, 'custom');
 
         return Arr::of($items)
             ->except(['attributes', 'custom'])
-            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $this->correctNestedAttributes($attributes)))
+            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $attributes))
             ->when(! empty($custom), static fn (Arrayable $array) => $array->set('custom', $custom))
             ->toArray();
-    }
-
-    protected function correctNestedAttributes(array $attributes): array
-    {
-        return Arr::flattenKeys($attributes);
     }
 }
