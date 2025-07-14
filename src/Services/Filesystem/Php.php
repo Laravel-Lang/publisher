@@ -19,6 +19,7 @@ namespace LaravelLang\Publisher\Services\Filesystem;
 
 use DragonCode\PrettyArray\Services\File;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr as IlluminateArr;
 
@@ -39,11 +40,9 @@ class Php extends Base
     {
         $content = $this->sort($content);
 
-        $content = $this->expand($content);
-
-        if ($this->hasValidation($path)) {
-            $content = $this->validationSort($content);
-        }
+        $content = $this->hasValidation($path)
+            ? $this->expandValidation($content)
+            : $this->expand($content);
 
         $content = $this->format($content);
 
@@ -68,20 +67,28 @@ class Php extends Base
         return $result;
     }
 
-    protected function validationSort(array $items): array
+    protected function expandValidation(array $values): array
     {
-        $attributes = Arr::get($items, 'attributes');
+        $attributes = [];
+        $items      = [];
+
+        foreach ($values as $key => $value) {
+            if (Str::startsWith($key, "attributes.")) {
+                $attributeKey = explode('.', $key, 2)[1];
+                $attributes[$attributeKey] = $value;
+
+                continue;
+            }
+
+            IlluminateArr::set($items, $key, $value);
+        }
+
         $custom = Arr::get($items, 'custom');
 
         return Arr::of($items)
             ->except(['attributes', 'custom'])
-            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $this->correctNestedAttributes($attributes)))
+            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $attributes))
             ->when(! empty($custom), static fn (Arrayable $array) => $array->set('custom', $custom))
             ->toArray();
-    }
-
-    protected function correctNestedAttributes(array $attributes): array
-    {
-        return Arr::flattenKeys($attributes);
     }
 }
