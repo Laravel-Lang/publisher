@@ -45,14 +45,13 @@ abstract class Processor
     protected array $file_types = ['json', 'php'];
 
     public function __construct(
-        readonly protected OutputStyle $output,
-        readonly protected array $locales,
-        readonly protected TextDecorator $decorator,
-        readonly protected Config $config,
-        protected Manager $filesystem = new Manager(),
-        protected ArrHelper $arr = new ArrHelper(),
-        protected Translation $translation = new Translation(
-        )
+        protected readonly OutputStyle $output,
+        protected readonly array $locales,
+        protected readonly TextDecorator $decorator,
+        protected readonly Config $config,
+        protected Manager $filesystem = new Manager,
+        protected ArrHelper $arr = new ArrHelper,
+        protected Translation $translation = new Translation
     ) {}
 
     public function prepare(): self
@@ -123,7 +122,7 @@ abstract class Processor
                 $locale_alias = $this->toAlias($locale);
 
                 foreach ($this->file_types as $type) {
-                    $main_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
+                    $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
                     $inline_path = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json", true);
 
                     $values = $this->filesystem->load($main_path);
@@ -148,7 +147,7 @@ abstract class Processor
         return collect($this->config->getPlugins())
             ->map(
                 fn (array $plugins) => collect($plugins)
-                    ->map(static fn (string $plugin) => new $plugin())
+                    ->map(static fn (string $plugin) => new $plugin)
                     ->filter(static fn (Plugin $plugin) => $plugin->has())
                     ->all()
             )

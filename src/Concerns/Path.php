@@ -28,10 +28,10 @@ trait Path
         $path = Str::replaceFormat($path, compact('locale'), '{%s}');
 
         $directory = PathHelper::dirname($path);
-        $filename = PathHelper::filename($path);
+        $filename  = PathHelper::filename($path);
         $extension = PathHelper::extension($path);
 
-        $main = "$directory/$filename.$extension";
+        $main   = "$directory/$filename.$extension";
         $inline = "$directory/$filename-inline.$extension";
 
         return $has_inline && File::exists($inline) ? $inline : $main;

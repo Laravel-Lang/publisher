@@ -120,7 +120,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function init(): void
     {
-        $this->config = new Config();
+        $this->config = new Config;
     }
 
     protected function copyFixtures(): void

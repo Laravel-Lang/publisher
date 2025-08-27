@@ -20,5 +20,5 @@ namespace LaravelLang\Publisher\Constants;
 enum Types: string
 {
     case TypeClass = 'class';
-    case TypeName = 'name';
+    case TypeName  = 'name';
 }

@@ -53,9 +53,9 @@ class SmartPunctExtension implements ConfigurableExtensionInterface
     public function register(EnvironmentBuilderInterface $environment): void
     {
         $environment
-            ->addInlineParser(new QuoteParser(), 10)
-            ->addInlineParser(new DashParser())
-            ->addInlineParser(new EllipsesParser())
+            ->addInlineParser(new QuoteParser, 10)
+            ->addInlineParser(new DashParser)
+            ->addInlineParser(new EllipsesParser)
             ->addDelimiterProcessor(QuoteProcessor::createDoubleQuoteProcessor(
                 $environment->getConfiguration()->get('smartpunct/double_quote_opener'),
                 $environment->getConfiguration()->get('smartpunct/double_quote_closer')
@@ -64,9 +64,9 @@ class SmartPunctExtension implements ConfigurableExtensionInterface
                 $environment->getConfiguration()->get('smartpunct/single_quote_opener'),
                 $environment->getConfiguration()->get('smartpunct/single_quote_closer')
             ))
-            ->addEventListener(DocumentParsedEvent::class, new ReplaceUnpairedQuotesListener())
-            ->addRenderer(Document::class, new CoreBlockRenderer\DocumentRenderer())
-            ->addRenderer(Paragraph::class, new ParagraphRenderer())
-            ->addRenderer(Text::class, new CoreInlineRenderer\TextRenderer());
+            ->addEventListener(DocumentParsedEvent::class, new ReplaceUnpairedQuotesListener)
+            ->addRenderer(Document::class, new CoreBlockRenderer\DocumentRenderer)
+            ->addRenderer(Paragraph::class, new ParagraphRenderer)
+            ->addRenderer(Text::class, new CoreInlineRenderer\TextRenderer);
     }
 }

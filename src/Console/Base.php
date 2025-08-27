@@ -58,7 +58,7 @@ abstract class Base extends Command
 
     protected function config(): Config
     {
-        return new Config();
+        return new Config;
     }
 
     protected function confirmAll(): bool

@@ -25,7 +25,7 @@ class WithoutParameterTest extends TestCase
 {
     public function testNo(): void
     {
-        $installed = [Locale::English, Locale::French];
+        $installed    = [Locale::English, Locale::French];
         $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
@@ -67,7 +67,7 @@ class WithoutParameterTest extends TestCase
 
     public function testYes(): void
     {
-        $installed = [Locale::English, Locale::French];
+        $installed    = [Locale::English, Locale::French];
         $notInstalled = [Locale::NorwegianBokmal, Locale::Afrikaans];
 
         foreach ($installed as $locale) {
