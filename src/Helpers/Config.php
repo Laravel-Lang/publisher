@@ -28,7 +28,7 @@ class Config
     use Aliases;
 
     public function __construct(
-        readonly protected Arr $arr = new Arr()
+        protected readonly Arr $arr = new Arr
     ) {}
 
     public function getPlugins(): array

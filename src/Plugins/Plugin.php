@@ -56,7 +56,7 @@ abstract class Plugin
     private function hasVersion(): bool
     {
         if ($vendor = $this->vendor()) {
-            return InstalledVersions::satisfies(new VersionParser(), $vendor, $this->version);
+            return InstalledVersions::satisfies(new VersionParser, $vendor, $this->version);
         }
 
         return true;

@@ -45,7 +45,7 @@ abstract class Provider extends BaseServiceProvider
 
     protected function loadConfig(): void
     {
-        $this->config = new Config();
+        $this->config = new Config;
     }
 
     protected function registerPlugins(): void

@@ -17,4 +17,4 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
-class Update extends Processor { }
+class Update extends Processor {}

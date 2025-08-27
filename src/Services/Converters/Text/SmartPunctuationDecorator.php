@@ -47,7 +47,7 @@ class SmartPunctuationDecorator extends BaseDecorator
     protected function converter(array $smartpunct): ConverterInterface
     {
         return new MarkdownConverter(
-            $this->environment($smartpunct)->addExtension(new SmartPunctExtension())
+            $this->environment($smartpunct)->addExtension(new SmartPunctExtension)
         );
     }
 

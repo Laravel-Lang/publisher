@@ -73,8 +73,8 @@ class Php extends Base
         $items      = [];
 
         foreach ($values as $key => $value) {
-            if (Str::startsWith($key, "attributes.")) {
-                $attributeKey = explode('.', $key, 2)[1];
+            if (Str::startsWith($key, 'attributes.')) {
+                $attributeKey              = explode('.', $key, 2)[1];
                 $attributes[$attributeKey] = $value;
 
                 continue;

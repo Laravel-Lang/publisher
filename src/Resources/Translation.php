@@ -28,7 +28,7 @@ class Translation implements Arrayable
     protected array $translations = [];
 
     public function __construct(
-        readonly protected Arr $arr = new Arr()
+        protected readonly Arr $arr = new Arr
     ) {}
 
     public function getSource(string $filename): array
