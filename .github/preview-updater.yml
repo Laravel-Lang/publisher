@@ -1,5 +1,4 @@
 # $schema: https://raw.githubusercontent.com/TheDragonCode/github-preview-updater/refs/heads/main/resources/schema.json
 
-image:
-    parameters:
-        packageDev: true
+package:
+  dev: true
