@@ -139,9 +139,7 @@ abstract class Processor
         }
     }
 
-    /**
-     * @return array<Plugin>
-     */
+    /** @return array<Plugin> */
     protected function plugins(): array
     {
         return collect($this->config->getPlugins())
