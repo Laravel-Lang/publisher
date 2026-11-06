@@ -56,6 +56,12 @@ final class Filesystem
     public static function ensureDeleteDirectory(array|string $paths): void
     {
         foreach ((array) $paths as $path) {
+            if (is_link($path)) {
+                unlink($path);
+
+                continue;
+            }
+
             if (! is_dir($path)) {
                 continue;
             }
@@ -154,12 +160,15 @@ final class Filesystem
 
             $isMatch = $directories ? $item->isDir() : $item->isFile();
 
+            // Keep the lexical path so symlink entries retain their own name;
+            // the filter still receives the resolved real path.
             if ($isMatch && (! $filter || $filter($item->getRealPath()))) {
-                $items[] = $item->getRealPath();
+                $items[] = $item->getPathname();
             }
 
-            if ($recursive && $item->isDir()) {
-                $items = array_merge($items, self::scan($item->getRealPath(), $filter, $recursive, $directories));
+            // Never descend into symlinked directories (avoids cycles and escaping the root).
+            if ($recursive && $item->isDir() && ! $item->isLink()) {
+                $items = array_merge($items, self::scan($item->getPathname(), $filter, $recursive, $directories));
             }
         }
 

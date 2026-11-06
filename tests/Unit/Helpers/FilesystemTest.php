@@ -77,6 +77,43 @@ class FilesystemTest extends TestCase
         $this->assertDirectoryExists($this->root . '/fr');
     }
 
+    public function testDeletingASymlinkedDirectoryKeepsTheTarget(): void
+    {
+        $target = sys_get_temp_dir() . '/publisher-fs-target-' . uniqid();
+
+        Filesystem::store($target . '/keep.php', '<?php return [];');
+        symlink($target, $this->root . '/link');
+
+        Filesystem::ensureDeleteDirectory($this->root . '/link');
+
+        $this->assertFalse(is_link($this->root . '/link'));
+        $this->assertFileExists($target . '/keep.php');
+
+        Filesystem::ensureDeleteDirectory($target);
+    }
+
+    public function testSymlinkEntriesKeepTheirOwnNamesAndAreNotTraversed(): void
+    {
+        $target = sys_get_temp_dir() . '/publisher-fs-target-' . uniqid() . '/de';
+
+        Filesystem::store($target . '/inner.php', '<?php return [];');
+        symlink($target, $this->root . '/ext');
+        symlink($this->root, $this->root . '/loop');
+        symlink($this->root . '/de.json', $this->root . '/en.json');
+
+        $this->assertSame(
+            ['de', 'ext', 'fr', 'loop'],
+            Filesystem::directories($this->root)
+        );
+
+        $this->assertSame(
+            ['de.json', 'de/nested/auth.php', 'de/validation.php', 'en.json', 'fr/auth.php'],
+            Filesystem::files($this->root, recursive: true)
+        );
+
+        Filesystem::ensureDeleteDirectory(dirname($target));
+    }
+
     public function testEnsureDeleteFileIgnoresMissing(): void
     {
         Filesystem::ensureDeleteFile([$this->root . '/de.json', $this->root . '/missing.json']);
