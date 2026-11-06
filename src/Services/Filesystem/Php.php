@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use DragonCode\PrettyArray\Services\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr as IlluminateArr;
+use LaravelLang\Publisher\Helpers\Filesystem;
 
 class Php extends Base
 {
@@ -44,16 +44,9 @@ class Php extends Base
             ? $this->expandValidation($content)
             : $this->expand($content);
 
-        $content = $this->format($content);
-
-        File::make($content)->store($path);
+        Filesystem::store($path, $this->formatter->file($content));
 
         return $path;
-    }
-
-    protected function format(array $items): string
-    {
-        return $this->formatter->raw($items);
     }
 
     protected function expand(array $values): array

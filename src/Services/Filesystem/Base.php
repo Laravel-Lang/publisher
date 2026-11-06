@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Services\Filesystem;
 
 use LaravelLang\Publisher\Contracts\Filesystem;
-use DragonCode\PrettyArray\Services\File as Pretty;
-use DragonCode\PrettyArray\Services\Formatter;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Helpers\Filesystem as Files;
@@ -29,16 +27,12 @@ abstract class Base implements Filesystem
 {
     use Has;
 
+    protected PhpFormatter $formatter;
+
     public function __construct(
-        protected Pretty $pretty = new Pretty,
-        protected Formatter $formatter = new Formatter,
         protected Config $config = new Config
     ) {
-        $this->formatter->setKeyAsString();
-
-        if ($this->config->hasAlign()) {
-            $this->formatter->setEqualsAlign();
-        }
+        $this->formatter = new PhpFormatter($this->config->hasAlign());
     }
 
     public function load(string $path): array
