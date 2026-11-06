@@ -20,10 +20,10 @@ namespace LaravelLang\Publisher\Services\Filesystem;
 use LaravelLang\Publisher\Contracts\Filesystem;
 use DragonCode\PrettyArray\Services\File as Pretty;
 use DragonCode\PrettyArray\Services\Formatter;
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Helpers\Filesystem as Files;
+use LaravelLang\Publisher\Helpers\KeySorter;
 
 abstract class Base implements Filesystem
 {
@@ -52,6 +52,6 @@ abstract class Base implements Filesystem
 
     protected function sort(array $items): array
     {
-        return Arr::ksort($items);
+        return KeySorter::sort($items);
     }
 }
