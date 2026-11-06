@@ -18,9 +18,9 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Plugins;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\Str;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
 use LaravelLang\Publisher\Helpers\Config;
 use RuntimeException;
@@ -58,11 +58,11 @@ abstract class Provider extends BaseServiceProvider
 
     protected function registerPackageName(): void
     {
-        $vendor = Str::of($this->basePath())
-            ->after((string) realpath(base_path('vendor')))
-            ->ltrim('\\/')
-            ->replace('\\', '/')
-            ->toString();
+        $vendor = str_replace(
+            '\\',
+            '/',
+            ltrim(Str::after($this->basePath(), (string) realpath(base_path('vendor'))), '\\/')
+        );
 
         if ($name = $this->package_name ?: $vendor) {
             if (! is_dir($name) && ! is_dir(realpath('/' . $name) ?: '')) {
