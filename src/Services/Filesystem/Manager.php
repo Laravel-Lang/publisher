@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use DragonCode\Contracts\Support\Filesystem;
+use LaravelLang\Publisher\Contracts\Filesystem;
 use DragonCode\Support\Concerns\Resolvable;
 use LaravelLang\Publisher\Concerns\Has;
 

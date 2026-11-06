@@ -17,12 +17,9 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
-use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
+use Illuminate\Support\Arr;
 use LaravelLang\LocaleList\Locale;
+use LaravelLang\Publisher\Helpers\Filesystem;
 
 class Remove extends Processor
 {
@@ -41,58 +38,56 @@ class Remove extends Processor
 
     protected function directories(Locale|string $locale): void
     {
-        Directory::ensureDelete($this->findDirectories($locale));
+        Filesystem::ensureDeleteDirectory($this->findDirectories($locale));
     }
 
     protected function files(Locale|string $locale): void
     {
-        File::ensureDelete($this->findFiles($locale));
+        Filesystem::ensureDeleteFile($this->findFiles($locale));
     }
 
     protected function findDirectories(Locale|string $locale): array
     {
-        return $this->finder(Directory::class, $locale);
+        return $this->finder(Filesystem::directories(...), $locale);
     }
 
     protected function findFiles(Locale|string $locale): array
     {
-        return $this->finder(File::class, $locale);
+        return $this->finder(Filesystem::files(...), $locale);
     }
 
-    protected function finder(Directory|File|string $filesystem, Locale|string $locale): array
+    protected function finder(callable $find, Locale|string $locale): array
     {
         $callback = $this->findCallback($locale);
 
         $names = [];
 
         foreach ($this->paths() as $path) {
-            $items = $filesystem::names($path, $callback, true);
+            $items = $find($path, $callback, true);
 
-            $names[] = Arr::map($items, static fn (string $name) => Str::prepend($name, $path . '/'));
+            $names[] = array_map(static fn (string $name) => $path . '/' . $name, $items);
         }
 
-        return Arr::of($names)->flatten()->unique()->toArray();
+        return array_values(array_unique(Arr::flatten($names)));
     }
 
     protected function findCallback(Locale|string $locale): callable
     {
         $locale = $locale->value ?? $locale;
 
-        return static fn (string $path) => $locale === Path::filename($path);
+        return static fn (string $path) => $locale === pathinfo($path, PATHINFO_FILENAME);
     }
 
     protected function paths(): array
     {
-        return Arr::of([
+        $paths = [
             $this->config->langPath(),
             base_path('vendor/laravel/framework/src/Illuminate/Translation/lang'),
             base_path('vendor/illuminate/translation/src/Illuminate/Translation/lang'),
             __DIR__ . '/../../vendor/laravel/framework/src/Illuminate/Translation/lang',
             __DIR__ . '/../../vendor/illuminate/translation/src/Illuminate/Translation/lang',
-        ])
-            ->flatten()
-            ->filter(static fn (string $path) => is_dir($path) && file_exists($path))
-            ->unique()
-            ->toArray();
+        ];
+
+        return array_unique(array_filter($paths, static fn (string $path) => is_dir($path)));
     }
 }
