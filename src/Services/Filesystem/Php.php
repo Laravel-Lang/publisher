@@ -17,9 +17,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
-use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr as IlluminateArr;
 use LaravelLang\Publisher\Helpers\Filesystem;
 
@@ -29,11 +26,13 @@ class Php extends Base
 
     public function load(string $path): array
     {
-        return Arr::of(parent::load($path))
-            ->flattenKeys()
-            ->except($this->except_keys)
-            ->filter()
-            ->toArray();
+        $items = IlluminateArr::except(
+            IlluminateArr::dot(parent::load($path)),
+            $this->except_keys
+        );
+
+        // Drop empty values, but keep booleans: `false` is a meaningful translation value.
+        return array_filter($items, static fn ($value) => ! empty($value) || is_bool($value));
     }
 
     public function store(string $path, $content): string
@@ -66,7 +65,7 @@ class Php extends Base
         $items      = [];
 
         foreach ($values as $key => $value) {
-            if (Str::startsWith($key, 'attributes.')) {
+            if (str_starts_with((string) $key, 'attributes.')) {
                 $attributeKey              = explode('.', $key, 2)[1];
                 $attributes[$attributeKey] = $value;
 
@@ -76,12 +75,19 @@ class Php extends Base
             IlluminateArr::set($items, $key, $value);
         }
 
-        $custom = Arr::get($items, 'custom');
+        $custom = IlluminateArr::get($items, 'custom');
 
-        return Arr::of($items)
-            ->except(['attributes', 'custom'])
-            ->when(! empty($attributes), fn (Arrayable $array) => $array->set('attributes', $attributes))
-            ->when(! empty($custom), static fn (Arrayable $array) => $array->set('custom', $custom))
-            ->toArray();
+        $result = IlluminateArr::except($items, ['attributes', 'custom']);
+
+        // They go last, in this order, regardless of where they appeared in the source.
+        if (! empty($attributes)) {
+            $result['attributes'] = $attributes;
+        }
+
+        if (! empty($custom)) {
+            $result['custom'] = $custom;
+        }
+
+        return $result;
     }
 }
