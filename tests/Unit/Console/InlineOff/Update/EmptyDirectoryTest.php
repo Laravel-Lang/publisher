@@ -17,9 +17,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Update;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
-use DragonCode\Support\Facades\Filesystem\File;
 use LaravelLang\LocaleList\Locale;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class EmptyDirectoryTest extends TestCase
@@ -38,11 +37,11 @@ class EmptyDirectoryTest extends TestCase
         $this->assertFileDoesNotExist($this->config->langPath('fr/validation.php'));
         $this->assertFileDoesNotExist($this->config->langPath('vendor/baq/fr.json'));
 
-        Directory::ensureDirectory($this->config->langPath('fr'));
+        Filesystem::ensureDirectory($this->config->langPath('fr'));
 
         $this->assertDirectoryExists($this->config->langPath('fr'));
 
-        $this->assertSame([], File::names($this->config->langPath('fr'), recursive: true));
+        $this->assertSame([], Filesystem::files($this->config->langPath('fr'), recursive: true));
 
         $this->artisanLangUpdate();
 
@@ -57,7 +56,7 @@ class EmptyDirectoryTest extends TestCase
         $this->forceDeleteLocale(Locale::French);
         $this->forceDeleteLocale(Locale::German);
 
-        Directory::ensureDirectory($this->config->langPath(Locale::German));
+        Filesystem::ensureDirectory($this->config->langPath(Locale::German));
 
         $this->assertSame('All rights reserved.', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));

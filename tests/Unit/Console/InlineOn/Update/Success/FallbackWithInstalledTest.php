@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOn\Update\Success;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
 use LaravelLang\LocaleList\Locale;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use Tests\Unit\Console\InlineOn\TestCase;
 
 class FallbackWithInstalledTest extends TestCase
@@ -34,7 +34,7 @@ class FallbackWithInstalledTest extends TestCase
     {
         $this->forceDeleteLocale(Locale::German);
 
-        Directory::ensureDirectory($this->config->langPath(Locale::German));
+        Filesystem::ensureDirectory($this->config->langPath(Locale::German));
 
         $this->assertSame('Tous droits réservés.', $this->trans('All rights reserved.'));
         $this->assertSame('Interdit', $this->trans('Forbidden'));

@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
+use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
 use LaravelLang\Config\Enums\Name;
@@ -27,6 +27,7 @@ use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Locales\ServiceProvider as LocalesServiceProvider;
 use LaravelLang\Publisher\Helpers\Config;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Commands;
@@ -95,8 +96,8 @@ abstract class TestCase extends BaseTestCase
     {
         $path = $this->config->langPath();
 
-        Directory::ensureDelete($path);
-        Directory::ensureDirectory($path);
+        Filesystem::ensureDeleteDirectory($path);
+        Filesystem::ensureDirectory($path);
     }
 
     protected function installLocales(): void
@@ -125,7 +126,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function copyFixtures(): void
     {
-        Directory::copy(__DIR__ . '/Fixtures/lang', $this->config->langPath());
+        (new IlluminateFilesystem)->copyDirectory(__DIR__ . '/Fixtures/lang', $this->config->langPath());
     }
 
     protected function trans(string $key): string
