@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Plugins;
 
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Support\Str;
 use LaravelLang\Publisher\Exceptions\UnknownPluginInstanceException;
@@ -73,18 +71,19 @@ abstract class Provider extends BaseServiceProvider
 
     protected function plugins(): array
     {
-        return Arr::of($this->plugins)
-            ->tap(static function (string $plugin) {
-                if (Instance::of($plugin, Plugin::class)) {
-                    return true;
-                }
-
+        foreach ($this->plugins as $plugin) {
+            if (! is_a($plugin, Plugin::class, true)) {
                 throw new UnknownPluginInstanceException($plugin);
-            })
-            ->unique()
-            ->sort()
-            ->values()
-            ->toArray();
+            }
+        }
+
+        $plugins = array_unique($this->plugins);
+
+        // Class names are never numeric, so a case-insensitive byte comparison
+        // gives the same order as the comparator we used before.
+        usort($plugins, static fn (string $a, string $b) => strcmp(mb_strtolower($a), mb_strtolower($b)));
+
+        return $plugins;
     }
 
     protected function basePath(): string
