@@ -57,7 +57,7 @@ class FilesystemTest extends TestCase
         $this->assertSame(['de', 'de/nested', 'fr'], Filesystem::directories($this->root, recursive: true));
     }
 
-    public function testFilterReceivesTheRealPath(): void
+    public function testFilterReceivesTheLexicalPath(): void
     {
         $this->assertSame(
             ['de/nested', 'fr'],
@@ -112,6 +112,16 @@ class FilesystemTest extends TestCase
         );
 
         Filesystem::ensureDeleteDirectory(dirname($target));
+    }
+
+    public function testFilterMatchesSymlinksByTheirOwnName(): void
+    {
+        symlink($this->root . '/de', $this->root . '/en');
+
+        $byName = static fn (string $name) => static fn (string $path) => pathinfo($path, PATHINFO_FILENAME) === $name;
+
+        $this->assertSame(['de'], Filesystem::directories($this->root, $byName('de')));
+        $this->assertSame(['en'], Filesystem::directories($this->root, $byName('en')));
     }
 
     public function testEnsureDeleteFileIgnoresMissing(): void

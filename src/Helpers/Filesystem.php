@@ -109,7 +109,7 @@ final class Filesystem
     /**
      * Find files below $path.
      *
-     * @param  callable(string): bool|null  $filter  receives the real path of each file
+     * @param  callable(string): bool|null  $filter  receives the path of each file (symlinks are not resolved)
      * @return array<string> paths relative to $path, sorted
      */
     public static function files(string $path, ?callable $filter = null, bool $recursive = false): array
@@ -120,7 +120,7 @@ final class Filesystem
     /**
      * Find directories below $path.
      *
-     * @param  callable(string): bool|null  $filter  receives the real path of each directory
+     * @param  callable(string): bool|null  $filter  receives the path of each directory (symlinks are not resolved)
      * @return array<string> paths relative to $path, sorted
      */
     public static function directories(string $path, ?callable $filter = null, bool $recursive = false): array
@@ -152,9 +152,9 @@ final class Filesystem
 
             $isMatch = $directories ? $item->isDir() : $item->isFile();
 
-            // Keep the lexical path so symlink entries retain their own name;
-            // the filter still receives the resolved real path.
-            if ($isMatch && (! $filter || $filter($item->getRealPath()))) {
+            // Both the filter and the result use the lexical path, so a symlink
+            // is matched (and later removed) by its own name, not by its target's.
+            if ($isMatch && (! $filter || $filter($item->getPathname()))) {
                 $items[] = $item->getPathname();
             }
 
