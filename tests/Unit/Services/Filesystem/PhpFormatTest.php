@@ -56,9 +56,9 @@ class PhpFormatTest extends TestCase
 
                 PHP,
             $this->store([
-                'hello'                    => 'Hello',
-                'bye'                      => 'Bye',
-                'messages.greeting'        => 'Hi',
+                'hello'                      => 'Hello',
+                'bye'                        => 'Bye',
+                'messages.greeting'          => 'Hi',
                 'messages.farewell_long_key' => 'Bye',
             ])
         );

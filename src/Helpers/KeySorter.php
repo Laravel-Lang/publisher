@@ -35,11 +35,11 @@ final class KeySorter
 
     public static function sort(array $items): array
     {
-        uksort($items, static::compare(...));
+        uksort($items, self::compare(...));
 
         foreach ($items as &$value) {
             if (is_array($value)) {
-                $value = static::sort($value);
+                $value = self::sort($value);
             }
         }
 
@@ -56,11 +56,11 @@ final class KeySorter
         }
 
         if (is_string($current) && is_numeric($next)) {
-            return static::isSpecial($current) ? -1 : 1;
+            return self::isSpecial($current) ? -1 : 1;
         }
 
         if (is_numeric($current) && is_string($next)) {
-            return static::isSpecial($next) ? 1 : -1;
+            return self::isSpecial($next) ? 1 : -1;
         }
 
         return $current < $next ? -1 : 1;

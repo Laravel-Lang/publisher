@@ -25,9 +25,9 @@ class KeySorterTest extends TestCase
     public function testIgnoresCaseAndSortsRecursively(): void
     {
         $sorted = KeySorter::sort([
-            'Zeta'   => 1,
-            'alpha'  => 1,
-            'Beta'   => ['b' => 1, 'A' => 1],
+            'Zeta'  => 1,
+            'alpha' => 1,
+            'Beta'  => ['b' => 1, 'A' => 1],
         ]);
 
         $this->assertSame(['alpha', 'Beta', 'Zeta'], array_keys($sorted));

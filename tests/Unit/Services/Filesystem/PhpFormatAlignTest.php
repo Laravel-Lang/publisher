@@ -36,10 +36,10 @@ class PhpFormatAlignTest extends TestCase
         $path = $this->config->langPath('en/sample.php');
 
         (new Php)->store($path, [
-            'a'                  => 'A',
-            'long_key'           => 'B',
-            'nested.x'           => 'C',
-            'nested.longer_key'  => 'D',
+            'a'                 => 'A',
+            'long_key'          => 'B',
+            'nested.x'          => 'C',
+            'nested.longer_key' => 'D',
         ]);
 
         $this->assertSame(

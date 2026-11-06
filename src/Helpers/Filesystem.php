@@ -21,9 +21,7 @@ use DirectoryIterator;
 use LaravelLang\Publisher\Exceptions\UnreadableFileException;
 use Throwable;
 
-/**
- * The few filesystem operations the publisher needs, built on native PHP only.
- */
+/** The few filesystem operations the publisher needs, built on native PHP only. */
 final class Filesystem
 {
     public static function exists(string $path): bool
@@ -80,9 +78,7 @@ final class Filesystem
         }
     }
 
-    /**
-     * @throws UnreadableFileException
-     */
+    /** @throws UnreadableFileException */
     public static function load(string $path): array
     {
         try {
@@ -100,9 +96,7 @@ final class Filesystem
         return is_array($values) ? $values : throw new UnreadableFileException($path);
     }
 
-    /**
-     * @return string the real path of the stored file
-     */
+    /** @return string the real path of the stored file */
     public static function store(string $path, string $content, int $mode = 0o755): string
     {
         self::ensureDirectory(dirname($path), $mode);
@@ -116,7 +110,6 @@ final class Filesystem
      * Find files below $path.
      *
      * @param  callable(string): bool|null  $filter  receives the real path of each file
-     *
      * @return array<string> paths relative to $path, sorted
      */
     public static function files(string $path, ?callable $filter = null, bool $recursive = false): array
@@ -128,7 +121,6 @@ final class Filesystem
      * Find directories below $path.
      *
      * @param  callable(string): bool|null  $filter  receives the real path of each directory
-     *
      * @return array<string> paths relative to $path, sorted
      */
     public static function directories(string $path, ?callable $filter = null, bool $recursive = false): array

@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use LaravelLang\Publisher\Contracts\Filesystem;
 use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Contracts\Filesystem;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Helpers\Filesystem as Files;
 use LaravelLang\Publisher\Helpers\KeySorter;
