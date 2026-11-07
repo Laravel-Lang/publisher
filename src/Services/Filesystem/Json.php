@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use DragonCode\Support\Facades\Filesystem\File;
+use LaravelLang\Publisher\Helpers\Filesystem;
 
 class Json extends Base
 {
@@ -25,7 +25,7 @@ class Json extends Base
     {
         $items = $this->sort($content);
 
-        return File::store($path, $this->encode($items));
+        return Filesystem::store($path, $this->encode($items));
     }
 
     protected function encode(array $values): string

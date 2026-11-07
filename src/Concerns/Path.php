@@ -17,23 +17,19 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Concerns;
 
-use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Filesystem\Path as PathHelper;
-use DragonCode\Support\Facades\Helpers\Str;
-
 trait Path
 {
     protected function localeFilename(string $locale, string $path, bool $has_inline = false): string
     {
-        $path = Str::replaceFormat($path, compact('locale'), '{%s}');
+        $path = str_replace('{locale}', $locale, $path);
 
-        $directory = PathHelper::dirname($path);
-        $filename  = PathHelper::filename($path);
-        $extension = PathHelper::extension($path);
+        $directory = pathinfo($path, PATHINFO_DIRNAME);
+        $filename  = pathinfo($path, PATHINFO_FILENAME);
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
         $main   = "$directory/$filename.$extension";
         $inline = "$directory/$filename-inline.$extension";
 
-        return $has_inline && File::exists($inline) ? $inline : $main;
+        return $has_inline && is_file($inline) ? $inline : $main;
     }
 }

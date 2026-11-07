@@ -17,21 +17,22 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Concerns;
 
-use DragonCode\Support\Facades\Filesystem\Path;
 use Illuminate\Support\Str;
 
 trait Has
 {
     protected function hasJson(string $path, bool $extension = true): bool
     {
-        $name = $extension ? Path::extension($path) : Path::filename($path);
+        $name = $extension
+            ? strtolower(pathinfo($path, PATHINFO_EXTENSION))
+            : pathinfo($path, PATHINFO_FILENAME);
 
         return Str::contains($name, 'json', true);
     }
 
     protected function hasValidation(string $path): bool
     {
-        $name = Path::filename($path);
+        $name = pathinfo($path, PATHINFO_FILENAME);
 
         return Str::contains($name, 'validation', true);
     }

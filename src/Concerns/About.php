@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Concerns;
 
 use Composer\InstalledVersions;
-use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Foundation\Console\AboutCommand;
 use LaravelLang\Config\Facades\Config;
 
@@ -40,10 +39,13 @@ trait About
 
     protected function getPackages(): array
     {
-        return Arr::of(Config::hidden()->packages->all())
-            ->renameKeys(static fn (mixed $key, array $values) => $values['class'])
-            ->map(fn (array $values) => $this->getPackageVersion($values['name']))
-            ->toArray();
+        $result = [];
+
+        foreach (Config::hidden()->packages->all() as $values) {
+            $result[$values['class']] = $this->getPackageVersion($values['name']);
+        }
+
+        return $result;
     }
 
     protected function getPackageVersion(string $package): string
@@ -53,10 +55,5 @@ trait About
         }
 
         return '<fg=yellow;options=bold>INCORRECT</>';
-    }
-
-    protected function implodeLocales(array $locales): string
-    {
-        return Arr::of($locales)->sort()->implode(', ')->toString();
     }
 }

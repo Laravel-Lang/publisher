@@ -17,14 +17,14 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
+use LaravelLang\Publisher\Helpers\Filesystem;
 
 class Add extends Processor
 {
     public function prepare(): Processor
     {
         foreach ($this->locales as $locale) {
-            Directory::ensureDirectory($this->config->langPath($locale));
+            Filesystem::ensureDirectory($this->config->langPath($locale));
         }
 
         return $this;

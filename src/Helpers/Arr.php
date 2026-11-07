@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DragonCode\Support\Facades\Helpers\Arr as DragonArr;
-
 class Arr
 {
     public function merge(array $source, array $target, bool $filter_keys = false): array
@@ -34,7 +32,7 @@ class Arr
 
     protected function filter(array $source, array $target, bool $filter_keys = false): array
     {
-        return $filter_keys ? DragonArr::only($target, DragonArr::keys($source)) : $target;
+        return $filter_keys ? array_intersect_key($target, $source) : $target;
     }
 
     public function ksort(array $source): array

@@ -17,8 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Resources;
 
-use DragonCode\Contracts\Support\Arrayable;
-use DragonCode\Support\Facades\Helpers\Str;
+use Illuminate\Contracts\Support\Arrayable;
 use LaravelLang\Publisher\Helpers\Arr;
 
 class Translation implements Arrayable
@@ -70,7 +69,7 @@ class Translation implements Arrayable
 
     protected function resolveFilename(string $path, string $locale): string
     {
-        return Str::replaceFormat($path, compact('locale'), '{%s}');
+        return str_replace('{locale}', $locale, $path);
     }
 
     protected function merge(array $source, array $target, bool $filter_keys = false): array

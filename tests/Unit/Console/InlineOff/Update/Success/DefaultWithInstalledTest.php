@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Update\Success;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
 use LaravelLang\LocaleList\Locale;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class DefaultWithInstalledTest extends TestCase
@@ -32,7 +32,7 @@ class DefaultWithInstalledTest extends TestCase
 
         $this->copyFixtures();
 
-        Directory::ensureDirectory($this->config->langPath(Locale::German));
+        Filesystem::ensureDirectory($this->config->langPath(Locale::German));
 
         $this->assertSame('All rights', $this->trans('All rights reserved.'));
         $this->assertSame('Forbidden', $this->trans('Forbidden'));

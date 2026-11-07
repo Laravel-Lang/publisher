@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Update\Success;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
 use LaravelLang\LocaleList\Locale;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use Tests\Unit\Console\InlineOff\TestCase;
 
 class NestedAttributesTest extends TestCase
@@ -32,7 +32,7 @@ class NestedAttributesTest extends TestCase
 
         $this->copyFixtures();
 
-        Directory::ensureDirectory($this->config->langPath(Locale::French));
+        Filesystem::ensureDirectory($this->config->langPath(Locale::French));
 
         $this->artisanLangUpdate();
 

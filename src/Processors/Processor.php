@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Processors;
 
-use DragonCode\Support\Facades\Filesystem\File;
 use Illuminate\Console\OutputStyle;
 use LaravelLang\Locales\Concerns\Aliases;
 use LaravelLang\Publisher\Concerns\Decorator;
@@ -28,6 +27,7 @@ use LaravelLang\Publisher\Constants\Types;
 use LaravelLang\Publisher\Contracts\TextDecorator;
 use LaravelLang\Publisher\Helpers\Arr as ArrHelper;
 use LaravelLang\Publisher\Helpers\Config;
+use LaravelLang\Publisher\Helpers\Filesystem;
 use LaravelLang\Publisher\Plugins\Plugin;
 use LaravelLang\Publisher\Resources\Translation;
 use LaravelLang\Publisher\Services\Filesystem\Manager;
@@ -89,7 +89,7 @@ abstract class Processor
                     $path = $this->config->langPath($filename);
 
                     $values
-                        = $this->reset || ! File::exists($path)
+                        = $this->reset || ! Filesystem::exists($path)
                         ? $values
                         : $this->arr->merge(
                             $this->filesystem->load($path),

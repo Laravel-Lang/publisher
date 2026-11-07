@@ -17,14 +17,15 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Filesystem;
 
-use DragonCode\Contracts\Support\Filesystem;
-use DragonCode\Support\Concerns\Resolvable;
 use LaravelLang\Publisher\Concerns\Has;
+use LaravelLang\Publisher\Contracts\Filesystem;
 
 class Manager implements Filesystem
 {
     use Has;
-    use Resolvable;
+
+    /** @var array<class-string<Filesystem>, Filesystem> */
+    protected array $resolved = [];
 
     public function load(string $path): array
     {
@@ -38,8 +39,8 @@ class Manager implements Filesystem
 
     protected function filesystem(string $path): Filesystem
     {
-        return $this->hasJson($path)
-            ? static::resolveInstance(Json::class)
-            : static::resolveInstance(Php::class);
+        $class = $this->hasJson($path) ? Json::class : Php::class;
+
+        return $this->resolved[$class] ??= new $class;
     }
 }
