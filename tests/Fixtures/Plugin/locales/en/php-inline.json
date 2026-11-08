@@ -1,0 +1,6 @@
+{
+    "accepted": "This field must be accepted.",
+    "between.array": "This field must have between :min and :max items.",
+    "between.file": "This field must be between :min and :max kilobytes.",
+    "custom.first_name.required": "This field is required."
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~
+  ~ This file is part of the "laravel-lang/publisher" project.
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  ~
+  ~ @author Andrey Helldar <helldar@dragon-code.pro>
+  ~ @copyright 2025 Laravel Lang Team
+  ~ @license MIT
+  ~
+  ~ @see https://laravel-lang.com
+  -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheResult="false"
+         colors="true"
+>
+    <coverage>
+        <report>
+            <clover outputFile="build/logs/clover.xml" />
+            <html outputDirectory="build/logs/coverage" />
+            <text outputFile="build/logs/coverage.txt" />
+        </report>
+    </coverage>
+    <php>
+        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF" />
+    </php>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </source>
+</phpunit>
