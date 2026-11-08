@@ -1,0 +1,7 @@
+{
+    "accepted": "The :attribute must be accepted.",
+    "attributes.first_name": "first name",
+    "between.array": "The :attribute must have between :min and :max items.",
+    "between.file": "The :attribute must be between :min and :max kilobytes.",
+    "custom.first_name.required": "The :attribute field is required."
+}
