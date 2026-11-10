@@ -119,7 +119,7 @@ abstract class Processor
             foreach ($this->locales as $locale) {
                 $locale = $this->fromAlias($locale?->value ?? $locale);
 
-                $locale_alias = $this->toAlias($locale);
+                $locale_alias = $this->fromAlias($locale);
 
                 foreach ($this->file_types as $type) {
                     $main_path   = $this->localeFilename($locale_alias, "$directory/locales/$locale/$type.json");
