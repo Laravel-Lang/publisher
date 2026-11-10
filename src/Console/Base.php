@@ -63,8 +63,8 @@ abstract class Base extends Command
 
     protected function confirmAll(): bool
     {
-        if (empty($this->argument('locales')) && $question = $this->question) {
-            return $this->confirm($question);
+        if ($this->question && empty($this->argument('locales'))) {
+            return $this->confirm($this->question);
         }
 
         return false;

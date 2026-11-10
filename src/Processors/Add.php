@@ -24,7 +24,9 @@ class Add extends Processor
     public function prepare(): Processor
     {
         foreach ($this->locales as $locale) {
-            Filesystem::ensureDirectory($this->config->langPath($locale));
+            $resolved = $this->fromAlias($locale);
+
+            Filesystem::ensureDirectory($this->config->langPath($resolved));
         }
 
         return $this;

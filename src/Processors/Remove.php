@@ -31,8 +31,10 @@ class Remove extends Processor
     public function store(): void
     {
         foreach ($this->locales as $locale) {
-            $this->directories($locale);
-            $this->files($locale);
+            $resolved = $this->fromAlias($locale);
+
+            $this->directories($resolved);
+            $this->files($resolved);
         }
     }
 
