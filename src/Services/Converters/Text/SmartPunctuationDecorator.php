@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Services\Converters\Text;
 
+use LaravelLang\Config\Services\PunctuationConfig;
 use LaravelLang\Publisher\Services\Converters\Extensions\SmartPunctExtension;
 use League\CommonMark\ConverterInterface;
 use League\CommonMark\Environment\Environment;
@@ -27,6 +28,10 @@ use Nette\Schema\Expect;
 class SmartPunctuationDecorator extends BaseDecorator
 {
     protected array $decorators = [];
+
+    public function __construct(
+        protected PunctuationConfig $punctuation,
+    ) {}
 
     public function convert(string $locale, string $value): string
     {
@@ -40,7 +45,7 @@ class SmartPunctuationDecorator extends BaseDecorator
         }
 
         return $this->decorators[$locale] = $this->converter(
-            $this->config->smartPunctuationConfig($locale)
+            $this->punctuation->get($locale),
         );
     }
 

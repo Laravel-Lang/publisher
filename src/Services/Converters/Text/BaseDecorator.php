@@ -18,11 +18,5 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Services\Converters\Text;
 
 use LaravelLang\Publisher\Contracts\TextDecorator;
-use LaravelLang\Publisher\Helpers\Config;
 
-abstract class BaseDecorator implements TextDecorator
-{
-    public function __construct(
-        protected Config $config
-    ) {}
-}
+abstract class BaseDecorator implements TextDecorator {}

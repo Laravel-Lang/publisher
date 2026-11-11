@@ -19,7 +19,7 @@ namespace LaravelLang\Publisher\Processors;
 
 use Illuminate\Console\OutputStyle;
 use Illuminate\Container\Attributes\Config as ConfigAttribute;
-use LaravelLang\Config\Services\Alias;
+use LaravelLang\Config\Services\AliasConfig;
 use LaravelLang\Publisher\Concerns\Decorator;
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Concerns\Output;
@@ -54,7 +54,7 @@ abstract class Processor
         protected Translation $translation = new Translation,
         #[ConfigAttribute('localization_main.inline')]
         protected bool $inline,
-        protected Alias $alias,
+        protected AliasConfig $alias,
     ) {}
 
     public function prepare(): self

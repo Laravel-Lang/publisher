@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Helpers;
 
 use LaravelLang\Config\Facades\Config as BaseConfig;
-use LaravelLang\Config\Services\Alias;
+use LaravelLang\Config\Services\AliasConfig;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Publisher\Constants\Types;
 use Stringable;
@@ -27,7 +27,7 @@ class Config
 {
     public function __construct(
         protected readonly Arr $arr = new Arr,
-        protected Alias $alias,
+        protected AliasConfig $alias,
     ) {}
 
     public function getPlugins(): array
@@ -68,16 +68,6 @@ class Config
             ->implode('/');
 
         return $this->path(lang_path(), $path);
-    }
-
-    public function hasSmartPunctuation(): bool
-    {
-        return BaseConfig::shared()->punctuation->enabled;
-    }
-
-    public function smartPunctuationConfig(string $locale): array
-    {
-        return BaseConfig::shared()->punctuation->locales->get($locale);
     }
 
     protected function path(string $base, string|Stringable|null $suffix = null): string

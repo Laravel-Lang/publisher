@@ -21,7 +21,7 @@ use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
 use LaravelLang\Config\Enums\Name;
-use LaravelLang\Config\ServiceProvider as ConfigServiceProvider;
+use LaravelLang\Config\LaravelLangConfigServiceProvider as ConfigServiceProvider;
 use LaravelLang\JsonFallback\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
