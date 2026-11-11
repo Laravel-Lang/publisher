@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Processors;
 
 use Illuminate\Console\OutputStyle;
+use Illuminate\Container\Attributes\Config as ConfigAttribute;
 use LaravelLang\Locales\Concerns\Aliases;
 use LaravelLang\Publisher\Concerns\Decorator;
 use LaravelLang\Publisher\Concerns\Has;
@@ -51,7 +52,9 @@ abstract class Processor
         protected readonly Config $config,
         protected Manager $filesystem = new Manager,
         protected ArrHelper $arr = new ArrHelper,
-        protected Translation $translation = new Translation
+        protected Translation $translation = new Translation,
+        #[ConfigAttribute('localization_main.inline')]
+        protected bool $inline,
     ) {}
 
     public function prepare(): self
@@ -127,7 +130,7 @@ abstract class Processor
 
                     $values = $this->filesystem->load($main_path);
 
-                    if ($main_path !== $inline_path && $this->config->hasInline()) {
+                    if ($main_path !== $inline_path && $this->inline) {
                         $values = $this->arr->merge($values, $this->filesystem->load($inline_path));
                     }
 

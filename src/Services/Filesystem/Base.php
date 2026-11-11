@@ -19,7 +19,6 @@ namespace LaravelLang\Publisher\Services\Filesystem;
 
 use LaravelLang\Publisher\Concerns\Has;
 use LaravelLang\Publisher\Contracts\Filesystem;
-use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Helpers\Filesystem as Files;
 use LaravelLang\Publisher\Helpers\KeySorter;
 
@@ -29,10 +28,9 @@ abstract class Base implements Filesystem
 
     protected PhpFormatter $formatter;
 
-    public function __construct(
-        protected Config $config = new Config
-    ) {
-        $this->formatter = new PhpFormatter($this->config->hasAlign());
+    public function __construct()
+    {
+        $this->formatter = new PhpFormatter(false);
     }
 
     public function load(string $path): array

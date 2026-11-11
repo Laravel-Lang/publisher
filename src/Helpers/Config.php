@@ -28,7 +28,7 @@ class Config
     use Aliases;
 
     public function __construct(
-        protected readonly Arr $arr = new Arr
+        protected readonly Arr $arr = new Arr,
     ) {}
 
     public function getPlugins(): array
@@ -69,16 +69,6 @@ class Config
             ->implode('/');
 
         return $this->path(lang_path(), $path);
-    }
-
-    public function hasInline(): bool
-    {
-        return BaseConfig::shared()->inline;
-    }
-
-    public function hasAlign(): bool
-    {
-        return BaseConfig::shared()->align;
     }
 
     public function hasSmartPunctuation(): bool
