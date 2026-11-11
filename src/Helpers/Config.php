@@ -18,17 +18,16 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Helpers;
 
 use LaravelLang\Config\Facades\Config as BaseConfig;
+use LaravelLang\Config\Services\Alias;
 use LaravelLang\LocaleList\Locale;
-use LaravelLang\Locales\Concerns\Aliases;
 use LaravelLang\Publisher\Constants\Types;
 use Stringable;
 
 class Config
 {
-    use Aliases;
-
     public function __construct(
         protected readonly Arr $arr = new Arr,
+        protected Alias $alias,
     ) {}
 
     public function getPlugins(): array
@@ -65,7 +64,7 @@ class Config
     {
         $path = collect($paths)
             ->filter()
-            ->map(fn (Locale|string $value) => $this->toAlias($value))
+            ->map(fn (Locale|string $value) => $this->alias->to($value))
             ->implode('/');
 
         return $this->path(lang_path(), $path);
