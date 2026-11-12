@@ -26,7 +26,7 @@ use Stringable;
 class Config
 {
     public function __construct(
-        protected readonly Arr $arr = new Arr,
+        protected readonly Arr $arr,
         protected AliasConfig $alias,
     ) {}
 
