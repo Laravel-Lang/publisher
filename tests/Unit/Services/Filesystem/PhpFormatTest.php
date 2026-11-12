@@ -33,8 +33,6 @@ class PhpFormatTest extends TestCase
     protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
-
-        $app['config']->set(Name::Shared() . '.align', $this->align);
     }
 
     public function testFormatsNestedKeysWithoutAlign(): void

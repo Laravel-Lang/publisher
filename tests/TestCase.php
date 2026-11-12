@@ -20,12 +20,10 @@ namespace Tests;
 use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 use Illuminate\Support\Facades\App;
 use Illuminate\Translation\TranslationServiceProvider;
-use LaravelLang\Config\Enums\Name;
 use LaravelLang\Config\LaravelLangConfigServiceProvider as ConfigServiceProvider;
 use LaravelLang\JsonFallback\TranslationServiceProvider as FixedTranslationServiceProvider;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
-use LaravelLang\Locales\ServiceProvider as LocalesServiceProvider;
 use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Helpers\Filesystem;
 use LaravelLang\Publisher\ServiceProvider as PublisherServiceProvider;
@@ -67,7 +65,6 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             ConfigServiceProvider::class,
-            LocalesServiceProvider::class,
             PublisherServiceProvider::class,
             PluginServiceProvider::class,
         ];
@@ -85,8 +82,8 @@ abstract class TestCase extends BaseTestCase
         /** @var \Illuminate\Config\Repository $config */
         $config = $app['config'];
 
-        $config->set(Name::Shared() . '.inline', $this->inline);
-        $config->set(Name::Shared() . '.smart_punctuation.enable', $this->smartPunctuation);
+        $config->set('localization_main.inline', $this->inline);
+        $config->set('localization_punctuation.enabled', $this->smartPunctuation);
 
         $config->set('app.locale', $this->locale->value);
         $config->set('app.fallback_locale', $this->fallbackLocale->value);
@@ -121,7 +118,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function init(): void
     {
-        $this->config = new Config;
+        $this->config = \app(Config::class);
     }
 
     protected function copyFixtures(): void

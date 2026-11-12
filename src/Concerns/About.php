@@ -19,7 +19,7 @@ namespace LaravelLang\Publisher\Concerns;
 
 use Composer\InstalledVersions;
 use Illuminate\Foundation\Console\AboutCommand;
-use LaravelLang\Config\Facades\Config;
+use LaravelLang\Config\Services\PrivateConfig;
 
 trait About
 {
@@ -41,7 +41,7 @@ trait About
     {
         $result = [];
 
-        foreach (Config::hidden()->packages->all() as $values) {
+        foreach (app(PrivateConfig::class)->packages as $values) {
             $result[$values['class']] = $this->getPackageVersion($values['name']);
         }
 

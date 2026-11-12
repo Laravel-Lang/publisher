@@ -26,7 +26,9 @@ class Add extends Processor
         foreach ($this->locales as $locale) {
             $resolved = $this->alias->from($locale);
 
-            Filesystem::ensureDirectory($this->config->langPath($resolved));
+            Filesystem::ensureDirectory(
+                $this->config->langPath($resolved)
+            );
         }
 
         return $this;

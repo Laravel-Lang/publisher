@@ -27,8 +27,6 @@ class PhpFormatAlignTest extends TestCase
     protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
-
-        $app['config']->set(Name::Shared() . '.align', true);
     }
 
     public function testAlignsArrowsPerLevel(): void
