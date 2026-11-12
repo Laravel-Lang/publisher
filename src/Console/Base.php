@@ -22,7 +22,6 @@ use Illuminate\Support\Collection;
 use LaravelLang\Config\Services\PunctuationConfig;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Contracts\TextDecorator;
-use LaravelLang\Publisher\Helpers\Config;
 use LaravelLang\Publisher\Processors\Processor;
 use LaravelLang\Publisher\Services\Converters\Text\CommonDecorator;
 use LaravelLang\Publisher\Services\Converters\Text\SmartPunctuationDecorator;
@@ -48,9 +47,11 @@ abstract class Base extends Command
 
     protected function resolveProcessor(): Processor
     {
-        $config = $this->config();
-
-        return new $this->processor($this->output, $this->locales(), $this->decorator(), $config);
+        return app($this->processor, [
+            'output'    => $this->output,
+            'locales'   => $this->locales(),
+            'decorator' => $this->decorator(),
+        ]);
     }
 
     protected function locales(): array
@@ -63,11 +64,6 @@ abstract class Base extends Command
         return $this->punctuation->enabled
             ? new SmartPunctuationDecorator()
             : new CommonDecorator();
-    }
-
-    protected function config(): Config
-    {
-        return new Config;
     }
 
     protected function confirmAll(): bool
