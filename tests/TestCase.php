@@ -93,7 +93,7 @@ abstract class TestCase extends BaseTestCase
     {
         $path = $this->config->langPath();
 
-        Filesystem::ensureDeleteDirectory($path);
+        (new IlluminateFilesystem)->deleteDirectory($path);
         Filesystem::ensureDirectory($path);
     }
 
@@ -133,7 +133,20 @@ abstract class TestCase extends BaseTestCase
 
     protected function forceDeleteLocale(Locale $locale): void
     {
-        $this->artisanLangRemove($locale, true);
+        $filesystem = new IlluminateFilesystem;
+        $path       = $this->config->langPath();
+
+        foreach ($filesystem->allDirectories($path) as $directory) {
+            if (basename($directory) === $locale->value) {
+                $filesystem->deleteDirectory($directory);
+            }
+        }
+
+        foreach ($filesystem->allFiles($path) as $file) {
+            if ($file->getBasename('.' . $file->getExtension()) === $locale->value) {
+                $filesystem->delete($file->getPathname());
+            }
+        }
 
         $this->reloadLocales();
     }

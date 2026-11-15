@@ -32,15 +32,6 @@ trait Commands
             : $this->reloadLocales();
     }
 
-    protected function artisanLangRemove(array|Locale|string|null $locales = null, bool $force = false): void
-    {
-        is_null($locales)
-            ? $this->artisan('lang:rm', ['--force' => $force])->run()
-            : $this->artisan('lang:rm', array_merge(['--force' => $force], compact('locales')))->run();
-
-        $this->reloadLocales();
-    }
-
     protected function artisanLangUpdate(): void
     {
         $this->artisan('lang:update')->run();

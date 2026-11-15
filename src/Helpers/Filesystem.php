@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Helpers;
 
-use DirectoryIterator;
 use LaravelLang\Publisher\Exceptions\UnreadableFileException;
 use Throwable;
 
@@ -33,48 +32,6 @@ final class Filesystem
     {
         if (! is_dir($path)) {
             mkdir($path, $mode, true);
-        }
-    }
-
-    /** @param  array<string>|string  $paths */
-    public static function ensureDeleteFile(array|string $paths): void
-    {
-        foreach ((array) $paths as $path) {
-            if (is_file($path)) {
-                unlink($path);
-            }
-        }
-    }
-
-    /**
-     * Recursively delete directories. Symlinks are unlinked, never followed.
-     *
-     * @param  array<string>|string  $paths
-     */
-    public static function ensureDeleteDirectory(array|string $paths): void
-    {
-        foreach ((array) $paths as $path) {
-            if (is_link($path)) {
-                unlink($path);
-
-                continue;
-            }
-
-            if (! is_dir($path)) {
-                continue;
-            }
-
-            foreach (new DirectoryIterator($path) as $item) {
-                if ($item->isDot()) {
-                    continue;
-                }
-
-                $item->isDir() && ! $item->isLink()
-                    ? self::ensureDeleteDirectory($item->getPathname())
-                    : unlink($item->getPathname());
-            }
-
-            rmdir($path);
         }
     }
 
@@ -104,66 +61,5 @@ final class Filesystem
         file_put_contents($path, $content);
 
         return realpath($path);
-    }
-
-    /**
-     * Find files below $path.
-     *
-     * @param  callable(string): bool|null  $filter  receives the path of each file (symlinks are not resolved)
-     * @return array<string> paths relative to $path, sorted
-     */
-    public static function files(string $path, ?callable $filter = null, bool $recursive = false): array
-    {
-        return self::names($path, $filter, $recursive, false);
-    }
-
-    /**
-     * Find directories below $path.
-     *
-     * @param  callable(string): bool|null  $filter  receives the path of each directory (symlinks are not resolved)
-     * @return array<string> paths relative to $path, sorted
-     */
-    public static function directories(string $path, ?callable $filter = null, bool $recursive = false): array
-    {
-        return self::names($path, $filter, $recursive, true);
-    }
-
-    protected static function names(string $path, ?callable $filter, bool $recursive, bool $directories): array
-    {
-        $root  = realpath($path);
-        $paths = self::scan($root, $filter, $recursive, $directories);
-
-        sort($paths);
-
-        return array_map(
-            static fn (string $item) => trim(substr($item, strlen($root)), '\\/'),
-            $paths
-        );
-    }
-
-    protected static function scan(string $path, ?callable $filter, bool $recursive, bool $directories): array
-    {
-        $items = [];
-
-        foreach (new DirectoryIterator($path) as $item) {
-            if ($item->isDot()) {
-                continue;
-            }
-
-            $isMatch = $directories ? $item->isDir() : $item->isFile();
-
-            // Both the filter and the result use the lexical path, so a symlink
-            // is matched (and later removed) by its own name, not by its target's.
-            if ($isMatch && (! $filter || $filter($item->getPathname()))) {
-                $items[] = $item->getPathname();
-            }
-
-            // Never descend into symlinked directories (avoids cycles and escaping the root).
-            if ($recursive && $item->isDir() && ! $item->isLink()) {
-                $items = array_merge($items, self::scan($item->getPathname(), $filter, $recursive, $directories));
-            }
-        }
-
-        return $items;
     }
 }

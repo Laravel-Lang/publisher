@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\InlineOff\Update;
 
+use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Publisher\Helpers\Filesystem;
 use Tests\Unit\Console\InlineOff\TestCase;
@@ -41,7 +42,7 @@ class EmptyDirectoryTest extends TestCase
 
         $this->assertDirectoryExists($this->config->langPath('fr'));
 
-        $this->assertSame([], Filesystem::files($this->config->langPath('fr'), recursive: true));
+        $this->assertSame([], (new IlluminateFilesystem)->allFiles($this->config->langPath('fr')));
 
         $this->artisanLangUpdate();
 
