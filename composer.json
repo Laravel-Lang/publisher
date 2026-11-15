@@ -39,21 +39,10 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/Laravel-Lang/publisher/issues",
-        "source": "https://github.com/Laravel-Lang/publisher"
+        "source": "https://github.com/Laravel-Lang/mona"
     },
-    "funding": [
-        {
-            "type": "boosty",
-            "url": "https://boosty.to/dragon-code"
-        },
-        {
-            "type": "yoomoney",
-            "url": "https://yoomoney.ru/to/410012608840929"
-        }
-    ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "ext-json": "*",
         "composer/semver": "^3.4",
         "illuminate/collections": "^10.0 || ^11.0 || ^12.0 || ^13.0",
@@ -82,14 +71,6 @@
             "LaravelLang\\Publisher\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
-        "files": [
-            "tests/Fixtures/collision_functions.php"
-        ]
-    },
     "config": {
         "allow-plugins": {
             "dragon-code/codestyler": true,
@@ -104,7 +85,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelLang\\Publisher\\ServiceProvider"
+                "LaravelLang\\Publisher\\LangPublisherServiceProvider"
             ]
         }
     }

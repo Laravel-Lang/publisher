@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher;
 
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use LaravelLang\Publisher\Console\AddCommand;
+use LaravelLang\Publisher\Console\RemoveCommand;
 use LaravelLang\Publisher\Console\UpdateCommand;
 
-class ServiceProvider extends BaseServiceProvider
+class LangPublisherServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
@@ -18,6 +19,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->commands([
             AddCommand::class,
+            RemoveCommand::class,
             UpdateCommand::class,
         ]);
     }

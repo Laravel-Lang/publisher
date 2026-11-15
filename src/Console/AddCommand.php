@@ -29,7 +29,7 @@ use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\task;
 
 #[Signature('lang:add {locales?* : Space-separated list of, eg: de tk it}')]
-#[Description('Install new localizations.')]
+#[Description('Install new localizations')]
 final class AddCommand extends Command
 {
     public function __invoke(Filesystem $filesystem): int
