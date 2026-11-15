@@ -40,8 +40,6 @@ abstract class Processor
     use Output;
     use Path;
 
-    protected bool $reset = false;
-
     protected array $file_types = ['json', 'php'];
 
     public function __construct(
@@ -92,7 +90,7 @@ abstract class Processor
                     $path = $this->config->langPath($filename);
 
                     $values
-                        = $this->reset || ! Filesystem::exists($path)
+                        = ! Filesystem::exists($path)
                         ? $values
                         : $this->arr->merge(
                             $this->filesystem->load($path),
