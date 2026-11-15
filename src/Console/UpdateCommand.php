@@ -20,7 +20,7 @@ namespace LaravelLang\Publisher\Console;
 use LaravelLang\Publisher\Processors\Processor;
 use LaravelLang\Publisher\Processors\Update as UpdateProcessor;
 
-class Update extends Base
+class UpdateCommand extends Base
 {
     protected $signature = 'lang:update';
 
