@@ -43,13 +43,13 @@ final class RemoveCommand extends Command
             }
 
             if ($this->isProtected($locale)) {
-                $this->components->twoColumnDetail($locale, $this->cyan('PROTECTED'));
+                $this->components->twoColumnDetail($locale, $this->yellow('PROTECTED'));
 
                 continue;
             }
 
             if (! $this->isInstalled($locale)) {
-                $this->components->twoColumnDetail($locale, $this->green('DONE'));
+                $this->components->twoColumnDetail($locale, $this->gray('SKIP'));
 
                 continue;
             }
