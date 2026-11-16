@@ -19,18 +19,26 @@ class SourceCollector
     /**
      * @param  array<string, FileData[]>  $plugins
      *
-     * @return array<string, string[]>
+     * @return array<string, array<array<string, array>>>
      */
     public function all(array $plugins): array
     {
         $result = [];
 
         foreach ($plugins as $directory => $files) {
+            $items = [];
+
             foreach ($files as $file) {
-                $result[$file->target] = array_merge(
-                    $result[$file->target],
-                    $this->load($directory, $file->source)
-                );
+                $data = $this->load($directory, $file->source);
+
+                if (! $data) {
+                    continue;
+                }
+
+                $result[$file->target][] = [
+                    'directory' => $directory,
+                    'items'     => array_merge($items, $data),
+                ];
             }
         }
 

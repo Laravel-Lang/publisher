@@ -52,11 +52,13 @@ final class UpdateCommand extends Command
             $library = $loader->get($filesystem->libraryPath(), $locale);
 
             foreach ($source as $filename => $translatable) {
-                $package = $loader->get($directory, $locale);
+                foreach ($translatable as $data) {
+                    $package = $loader->get($data['directory'], $locale);
 
-                $filled = $this->fill($library, $package, $translatable);
+                    $filled = $this->fill($library, $package, $data['items']);
 
-                $this->store($filesystem, $filename, $locale, $filled);
+                    $this->store($filesystem, $filename, $locale, $filled);
+                }
             }
         }
     }
@@ -83,7 +85,9 @@ final class UpdateCommand extends Command
 
     protected function store(Filesystem $filesystem, string $filename, string $locale, array $translations): void
     {
-        $filesystem->store($this->targetPath($filename, $locale), $translations);
+        $path = $this->targetPath($filename, $locale);
+
+        $filesystem->store($path, $translations, true);
     }
 
     protected function targetPath(string $filename, string $locale): string
