@@ -15,13 +15,9 @@ use LaravelLang\Publisher\Collectors\SourceCollector;
 use function Laravel\Prompts\task;
 
 #[Signature('lang:update')]
-#[Description('Updating installed localizations.')]
+#[Description('Updating installed localizations')]
 final class UpdateCommand extends Command
 {
-    protected $signature = 'lang:update';
-
-    protected $description = 'Updating installed localizations.';
-
     public function __invoke(
         Filesystem $filesystem,
         PluginCollector $pluginCollector,
@@ -31,7 +27,7 @@ final class UpdateCommand extends Command
             $plugins = $pluginCollector->find();
         });
 
-        task('Collection source', function () use ($sourceCollector, $plugins, &$source) {
+        task('Collecting source', function () use ($sourceCollector, $plugins, &$source) {
             $source = $sourceCollector->all($plugins);
         });
 

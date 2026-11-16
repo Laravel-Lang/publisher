@@ -13,5 +13,7 @@ class SourceCollector
      *
      * @return array
      */
-    public function all(array $plugins): array {}
+    public function all(array $plugins): array {
+        
+    }
 }

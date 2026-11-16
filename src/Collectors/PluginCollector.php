@@ -28,7 +28,7 @@ class PluginCollector
         foreach ($this->settings() as $setting) {
             $directory = $setting['directory'];
 
-            $items = $this->filesystem->json($setting, 'plugins');
+            $items = $this->filesystem->fromJson($setting, 'plugins');
 
             if ($filtered = $this->filter($items)) {
                 $plugins[$directory] = $this->map($filtered);
@@ -55,10 +55,11 @@ class PluginCollector
                 $isProject = $plugin['project'] ?? false;
                 $vendor    = $plugin['vendor'] ?? null;
                 $version   = $plugin['version'] ?? null;
+                $files     = $plugin['files'] ?? [];
 
                 if ($isProject) {
                     if ($this->composer->hasProject($vendor)) {
-                        $result[$directory][] = $plugin['files'];
+                        $result[$directory][] = $files;
                     }
 
                     continue;
@@ -72,7 +73,7 @@ class PluginCollector
                     continue;
                 }
 
-                $result[$directory][] = $plugin['files'];
+                $result[$directory][] = $files;
             }
         }
 
