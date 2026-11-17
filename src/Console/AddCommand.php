@@ -8,7 +8,7 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use LaravelLang\Exceptions\UnknownLocaleCodeException;
+use LaravelLang\Exceptions\UnknownLocaleException;
 use LaravelLang\LocaleList\Locale;
 
 use LaravelLang\Locales\Facades\Locales;
@@ -66,7 +66,7 @@ final class AddCommand extends Command
     {
         foreach ($locales as $locale) {
             if (! Locales::isAvailable($locale)) {
-                throw new UnknownLocaleCodeException($locale);
+                throw new UnknownLocaleException($locale);
             }
         }
     }
