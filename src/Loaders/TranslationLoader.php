@@ -35,7 +35,7 @@ class TranslationLoader
     protected function styles(): array
     {
         if (! in_array('default', $this->styles, true)) {
-            array_unshift($this->styles, ['default']);
+            array_unshift($this->styles, 'default');
         }
 
         return $this->styles;
