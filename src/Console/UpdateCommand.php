@@ -48,7 +48,7 @@ final class UpdateCommand extends Command
 
     protected function updateLocales(Filesystem $filesystem, TranslationLoader $loader, array $source): void
     {
-        foreach (Locales::installed() as $locale) {
+        foreach (Locales::raw()->installed() as $locale) {
             $library = $loader->get($filesystem->libraryPath(), $locale);
 
             foreach ($source as $filename => $translatable) {
