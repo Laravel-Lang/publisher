@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Collectors;
 
+use Illuminate\Support\Arr;
 use LaravelLang\Filesystem\Composer;
 use LaravelLang\Filesystem\Filesystem;
-
 use LaravelLang\Publisher\Data\FileData;
 
 use function array_map;
+use function dirname;
 
 class PluginCollector
 {
@@ -26,58 +27,65 @@ class PluginCollector
         $plugins = [];
 
         foreach ($this->settings() as $setting) {
-            $directory = $setting['directory'];
+            $directory = dirname($setting);
 
             $items = $this->filesystem->fromJson($setting, 'plugins');
 
-            if ($filtered = $this->filter($items)) {
-                $plugins[$directory] = $this->map($filtered);
-            }
+            $filtered  = $this->filter($items);
+            $collapsed = $this->collapse($filtered);
+
+            $plugins[$directory] = $this->map($collapsed);
         }
 
         return $plugins;
     }
 
-    protected function map(array $plugins): array
+    protected function map(array $files): array
     {
-        return array_map(static fn (array $file) => new FileData(
-            source: $file['source'],
-            target: $file['target'],
-        ), $plugins);
+        return array_map(
+            static fn (array $file) => new FileData(
+                source: $file['source'],
+                target: $file['target'],
+            ),
+            $files
+        );
     }
 
     protected function filter(array $plugins): array
     {
-        $result = [];
+        $items = [];
 
-        foreach ($plugins as $directory => $items) {
-            foreach ($items as $plugin) {
-                $isProject = $plugin['project'] ?? false;
-                $vendor    = $plugin['vendor'] ?? null;
-                $version   = $plugin['version'] ?? null;
-                $files     = $plugin['files'] ?? [];
+        foreach ($plugins as $plugin) {
+            $isProject = $plugin['project'] ?? false;
+            $vendor    = $plugin['vendor'] ?? null;
+            $version   = $plugin['version'] ?? null;
+            $files     = $plugin['files'] ?? [];
 
-                if ($isProject) {
-                    if ($this->composer->hasProject($vendor)) {
-                        $result[$directory][] = $files;
-                    }
-
-                    continue;
+            if ($isProject) {
+                if ($this->composer->hasProject($vendor)) {
+                    $items[] = $files;
                 }
 
-                if (! $this->composer->hasPackage($vendor)) {
-                    continue;
-                }
-
-                if (! $this->composer->hasVersion($vendor, $version)) {
-                    continue;
-                }
-
-                $result[$directory][] = $files;
+                continue;
             }
+
+            if (! $this->composer->hasPackage($vendor)) {
+                continue;
+            }
+
+            if (! $this->composer->hasVersion($vendor, $version)) {
+                continue;
+            }
+
+            $items[] = $files;
         }
 
-        return $result;
+        return $items;
+    }
+
+    protected function collapse(array $items): array
+    {
+        return Arr::collapse($items);
     }
 
     protected function settings(): array

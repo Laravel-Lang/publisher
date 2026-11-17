@@ -7,6 +7,7 @@ namespace LaravelLang\Publisher\Console;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use LaravelLang\Config\Services\AliasConfig;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
@@ -30,6 +31,7 @@ final class UpdateCommand extends Command
         PluginCollector $pluginCollector,
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
+        AliasConfig $aliasConfig,
     ): int {
         task('Find plugins', function () use ($pluginCollector, &$plugins) {
             $plugins = $pluginCollector->find();
@@ -39,15 +41,19 @@ final class UpdateCommand extends Command
             $source = $sourceCollector->all($plugins);
         });
 
-        task('Updating locales', function () use ($filesystem, $translationLoader, $source) {
-            $this->updateLocales($filesystem, $translationLoader, $source);
+        task('Updating locales', function () use ($filesystem, $translationLoader, $aliasConfig, $source) {
+            $this->updateLocales($filesystem, $translationLoader, $aliasConfig, $source);
         });
 
         return self::SUCCESS;
     }
 
-    protected function updateLocales(Filesystem $filesystem, TranslationLoader $loader, array $source): void
-    {
+    protected function updateLocales(
+        Filesystem $filesystem,
+        TranslationLoader $loader,
+        AliasConfig $aliasConfig,
+        array $source,
+    ): void {
         foreach (Locales::raw()->installed() as $locale) {
             $library = $loader->get($filesystem->libraryPath(), $locale);
 
@@ -57,7 +63,7 @@ final class UpdateCommand extends Command
 
                     $filled = $this->fill($library, $package, $data['items']);
 
-                    $this->store($filesystem, $filename, $locale, $filled);
+                    $this->store($filesystem, $aliasConfig, $filename, $locale, $filled);
                 }
             }
         }
@@ -83,15 +89,20 @@ final class UpdateCommand extends Command
         return $items;
     }
 
-    protected function store(Filesystem $filesystem, string $filename, string $locale, array $translations): void
-    {
-        $path = $this->targetPath($filename, $locale);
+    protected function store(
+        Filesystem $filesystem,
+        AliasConfig $aliasConfig,
+        string $filename,
+        string $locale,
+        array $translations,
+    ): void {
+        $path = $this->targetPath($aliasConfig, $filename, $locale);
 
         $filesystem->store($path, $translations, true);
     }
 
-    protected function targetPath(string $filename, string $locale): string
+    protected function targetPath(AliasConfig $aliasConfig, string $filename, string $locale): string
     {
-        return lang_path(str_replace('{locale}', $locale, $filename));
+        return lang_path(str_replace('{locale}', $aliasConfig->from($locale), $filename));
     }
 }
