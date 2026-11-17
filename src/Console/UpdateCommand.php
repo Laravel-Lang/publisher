@@ -7,6 +7,7 @@ namespace LaravelLang\Publisher\Console;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use LaravelLang\Config\Services\AliasConfig;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
@@ -17,6 +18,7 @@ use LaravelLang\Publisher\Collectors\SourceCollector;
 use LaravelLang\Publisher\Loaders\TranslationLoader;
 
 use function array_merge;
+use function config;
 use function is_array;
 use function lang_path;
 use function Laravel\Prompts\task;
@@ -59,11 +61,17 @@ final class UpdateCommand extends Command
 
             foreach ($source as $filename => $translatable) {
                 foreach ($translatable as $data) {
+                    $path = $this->targetPath($aliasConfig, $filename, $locale);
+
+                    if ($this->needSkip($path)) {
+                        continue;
+                    }
+
                     $package = $loader->get($data['directory'], $locale);
 
                     $filled = $this->fill($library, $package, $data['items']);
 
-                    $this->store($filesystem, $aliasConfig, $filename, $locale, $filled);
+                    $filesystem->store($path, $filled, true);
                 }
             }
         }
@@ -89,20 +97,15 @@ final class UpdateCommand extends Command
         return $items;
     }
 
-    protected function store(
-        Filesystem $filesystem,
-        AliasConfig $aliasConfig,
-        string $filename,
-        string $locale,
-        array $translations,
-    ): void {
-        $path = $this->targetPath($aliasConfig, $filename, $locale);
-
-        $filesystem->store($path, $translations, true);
-    }
-
     protected function targetPath(AliasConfig $aliasConfig, string $filename, string $locale): string
     {
         return lang_path(str_replace('{locale}', $aliasConfig->from($locale), $filename));
+    }
+
+    protected function needSkip(string $path): bool
+    {
+        $prepared = str_replace('\\', '/', $path);
+
+        return Str::is(config()->array('localization_main.skip'), $prepared, true);
     }
 }

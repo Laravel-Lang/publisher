@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Collectors;
 
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Composer;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Publisher\Data\FileData;
 
+use function array_filter;
 use function array_map;
 use function dirname;
 
 class PluginCollector
 {
     public function __construct(
+        #[Config('localization_main.skip')]
+        protected array $skip,
         protected Filesystem $filesystem,
         protected Composer $composer,
     ) {}
@@ -31,10 +36,11 @@ class PluginCollector
 
             $items = $this->filesystem->fromJson($setting, 'plugins');
 
-            $filtered  = $this->filter($items);
-            $collapsed = $this->collapse($filtered);
+            $items = $this->filter($items);
+            $items = $this->collapse($items);
+            $items = $this->skip($directory, $items);
 
-            $plugins[$directory] = $this->map($collapsed);
+            $plugins[$directory] = $this->map($items);
         }
 
         return $plugins;
@@ -83,6 +89,15 @@ class PluginCollector
         return $items;
     }
 
+    protected function skip(string $directory, array $files): array
+    {
+        return array_filter($files, function (array $file) use ($directory) {
+            ['source' => $source] = $file;
+
+            return ! $this->needSkip($directory . '/source/' . $source);
+        });
+    }
+
     protected function collapse(array $items): array
     {
         return Arr::collapse($items);
@@ -93,5 +108,12 @@ class PluginCollector
         return $this->filesystem->glob(
             $this->filesystem->vendorPath('*/*/laravel_lang.json')
         );
+    }
+
+    protected function needSkip(string $path): bool
+    {
+        $prepared = str_replace('\\', '/', $path);
+
+        return Str::is($this->skip, $prepared, true);
     }
 }

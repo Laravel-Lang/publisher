@@ -5,17 +5,21 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Loaders;
 
 use Illuminate\Container\Attributes\Config;
+use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Filesystem;
 
 use function array_merge;
 use function array_unshift;
 use function in_array;
+use function str_replace;
 
 class TranslationLoader
 {
     public function __construct(
         #[Config('localization_main.styles')]
         protected array $styles,
+        #[Config('localization_main.skip')]
+        protected array $skip,
         protected Filesystem $filesystem,
     ) {}
 
@@ -24,9 +28,13 @@ class TranslationLoader
         $result = [];
 
         foreach ($this->styles() as $style) {
-            $result[] = $this->filesystem->fromJson(
-                path: $directory . '/locales/' . $locale . '/' . $style . '.json'
-            );
+            $path = $this->path($directory, $locale, $style);
+
+            if ($this->needSkip($path)) {
+                continue;
+            }
+
+            $result[] = $this->filesystem->fromJson($path);
         }
 
         return array_merge(...$result);
@@ -39,5 +47,17 @@ class TranslationLoader
         }
 
         return $this->styles;
+    }
+
+    protected function path(string $directory, string $locale, string $style): string
+    {
+        return $directory . '/locales/' . $locale . '/' . $style . '.json';
+    }
+
+    protected function needSkip(string $path): bool
+    {
+        $prepared = str_replace('\\', '/', $path);
+
+        return Str::is($this->skip, $prepared, true);
     }
 }
