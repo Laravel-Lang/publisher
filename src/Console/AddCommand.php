@@ -20,9 +20,12 @@ namespace LaravelLang\Publisher\Console;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
-
 use Illuminate\Filesystem\Filesystem;
 use LaravelLang\LocaleList\Locale;
+
+use LaravelLang\Locales\Facades\Locales;
+
+use LaravelLang\Publisher\Exceptions\UnknownLocaleCodeException;
 
 use function lang_path;
 use function Laravel\Prompts\confirm;
@@ -37,6 +40,8 @@ final class AddCommand extends Command
         if (! $locales = $this->locales()) {
             return self::SUCCESS;
         }
+
+        $this->validate($locales);
 
         task('Adding localization', fn () => $this->create($filesystem, $locales));
         task('Updating localizations', fn () => $this->update());
@@ -64,10 +69,19 @@ final class AddCommand extends Command
             return $locales;
         }
 
-        if (confirm('Do you want to install all localizations?', required: true)) {
+        if (confirm('Do you want to install all localizations?')) {
             return Locale::values();
         }
 
         return [];
+    }
+
+    protected function validate(array $locales): void
+    {
+        foreach ($locales as $locale) {
+            if (! Locales::isAvailable($locale)) {
+                throw new UnknownLocaleCodeException($locale);
+            }
+        }
     }
 }
