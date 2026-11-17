@@ -56,7 +56,7 @@ final class UpdateCommand extends Command
         AliasConfig $aliasConfig,
         array $source,
     ): void {
-        foreach (Locales::raw()->installed() as $locale) {
+        foreach (Locales::installed() as $locale) {
             $library = $loader->get($filesystem->libraryPath(), $locale);
 
             foreach ($source as $filename => $translatable) {
