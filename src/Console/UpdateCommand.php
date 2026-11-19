@@ -8,7 +8,7 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use LaravelLang\Config\Services\AliasConfig;
+use LaravelLang\Config\Services\AliasLangConfig;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
@@ -33,7 +33,7 @@ final class UpdateCommand extends Command
         PluginCollector $pluginCollector,
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
-        AliasConfig $aliasConfig,
+        AliasLangConfig $aliasConfig,
     ): int {
         task('Find plugins', function () use ($pluginCollector, &$plugins) {
             $plugins = $pluginCollector->find();
@@ -53,7 +53,7 @@ final class UpdateCommand extends Command
     protected function updateLocales(
         Filesystem $filesystem,
         TranslationLoader $loader,
-        AliasConfig $aliasConfig,
+        AliasLangConfig $aliasConfig,
         array $source,
     ): void {
         foreach (Locales::installed() as $locale) {
@@ -97,7 +97,7 @@ final class UpdateCommand extends Command
         return $items;
     }
 
-    protected function targetPath(AliasConfig $aliasConfig, string $filename, string $locale): string
+    protected function targetPath(AliasLangConfig $aliasConfig, string $filename, string $locale): string
     {
         return lang_path(str_replace('{locale}', $aliasConfig->from($locale), $filename));
     }
