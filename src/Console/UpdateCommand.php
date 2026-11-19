@@ -71,7 +71,7 @@ final class UpdateCommand extends Command
 
                     $filled = $this->fill($library, $package, $data['items']);
 
-                    $filesystem->store($path, $filled, true);
+                    $filesystem->storeArray($path, $filled, true);
                 }
             }
         }
