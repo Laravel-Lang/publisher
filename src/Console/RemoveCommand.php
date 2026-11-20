@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Laravel\Prompts\Concerns\Colors;
@@ -17,11 +15,13 @@ use function app;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 
-#[Signature('lang:rm {locales?* : Space-separated list of, eg: de tk it}')]
-#[Description('Deleting localizations')]
 final class RemoveCommand extends Command
 {
     use Colors;
+
+    protected $signature = 'lang:rm {locales?* : Space-separated list of, eg: de tk it}';
+
+    protected $description = 'Deleting localizations';
 
     public function __invoke(Filesystem $filesystem): int
     {

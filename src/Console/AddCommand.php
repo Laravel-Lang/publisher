@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
-use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use LaravelLang\Exceptions\UnknownLocaleException;
@@ -17,10 +15,12 @@ use function lang_path;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\task;
 
-#[Signature('lang:add {locales?* : Space-separated list of, eg: de tk it}')]
-#[Description('Install new localizations')]
 final class AddCommand extends Command
 {
+    protected $signature = 'lang:add {locales?* : Space-separated list of, eg: de tk it}';
+
+    protected $description = 'Install new localizations';
+
     public function __invoke(Filesystem $filesystem): int
     {
         if (! $locales = $this->locales()) {
