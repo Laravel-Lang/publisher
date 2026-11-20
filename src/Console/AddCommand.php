@@ -38,8 +38,10 @@ final class AddCommand extends Command
     protected function create(Filesystem $filesystem, array $locales): void
     {
         foreach ($locales as $locale) {
+            $normalized = Locales::fromAlias($locale);
+
             $filesystem->ensureDirectoryExists(
-                lang_path($locale)
+                lang_path($normalized)
             );
         }
     }

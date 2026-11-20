@@ -13,6 +13,7 @@ use LaravelLang\LocaleList\Locale;
 
 use LaravelLang\Locales\Facades\Locales;
 
+use function app;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 
@@ -35,66 +36,46 @@ final class RemoveCommand extends Command
 
     protected function perform(Filesystem $filesystem, array $locales): void
     {
+        $protected = Locales::protects(false)->merge([
+            app()->getLocale(),
+            app()->getFallbackLocale(),
+        ]);
+
         foreach ($locales as $locale) {
-            if (! $this->isValid($locale)) {
+            $code = Locales::fromAlias($locale);
+
+            if ($code === null || Locale::tryFrom($code) === null) {
                 $this->components->twoColumnDetail($locale, $this->red('INVALID'));
 
                 continue;
             }
 
-            if ($this->isProtected($locale)) {
+            if ($protected->containsStrict($code)) {
                 $this->components->twoColumnDetail($locale, $this->yellow('PROTECTED'));
 
                 continue;
             }
 
-            if (! $this->isInstalled($locale)) {
+            if (! Locales::isInstalled($locale)) {
                 $this->components->twoColumnDetail($locale, $this->gray('SKIP'));
 
                 continue;
             }
 
-            $this->remove($filesystem, $locale);
+            $this->remove($filesystem, $code);
 
             $this->components->twoColumnDetail($locale, $this->green('DONE'));
         }
     }
 
-    protected function remove(Filesystem $filesystem, string $locale): void
+    protected function remove(Filesystem $filesystem, string $code): void
     {
-        $this->deleteDirectories($filesystem, $locale);
-        $this->deleteFiles($filesystem, $locale);
-    }
+        $roots = [lang_path(), ...$filesystem->glob(lang_path('vendor/*'), GLOB_ONLYDIR)];
 
-    protected function deleteDirectories(Filesystem $filesystem, string $locale): void
-    {
-        $dirs = $filesystem->glob(lang_path("\{$locale,vendor/*/$locale}"), GLOB_ONLYDIR | GLOB_BRACE);
-
-        foreach ($dirs as $dir) {
-            $filesystem->deleteDirectory($dir);
+        foreach ($roots as $root) {
+            $filesystem->deleteDirectory("$root/$code");
+            $filesystem->delete("$root/$code.json");
         }
-    }
-
-    protected function deleteFiles(Filesystem $filesystem, string $locale): void
-    {
-        $files = $filesystem->glob(lang_path("\{$locale.json,vendor/*/$locale.json}"), GLOB_BRACE);
-
-        $filesystem->delete($files);
-    }
-
-    protected function isValid(string $locale): bool
-    {
-        return Locales::isAvailable($locale);
-    }
-
-    protected function isProtected(string $locale): bool
-    {
-        return Locales::isProtected($locale);
-    }
-
-    protected function isInstalled(string $locale): bool
-    {
-        return Locales::isInstalled($locale);
     }
 
     protected function locales(): array
@@ -103,7 +84,7 @@ final class RemoveCommand extends Command
             return $locales;
         }
 
-        if (confirm('Do you want to remove all localizations?', required: true)) {
+        if (confirm('Do you want to remove all localizations?', default: false)) {
             return Locale::values();
         }
 

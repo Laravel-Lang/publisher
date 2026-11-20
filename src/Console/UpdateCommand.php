@@ -8,7 +8,6 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use LaravelLang\Config\Services\AliasLangConfig;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
@@ -33,7 +32,6 @@ final class UpdateCommand extends Command
         PluginCollector $pluginCollector,
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
-        AliasLangConfig $aliasConfig,
     ): int {
         task('Find plugins', function () use ($pluginCollector, &$plugins) {
             $plugins = $pluginCollector->find();
@@ -43,8 +41,8 @@ final class UpdateCommand extends Command
             $source = $sourceCollector->all($plugins);
         });
 
-        task('Updating locales', function () use ($filesystem, $translationLoader, $aliasConfig, $source) {
-            $this->updateLocales($filesystem, $translationLoader, $aliasConfig, $source);
+        task('Updating locales', function () use ($filesystem, $translationLoader, $source) {
+            $this->updateLocales($filesystem, $translationLoader, $source);
         });
 
         return self::SUCCESS;
@@ -53,15 +51,14 @@ final class UpdateCommand extends Command
     protected function updateLocales(
         Filesystem $filesystem,
         TranslationLoader $loader,
-        AliasLangConfig $aliasConfig,
         array $source,
     ): void {
-        foreach (Locales::installed() as $locale) {
+        foreach (Locales::installed(false) as $locale) {
             $library = $loader->get($filesystem->libraryPath(), $locale);
 
             foreach ($source as $filename => $translatable) {
                 foreach ($translatable as $data) {
-                    $path = $this->targetPath($aliasConfig, $filename, $locale);
+                    $path = $this->targetPath($filename, $locale);
 
                     if ($this->needSkip($path)) {
                         continue;
@@ -97,9 +94,9 @@ final class UpdateCommand extends Command
         return $items;
     }
 
-    protected function targetPath(AliasLangConfig $aliasConfig, string $filename, string $locale): string
+    protected function targetPath(string $filename, string $locale): string
     {
-        return lang_path(str_replace('{locale}', $aliasConfig->from($locale), $filename));
+        return lang_path(str_replace('{locale}', $locale, $filename));
     }
 
     protected function needSkip(string $path): bool
