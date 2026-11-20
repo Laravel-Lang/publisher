@@ -31,15 +31,15 @@ final class UpdateCommand extends Command
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
     ): int {
-        task('Find plugins', function () use ($pluginCollector, &$plugins) {
+        task('Find plugins', function () use ($pluginCollector, &$plugins): void {
             $plugins = $pluginCollector->find();
         });
 
-        task('Collecting source', function () use ($sourceCollector, $plugins, &$source) {
+        task('Collecting source', function () use ($sourceCollector, $plugins, &$source): void {
             $source = $sourceCollector->all($plugins);
         });
 
-        task('Updating locales', function () use ($filesystem, $translationLoader, $source) {
+        task('Updating locales', function () use ($filesystem, $translationLoader, $source): void {
             $this->updateLocales($filesystem, $translationLoader, $source);
         });
 

@@ -30,7 +30,7 @@ class SourceCollector
             foreach ($files as $file) {
                 $data = $this->load($directory, $file->source);
 
-                if (! $data) {
+                if ($data === []) {
                     continue;
                 }
 

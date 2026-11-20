@@ -47,7 +47,7 @@ class PluginCollector
     protected function map(array $files): array
     {
         return array_map(
-            static fn (array $file) => new FileData(
+            static fn (array $file): FileData => new FileData(
                 source: $file['source'],
                 target: $file['target'],
             ),
@@ -89,7 +89,7 @@ class PluginCollector
 
     protected function skip(string $directory, array $files): array
     {
-        return array_filter($files, function (array $file) use ($directory) {
+        return array_filter($files, function (array $file) use ($directory): bool {
             ['source' => $source] = $file;
 
             return ! $this->needSkip($directory . '/source/' . $source);
