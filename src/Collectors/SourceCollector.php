@@ -18,6 +18,7 @@ class SourceCollector
 
     /**
      * @param  array<string, FileData[]>  $plugins
+     *
      * @return array<string, array<array<string, array>>>
      */
     public function all(array $plugins): array
