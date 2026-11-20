@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace LaravelLang\Publisher\Console;
 
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
-
 use LaravelLang\Publisher\Collectors\SourceCollector;
-
 use LaravelLang\Publisher\Loaders\TranslationLoader;
 
 use function array_merge;
@@ -21,27 +21,25 @@ use function lang_path;
 use function Laravel\Prompts\task;
 use function str_replace;
 
+#[Description('Updating installed localizations')]
+#[Signature('lang:update')]
 final class UpdateCommand extends Command
 {
-    protected $signature = 'lang:update';
-
-    protected $description = 'Updating installed localizations';
-
     public function __invoke(
         Filesystem $filesystem,
         PluginCollector $pluginCollector,
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
     ): int {
-        task('Find plugins', function () use ($pluginCollector, &$plugins) {
+        task('Find plugins', function () use ($pluginCollector, &$plugins): void {
             $plugins = $pluginCollector->find();
         });
 
-        task('Collecting source', function () use ($sourceCollector, $plugins, &$source) {
+        task('Collecting source', function () use ($sourceCollector, $plugins, &$source): void {
             $source = $sourceCollector->all($plugins);
         });
 
-        task('Updating locales', function () use ($filesystem, $translationLoader, $source) {
+        task('Updating locales', function () use ($filesystem, $translationLoader, $source): void {
             $this->updateLocales($filesystem, $translationLoader, $source);
         });
 

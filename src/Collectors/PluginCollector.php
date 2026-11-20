@@ -24,9 +24,7 @@ class PluginCollector
         protected Composer $composer,
     ) {}
 
-    /**
-     * @return array<string, FileData[]>
-     */
+    /** @return array<string, FileData[]> */
     public function find(): array
     {
         $plugins = [];
@@ -49,7 +47,7 @@ class PluginCollector
     protected function map(array $files): array
     {
         return array_map(
-            static fn (array $file) => new FileData(
+            static fn (array $file): FileData => new FileData(
                 source: $file['source'],
                 target: $file['target'],
             ),
@@ -63,9 +61,9 @@ class PluginCollector
 
         foreach ($plugins as $plugin) {
             $isProject = $plugin['project'] ?? false;
-            $vendor    = $plugin['vendor'] ?? null;
+            $vendor    = $plugin['vendor']  ?? null;
             $version   = $plugin['version'] ?? null;
-            $files     = $plugin['files'] ?? [];
+            $files     = $plugin['files']   ?? [];
 
             if ($isProject) {
                 if ($this->composer->hasProject($vendor)) {
@@ -91,7 +89,7 @@ class PluginCollector
 
     protected function skip(string $directory, array $files): array
     {
-        return array_filter($files, function (array $file) use ($directory) {
+        return array_filter($files, function (array $file) use ($directory): bool {
             ['source' => $source] = $file;
 
             return ! $this->needSkip($directory . '/source/' . $source);
