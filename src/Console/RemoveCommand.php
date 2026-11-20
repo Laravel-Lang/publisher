@@ -8,7 +8,6 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Laravel\Prompts\Concerns\Colors;
 use LaravelLang\LocaleList\Locale;
-
 use LaravelLang\Locales\Facades\Locales;
 
 use function app;

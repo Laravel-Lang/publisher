@@ -9,9 +9,7 @@ use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
-
 use LaravelLang\Publisher\Collectors\SourceCollector;
-
 use LaravelLang\Publisher\Loaders\TranslationLoader;
 
 use function array_merge;

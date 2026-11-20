@@ -24,9 +24,7 @@ class PluginCollector
         protected Composer $composer,
     ) {}
 
-    /**
-     * @return array<string, FileData[]>
-     */
+    /** @return array<string, FileData[]> */
     public function find(): array
     {
         $plugins = [];
@@ -63,9 +61,9 @@ class PluginCollector
 
         foreach ($plugins as $plugin) {
             $isProject = $plugin['project'] ?? false;
-            $vendor    = $plugin['vendor'] ?? null;
+            $vendor    = $plugin['vendor']  ?? null;
             $version   = $plugin['version'] ?? null;
-            $files     = $plugin['files'] ?? [];
+            $files     = $plugin['files']   ?? [];
 
             if ($isProject) {
                 if ($this->composer->hasProject($vendor)) {
