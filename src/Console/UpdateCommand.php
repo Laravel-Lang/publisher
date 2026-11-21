@@ -19,6 +19,7 @@ use function lang_path;
 use function Laravel\Prompts\task;
 use function str_replace;
 
+/** @phpstan-import-type TranslationSource from SourceCollector */
 final class UpdateCommand extends Command
 {
     protected $signature = 'lang:update';
@@ -31,21 +32,15 @@ final class UpdateCommand extends Command
         SourceCollector $sourceCollector,
         TranslationLoader $translationLoader,
     ): int {
-        task('Find plugins', function () use ($pluginCollector, &$plugins): void {
-            $plugins = $pluginCollector->find();
-        });
+        $plugins = task('Find plugins', $pluginCollector->find(...));
+        $source  = task('Collecting source', fn (): array => $sourceCollector->all($plugins));
 
-        task('Collecting source', function () use ($sourceCollector, $plugins, &$source): void {
-            $source = $sourceCollector->all($plugins);
-        });
-
-        task('Updating locales', function () use ($filesystem, $translationLoader, $source): void {
-            $this->updateLocales($filesystem, $translationLoader, $source);
-        });
+        task('Updating locales', fn () => $this->updateLocales($filesystem, $translationLoader, $source));
 
         return self::SUCCESS;
     }
 
+    /** @param array<string, list<TranslationSource>> $source */
     protected function updateLocales(
         Filesystem $filesystem,
         TranslationLoader $loader,
@@ -72,11 +67,22 @@ final class UpdateCommand extends Command
         }
     }
 
+    /**
+     * @param  array<array-key, mixed>  $library
+     * @param  array<array-key, mixed>  $package
+     * @param  array<array-key, mixed>  $items
+     * @return array<array-key, mixed>
+     */
     protected function fill(array $library, array $package, array $items): array
     {
         return $this->translate(array_merge($library, $package), $items);
     }
 
+    /**
+     * @param  array<array-key, mixed>  $library
+     * @param  array<array-key, mixed>  $items
+     * @return array<array-key, mixed>
+     */
     protected function translate(array $library, array $items): array
     {
         foreach ($items as &$value) {

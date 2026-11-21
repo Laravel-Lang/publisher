@@ -9,8 +9,10 @@ use Illuminate\Filesystem\Filesystem;
 use Laravel\Prompts\Concerns\Colors;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 use function app;
+use function is_array;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 
@@ -33,6 +35,7 @@ final class RemoveCommand extends Command
         return self::SUCCESS;
     }
 
+    /** @param array<string> $locales */
     protected function perform(Filesystem $filesystem, array $locales): void
     {
         $protected = Locales::protects(false)->merge([
@@ -77,9 +80,14 @@ final class RemoveCommand extends Command
         }
     }
 
+    /** @return array<string> */
     protected function locales(): array
     {
         if ($locales = $this->argument('locales')) {
+            if (! is_array($locales)) {
+                throw new InvalidArgumentException('The locales argument must be an array.');
+            }
+
             return $locales;
         }
 

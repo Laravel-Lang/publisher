@@ -10,6 +10,7 @@ use LaravelLang\Publisher\Data\FileData;
 
 use function array_merge;
 
+/** @phpstan-type TranslationSource array{directory: string, items: array<array-key, mixed>} */
 class SourceCollector
 {
     public function __construct(
@@ -18,7 +19,7 @@ class SourceCollector
 
     /**
      * @param  array<string, FileData[]>  $plugins
-     * @return array<string, array<array<string, array>>>
+     * @return array<string, list<TranslationSource>>
      */
     public function all(array $plugins): array
     {
@@ -44,6 +45,7 @@ class SourceCollector
         return $result;
     }
 
+    /** @return array<array-key, mixed> */
     protected function load(string $directory, string $filename): array
     {
         $path = $directory . '/source/' . $filename;

@@ -15,8 +15,13 @@ use function array_filter;
 use function array_map;
 use function dirname;
 
+/**
+ * @phpstan-type PluginFile array{source: string, target: string}
+ * @phpstan-type PluginDefinition array{project?: bool, vendor?: string|null, version?: string|null, files?: array<PluginFile>|null}
+ */
 class PluginCollector
 {
+    /** @param array<string> $skip */
     public function __construct(
         #[Config('localization_main.skip')]
         protected array $skip,
@@ -44,6 +49,10 @@ class PluginCollector
         return $plugins;
     }
 
+    /**
+     * @param  array<PluginFile>  $files
+     * @return array<FileData>
+     */
     protected function map(array $files): array
     {
         return array_map(
@@ -55,6 +64,10 @@ class PluginCollector
         );
     }
 
+    /**
+     * @param  array<PluginDefinition>  $plugins
+     * @return list<array<PluginFile>>
+     */
     protected function filter(array $plugins): array
     {
         $items = [];
@@ -87,6 +100,10 @@ class PluginCollector
         return $items;
     }
 
+    /**
+     * @param  array<PluginFile>  $files
+     * @return array<PluginFile>
+     */
     protected function skip(string $directory, array $files): array
     {
         return array_filter($files, function (array $file) use ($directory): bool {
@@ -96,11 +113,16 @@ class PluginCollector
         });
     }
 
+    /**
+     * @param  list<array<PluginFile>>  $items
+     * @return array<PluginFile>
+     */
     protected function collapse(array $items): array
     {
         return Arr::collapse($items);
     }
 
+    /** @return array<string> */
     protected function settings(): array
     {
         return $this->filesystem->glob(

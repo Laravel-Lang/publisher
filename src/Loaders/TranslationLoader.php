@@ -15,6 +15,10 @@ use function str_replace;
 
 class TranslationLoader
 {
+    /**
+     * @param  array<string>  $styles
+     * @param  array<string>  $skip
+     */
     public function __construct(
         #[Config('localization_main.styles')]
         protected array $styles,
@@ -23,6 +27,7 @@ class TranslationLoader
         protected Filesystem $filesystem,
     ) {}
 
+    /** @return array<array-key, mixed> */
     public function get(string $directory, string $locale): array
     {
         $result = [];
@@ -40,6 +45,7 @@ class TranslationLoader
         return array_merge(...$result);
     }
 
+    /** @return array<string> */
     protected function styles(): array
     {
         if (! in_array('default', $this->styles, true)) {

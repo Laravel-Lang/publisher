@@ -9,7 +9,9 @@ use Illuminate\Filesystem\Filesystem;
 use LaravelLang\Exceptions\UnknownLocaleException;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 
+use function is_array;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\task;
@@ -26,7 +28,7 @@ final class AddCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->validate($locales);
+        $locales = $this->normalize($locales);
 
         task('Adding localization', fn () => $this->create($filesystem, $locales));
         task('Updating localizations', fn () => $this->update());
@@ -34,13 +36,12 @@ final class AddCommand extends Command
         return self::SUCCESS;
     }
 
+    /** @param array<string> $locales */
     protected function create(Filesystem $filesystem, array $locales): void
     {
         foreach ($locales as $locale) {
-            $normalized = Locales::fromAlias($locale);
-
             $filesystem->ensureDirectoryExists(
-                lang_path($normalized)
+                lang_path($locale)
             );
         }
     }
@@ -50,9 +51,14 @@ final class AddCommand extends Command
         $this->callSilent(UpdateCommand::class);
     }
 
+    /** @return array<string> */
     protected function locales(): array
     {
         if ($locales = $this->argument('locales')) {
+            if (! is_array($locales)) {
+                throw new InvalidArgumentException('The locales argument must be an array.');
+            }
+
             return $locales;
         }
 
@@ -63,12 +69,24 @@ final class AddCommand extends Command
         return [];
     }
 
-    protected function validate(array $locales): void
+    /**
+     * @param  array<string>  $locales
+     * @return list<string>
+     */
+    protected function normalize(array $locales): array
     {
+        $normalized = [];
+
         foreach ($locales as $locale) {
-            if (! Locales::isAvailable($locale)) {
+            $code = Locales::fromAlias($locale);
+
+            if ($code === null || Locale::tryFrom($code) === null) {
                 throw new UnknownLocaleException($locale);
             }
+
+            $normalized[] = $code;
         }
+
+        return $normalized;
     }
 }
