@@ -9,10 +9,12 @@ use Illuminate\Filesystem\Filesystem;
 use Laravel\Prompts\Concerns\Colors;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
+use RuntimeException;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 use function app;
 use function is_array;
+use function is_string;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 
@@ -35,7 +37,7 @@ final class RemoveCommand extends Command
         return self::SUCCESS;
     }
 
-    /** @param array<string> $locales */
+    /** @param array<array-key, mixed> $locales */
     protected function perform(Filesystem $filesystem, array $locales): void
     {
         $protected = Locales::protects(false)->merge([
@@ -44,6 +46,10 @@ final class RemoveCommand extends Command
         ]);
 
         foreach ($locales as $locale) {
+            if (! is_string($locale)) {
+                throw new InvalidArgumentException('Each locale must be a string.');
+            }
+
             $code = Locales::fromAlias($locale);
 
             if ($code === null || Locale::tryFrom($code) === null) {
@@ -72,15 +78,19 @@ final class RemoveCommand extends Command
 
     protected function remove(Filesystem $filesystem, string $code): void
     {
-        $roots = [lang_path(), ...$filesystem->glob(lang_path('vendor/*'), GLOB_ONLYDIR)];
+        $vendor = $filesystem->glob(lang_path('vendor/*'), GLOB_ONLYDIR);
 
-        foreach ($roots as $root) {
+        if ($vendor === false) {
+            throw new RuntimeException('Unable to find vendor translation directories.');
+        }
+
+        foreach ([lang_path(), ...$vendor] as $root) {
             $filesystem->deleteDirectory("$root/$code");
             $filesystem->delete("$root/$code.json");
         }
     }
 
-    /** @return array<string> */
+    /** @return array<array-key, mixed> */
     protected function locales(): array
     {
         if ($locales = $this->argument('locales')) {

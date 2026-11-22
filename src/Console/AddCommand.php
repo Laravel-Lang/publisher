@@ -12,6 +12,7 @@ use LaravelLang\Locales\Facades\Locales;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 use function is_array;
+use function is_string;
 use function lang_path;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\task;
@@ -51,7 +52,7 @@ final class AddCommand extends Command
         $this->callSilent(UpdateCommand::class);
     }
 
-    /** @return array<string> */
+    /** @return array<array-key, mixed> */
     protected function locales(): array
     {
         if ($locales = $this->argument('locales')) {
@@ -70,7 +71,7 @@ final class AddCommand extends Command
     }
 
     /**
-     * @param  array<string>  $locales
+     * @param  array<array-key, mixed>  $locales
      * @return list<string>
      */
     protected function normalize(array $locales): array
@@ -78,6 +79,10 @@ final class AddCommand extends Command
         $normalized = [];
 
         foreach ($locales as $locale) {
+            if (! is_string($locale)) {
+                throw new InvalidArgumentException('Each locale must be a string.');
+            }
+
             $code = Locales::fromAlias($locale);
 
             if ($code === null || Locale::tryFrom($code) === null) {
