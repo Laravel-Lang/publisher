@@ -5,28 +5,12 @@
     "type": "library",
     "keywords": [
         "laravel-lang",
-        "breeze",
-        "cashier",
-        "fortify",
-        "framework",
         "i18n",
-        "jetstream",
-        "lang",
-        "languages",
-        "laravel",
-        "locale",
         "locales",
         "localization",
         "localizations",
-        "lpm",
-        "lumen",
-        "nova",
-        "publisher",
-        "spark",
-        "trans",
         "translation",
-        "translations",
-        "validations"
+        "translations"
     ],
     "authors": [
         {
@@ -45,24 +29,18 @@
         "php": "^8.3",
         "ext-json": "*",
         "composer/semver": "^3.4",
-        "illuminate/collections": "^10.0 || ^11.0 || ^12.0 || ^13.0 || dev-master",
-        "illuminate/console": "^10.0 || ^11.0 || ^12.0 || ^13.0 || dev-master",
-        "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0 || dev-master",
-        "laravel-lang/config": "^1.12",
-        "laravel-lang/locales": "^2.10",
+        "illuminate/console": "^12.0 || ^13.0 || dev-master",
+        "illuminate/container": "^12.0 || ^13.0 || dev-master",
+        "illuminate/filesystem": "^12.0 || ^13.0 || dev-master",
+        "illuminate/support": "^12.0 || ^13.0 || dev-master",
+        "laravel-lang/config": "self.version",
+        "laravel-lang/exceptions": "self.version",
+        "laravel-lang/filesystem": "self.version",
+        "laravel-lang/locale-list": "self.version",
+        "laravel-lang/locales": "self.version",
+        "laravel/prompts": ">=0.3.27",
         "league/commonmark": "^2.4.1",
         "league/config": "^1.2"
-    },
-    "require-dev": {
-        "laravel-lang/json-fallback": "^2.2",
-        "orchestra/testbench": "^8.14 || ^9.0 || ^10.0 || ^11.0",
-        "phpunit/phpunit": "^10.4.2 || ^11.0 || ^12.0",
-        "symfony/var-dumper": "^6.3.6 || ^7.0"
-    },
-    "conflict": {
-        "laravel-lang/attributes": "<2.0",
-        "laravel-lang/http-statuses": "<3.0",
-        "laravel-lang/lang": "<11.0"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -72,13 +50,6 @@
         }
     },
     "config": {
-        "allow-plugins": {
-            "dragon-code/codestyler": true,
-            "ergebnis/composer-normalize": true,
-            "friendsofphp/php-cs-fixer": true,
-            "laravel/pint": true,
-            "symfony/thanks": true
-        },
         "preferred-install": "dist",
         "sort-packages": true
     },
