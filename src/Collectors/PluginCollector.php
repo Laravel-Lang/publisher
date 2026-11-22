@@ -10,15 +10,12 @@ use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Composer;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Publisher\Data\FileData;
+use TypeError;
 
-use function array_filter;
 use function array_map;
 use function dirname;
 
-/**
- * @phpstan-type PluginFile array{source: string, target: string}
- * @phpstan-type PluginDefinition array{project?: bool, vendor?: string|null, version?: string|null, files?: array<PluginFile>|null}
- */
+/** @phpstan-type PluginFile array{source: string, ...<array-key, mixed>} */
 class PluginCollector
 {
     /** @param array<string> $skip */
@@ -56,31 +53,43 @@ class PluginCollector
     protected function map(array $files): array
     {
         return array_map(
-            static fn (array $file): FileData => new FileData(
-                source: $file['source'],
-                target: $file['target'],
-            ),
+            static function (array $file): FileData {
+                $target = $file['target'] ?? null;
+
+                if (! is_string($target)) {
+                    throw new TypeError('A translation plugin file must have a string target path.');
+                }
+
+                return new FileData(source: $file['source'], target: $target);
+            },
             $files
         );
     }
 
     /**
-     * @param  array<PluginDefinition>  $plugins
-     * @return list<array<PluginFile>>
+     * @param  array<array-key, mixed>  $plugins
+     * @return list<array<array-key, mixed>>
      */
     protected function filter(array $plugins): array
     {
         $items = [];
 
         foreach ($plugins as $plugin) {
+            if (! is_array($plugin)) {
+                continue;
+            }
+
             $isProject = $plugin['project'] ?? false;
             $vendor    = $plugin['vendor']  ?? null;
-            $version   = $plugin['version'] ?? null;
-            $files     = $plugin['files']   ?? [];
+            $files     = $plugin['files']   ?? null;
+
+            if ($vendor !== null && ! is_string($vendor)) {
+                throw new TypeError('The translation plugin vendor must be a string or null.');
+            }
 
             if ($isProject) {
                 if ($this->composer->hasProject($vendor)) {
-                    $items[] = $files;
+                    $items[] = is_array($files) ? $files : [];
                 }
 
                 continue;
@@ -90,32 +99,46 @@ class PluginCollector
                 continue;
             }
 
+            $version = $plugin['version'] ?? null;
+
+            if ($version !== null && ! is_string($version)) {
+                throw new TypeError('The translation plugin version must be a string or null.');
+            }
+
             if (! $this->composer->hasVersion($vendor, $version)) {
                 continue;
             }
 
-            $items[] = $files;
+            $items[] = is_array($files) ? $files : [];
         }
 
         return $items;
     }
 
     /**
-     * @param  array<PluginFile>  $files
+     * @param  array<array-key, mixed>  $files
      * @return array<PluginFile>
      */
     protected function skip(string $directory, array $files): array
     {
-        return array_filter($files, function (array $file) use ($directory): bool {
-            ['source' => $source] = $file;
+        $included = [];
 
-            return ! $this->needSkip($directory . '/source/' . $source);
-        });
+        foreach ($files as $key => $file) {
+            if (! is_array($file) || ! is_string($file['source'] ?? null)) {
+                throw new TypeError('A translation plugin file must have a string source path.');
+            }
+
+            if (! $this->needSkip($directory . '/source/' . $file['source'])) {
+                $included[$key] = $file;
+            }
+        }
+
+        return $included;
     }
 
     /**
-     * @param  list<array<PluginFile>>  $items
-     * @return array<PluginFile>
+     * @param  list<array<array-key, mixed>>  $items
+     * @return array<array-key, mixed>
      */
     protected function collapse(array $items): array
     {

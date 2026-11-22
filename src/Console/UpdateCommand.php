@@ -11,6 +11,8 @@ use LaravelLang\Locales\Facades\Locales;
 use LaravelLang\Publisher\Collectors\PluginCollector;
 use LaravelLang\Publisher\Collectors\SourceCollector;
 use LaravelLang\Publisher\Loaders\TranslationLoader;
+use Stringable;
+use TypeError;
 
 use function array_merge;
 use function config;
@@ -92,7 +94,14 @@ final class UpdateCommand extends Command
                 continue;
             }
 
-            $value = $library[$value] ?? $value;
+            $key = match (true) {
+                is_int($value), is_string($value) => $value,
+                is_bool($value), is_float($value) => (int) $value,
+                $value === null                   => '',
+                default                           => throw new TypeError('Translation keys must be scalar or null.'),
+            };
+
+            $value = $library[$key] ?? $value;
         }
 
         return $items;
@@ -107,6 +116,16 @@ final class UpdateCommand extends Command
     {
         $prepared = str_replace('\\', '/', $path);
 
-        return Str::is(config()->array('localization_main.skip'), $prepared, true);
+        foreach (config()->array('localization_main.skip') as $pattern) {
+            if (! is_scalar($pattern) && ! $pattern instanceof Stringable && $pattern !== null) {
+                throw new TypeError('Translation skip patterns must be convertible to strings.');
+            }
+
+            if (Str::is((string) $pattern, $prepared, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
