@@ -6,10 +6,10 @@ namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use LaravelLang\Exceptions\InvalidLocalesArgumentException;
 use LaravelLang\Exceptions\UnknownLocaleException;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 use function is_array;
 use function is_string;
@@ -57,7 +57,7 @@ final class AddCommand extends Command
     {
         if ($locales = $this->argument('locales')) {
             if (! is_array($locales)) {
-                throw new InvalidArgumentException('The locales argument must be an array.');
+                throw InvalidLocalesArgumentException::expectedArray();
             }
 
             return $locales;
@@ -80,7 +80,7 @@ final class AddCommand extends Command
 
         foreach ($locales as $locale) {
             if (! is_string($locale)) {
-                throw new InvalidArgumentException('Each locale must be a string.');
+                throw InvalidLocalesArgumentException::expectedStrings();
             }
 
             $code = Locales::fromAlias($locale);

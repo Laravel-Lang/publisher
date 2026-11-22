@@ -7,10 +7,10 @@ namespace LaravelLang\Publisher\Collectors;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use LaravelLang\Exceptions\InvalidTranslationPluginException;
 use LaravelLang\Filesystem\Composer;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Publisher\Data\FileData;
-use TypeError;
 
 use function array_map;
 use function dirname;
@@ -57,7 +57,7 @@ class PluginCollector
                 $target = $file['target'] ?? null;
 
                 if (! is_string($target)) {
-                    throw new TypeError('A translation plugin file must have a string target path.');
+                    throw InvalidTranslationPluginException::invalidTargetPath();
                 }
 
                 return new FileData(source: $file['source'], target: $target);
@@ -84,7 +84,7 @@ class PluginCollector
             $files     = $plugin['files']   ?? null;
 
             if ($vendor !== null && ! is_string($vendor)) {
-                throw new TypeError('The translation plugin vendor must be a string or null.');
+                throw InvalidTranslationPluginException::invalidVendor();
             }
 
             if ($isProject) {
@@ -102,7 +102,7 @@ class PluginCollector
             $version = $plugin['version'] ?? null;
 
             if ($version !== null && ! is_string($version)) {
-                throw new TypeError('The translation plugin version must be a string or null.');
+                throw InvalidTranslationPluginException::invalidVersion();
             }
 
             if (! $this->composer->hasVersion($vendor, $version)) {
@@ -125,7 +125,7 @@ class PluginCollector
 
         foreach ($files as $key => $file) {
             if (! is_array($file) || ! is_string($file['source'] ?? null)) {
-                throw new TypeError('A translation plugin file must have a string source path.');
+                throw InvalidTranslationPluginException::invalidSourcePath();
             }
 
             if (! $this->needSkip($directory . '/source/' . $file['source'])) {

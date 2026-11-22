@@ -7,10 +7,10 @@ namespace LaravelLang\Publisher\Console;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Laravel\Prompts\Concerns\Colors;
+use LaravelLang\Exceptions\InvalidLocalesArgumentException;
+use LaravelLang\Exceptions\PathSearchException;
 use LaravelLang\LocaleList\Locale;
 use LaravelLang\Locales\Facades\Locales;
-use RuntimeException;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 use function app;
 use function is_array;
@@ -47,7 +47,7 @@ final class RemoveCommand extends Command
 
         foreach ($locales as $locale) {
             if (! is_string($locale)) {
-                throw new InvalidArgumentException('Each locale must be a string.');
+                throw InvalidLocalesArgumentException::expectedStrings();
             }
 
             $code = Locales::fromAlias($locale);
@@ -81,7 +81,7 @@ final class RemoveCommand extends Command
         $vendor = $filesystem->glob(lang_path('vendor/*'), GLOB_ONLYDIR);
 
         if ($vendor === false) {
-            throw new RuntimeException('Unable to find vendor translation directories.');
+            throw PathSearchException::forVendorTranslations();
         }
 
         foreach ([lang_path(), ...$vendor] as $root) {
@@ -95,7 +95,7 @@ final class RemoveCommand extends Command
     {
         if ($locales = $this->argument('locales')) {
             if (! is_array($locales)) {
-                throw new InvalidArgumentException('The locales argument must be an array.');
+                throw InvalidLocalesArgumentException::expectedArray();
             }
 
             return $locales;
