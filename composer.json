@@ -39,8 +39,7 @@
         "laravel-lang/locale-list": "self.version",
         "laravel-lang/locales": "self.version",
         "laravel/prompts": ">=0.3.27",
-        "league/commonmark": "^2.4.1",
-        "league/config": "^1.2"
+        "league/commonmark": "^2.10.7"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
