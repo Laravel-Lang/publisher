@@ -12,15 +12,21 @@ use LaravelLang\Publisher\Contracts\Decorator;
 use LaravelLang\Publisher\Decorators\CommonDecorator;
 use LaravelLang\Publisher\Decorators\SmartPunctuationDecorator;
 
+use function config;
+
 class LangPublisherServiceProvider extends ServiceProvider
 {
-    public function boot(): void
+    public function register(): void
     {
-        $this->bootCommands();
-        $this->bootDecorator();
+        $this->app->bind(
+            Decorator::class,
+            fn (): Decorator => config()->boolean('localization_punctuation.enabled', false)
+            ? $this->app->make(SmartPunctuationDecorator::class)
+            : $this->app->make(CommonDecorator::class)
+        );
     }
 
-    protected function bootCommands(): void
+    public function boot(): void
     {
         if (! $this->app->runningInConsole()) {
             return;
@@ -31,12 +37,5 @@ class LangPublisherServiceProvider extends ServiceProvider
             RemoveCommand::class,
             UpdateCommand::class,
         ]);
-    }
-
-    protected function bootDecorator(): void
-    {
-        $this->app['config']->get('localization_punctuation.enabled')
-            ? $this->app->bind(Decorator::class, SmartPunctuationDecorator::class)
-            : $this->app->bind(Decorator::class, CommonDecorator::class);
     }
 }

@@ -6,72 +6,75 @@ namespace LaravelLang\Publisher\Decorators;
 
 use Illuminate\Container\Attributes\Config;
 use LaravelLang\Publisher\Contracts\Decorator;
-use LaravelLang\Publisher\Punctuation\SmartExtension;
-use League\CommonMark\ConverterInterface;
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\MarkdownConverter;
-use League\CommonMark\Util\HtmlFilter;
-use Nette\Schema\Expect;
+use League\CommonMark\Event\DocumentParsedEvent;
+use League\CommonMark\Extension\CommonMark\Parser\Inline\HtmlInlineParser;
+use League\CommonMark\Extension\SmartPunct\SmartPunctExtension;
+use League\CommonMark\Node\Block\Document;
+use League\CommonMark\Node\Block\Paragraph;
+use League\CommonMark\Node\Inline\AbstractStringContainer;
+use League\CommonMark\Parser\InlineParserEngine;
+use League\CommonMark\Reference\ReferenceMap;
 
 use function array_merge;
 use function config;
-use function is_string;
+use function ltrim;
+use function strlen;
+use function substr;
+use function trim;
 
 class SmartPunctuationDecorator implements Decorator
 {
-    protected array $decorators = [];
+    /** @var array<string, array{InlineParserEngine, Environment}> */
+    protected array $parsers = [];
 
+    /** @param array<array-key, mixed> $common */
     public function __construct(
         #[Config('localization_punctuation.common')]
         protected array $common,
     ) {}
 
-    public function convert(string $locale, bool|int|string $value): string
+    public function convert(string $locale, string $value): string
     {
-        if (! is_string($value)) {
-            return (string) $value;
+        $content = trim($value);
+
+        if ($content === '') {
+            return $value;
         }
 
-        return $this->decorator($locale)
-            ->convert($value)
-            ->getDocument()
-            ->firstChild()
-            ->firstChild()
-            ->getLiteral();
+        [$parser, $environment] = $this->parsers[$locale] ??= $this->parser($locale);
+
+        // Parse inlines directly so Markdown blocks cannot consume translation text.
+        $document  = new Document;
+        $paragraph = new Paragraph;
+        $document->appendChild($paragraph);
+
+        $parser->parse($content, $paragraph);
+        $environment->dispatch(new DocumentParsedEvent($document));
+
+        $prefixLength = strlen($value) - strlen(ltrim($value));
+        $result       = substr($value, 0, $prefixLength);
+
+        foreach ($paragraph->children() as $node) {
+            if ($node instanceof AbstractStringContainer) {
+                $result .= $node->getLiteral();
+            }
+        }
+
+        return $result . substr($value, $prefixLength + strlen($content));
     }
 
-    protected function decorator(string $locale): ConverterInterface
+    /** @return array{InlineParserEngine, Environment} */
+    protected function parser(string $locale): array
     {
-        return $this->decorators[$locale] ?? $this->converter($this->config($locale));
-    }
-
-    protected function converter(array $config): ConverterInterface
-    {
-        return new MarkdownConverter(
-            $this->environment($config)->addExtension(new SmartExtension)
-        );
-    }
-
-    protected function environment(array $config): Environment
-    {
-        return new Environment([
-            'smartpunct' => $config,
-            'html_input' => HtmlFilter::ALLOW,
-            'renderer'   => [
-                'block_separator' => Expect::string(),
-                'inner_separator' => Expect::string(),
-                'soft_break'      => Expect::string(),
-            ],
+        $environment = new Environment([
+            'smartpunct' => array_merge($this->common, config()->array('localization_punctuation.locales.' . $locale, [])),
         ]);
-    }
 
-    protected function config(string $locale): array
-    {
-        return array_merge($this->common, $this->localeConfig($locale));
-    }
+        $environment
+            ->addExtension(new SmartPunctExtension)
+            ->addInlineParser(new HtmlInlineParser);
 
-    protected function localeConfig(string $locale): array
-    {
-        return config('localization_punctuation.locales.' . $locale, []);
+        return [new InlineParserEngine($environment, new ReferenceMap), $environment];
     }
 }

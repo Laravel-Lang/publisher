@@ -89,7 +89,7 @@ final class UpdateCommand extends Command
      * @param  array<array-key, mixed>  $items
      * @return array<array-key, mixed>
      */
-    protected function translate(Decorator $decorator, $locale, array $library, array $items): array
+    protected function translate(Decorator $decorator, string $locale, array $library, array $items): array
     {
         foreach ($items as &$value) {
             if (is_array($value)) {
@@ -105,7 +105,11 @@ final class UpdateCommand extends Command
                 default                           => throw new InvalidTranslationKeyException,
             };
 
-            $value = $decorator->convert($locale, $library[$key] ?? $value);
+            $value = $library[$key] ?? $value;
+
+            if (is_string($value)) {
+                $value = $decorator->convert($locale, $value);
+            }
         }
 
         return $items;

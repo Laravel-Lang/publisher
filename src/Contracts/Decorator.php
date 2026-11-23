@@ -6,5 +6,5 @@ namespace LaravelLang\Publisher\Contracts;
 
 interface Decorator
 {
-    public function convert(string $locale, bool|int|string $value): bool|int|string;
+    public function convert(string $locale, string $value): string;
 }
