@@ -77,7 +77,6 @@ final class UpdateCommand extends Command
      * @param  array<array-key, mixed>  $library
      * @param  array<array-key, mixed>  $package
      * @param  array<array-key, mixed>  $items
-     *
      * @return array<array-key, mixed>
      */
     protected function fill(Decorator $decorator, string $locale, array $library, array $package, array $items): array
@@ -88,7 +87,6 @@ final class UpdateCommand extends Command
     /**
      * @param  array<array-key, mixed>  $library
      * @param  array<array-key, mixed>  $items
-     *
      * @return array<array-key, mixed>
      */
     protected function translate(Decorator $decorator, $locale, array $library, array $items): array

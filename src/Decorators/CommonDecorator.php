@@ -8,7 +8,7 @@ use LaravelLang\Publisher\Contracts\Decorator;
 
 class CommonDecorator implements Decorator
 {
-    public function convert(string $locale, float|null|bool|int|string $value): string
+    public function convert(string $locale, bool|float|int|string|null $value): string
     {
         return (string) $value;
     }
