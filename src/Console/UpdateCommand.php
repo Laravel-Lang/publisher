@@ -16,7 +16,7 @@ use LaravelLang\Publisher\Contracts\Decorator;
 use LaravelLang\Publisher\Loaders\TranslationLoader;
 use Stringable;
 
-use function array_merge;
+use function array_replace;
 use function config;
 use function is_array;
 use function lang_path;
@@ -81,7 +81,7 @@ final class UpdateCommand extends Command
      */
     protected function fill(Decorator $decorator, string $locale, array $library, array $package, array $items): array
     {
-        return $this->translate($decorator, $locale, array_merge($library, $package), $items);
+        return $this->translate($decorator, $locale, array_replace($library, $package), $items);
     }
 
     /**

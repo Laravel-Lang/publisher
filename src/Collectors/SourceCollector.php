@@ -8,8 +8,6 @@ use Illuminate\Support\Arr;
 use LaravelLang\Filesystem\Filesystem;
 use LaravelLang\Publisher\Data\FileData;
 
-use function array_merge;
-
 /** @phpstan-type TranslationSource array{directory: string, items: array<array-key, mixed>} */
 class SourceCollector
 {
@@ -26,8 +24,6 @@ class SourceCollector
         $result = [];
 
         foreach ($plugins as $directory => $files) {
-            $items = [];
-
             foreach ($files as $file) {
                 $data = $this->load($directory, $file->source);
 
@@ -37,7 +33,7 @@ class SourceCollector
 
                 $result[$file->target][] = [
                     'directory' => $directory,
-                    'items'     => array_merge($items, $data),
+                    'items'     => $data,
                 ];
             }
         }

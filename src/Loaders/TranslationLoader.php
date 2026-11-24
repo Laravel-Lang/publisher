@@ -8,7 +8,7 @@ use Illuminate\Container\Attributes\Config;
 use Illuminate\Support\Str;
 use LaravelLang\Filesystem\Filesystem;
 
-use function array_merge;
+use function array_replace;
 use function array_unshift;
 use function in_array;
 use function str_replace;
@@ -42,7 +42,7 @@ class TranslationLoader
             $result[] = $this->filesystem->fromJson($path);
         }
 
-        return array_merge(...$result);
+        return array_replace([], ...$result);
     }
 
     /** @return array<string> */
