@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LaravelLang\Publisher\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use LaravelLang\Exceptions\InvalidTranslationKeyException;
 use LaravelLang\Exceptions\InvalidTranslationSkipPatternException;
@@ -17,6 +18,7 @@ use LaravelLang\Publisher\Loaders\TranslationLoader;
 use Stringable;
 
 use function array_replace;
+use function basename;
 use function config;
 use function is_array;
 use function lang_path;
@@ -67,14 +69,36 @@ final class UpdateCommand extends Command
 
                     $filled = $this->fill($decorator, $locale, $library, $package, $data['items']);
 
-                    if ($filename === '{locale}/validation.php') {
-                        $filesystem->storePhpArrayWithTrailingKeys($path, $filled, ['custom', 'attributes'], merge: true);
+                    if (basename($filename) === 'validation.php') {
+                        $filled = array_replace(
+                            $this->withoutDefaultValidationMessage($filesystem->fromPhp($path)),
+                            $this->withoutDefaultValidationMessage($filled),
+                        );
+                        $trailingKeys = $filename === '{locale}/validation.php' ? ['custom', 'attributes'] : [];
+
+                        $filesystem->storePhpArrayWithTrailingKeys($path, $filled, $trailingKeys);
                     } else {
                         $filesystem->storeArray($path, $filled, true);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * @param  array<array-key, mixed>  $items
+     * @return array<array-key, mixed>
+     */
+    protected function withoutDefaultValidationMessage(array $items): array
+    {
+        $items = Arr::dot($items);
+        $key   = 'custom.attribute-name.rule-name';
+
+        if (($items[$key] ?? null) === 'custom-message') {
+            unset($items[$key]);
+        }
+
+        return $items;
     }
 
     /**
