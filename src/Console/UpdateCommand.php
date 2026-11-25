@@ -67,7 +67,11 @@ final class UpdateCommand extends Command
 
                     $filled = $this->fill($decorator, $locale, $library, $package, $data['items']);
 
-                    $filesystem->storeArray($path, $filled, true);
+                    if ($filename === '{locale}/validation.php') {
+                        $filesystem->storePhpArrayWithTrailingKeys($path, $filled, ['custom', 'attributes'], merge: true);
+                    } else {
+                        $filesystem->storeArray($path, $filled, true);
+                    }
                 }
             }
         }
