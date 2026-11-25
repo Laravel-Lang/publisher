@@ -12,7 +12,7 @@
 
 ## Documentation
 
-See the [documentation](https://laravel-lang.com/start) for detailed information.
+[Add, update, and remove translations with Artisan.](https://laravel-lang.com/translations)
 
 ## Contributing
 
