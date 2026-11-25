@@ -1,4 +1,4 @@
-# The MIT License (MIT)
+# The MIT License
 
 Copyright (c) Andrey Helldar, Laravel-Lang Team
 
